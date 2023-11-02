@@ -1,0 +1,92 @@
+.imageContainer {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  position: relative;
+}
+
+.backgroundImage {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+}
+
+.mapEntity1 {
+  outline: 4px solid red;
+  width: 15%;
+  height: 19.7%;
+  position: absolute;
+  top: 28%;
+  left: 49%;
+}
+
+.mapEntity2 {
+  outline: 4px solid blue;
+  width: 15%;
+  height: 19.7%;
+  position: absolute;
+  top: 41%;
+  left: 35%;
+}
+
+.mapEntity3 {
+  outline: 4px solid violet;
+  width: 15%;
+  height: 19.7%;
+  position: absolute;
+  top: 61.5%;
+  left: 36%;
+}
+
+.mapEntity4 {
+  outline: 4px solid brown;
+  width: 15%;
+  height: 19.7%;
+  position: absolute;
+  top: 51%;
+  left: 50%;
+}
+
+.mapEntity5 {
+  outline: 4px solid cyan;
+  width: 15%;
+  height: 19.7%;
+  position: absolute;
+  top: 39%;
+  left: 62%;
+}
+
+.mapEntity6 {
+  outline: 4px solid orange;
+  width: 15%;
+  height: 19.7%;
+  position: absolute;
+  top: 50%;
+  left: 73%;
+}
+
+.mapEntity7 {
+  outline: 4px solid green;
+  width: 15%;
+  height: 19.7%;
+  position: absolute;
+  top: 68%;
+  left: 3%;
+}
+
+/* @media only screen and (min-width: 1200px) {
+  .imageContainer {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    position: relative;
+  }
+
+  .backgroundImage {
+    display: block;
+    width: 100vw;
+    height: 100%;
+    background-size: cover;
+  }
+} */
