@@ -1,0 +1,27 @@
+.imageContainer {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  position: relative;
+}
+
+.backgroundImage {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+}
+
+/* Media query for devices with an aspect ratio greater than 16:9 */
+@media (min-aspect-ratio: 16/9) and (max-width: 1920px) {
+  .imageContainer {
+    width: 100vw;
+    height: 120vh;
+  }
+
+  .backgroundImage {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+}

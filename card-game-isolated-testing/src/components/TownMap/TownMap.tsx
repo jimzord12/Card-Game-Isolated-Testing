@@ -1,51 +1,33 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-import styles from "./styles.module.css";
+// CSS Modules
+import styles from "./css/general.module.css";
 
-import { buildingCards } from "../../assets/imgs/cards";
-import GlowImage from "../GlowImage/GlowImage";
+// import { buildings } from "../../assets/imgs/onMapAssets";
+// import {
+//   multipleTree,
+//   singleTree,
+//   withShadow,
+// } from "../../assets/imgs/onMapAssets/bushesAndTrees";
+import GlowOutlineFilter from "../GlowOutlineFilter";
+import TreesOnMap from "../OnMapEntities/Trees/TreesOnMap";
+import BuildingsOnMap from "../OnMapEntities/Buildings/BuildingsOnMap";
 
 interface propsTypes {
   mapImagePath: string;
 }
 
-interface ImageDetail {
-  id: number;
-  src: string;
-  alt: string;
-  isHovered: boolean;
-}
-
-const initialImages: ImageDetail[] = [
-  {
-    id: 1,
-    src: buildingCards.amusementPark,
-    alt: "Building - Amusement Park",
-    isHovered: false,
-  },
-  {
-    id: 2,
-    src: buildingCards.hospital,
-    alt: "Building - Hospital",
-    isHovered: false,
-  },
-  // ... other images
-];
-
 const TownMap = ({ mapImagePath }: propsTypes) => {
-  const [images, setImages] = useState(initialImages);
+  const [highlightedImg, setHighlightedImg] = useState<number | null>(null);
 
-  const handleHover = (id: number) => {
-    setImages(
-      images.map((img) => (img.id === id ? { ...img, isHovered: true } : img))
-    );
-  };
+  const handleHover = useCallback((id: number) => {
+    setHighlightedImg(id);
+  }, []); // Dependencies array is empty because it does not depend on any external values
 
-  const handleLeave = (id: number) => {
-    setImages(
-      images.map((img) => (img.id === id ? { ...img, isHovered: false } : img))
-    );
-  };
+  const handleLeave = useCallback((id: number) => {
+    console.log(id);
+    setHighlightedImg(null);
+  }, []); // Dependencies array is empty for the same reason
 
   return (
     <>
@@ -55,63 +37,15 @@ const TownMap = ({ mapImagePath }: propsTypes) => {
           alt="Background - TownMap"
           className={styles.backgroundImage}
         />
-        <div className={styles.mapEntity1}>
-          <GlowImage
-            key={images[0].id}
-            src={images[0].src}
-            alt={images[0].alt}
-            isHovered={images[0].isHovered}
-            onHover={() => handleHover(images[0].id)}
-            onLeave={() => handleLeave(images[0].id)}
-          />
-        </div>
-        <div className={styles.mapEntity2}>
-          <GlowImage
-            key={images[1].id}
-            src={images[1].src}
-            alt={images[1].alt}
-            isHovered={images[1].isHovered}
-            onHover={() => handleHover(images[1].id)}
-            onLeave={() => handleLeave(images[1].id)}
-          />
-        </div>
-        <div className={styles.mapEntity3}></div>
-        <div className={styles.mapEntity4}></div>
-        <div className={styles.mapEntity5}></div>
-        <div className={styles.mapEntity6}></div>
-        <div className={styles.mapEntity7}></div>
-        {/* <GlowOutlineFilter />
-        {images.map((img) => (
-          <GlowImage
-            key={img.id}
-            src={img.src}
-            alt={img.alt}
-            isHovered={img.isHovered}
-            onHover={() => handleHover(img.id)}
-            onLeave={() => handleLeave(img.id)}
-          />
-        ))} */}
 
-        {/* <div
-          style={{
-            position: "absolute",
-            top: "18%",
-            left: "47%",
-            transform: "scale(0.6)",
-          }}
-        >
-          <GlowOutlineFilter />
-          {images.map((img) => (
-            <GlowImage
-              key={img.id}
-              src={img.src}
-              alt={img.alt}
-              isHovered={img.isHovered}
-              onHover={() => handleHover(img.id)}
-              onLeave={() => handleLeave(img.id)}
-            />
-          ))}
-        </div> */}
+        <GlowOutlineFilter />
+        <BuildingsOnMap
+          highlightedImg={highlightedImg}
+          handleHover={handleHover}
+          handleLeave={handleLeave}
+        />
+
+        <TreesOnMap />
       </div>
     </>
   );
