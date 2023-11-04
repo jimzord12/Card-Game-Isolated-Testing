@@ -1,0 +1,23 @@
+@keyframes floatPadlock1 {
+  0% {
+    top: -80%;
+  }
+  50% {
+    top: -50%;
+  } /* The middle point is the min position */
+  100% {
+    top: -80%;
+  } /* Starts and ends at the max position */
+}
+
+@keyframes floatPadlock2 {
+  0% {
+    top: -50%;
+  }
+  50% {
+    top: -80%;
+  } /* The middle point is the min position */
+  100% {
+    top: -50%;
+  } /* Starts and ends at the max position */
+}

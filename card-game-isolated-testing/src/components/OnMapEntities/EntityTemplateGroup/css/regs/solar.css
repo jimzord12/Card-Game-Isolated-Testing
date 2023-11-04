@@ -1,0 +1,74 @@
+:root {
+  --reg-width-solar: 8.3%;
+  --reg-height-solar: 10.1%;
+}
+
+.regSpotSolar1 {
+  outline: 2px solid red;
+  width: 6%;
+  height: 6.5%;
+  position: absolute;
+  top: 19.8%;
+  left: 5%;
+  z-index: 108;
+}
+
+.regSpotSolar2 {
+  outline: 2px solid blue;
+  width: var(--reg-width-solar);
+  height: var(--reg-height-solar);
+  position: absolute;
+  top: 31.5%;
+  left: 35%;
+  z-index: 107;
+}
+
+.regSpotSolar3 {
+  outline: 2px solid violet;
+  width: var(--reg-width-solar);
+  height: var(--reg-height-solar);
+  position: absolute;
+  top: 15.3%;
+  left: 66%;
+  z-index: 109;
+}
+
+.regSpotSolar4 {
+  outline: 2px solid brown;
+  width: 14%;
+  height: 17%;
+  position: absolute;
+  top: 73%;
+  left: 70%;
+  z-index: 110;
+}
+
+.regSpotSolar5 {
+  outline: 2px solid cyan;
+  width: var(--reg-width-solar);
+  height: var(--reg-height-solar);
+  position: absolute;
+  top: 34%;
+  left: 86.7%;
+  z-index: 111;
+}
+
+.regSpotSolar6 {
+  outline: 2px solid orange;
+  width: 11%;
+  height: 14%;
+  position: absolute;
+  top: 60%;
+  left: 89%;
+  z-index: 113;
+}
+
+/* .regSpotSolar7 {
+  outline: 2px solid green;
+  width: var(--reg-width-solar);
+  height: var(--reg-height-solar);
+  position: absolute;
+  top: 66%;
+  left: 2.6%;
+  z-index: 106;
+} */

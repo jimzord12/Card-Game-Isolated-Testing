@@ -1,0 +1,19 @@
+.defaultBuildingTownHall {
+  outline: 2px solid red;
+  width: 25%;
+  height: 25%;
+  position: absolute;
+  top: 30%;
+  left: 11.9%;
+  z-index: 99;
+}
+
+.defaultBuildingFactory {
+  outline: 2px solid blue;
+  width: 25.9%;
+  height: 32.7%;
+  position: absolute;
+  top: 5%;
+  left: 43%;
+  z-index: 99;
+}

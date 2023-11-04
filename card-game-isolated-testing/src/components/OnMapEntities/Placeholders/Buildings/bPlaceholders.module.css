@@ -1,0 +1,24 @@
+.buildingPlaceholderContainer {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.buildingPadlockContainer {
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  object-fit: contain;
+  position: absolute;
+}
+
+.buildingPadlock {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  /* animation: floatPadlock2 7s ease-in-out infinite; */
+}

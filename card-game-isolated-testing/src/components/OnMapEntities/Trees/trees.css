@@ -61,9 +61,9 @@
   width: 1.5%;
   height: 2%;
   position: absolute;
-  top: 24%;
+  top: 24.8%;
   left: 5.5%;
-  z-index: 130;
+  z-index: 109;
 }
 
 .treeSpot7 {
@@ -73,7 +73,7 @@
   position: absolute;
   top: 21.3%;
   left: 7.7%;
-  z-index: 130;
+  z-index: 107;
 }
 
 .treeSpot8 {
@@ -89,7 +89,7 @@
 .treeSpot9 {
   outline: 2px solid rgb(128, 62, 0);
   width: 4%;
-  height: 12%;
+  height: 17%;
   position: absolute;
   top: 69%;
   left: 94%;

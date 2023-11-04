@@ -1,0 +1,79 @@
+:root {
+  --reg-width-wind: 11%;
+  --reg-height-wind: 21.3%;
+  /* --reg-width-wind-big: 16.5%;
+  --reg-height-wind-big: 31.3%; */
+}
+
+.regSpotWind1 {
+  outline: 2px solid red;
+  width: 10%;
+  height: 16%;
+  position: absolute;
+  top: 14.3%;
+  left: 5%;
+  z-index: 108;
+}
+
+.regSpotWind2 {
+  outline: 2px solid blue;
+  width: var(--reg-width-wind);
+  height: var(--reg-height-wind);
+  position: absolute;
+  top: 24.5%;
+  left: 33%;
+  z-index: 107;
+}
+
+.regSpotWind3 {
+  outline: 2px solid violet;
+  width: 18%;
+  height: 29%;
+  position: absolute;
+  top: 2.6%;
+  left: 65.3%;
+  z-index: 109;
+}
+
+.regSpotWind4 {
+  outline: 2px solid brown;
+  width: 16.5%;
+  height: 31.3%;
+  position: absolute;
+  top: 65%;
+  left: 64%;
+  z-index: 110;
+}
+
+.regSpotWind5 {
+  outline: 2px solid cyan;
+  width: 13%;
+  height: 23.3%;
+  position: absolute;
+  top: 24%;
+  left: 86.7%;
+  z-index: 111;
+}
+
+.regSpotWind6 {
+  outline: 2px solid orange;
+  /* width: var(--reg-width-wind-big);
+  height: var(--reg-height-wind-big); */
+  width: 12%;
+  height: 20%;
+  position: absolute;
+  top: 52%;
+  left: 87.7%;
+  z-index: 113;
+  object-fit: cover;
+}
+
+.regSpotWind7 {
+  outline: 2px solid green;
+  width: var(--reg-width-wind);
+  height: var(--reg-height-wind);
+  position: absolute;
+  top: 66%;
+  left: 2.6%;
+  z-index: 106;
+}

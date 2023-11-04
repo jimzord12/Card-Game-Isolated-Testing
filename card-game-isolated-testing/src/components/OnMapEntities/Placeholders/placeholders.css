@@ -1,0 +1,134 @@
+:root {
+  --placeholder-width: 12.5%;
+  --placeholder-height: 12.5%;
+}
+
+.placeholderSpot1 {
+  outline: 2px solid red;
+  width: 4.5%;
+  height: 4.5%;
+  position: absolute;
+  top: 21%;
+  left: 5.3%;
+  z-index: 108;
+}
+
+.placeholderSpot2 {
+  outline: 2px solid blue;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 73%;
+  left: 4.3%;
+  z-index: 107;
+}
+
+.placeholderSpot3 {
+  outline: 2px solid violet;
+  width: 9%;
+  height: 9%;
+  position: absolute;
+  top: 32.7%;
+  left: 32.3%;
+  z-index: 109;
+}
+
+.placeholderSpot4 {
+  outline: 2px solid brown;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 46%;
+  left: 37%;
+  z-index: 110;
+}
+
+.placeholderSpot5 {
+  outline: 2px solid cyan;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 66.5%;
+  left: 37.4%;
+  z-index: 111;
+}
+
+.placeholderSpot6 {
+  outline: 2px solid orange;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 34.5%;
+  left: 50.7%;
+  z-index: 113;
+}
+
+.placeholderSpot7 {
+  outline: 2px solid green;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  z-index: 106;
+}
+
+.placeholderSpot8 {
+  outline: 2px solid green;
+  width: 10.5%;
+  height: 10.5%;
+  position: absolute;
+  top: 16.5%;
+  left: 64.6%;
+  z-index: 106;
+}
+
+.placeholderSpot9 {
+  outline: 2px solid green;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 44%;
+  left: 62%;
+  z-index: 106;
+}
+
+.placeholderSpot10 {
+  outline: 2px solid green;
+  width: 14%;
+  height: 14%;
+  position: absolute;
+  top: 71.5%;
+  left: 62%;
+  z-index: 106;
+}
+
+.placeholderSpot11 {
+  outline: 2px solid green;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 33%;
+  left: 84%;
+  z-index: 106;
+}
+
+.placeholderSpot12 {
+  outline: 2px solid green;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 55%;
+  left: 73.9%;
+  z-index: 106;
+}
+
+.placeholderSpot13 {
+  outline: 2px solid green;
+  width: var(--placeholder-width);
+  height: var(--placeholder-height);
+  position: absolute;
+  top: 61%;
+  left: 87.3%;
+  z-index: 113;
+}
