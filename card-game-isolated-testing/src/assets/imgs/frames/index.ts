@@ -5,7 +5,7 @@ import greenLeavesFrame from "./Green_Leaves_Frame_Long.webp";
 import metalFrame from "./Metal_Frame_2.webp";
 import rustyFrame from "./Rusty_Metal_Frame_V3_Extended_DownScaled.webp";
 
-export {
+export const frames = {
   bambooFrame,
   goldFrame,
   goldStefani,

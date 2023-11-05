@@ -1,32 +1,32 @@
 .general {
-  position: fixed;
+  position: absolute;
   top: 50%;
+  left: 50%;
 }
 
 /* ImageButton.module.css */
 
 .button {
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-    text-align: center;
-    transition: transform 0.2s ease;
-  }
-  
-  .button:hover {
-    transform: scale(1.05);
-  }
-  
-  .image {
-    max-width: 100%;
-    display: block; /* Removes bottom space under the image */
-    margin-bottom: 8px; /* Space between the image and the text */
-  }
-  
-  .text {
-    color: #333;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.image {
+  max-width: 100%;
+  display: block; /* Removes bottom space under the image */
+  margin-bottom: 8px; /* Space between the image and the text */
+}
+
+.text {
+  color: rgb(13, 211, 43);
+  font-size: 46px;
+  font-weight: bold;
+}

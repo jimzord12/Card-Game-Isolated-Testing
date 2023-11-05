@@ -60,6 +60,35 @@ declare global {
     img: string;
     spot: number;
   }
+
+  interface ImageMap {
+    [key: string]: string;
+  }
+
+  type ImageGroupKeys =
+    | "cards"
+    | "emblems"
+    | "frames"
+    | "gameIcons"
+    | "labels"
+    | "maps"
+    | "menus"
+    | "modal_backgrounds"
+    | "quarries"
+    | "townExpansion"
+    | "workers"
+    | "onMapAssets";
+
+  type ImageGroups = {
+    [key in ImageGroupKeys]?: ImageMap;
+  };
+
+  type clearCacheType = () => void;
+
+  type ImageContextTypes = {
+    images?: ImageGroups;
+    clearCache?: clearCacheType;
+  };
 }
 
 export {}; // This turns the file into a module

@@ -3,50 +3,50 @@ import { useCallback, useEffect, useState } from "react";
 // CSS Modules
 import styles from "./css/general.module.css";
 
-// On-Map Assets
-import { buildings, regs } from "../../assets/imgs/onMapAssets";
-
 // Components
-import GlowOutlineFilter from "../GlowOutlineFilter";
 
+import ImageContextAPI from "../../context/ImageContext/ImageContext";
 import { testingBuildingImgs } from "../../data/test/buildingImgs";
-import { testingDefaultImgs } from "../../data/test/defaultImgs";
-import { testingPlaceholderImgs } from "../../data/test/placeholderImgs";
-import { testingREGImgs } from "../../data/test/regImgs";
+import GlowOutlineFilter from "../GlowOutlineFilter";
 import EntityTemplateGroup from "../OnMapEntities/EntityTemplateGroup/EntityTemplateGroup";
-import TreesOnMap from "../OnMapEntities/Trees/TreesOnMap";
 
-interface propsTypes {
-  mapImagePath: string;
-}
-
-// From here the Images will be exposes to the rest of the App!
-// TODO: Create a ImageContext or something
-
-// Buildings Testing
-const testingAsset = buildings.radioStation;
-const buildingsImgs = testingBuildingImgs(testingAsset);
-
-// REG Testing
-const testingREGAsset = regs.simpleSolarPanel;
-const regSubType: SubType = testingREGAsset.includes("Solar")
-  ? "solar"
-  : "wind";
-console.log("testingREG: ", testingREGAsset);
-const REGImages = testingREGImgs(testingREGAsset, regSubType);
-
-// Default Buildings
-const defaultBuildings = testingDefaultImgs();
-
-const placeholders = testingPlaceholderImgs();
-
-/////////////////////////////////////////////////////////////////////////////
-// File's Component
-const TownMap = ({ mapImagePath }: propsTypes) => {
+const TownMap = () => {
+  const { images, clearCache } = ImageContextAPI();
   const [highlightedImg, setHighlightedImg] = useState<number | null>(null);
   const [selectedMapEntity, setSelectedMapEntity] = useState<number | null>(
     null
   );
+
+  if (images?.maps === undefined || images?.onMapAssets === undefined)
+    throw new Error("⛔ TownMap: images are undefined!");
+
+  const assetsOrganizer = (type: EntityType, subType?: SubType) => {
+    const temp = images?.onMapAssets;
+    const buildingImgs = {
+      amusementPark: temp!.amusementPark,
+      hospital: temp!.hospital,
+      toolStore: temp!.toolStore,
+      radioStation: temp!.radioStation,
+    };
+    switch (type) {
+      case "building":
+        return testingBuildingImgs(buildingImgs.amusementPark);
+        break;
+      // case "reg":
+      //   break;
+      // case "default":
+      //   break;
+      // case "placeholder":
+      //   break;
+      // case "padlock":
+      //   break;
+
+      default:
+        break;
+    }
+  };
+
+  console.log("👉 THE IMAGES: ", images);
 
   useEffect(() => {
     if (selectedMapEntity === null) return;
@@ -62,10 +62,14 @@ const TownMap = ({ mapImagePath }: propsTypes) => {
   }, []);
 
   return (
+    // <>
+    //   <div>AAAAAAAAAA</div>
+    //   <Button onClick={clearCache}>Clear Cache</Button>
+    // </>
     <>
       <div className={styles.imageContainer}>
         <img
-          src={mapImagePath}
+          src={images.maps.townMap || "aaa"}
           alt="Background - TownMap"
           className={styles.backgroundImage}
         />
@@ -84,29 +88,29 @@ const TownMap = ({ mapImagePath }: propsTypes) => {
           {/* >>> BUILDINGS <<< */}
           <EntityTemplateGroup
             setSelectedMapEntity={setSelectedMapEntity}
-            imageDetails={buildingsImgs}
+            imageDetails={assetsOrganizer("building")}
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}
           />
 
           {/* >>> REGS <<< */}
-          <EntityTemplateGroup
+          {/* <EntityTemplateGroup
             setSelectedMapEntity={setSelectedMapEntity}
             imageDetails={REGImages}
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}
-          />
+          /> */}
 
           {/* >>> DEFAULT BUILDINGS <<< */}
-          <EntityTemplateGroup
+          {/* <EntityTemplateGroup
             setSelectedMapEntity={setSelectedMapEntity}
             imageDetails={defaultBuildings}
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}
-          />
+          /> */}
 
           {/* PLACEHOLDERS */}
           {/* <EntityTemplateGroup
@@ -118,7 +122,7 @@ const TownMap = ({ mapImagePath }: propsTypes) => {
           /> */}
 
           {/* >>> TREES & BUSHES <<< */}
-          <TreesOnMap />
+          {/* <TreesOnMap /> */}
         </>
       </div>
     </>

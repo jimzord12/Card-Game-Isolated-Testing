@@ -1,0 +1,1 @@
+export const CACHE_NAME = "genera-game-assets-cache-v1"

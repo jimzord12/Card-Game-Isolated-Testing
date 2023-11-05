@@ -1,14 +1,16 @@
 import "./App.css";
-
+import ErrorBoundary from "./components/ErrorBoundry/ErrorBoundry";
 import TownMap from "./components/TownMap/TownMap";
-
-import { mapTown } from "./assets/imgs/maps";
+import { ImageProvider } from "./context/ImageContext/ImageContext";
 
 function App() {
   return (
-    <>
-      <TownMap mapImagePath={mapTown} />
-    </>
+    <ErrorBoundary>
+      <ImageProvider>
+        <TownMap />
+        {/* <WorldMap /> */}
+      </ImageProvider>
+    </ErrorBoundary>
   );
 }
 
