@@ -50,6 +50,7 @@ import {
   resourceWorkers,
 } from "../../assets/imgs_new_convention/workers";
 import { CACHE_NAME } from "../../constants/cache";
+import { imageGrpKeys } from "../../constants/utils/imageGrpTypeKeys";
 import { ImageContextTypes, ImageGroups } from "../../types";
 
 export const ImageContext = createContext<ImageContextTypes>({});
@@ -65,7 +66,7 @@ function ImageContextAPI() {
 export default ImageContextAPI;
 
 export const ImageProvider: React.FC<ImageProviderProps> = ({ children }) => {
-  const [images, setImages] = useState<ImageGroups>({});
+  const [images, setImages] = useState<ImageGroups>(imageGrpKeys);
   const [loading, setLoading] = useState<boolean>(true);
   const [useEffectHasFinished, setUseEffectHasFinished] = useState(false);
 
@@ -128,11 +129,14 @@ export const ImageProvider: React.FC<ImageProviderProps> = ({ children }) => {
         const cachedResponses = await Promise.all(
           allImages.map((url) => cache.match(url))
         );
+        console.log("💎 cachedResponses: ", cachedResponses);
         const areImagesCached = cachedResponses.every(
           (response) => response && response.ok
         );
 
         if (areImagesCached) {
+          console.log("✅ Images Are Cached ", areImagesCached);
+
           const validUrls = allImages.filter(
             (_, index) => cachedResponses[index] && cachedResponses[index]!.ok
           );
@@ -140,6 +144,8 @@ export const ImageProvider: React.FC<ImageProviderProps> = ({ children }) => {
           setImages(cachedImages);
           setLoading(false);
         } else {
+          console.log("❌ Images Are NOT Cached ", areImagesCached);
+
           // Remove duplicates from allImages
           const uniqueImages = Array.from(new Set(allImages));
           // Fetch and cache the images
@@ -165,37 +171,48 @@ export const ImageProvider: React.FC<ImageProviderProps> = ({ children }) => {
     loadImages();
   }, []);
 
-  const setImageGroupValue = (
-    imageGroups: ImageGroups,
-    group: string,
-    key: string,
-    value: string
-  ) => {
-    const groupKey = group as keyof ImageGroups;
-    const imageMap = imageGroups[groupKey] || {};
-    imageMap[key] = value;
-    imageGroups[groupKey] = imageMap;
-  };
+  // const setImageGroupValue = <
+  //   T extends keyof ImageGroups,
+  //   K extends keyof ImageGroups[T]
+  // >(
+  //   imageGroups: ImageGroups,
+  //   group: T,
+  //   key: K,
+  //   value: string
+  // ) => {
+  //   const imageMap = imageGroups[group] || {};
+  //   imageMap[key] = value;
+  //   imageGroups[group] = imageMap;
+  // };
 
   const buildImageGroups = (imageUrls: string[]): ImageGroups => {
-    const imageGroups: ImageGroups = {};
+    const imageGroups: ImageGroups = imageGrpKeys;
+
     imageUrls.forEach((url) => {
-      const [group, name] = url.split("/").slice(-2);
-      const keyWithoutExtension = name.split("-")[1].replace(/\.\w+$/, ""); // Removes the file extension
-      setImageGroupValue(imageGroups, group, keyWithoutExtension, url);
+      const parts = url.split("/");
+      const groupPart = parts[parts.length - 2];
+      const filePart = parts[parts.length - 1];
+
+      const group = groupPart as keyof ImageGroups;
+      const keyWithExtension = filePart.split("-")[1]; // Assuming the key is the second part after splitting by '-'
+      const key = keyWithExtension.replace(
+        /\.\w+$/,
+        ""
+      ) as keyof (typeof imageGroups)[typeof group];
+
+      // Ensure that the group is one of the keys in ImageGroups.
+      if (group in imageGroups) {
+        const imageMap = imageGroups[group];
+
+        // Using 'any' to bypass TypeScript's type inference which fails to infer the correct index signature.
+        // It is safe here because we control the structure of ImageGroups and know it's supposed to be a string.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (imageMap as any)[key] = url;
+      }
     });
+
     return imageGroups;
   };
-
-  // const loadImage = (url: string): Promise<HTMLImageElement> => {
-  //   return new Promise((resolve, reject) => {
-  //     const img = new Image();
-  //     img.src = url;
-  //     img.onload = () => resolve(img);
-  //     img.onerror = () =>
-  //       reject(new Error(`Failed to load image: ${JSON.stringify(url)}`)); // Enhanced error handling
-  //   });
-  // };
 
   return (
     <ImageContext.Provider value={{ images, clearCache }}>

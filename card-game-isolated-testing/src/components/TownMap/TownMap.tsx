@@ -6,7 +6,9 @@ import styles from "./css/general.module.css";
 // Components
 
 import ImageContextAPI from "../../context/ImageContext/ImageContext";
+import { testingPlaceholderImgs } from "../../data/test/placeholderImgs";
 import GlowOutlineFilter from "../GlowOutlineFilter";
+import Placeholders from "../OnMapEntities/Placeholders/Placeholders";
 
 const TownMap = () => {
   const { images, clearCache } = ImageContextAPI();
@@ -14,6 +16,8 @@ const TownMap = () => {
   const [selectedMapEntity, setSelectedMapEntity] = useState<number | null>(
     null
   );
+
+  const placeholderTestImages = testingPlaceholderImgs();
 
   // const newBuildingCard = BuildingCard.createNew(
   //   123,
@@ -46,6 +50,8 @@ const TownMap = () => {
     throw new Error("⛔ TownMap: images are undefined!");
 
   console.log("👉 THE IMAGES: ", images);
+  console.log("👉 IMAGES -> Cards: ", images.cards);
+  console.log("👉 IMAGES -> Cards -> Hospital: ", images.cards.hospital);
 
   useEffect(() => {
     if (selectedMapEntity === null) return;
@@ -68,7 +74,7 @@ const TownMap = () => {
     <>
       <div className={styles.imageContainer}>
         <img
-          src={images.maps.townMap || "aaa"}
+          src={images.maps.townMap}
           alt="Background - TownMap"
           className={styles.backgroundImage}
         />
@@ -76,13 +82,13 @@ const TownMap = () => {
         <>
           <GlowOutlineFilter />
           {/* >>> PLACEHOLDERS <<< */}
-          {/* <Placeholders
-            images={placeholders}
+          <Placeholders
+            images={placeholderTestImages}
             setSelectedMapEntity={setSelectedMapEntity}
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}
-          /> */}
+          />
 
           {/* >>> BUILDINGS <<< */}
           {/* <EntityTemplateGroup
