@@ -3,6 +3,7 @@ import {
   singleTree,
   withShadow,
 } from "../assets/imgs/onMapAssets/bushesAndTrees";
+import { TreeImageDetail } from "../types";
 
 export const treeImgs: TreeImageDetail[] = [
   {

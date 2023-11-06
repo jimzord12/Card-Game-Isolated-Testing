@@ -1,3 +1,5 @@
+import { ImageDetail } from "../../../types";
+
 export const testingBuildingImgs = (imageSrc: string): ImageDetail[] => [
   {
     id: 101,

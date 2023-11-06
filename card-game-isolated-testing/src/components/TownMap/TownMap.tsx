@@ -6,9 +6,7 @@ import styles from "./css/general.module.css";
 // Components
 
 import ImageContextAPI from "../../context/ImageContext/ImageContext";
-import { testingBuildingImgs } from "../../data/test/buildingImgs";
 import GlowOutlineFilter from "../GlowOutlineFilter";
-import EntityTemplateGroup from "../OnMapEntities/EntityTemplateGroup/EntityTemplateGroup";
 
 const TownMap = () => {
   const { images, clearCache } = ImageContextAPI();
@@ -17,34 +15,35 @@ const TownMap = () => {
     null
   );
 
+  // const newBuildingCard = BuildingCard.createNew(
+  //   123,
+  //   22,
+  //   "takis200",
+  //   "/src/assets/imgs_new_convention/cards/cards-amusementPark.webp",
+  //   101,
+  //   2
+  // );
+
+  // const newRegCard = RegCard.createNew(
+  //   123,
+  //   22,
+  //   "takis200",
+  //   "/src/assets/imgs_new_convention/cards/cards-amusementPark.webp",
+  //   201,
+  //   3
+  // );
+
+  // const _generaTesting = {
+  //   building: newBuildingCard,
+  //   reg: newRegCard,
+  // };
+  // window.generaTesting = _generaTesting;
+  // console.log("💖😬✔❌: ", window.generaTesting);
+
+  // console.log("THE FIRST CARD!!! : ", newBuildingCard);
+
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ TownMap: images are undefined!");
-
-  const assetsOrganizer = (type: EntityType, subType?: SubType) => {
-    const temp = images?.onMapAssets;
-    const buildingImgs = {
-      amusementPark: temp!.amusementPark,
-      hospital: temp!.hospital,
-      toolStore: temp!.toolStore,
-      radioStation: temp!.radioStation,
-    };
-    switch (type) {
-      case "building":
-        return testingBuildingImgs(buildingImgs.amusementPark);
-        break;
-      // case "reg":
-      //   break;
-      // case "default":
-      //   break;
-      // case "placeholder":
-      //   break;
-      // case "padlock":
-      //   break;
-
-      default:
-        break;
-    }
-  };
 
   console.log("👉 THE IMAGES: ", images);
 
@@ -86,18 +85,18 @@ const TownMap = () => {
           /> */}
 
           {/* >>> BUILDINGS <<< */}
-          <EntityTemplateGroup
+          {/* <EntityTemplateGroup
             setSelectedMapEntity={setSelectedMapEntity}
-            imageDetails={assetsOrganizer("building")}
+            cards={newBuildingCard}
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}
-          />
+          /> */}
 
           {/* >>> REGS <<< */}
           {/* <EntityTemplateGroup
             setSelectedMapEntity={setSelectedMapEntity}
-            imageDetails={REGImages}
+            cards={REGImages}
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}

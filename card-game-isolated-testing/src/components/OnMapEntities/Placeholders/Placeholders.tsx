@@ -3,6 +3,7 @@ import PlaceholderBuilding from "./Buildings/B_placeholder";
 import PlaceholderREG from "./REGs/R_placeholder";
 
 import "./placeholders.css";
+import { PlaceholderImageDetail } from "../../../types";
 
 interface props {
   images: PlaceholderImageDetail[];

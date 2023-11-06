@@ -50,6 +50,7 @@ import {
   resourceWorkers,
 } from "../../assets/imgs_new_convention/workers";
 import { CACHE_NAME } from "../../constants/cache";
+import { ImageContextTypes, ImageGroups } from "../../types";
 
 export const ImageContext = createContext<ImageContextTypes>({});
 

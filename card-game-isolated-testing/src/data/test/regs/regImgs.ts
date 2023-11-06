@@ -1,3 +1,5 @@
+import { SubType, ImageDetail } from "../../../types";
+
 export const testingREGImgs = (
   imageSrc: string,
   subType: SubType

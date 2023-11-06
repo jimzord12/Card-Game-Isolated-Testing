@@ -7,6 +7,7 @@ import "./css/buildings.css";
 import "./css/defaultBuildings.css";
 import "./css/regs/solar.css";
 import "./css/regs/wind.css";
+import { ImageDetail, EntityType, SubType } from "../../../types";
 
 interface propsTypes {
   highlightedImg: number | null;

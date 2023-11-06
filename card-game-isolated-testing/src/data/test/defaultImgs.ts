@@ -1,4 +1,5 @@
 import { defaultBuildings } from "../../assets/imgs/onMapAssets";
+import { ImageDetail } from "../../types";
 
 export const testingDefaultImgs = (): ImageDetail[] => [
   {

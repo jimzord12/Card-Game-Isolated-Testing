@@ -1,3 +1,5 @@
+import { PlaceholderImageDetail } from "../../types";
+
 export const testingPlaceholderImgs = (): PlaceholderImageDetail[] => [
   {
     id: 401,
