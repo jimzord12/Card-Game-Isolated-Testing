@@ -149,4 +149,7 @@ export const imageGrpKeys: ImageGroups = {
   error: {
     catBreak: "",
   },
+  appUtils: {
+    rotateDeviceImg: "",
+  },
 };

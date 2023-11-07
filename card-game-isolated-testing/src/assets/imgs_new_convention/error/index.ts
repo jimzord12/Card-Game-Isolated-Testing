@@ -1,2 +1,2 @@
-import catBreak from "./catdestroy-catknockover.webp";
+import catBreak from "./error-catBreak.webp";
 export default catBreak;

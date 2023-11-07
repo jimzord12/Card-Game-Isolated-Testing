@@ -187,6 +187,10 @@ type ErrorImageGroup = {
   catBreak: string;
 };
 
+type AppUtilsImageGroup = {
+  rotateDeviceImg: string;
+};
+
 export type ImageGroups = {
   cards: CardImageGroup;
   emblems: EmblemImageGroup;
@@ -201,6 +205,7 @@ export type ImageGroups = {
   townExpansion: TownExpansionImageGroup;
   workers: WorkersImageGroup;
   error: ErrorImageGroup;
+  appUtils: AppUtilsImageGroup;
 };
 
 export type ImageGroupKeys =
@@ -216,7 +221,8 @@ export type ImageGroupKeys =
   | "townExpansion"
   | "workers"
   | "onMapAssets"
-  | "error";
+  | "error"
+  | "appUtils";
 
 export type clearCacheType = () => void;
 

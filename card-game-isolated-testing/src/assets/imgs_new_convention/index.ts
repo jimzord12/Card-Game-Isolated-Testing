@@ -1,3 +1,4 @@
+import rotateDeviceImg from "./appUtils";
 import cards from "./cards";
 import emblems from "./emblems";
 import error from "./error";
@@ -26,4 +27,5 @@ export default {
   townExpansion,
   workers,
   error,
+  rotateDeviceImg,
 };

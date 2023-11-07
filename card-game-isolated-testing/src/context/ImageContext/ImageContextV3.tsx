@@ -96,7 +96,7 @@ const ImageProviderV3: React.FC<ImageProviderProps> = ({
         ];
 
         // console.log("3 - imageUrls: ", imageUrls.length);
-        // console.log("💩 3 : ", imageUrls);
+        console.log("💩 3 : ", imageUrls);
 
         const cachedResponses = await Promise.all(
           imageUrls.map((url) => cache.match(url))
