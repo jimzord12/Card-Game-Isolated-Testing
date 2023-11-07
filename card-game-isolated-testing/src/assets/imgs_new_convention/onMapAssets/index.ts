@@ -76,3 +76,13 @@ export const defaultBuildings = {
   townHall: TownHall,
   dieselFactory: DieselFactory,
 };
+
+export default {
+  singleTree,
+  withShadow,
+  multipleTree,
+  buildings,
+  regs,
+  placeholders,
+  defaultBuildings,
+};

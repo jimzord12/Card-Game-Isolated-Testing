@@ -1,0 +1,85 @@
+/* Base class for all shapes */
+.baseShape {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  position: absolute;
+  animation: blurry-grow-fade 5s infinite forwards;
+  opacity: 0; /* Fully transparent */
+}
+
+/* CSS Variables for colors */
+:root {
+  --sphere-color-green: rgba(13, 201, 91, 0.5);
+  --sphere-color-yellow: rgba(173, 210, 8, 0.5);
+  --sphere-color-light-blue: rgba(13, 148, 201, 0.5);
+  --sphere-color-pink: rgba(201, 13, 201, 0.5);
+  --sphere-color-orange: rgba(201, 132, 13, 0.5);
+}
+
+.shape1 {
+  box-shadow: 0 0 60px 60px var(--sphere-color-green);
+  background: var(--sphere-color-green);
+  top: 15%;
+  left: 6%;
+}
+
+.shape2 {
+  box-shadow: 0 0 60px 60px var(--sphere-color-yellow);
+  background: var(--sphere-color-yellow);
+  top: 8%;
+  left: 80%;
+}
+
+.shape3 {
+  box-shadow: 0 0 60px 60px var(--sphere-color-light-blue);
+  background: var(--sphere-color-light-blue);
+  top: 75%;
+  left: 20%;
+}
+
+.shape4 {
+  box-shadow: 0 0 60px 60px var(--sphere-color-pink);
+  background: var(--sphere-color-pink);
+  top: 70%;
+  left: 90%;
+}
+
+.shape5 {
+  box-shadow: 0 0 60px 60px var(--sphere-color-orange);
+  background: var(--sphere-color-orange);
+  top: 25%;
+  left: 35%;
+}
+
+/* Additional classes for delays */
+.delay1 {
+  animation-delay: 0.5s;
+}
+.delay2 {
+  animation-delay: 0.75s;
+}
+.delay3 {
+  animation-delay: 3s;
+}
+.delay4 {
+  animation-delay: 4s;
+}
+.delay5 {
+  animation-delay: 5s;
+}
+
+@keyframes blurry-grow-fade {
+  0% {
+    transform: scale(0); /* Start from nothing */
+    opacity: 0; /* Fully transparent */
+  }
+  50% {
+    transform: scale(1); /* Grow to full size */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    transform: scale(1.5); /* Grow a bit more */
+    opacity: 0; /* Fade out */
+  }
+}

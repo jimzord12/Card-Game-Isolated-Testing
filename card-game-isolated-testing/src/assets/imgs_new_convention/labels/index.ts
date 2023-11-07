@@ -11,7 +11,7 @@ import WoodLabelType2_Long from "./labels-woodenLong.webp";
 import WoodLabelType2_Normal from "./labels-woodenNormal.webp";
 import WoodLabelType2_Short from "./labels-woodenShort.webp";
 
-export const other = {
+export const otherLabels = {
   rusty: AmountRustyLabel,
   colorful: ColorfulLabel,
   greenEnergy: GreenEnergyLabel,
@@ -26,4 +26,10 @@ export const wooden = {
   type2_short: WoodLabelType2_Short,
   type2_normal: WoodLabelType2_Normal,
   type2_long: WoodLabelType2_Long,
+};
+
+export default {
+  otherLabels,
+  golden,
+  wooden,
 };

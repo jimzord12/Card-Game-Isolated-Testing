@@ -5,3 +5,5 @@ export const townExpansion = {
   emblem: TownExpansionEmblem,
   icon: TownExpansionIcon,
 };
+
+export default townExpansion;

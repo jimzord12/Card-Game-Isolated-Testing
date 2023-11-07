@@ -166,3 +166,8 @@ export const utilityIcons = {
   ...customSlider,
   ...other,
 };
+export default {
+  detailsIcons,
+  resourcesIcons,
+  utilityIcons,
+};

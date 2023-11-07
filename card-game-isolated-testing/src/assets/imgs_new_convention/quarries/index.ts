@@ -10,3 +10,4 @@ export const quarryIcons = {
   metals: MetalsQuarryIcon,
   oilrigs: OilRigQuarryIcon,
 };
+export default quarryIcons;

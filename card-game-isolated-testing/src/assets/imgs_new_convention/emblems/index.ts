@@ -1,4 +1,4 @@
-import TownExpansionEmblem from "./emblem-townExpansion.webp";
+// import TownExpansionEmblem from "./emblem-townExpansion.webp";
 import ConcreteEmblem from "./emblems-concrete.webp";
 import CrystalsEmblem from "./emblems-crystals.webp";
 import IslandStatsEmblem from "./emblems-islandStats.webp";
@@ -10,6 +10,10 @@ export const emblems = {
   crystalsEmblem: CrystalsEmblem,
   metalsEmblem: MetalsEmblem,
   oilRigEmblem: OilRigEmblem,
-  townExpansionEmblem: TownExpansionEmblem,
+  // townExpansionEmblem: TownExpansionEmblem,
   islandStatsEmblem: IslandStatsEmblem,
+};
+
+export default {
+  emblems,
 };

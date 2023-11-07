@@ -17,3 +17,8 @@ export const other = {
   simpleCitizen: SimpleCitizen,
   doctor: Doctor,
 };
+
+export default {
+  resourceWorkers,
+  other,
+};

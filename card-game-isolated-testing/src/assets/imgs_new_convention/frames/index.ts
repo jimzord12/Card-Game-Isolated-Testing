@@ -13,3 +13,7 @@ export const frames = {
   metalFrame,
   rustyFrame,
 };
+
+export default {
+  frames,
+};

@@ -10,3 +10,5 @@ export const menus = {
   regsMenu: REGsMenu,
   spMenu: SPsMenu,
 };
+
+export default menus;

@@ -1,23 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // CSS Modules
 import styles from "./css/general.module.css";
 
 // Components
 
-import ImageContextAPI from "../../context/ImageContext/ImageContext";
+import { ImageContextAPI } from "../../context/ImageContext/ImageContextV3";
 import { testingPlaceholderImgs } from "../../data/test/placeholderImgs";
 import GlowOutlineFilter from "../GlowOutlineFilter";
 import Placeholders from "../OnMapEntities/Placeholders/Placeholders";
 
 const TownMap = () => {
-  const { images, clearCache } = ImageContextAPI();
+  const { images /* clearCache */ } = ImageContextAPI();
   const [highlightedImg, setHighlightedImg] = useState<number | null>(null);
   const [selectedMapEntity, setSelectedMapEntity] = useState<number | null>(
     null
   );
 
-  const placeholderTestImages = testingPlaceholderImgs();
+  const placeholderTestImages = useMemo(() => testingPlaceholderImgs(), []);
 
   // const newBuildingCard = BuildingCard.createNew(
   //   123,
@@ -49,9 +49,11 @@ const TownMap = () => {
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ TownMap: images are undefined!");
 
-  console.log("👉 THE IMAGES: ", images);
-  console.log("👉 IMAGES -> Cards: ", images.cards);
-  console.log("👉 IMAGES -> Cards -> Hospital: ", images.cards.hospital);
+  useMemo(() => {
+    console.log("👉 THE IMAGES: ", images);
+    console.log("👉 IMAGES -> Cards: ", images.cards);
+    console.log("👉 IMAGES -> Cards -> Hospital: ", images.cards.hospital);
+  }, [images]);
 
   useEffect(() => {
     if (selectedMapEntity === null) return;

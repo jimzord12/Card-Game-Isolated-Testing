@@ -27,30 +27,39 @@ import TownExpansionBG from "./modal_backgrounds-townExpansionBG.webp";
 import BuildingLevelUp from "./modal_backgrounds-levelUpBuildingBG.webp";
 import REGLevelUp from "./modal_backgrounds-levelUpRegBG.webp";
 
-export const _default = {
-  townHall: TownHallBG,
-  dieselFactory: DieselFactoryBG,
+export const _defaultBG = {
+  townHallBG: TownHallBG,
+  dieselFactoryBG: DieselFactoryBG,
 };
-export const buildings = {
+export const buildingsBG = {
   amusementPark: AmusementParkBG,
   hospital: HospitalBG,
   radioStation: RadioStationBG,
   toolStore: ToolStoreBG,
 };
-export const regs = {
+export const regsBG = {
   solarPanel: SolarPanelBG,
   windTurbine: WindTurbineBG,
 };
-export const quarries = {
+export const quarriesBG = {
   concrete: ConcreteQuarryBG,
   crystals: CrystalsQuarryBG,
   metals: MetalsQuarryBG,
   oilRig: OilRigQuarryBG,
 };
-export const townExpansion = {
+export const townExpansionBG = {
   townExpansion: TownExpansionBG,
 };
-export const levelUp = {
+export const levelUpBG = {
   building: BuildingLevelUp,
   reg: REGLevelUp,
+};
+
+export default {
+  _defaultBG,
+  buildingsBG,
+  regsBG,
+  quarriesBG,
+  townExpansionBG,
+  levelUpBG,
 };

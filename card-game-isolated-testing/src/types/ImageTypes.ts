@@ -217,4 +217,6 @@ export type clearCacheType = () => void;
 export type ImageContextTypes = {
   images?: ImageGroups;
   clearCache?: clearCacheType;
+  areImagesReady?: boolean;
+  loadingProgress?: number;
 };

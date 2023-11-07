@@ -34,3 +34,9 @@ export const spCards = {
   heartPhone: HeartPhone,
   stocksChart: StocksChart,
 };
+
+export default {
+  buildingCards,
+  regCards,
+  spCards,
+};
