@@ -1,0 +1,48 @@
+.errorPageContainer {
+  background-color: rgb(204, 14, 14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  /* width: 100vw; */
+  /* max-width: 100vw; */
+  /* font-size: 48px; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-direction: column; */
+  /* padding: 36px; */
+}
+
+.aaa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.catImg {
+  display: block;
+  border-radius: 12px;
+  width: 400px;
+}
+
+.errorText {
+  font-weight: 400;
+  font-size: 3rem;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1200px) {
+  .errorText {
+    font-size: 1.5rem;
+  }
+
+  .catImg {
+    width: 40%;
+  }
+
+  .errorPageContainer {
+  }
+}

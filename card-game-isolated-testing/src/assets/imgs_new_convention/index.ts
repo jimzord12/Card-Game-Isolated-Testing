@@ -1,5 +1,6 @@
 import cards from "./cards";
 import emblems from "./emblems";
+import error from "./error";
 import frames from "./frames";
 import gameIcons from "./gameIcons";
 import labels from "./labels";
@@ -24,4 +25,5 @@ export default {
   quarries,
   townExpansion,
   workers,
+  error,
 };

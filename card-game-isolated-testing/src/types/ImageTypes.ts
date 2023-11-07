@@ -183,6 +183,10 @@ type WorkersImageGroup = {
   simpleCitizen: string;
 };
 
+type ErrorImageGroup = {
+  catBreak: string;
+};
+
 export type ImageGroups = {
   cards: CardImageGroup;
   emblems: EmblemImageGroup;
@@ -196,6 +200,7 @@ export type ImageGroups = {
   quarries: QuarriesImageGroup;
   townExpansion: TownExpansionImageGroup;
   workers: WorkersImageGroup;
+  error: ErrorImageGroup;
 };
 
 export type ImageGroupKeys =
@@ -210,7 +215,8 @@ export type ImageGroupKeys =
   | "quarries"
   | "townExpansion"
   | "workers"
-  | "onMapAssets";
+  | "onMapAssets"
+  | "error";
 
 export type clearCacheType = () => void;
 

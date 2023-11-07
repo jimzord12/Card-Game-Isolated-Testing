@@ -69,6 +69,8 @@ const ImageProviderV3: React.FC<ImageProviderProps> = ({
             )
         );
 
+        // console.log("💩 1 : ", unorganizedImageObjects);
+
         // console.log("1 - allImages: ", unorganizedImageObjects);
 
         const allImages: string[] = unorganizedImageObjects.flatMap((image) =>
@@ -83,6 +85,8 @@ const ImageProviderV3: React.FC<ImageProviderProps> = ({
               )
         );
 
+        // console.log("💩 2 : ", allImages);
+
         // console.log("2 - flattenImages: ", allImages.length);
 
         // Remove any non-string values and duplicates.
@@ -92,6 +96,7 @@ const ImageProviderV3: React.FC<ImageProviderProps> = ({
         ];
 
         // console.log("3 - imageUrls: ", imageUrls.length);
+        // console.log("💩 3 : ", imageUrls);
 
         const cachedResponses = await Promise.all(
           imageUrls.map((url) => cache.match(url))

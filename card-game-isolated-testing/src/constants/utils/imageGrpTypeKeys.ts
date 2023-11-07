@@ -146,4 +146,7 @@ export const imageGrpKeys: ImageGroups = {
     oilRig: "",
     simpleCitizen: "",
   },
+  error: {
+    catBreak: "",
+  },
 };

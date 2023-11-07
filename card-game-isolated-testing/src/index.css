@@ -14,7 +14,16 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
+body {
+  margin: 0;
+  /* display: flex; */
+  /* place-items: center; */
+  /* min-width: 320px; */
+  /* min-height: 100vh; */
+}
+
+
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
@@ -53,7 +62,7 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -66,4 +75,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
