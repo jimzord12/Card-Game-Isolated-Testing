@@ -1,11 +1,11 @@
 // Modals -> Workers
 
-import ConcreteWorker from "./workers-concrete.webp";
-import CrystalsWorker from "./workers-crystals.webp";
-import Doctor from "./workers-doctor.webp";
-import MetalsWorker from "./workers-metals.webp";
-import OilRigWorker from "./workers-oilRig.webp";
-import SimpleCitizen from "./workers-simpleCitizen.webp";
+import ConcreteWorker from "./workers-concreteWorker.webp";
+import CrystalsWorker from "./workers-crystalsWorker.webp";
+import Doctor from "./workers-doctorWorker.webp";
+import MetalsWorker from "./workers-metalsWorker.webp";
+import OilRigWorker from "./workers-oilRigWorker.webp";
+import SimpleCitizen from "./workers-simpleCitizenWorker.webp";
 
 export const resourceWorkers = {
   concrete: ConcreteWorker,

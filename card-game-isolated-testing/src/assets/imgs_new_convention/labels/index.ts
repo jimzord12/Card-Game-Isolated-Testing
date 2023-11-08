@@ -1,31 +1,33 @@
 // Modals -> Utils -> Labels
 
-import ColorfulLabel from "./labels-colorful.webp";
-import GoldenSpecialLabel from "./labels-goldenSpecial.webp";
-import GoldenStandardLabel from "./labels-goldenStandard.webp";
-import GreenEnergyLabel from "./labels-greenEnergy.webp";
-import LevelIndicatorLabel from "./labels-level.webp";
-import AmountRustyLabel from "./labels-rusty.webp";
-import WoodLabelType1 from "./labels-woodenGround.webp";
-import WoodLabelType2_Long from "./labels-woodenLong.webp";
-import WoodLabelType2_Normal from "./labels-woodenNormal.webp";
-import WoodLabelType2_Short from "./labels-woodenShort.webp";
+import ColorfulLabel from "./labels-colorfulLabel.webp";
+import GoldenSpecialLabel from "./labels-goldenSpecialLabel.webp";
+import GoldenStandardLabel from "./labels-goldenStandardLabel.webp";
+import GreenEnergyLabel from "./labels-greenEnergyLabel.webp";
+import LevelIndicatorLabel from "./labels-levelLabel.webp";
+import QuarryLevelLabel from "./labels-quarryLevelLabel.webp";
+import AmountRustyLabel from "./labels-rustyLabel.webp";
+import WoodLabelType1Label from "./labels-woodenGroundLabel.webp";
+import WoodLabelType2_LongLabel from "./labels-woodenLongLabel.webp";
+import WoodLabelType2_NormalLabel from "./labels-woodenNormalLabel.webp";
+import WoodLabelType2_ShortLabel from "./labels-woodenShortLabel.webp";
 
 export const otherLabels = {
   rusty: AmountRustyLabel,
   colorful: ColorfulLabel,
   greenEnergy: GreenEnergyLabel,
   level: LevelIndicatorLabel,
+  quarry: QuarryLevelLabel,
 };
 export const golden = {
   special: GoldenSpecialLabel,
   standard: GoldenStandardLabel,
 };
 export const wooden = {
-  type1: WoodLabelType1,
-  type2_short: WoodLabelType2_Short,
-  type2_normal: WoodLabelType2_Normal,
-  type2_long: WoodLabelType2_Long,
+  type1: WoodLabelType1Label,
+  type2_short: WoodLabelType2_ShortLabel,
+  type2_normal: WoodLabelType2_NormalLabel,
+  type2_long: WoodLabelType2_LongLabel,
 };
 
 export default {

@@ -1,14 +1,14 @@
-import bambooFrame from "./frames-bamboo.webp";
-import goldFrame from "./frames-gold.webp";
-import greenLeavesFrame from "./frames-greenLeaves.webp";
-import metalFrame from "./frames-metal.webp";
-import rustyFrame from "./frames-rusty.webp";
-import goldStefani from "./frames-stefani.webp";
+import bambooFrame from "./frames-bambooFrame.webp";
+import goldFrame from "./frames-goldFrame.webp";
+import greenLeavesFrame from "./frames-greenLeavesFrame.webp";
+import metalFrame from "./frames-metalFrame.webp";
+import rustyFrame from "./frames-rustyFrame.webp";
+import goldStefaniFrame from "./frames-stefaniFrame.webp";
 
 export const frames = {
   bambooFrame,
   goldFrame,
-  goldStefani,
+  goldStefaniFrame,
   greenLeavesFrame,
   metalFrame,
   rustyFrame,

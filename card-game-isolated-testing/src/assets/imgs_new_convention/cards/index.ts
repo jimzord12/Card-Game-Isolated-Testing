@@ -1,19 +1,19 @@
 // Building - Cards
-import AmusementPark from "./cards-amusementPark.webp";
-import Hospital from "./cards-hospital.webp";
-import RadioStation from "./cards-radioStation.webp";
-import ToolStore from "./cards-toolStore.webp";
+import AmusementPark from "./cards-amusementParkCard.webp";
+import Hospital from "./cards-hospitalCard.webp";
+import RadioStation from "./cards-radioStationCard.webp";
+import ToolStore from "./cards-toolStoreCard.webp";
 
 // REG - Cards
-import SimpleSolarPanel from "./cards-simpleSolarPanel.webp";
-import SimpleWindTurbine from "./cards-simpleWindTurbine.webp";
-import SuperSolarPanel from "./cards-superSolarPanel.webp";
-import SuperWindTurbine from "./cards-superWindTurbine.webp";
+import SimpleSolarPanel from "./cards-simpleSolarPanelCard.webp";
+import SimpleWindTurbine from "./cards-simpleWindTurbineCard.webp";
+import SuperSolarPanel from "./cards-superSolarPanelCard.webp";
+import SuperWindTurbine from "./cards-superWindTurbineCard.webp";
 
 // SP - Cards
-import EnergyDrink from "./cards-energyDrink.webp";
-import HeartPhone from "./cards-heartPhone.webp";
-import StocksChart from "./cards-stocksChart.webp";
+import EnergyDrink from "./cards-energyDrinkCard.webp";
+import HeartPhone from "./cards-heartPhoneCard.webp";
+import StocksChart from "./cards-stocksChartCard.webp";
 
 export const buildingCards = {
   amusementPark: AmusementPark,

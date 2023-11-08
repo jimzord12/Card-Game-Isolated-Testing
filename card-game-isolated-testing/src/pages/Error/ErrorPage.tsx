@@ -1,8 +1,8 @@
 import styles from "./errorPage.module.css";
 
 const catImgUrl =
-  "src/assets/imgs_new_convention/error/catdestroy-catknockover.webp";
-console.log(catImgUrl);
+  "src/assets/imgs_new_convention/error/error-catBreakError.webp";
+
 const ErrorPage = () => {
   return (
     <div className={styles.errorPageContainer}>

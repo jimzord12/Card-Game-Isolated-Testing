@@ -1,92 +1,44 @@
-// /* eslint-disable react-hooks/exhaustive-deps */
 // import React, {
 //   ReactNode,
 //   createContext,
 //   useCallback,
 //   useContext,
 //   useEffect,
-//   useMemo,
 //   useState,
 // } from "react";
 
 // // Images
-// import { CACHE_NAME } from "../../../constants/cache";
-// import { imageGrpKeys } from "../../../constants/utils/imageGrpTypeKeys";
-// import { ImageContextTypes, ImageGroups } from "../../../types";
+// import { CACHE_NAME } from "../../constants/cache";
+// import { imageGrpKeys } from "../../constants/utils/imageGrpTypeKeys";
+// import { ImageContextTypes, ImageGroups } from "../../types";
 
 // export const ImageContext = createContext<ImageContextTypes>({});
 
-// interface ImageProviderProps {
-//   children: ReactNode;
-//   setLoadingProgress: React.Dispatch<React.SetStateAction<number>>;
-//   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+// interface ImageObject {
+//   [key: string]: string | ImageObject;
 // }
 
-// function ImageContextAPI() {
+// interface ImageProviderProps {
+//   children: ReactNode;
+//   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+//   // hasLoadingScreenLoaded: boolean;
+//   // setLoadingProgress: React.Dispatch<React.SetStateAction<number>>;
+// }
+
+// export function ImageContextAPI() {
 //   return useContext(ImageContext);
 // }
 
-// export default ImageContextAPI;
-
-// export const ImageProvider: React.FC<ImageProviderProps> = ({
+// const ImageProviderV3: React.FC<ImageProviderProps> = ({
 //   children,
-//   setLoadingProgress,
+//   // setLoadingProgress,
+//   // hasLoadingScreenLoaded,
 //   setLoading,
 // }) => {
+//   console.log("💩 SKATA: Entering ImageContext Provider");
+
 //   const [images, setImages] = useState<ImageGroups>(imageGrpKeys);
 //   const [areImagesReady, setAreImagesReady] = useState(false);
-//   // const [loading, setLoading] = useState<boolean>(true);
-//   // const [loadingProgress, setLoadingProgress] = useState(0); // New state for loading progress
-
-//   const allAssets: Promise<string[]> = useMemo(async () => {
-//     const _allAssets = await Promise.all([
-//       import("../../../assets/imgs_new_convention/cards"),
-//       import("../../../assets/imgs_new_convention/emblems"),
-//       import("../../../assets/imgs_new_convention/frames"),
-//       // ...import other asset groups
-//     ]);
-
-//     // [
-//     //   buildingCards,
-//     //   regCards,
-//     //   spCards,
-//     //   emblems,
-//     //   frames,
-//     //   detailsIcons,
-//     //   resourcesIcons,
-//     //   utilityIcons,
-//     //   golden,
-//     //   other,
-//     //   wooden,
-//     //   maps,
-//     //   menus,
-//     //   _default,
-//     //   buildingsBG,
-//     //   regsBG,
-//     //   levelUp,
-//     //   quarriesBG,
-//     //   townExpansionBG,
-//     //   singleTree,
-//     //   buildings,
-//     //   defaultBuildings,
-//     //   multipleTree,
-//     //   placeholders,
-//     //   regs,
-//     //   withShadow,
-//     //   quarryIcons,
-//     //   townExpansion,
-//     //   resourceWorkers,
-//     //   otherWorkers,
-//     // ];
-
-//     return _allAssets.reduce((acc: string[], asset) => {
-//       if (Array.isArray(asset)) {
-//         return acc.concat(asset);
-//       } else {
-//         return acc.concat(Object.values(asset));
-//       }
-//     }, []);
-//   }, []);
 
 //   const clearCache = useCallback(async () => {
 //     const deleted = await caches.delete(CACHE_NAME);
@@ -98,15 +50,56 @@
 //   }, []);
 
 //   useEffect(() => {
-//     if (areImagesReady === true) return; // For Perfromance
+//     if (areImagesReady) return;
 
-//     const loadImages = async () => {
+//     setLoading(true);
+
+//     const loadAssets = async () => {
 //       try {
 //         const cache = await caches.open(CACHE_NAME);
-//         const allImages = await allAssets;
+
+//         const modules = await Promise.all([
+//           import("../../assets/imgs_new_convention"),
+//         ]);
+
+//         const unorganizedImageObjects: ImageObject[] = modules.flatMap(
+//           (module) =>
+//             Object.entries(module.default).flatMap(([, value]) =>
+//               typeof value === "string" ? value : Object.values(value)
+//             )
+//         );
+
+//         // console.log("💩 1 : ", unorganizedImageObjects);
+
+//         // console.log("1 - allImages: ", unorganizedImageObjects);
+
+//         const allImages: string[] = unorganizedImageObjects.flatMap((image) =>
+//           typeof image === "string"
+//             ? image
+//             : Object.entries(image).flatMap(([, value]) =>
+//                 typeof value === "string"
+//                   ? value
+//                   : Array.isArray(value)
+//                   ? value
+//                   : Object.values(value as ImageObject)
+//               )
+//         );
+
+//         // console.log("💩 2 : ", allImages);
+
+//         // console.log("2 - flattenImages: ", allImages.length);
+
+//         // Remove any non-string values and duplicates.
+//         // Remove any non-string values and duplicates.
+//         const imageUrls = [
+//           ...new Set(allImages.filter((url) => typeof url === "string")),
+//         ];
+
+//         // console.log("3 - imageUrls: ", imageUrls.length);
+//         console.log("💩 3 : ", imageUrls);
 
 //         const cachedResponses = await Promise.all(
-//           allImages.map((url) => cache.match(url))
+//           imageUrls.map((url) => cache.match(url))
 //         );
 //         console.log("💎 cachedResponses: ", cachedResponses);
 //         const areImagesCached = cachedResponses.every(
@@ -116,10 +109,9 @@
 //         if (areImagesCached) {
 //           console.log("✅ Images Are Cached ", areImagesCached);
 
-//           const validUrls = allImages.filter((_, index, arr) => {
-//             setLoadingProgress(() => ((index + 1) / arr.length) * 100);
-//             return cachedResponses[index] && cachedResponses[index]!.ok;
-//           });
+//           const validUrls = allImages.filter(
+//             (_, index) => cachedResponses[index] && cachedResponses[index]!.ok
+//           );
 //           const cachedImages = buildImageGroups(validUrls);
 //           setImages(cachedImages);
 //         } else {
@@ -132,26 +124,28 @@
 //           const cachedResponses = await Promise.all(
 //             uniqueImages.map((url) => cache.match(url))
 //           );
-//           const validUrls = uniqueImages.filter((_, index, arr) => {
-//             setLoadingProgress(() => ((index + 1) / arr.length) * 100);
-//             return cachedResponses[index] && cachedResponses[index]!.ok;
-//           });
+//           const validUrls = uniqueImages.filter(
+//             (_, index) => cachedResponses[index] && cachedResponses[index]!.ok
+//           );
 //           const cachedImages = buildImageGroups(validUrls);
 //           setImages(cachedImages);
 //         }
 //       } catch (error) {
 //         console.error("Error loading images:", error);
-//         // Optionally, set some state to indicate the error to the user
+//         // ...error handling
 //       } finally {
 //         setAreImagesReady(true);
 //         setLoading(false);
+//         console.log("💩 Loading -> False");
 //       }
 //     };
 
-//     loadImages();
+//     loadAssets();
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
 //   }, []);
 
 //   const buildImageGroups = (imageUrls: string[]): ImageGroups => {
+//     // console.log("THe Image URLS: ", imageUrls);
 //     const imageGroups: ImageGroups = imageGrpKeys;
 
 //     imageUrls.forEach((url) => {
@@ -169,6 +163,7 @@
 //       // Ensure that the group is one of the keys in ImageGroups.
 //       if (group in imageGroups) {
 //         const imageMap = imageGroups[group];
+//         // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //         (imageMap as any)[key] = url;
 //       }
 //     });
@@ -182,3 +177,5 @@
 //     </ImageContext.Provider>
 //   );
 // };
+
+// export default ImageProviderV3;

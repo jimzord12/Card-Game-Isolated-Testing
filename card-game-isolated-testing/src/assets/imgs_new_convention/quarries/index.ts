@@ -1,13 +1,13 @@
 // Modals -> Quarries -> Icons
-import ConcreteQuarryIcon from "./quarries-concreteIcon.webp";
-import CrystalsQuarryIcon from "./quarries-crystalsIcon.webp";
-import MetalsQuarryIcon from "./quarries-metalsIcon.webp";
-import OilRigQuarryIcon from "./quarries-oilRigIcon.webp";
+import ConcreteQuarryIcon from "./quarries-concreteIconQuarry.webp";
+import CrystalsQuarryIcon from "./quarries-crystalsIconQuarry.webp";
+import MetalsQuarryIcon from "./quarries-metalsIconQuarry.webp";
+import OilRigQuarryIcon from "./quarries-oilRigIconQuarry.webp";
 
 export const quarryIcons = {
-  concrete: ConcreteQuarryIcon,
-  crystals: CrystalsQuarryIcon,
-  metals: MetalsQuarryIcon,
-  oilrigs: OilRigQuarryIcon,
+  concreteQuarry: ConcreteQuarryIcon,
+  crystalsQuarry: CrystalsQuarryIcon,
+  metalsQuarry: MetalsQuarryIcon,
+  oilrigsQuarry: OilRigQuarryIcon,
 };
 export default quarryIcons;

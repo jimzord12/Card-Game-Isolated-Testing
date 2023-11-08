@@ -1,14 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // CSS Modules
 import styles from "./css/general.module.css";
 
 // Components
 
-import { ImageContextAPI } from "../../context/ImageContext/ImageContextV3";
-import { testingPlaceholderImgs } from "../../data/test/placeholderImgs";
+import { ImageContextAPI } from "../../context/ImageContext/ImageContextV4";
+// import { testingPlaceholderImgs } from "../../data/test/placeholderImgs";
 import GlowOutlineFilter from "../GlowOutlineFilter";
-import Placeholders from "../OnMapEntities/Placeholders/Placeholders";
 
 const TownMap = () => {
   const { images /* clearCache */ } = ImageContextAPI();
@@ -17,7 +16,7 @@ const TownMap = () => {
     null
   );
 
-  const placeholderTestImages = useMemo(() => testingPlaceholderImgs(), []);
+  // const placeholderTestImages = useMemo(() => testingPlaceholderImgs(), []);
 
   // const newBuildingCard = BuildingCard.createNew(
   //   123,
@@ -48,12 +47,13 @@ const TownMap = () => {
 
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ TownMap: images are undefined!");
+  // throw new Error("ssss");
 
-  useMemo(() => {
-    console.log("👉 THE IMAGES: ", images);
-    console.log("👉 IMAGES -> Cards: ", images.cards);
-    console.log("👉 IMAGES -> Cards -> Hospital: ", images.cards.hospital);
-  }, [images]);
+  // useMemo(() => {
+  //   console.log("👉 THE IMAGES: ", images);
+  //   console.log("👉 IMAGES -> Cards: ", images.cards);
+  //   console.log("👉 IMAGES -> Cards -> Hospital: ", images.cards.hospital);
+  // }, [images]);
 
   useEffect(() => {
     if (selectedMapEntity === null) return;
@@ -84,13 +84,13 @@ const TownMap = () => {
         <>
           <GlowOutlineFilter />
           {/* >>> PLACEHOLDERS <<< */}
-          <Placeholders
+          {/* <Placeholders
             images={placeholderTestImages}
             setSelectedMapEntity={setSelectedMapEntity}
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}
-          />
+          /> */}
 
           {/* >>> BUILDINGS <<< */}
           {/* <EntityTemplateGroup

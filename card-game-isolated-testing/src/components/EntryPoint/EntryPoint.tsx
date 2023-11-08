@@ -4,7 +4,7 @@ import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import RotateDevice from "../RotateDevice/RotateDevice";
 
 const ImageProviderV3 = lazy(
-  () => import("../../context/ImageContext/ImageContextV3")
+  () => import("../../context/ImageContext/ImageContextV4")
 );
 const Game = lazy(() => import("../Game/Game"));
 
@@ -30,8 +30,12 @@ const EntryPoint = () => {
 
       {start && (
         <ImageProviderV3 setLoading={setLoading}>
-          <RotateDevice show={show} />
-          <Game />
+          {!loading && (
+            <>
+              <RotateDevice show={show} />
+              <Game />
+            </>
+          )}
         </ImageProviderV3>
       )}
     </>

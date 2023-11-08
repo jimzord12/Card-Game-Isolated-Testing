@@ -1,80 +1,80 @@
 // Buildings
-import AmusementPark from "./onMapAssets-amusementPark.webp";
-import Hospital from "./onMapAssets-hospital.webp";
-import RadioStation from "./onMapAssets-radioStation.webp";
-import ToolStore from "./onMapAssets-toolStore.webp";
+import AmusementParkOnMapAsset from "./onMapAssets-amusementParkOnMapAsset.webp";
+import HospitalOnMapAsset from "./onMapAssets-hospitalOnMapAsset.webp";
+import RadioStationOnMapAsset from "./onMapAssets-radioStationOnMapAsset.webp";
+import ToolStoreOnMapAsset from "./onMapAssets-toolStoreOnMapAsset.webp";
 
 // REGs
-import SimpleSolarPanel from "./onMapAssets-simpleSolarPanel.webp";
-import SimpleWindTurbine from "./onMapAssets-simpleWindTurbine.webp";
-import SuperSolarPanel from "./onMapAssets-superSolarPanel.webp";
-import SuperWindTurbine from "./onMapAssets-superWindTurbine.webp";
+import SimpleSolarPanelOnMapAsset from "./onMapAssets-simpleSolarPanelOnMapAsset.webp";
+import SimpleWindTurbineOnMapAsset from "./onMapAssets-simpleWindTurbineOnMapAsset.webp";
+import SuperSolarPanelOnMapAsset from "./onMapAssets-superSolarPanelOnMapAsset.webp";
+import SuperWindTurbineOnMapAsset from "./onMapAssets-superWindTurbineOnMapAsset.webp";
 
 // Padlocks
-import PadlockBuilding from "./onMapAssets-buildingPadLock.webp";
-import PadlockREG from "./onMapAssets-REGPadlock.webp";
+import PadlockBuildingOnMapAsset from "./onMapAssets-buildingPadLockOnMapAsset.webp";
+import PadlockREGOnMapAsset from "./onMapAssets-REGPadlockOnMapAsset.webp";
 
 // Placeholders
-import PlaceholderBuilding from "./onMapAssets-buildingPlaceholder.webp";
-import PlaceholderREG from "./onMapAssets-REGPlaceholder.webp";
+import PlaceholderBuildingOnMapAsset from "./onMapAssets-buildingPlaceholderOnMapAsset.webp";
+import PlaceholderREGOnMapAsset from "./onMapAssets-REGPlaceholderOnMapAsset.webp";
 
 // Defauly Buildings
-import DieselFactory from "./onMapAssets-dieselFactory.webp";
-import TownHall from "./onMapAssets-townHall.webp";
+import DieselFactoryOnMapAsset from "./onMapAssets-dieselFactoryOnMapAsset.webp";
+import TownHallOnMapAsset from "./onMapAssets-townHallOnMapAsset.webp";
 
 // -> Trees & Bushes
 // Single Tree
-import Tree_01 from "./onMapAssets-tree_01.webp";
-import Tree_02 from "./onMapAssets-tree_02.webp";
-import Tree_03 from "./onMapAssets-tree_03.webp";
-import Tree_04 from "./onMapAssets-tree_05.webp";
+import Tree_01OnMapAsset from "./onMapAssets-tree_01OnMapAsset.webp";
+import Tree_02OnMapAsset from "./onMapAssets-tree_02OnMapAsset.webp";
+import Tree_03OnMapAsset from "./onMapAssets-tree_03OnMapAsset.webp";
+import Tree_04OnMapAsset from "./onMapAssets-tree_05OnMapAsset.webp";
 
 // With Shadow
-import OrangeBushwithShadow from "./onMapAssets-orange_Bush_and_Shadow_01.webp";
-import TreeWithShadowBig from "./onMapAssets-trees_and_Shadow_01_Big.webp";
-import TreeWithShadowSmall from "./onMapAssets-trees_and_Shadow_01_Small.webp";
+import OrangeBushwithShadowOnMapAsset from "./onMapAssets-orange_Bush_and_Shadow_01OnMapAsset.webp";
+import TreeWithShadowBigOnMapAsset from "./onMapAssets-trees_and_Shadow_01_BigOnMapAsset.webp";
+import TreeWithShadowSmallOnMapAsset from "./onMapAssets-trees_and_Shadow_01_SmallOnMapAsset.webp";
 
 // Multiple Trees
-import Trees_01 from "./onMapAssets-forest_01.webp";
-import Trees_02 from "./onMapAssets-REG__01.webp";
+import Trees_01OnMapAsset from "./onMapAssets-forest_01OnMapAsset.webp";
+import Trees_02OnMapAsset from "./onMapAssets-REG__01OnMapAsset.webp";
 
 export const singleTree = {
-  tree_01: Tree_01,
-  tree_02: Tree_02,
-  tree_03: Tree_03,
-  tree_04: Tree_04,
+  tree_01: Tree_01OnMapAsset,
+  tree_02: Tree_02OnMapAsset,
+  tree_03: Tree_03OnMapAsset,
+  tree_04: Tree_04OnMapAsset,
 };
 export const withShadow = {
-  orangeBushShadow: OrangeBushwithShadow,
-  treesShadowBig: TreeWithShadowBig,
-  treesShadowSmall: TreeWithShadowSmall,
+  orangeBushShadow: OrangeBushwithShadowOnMapAsset,
+  treesShadowBig: TreeWithShadowBigOnMapAsset,
+  treesShadowSmall: TreeWithShadowSmallOnMapAsset,
 };
 export const multipleTree = {
-  trees_01: Trees_01,
-  trees_02: Trees_02,
+  trees_01: Trees_01OnMapAsset,
+  trees_02: Trees_02OnMapAsset,
 };
 
 export const buildings = {
-  amusementPark: AmusementPark,
-  hospital: Hospital,
-  radioStation: RadioStation,
-  toolStore: ToolStore,
+  amusementPark: AmusementParkOnMapAsset,
+  hospital: HospitalOnMapAsset,
+  radioStation: RadioStationOnMapAsset,
+  toolStore: ToolStoreOnMapAsset,
 };
 export const regs = {
-  simpleWindTurbine: SimpleWindTurbine,
-  superWindTurbine: SuperWindTurbine,
-  simpleSolarPanel: SimpleSolarPanel,
-  superSolarPanel: SuperSolarPanel,
+  simpleWindTurbine: SimpleWindTurbineOnMapAsset,
+  superWindTurbine: SuperWindTurbineOnMapAsset,
+  simpleSolarPanel: SimpleSolarPanelOnMapAsset,
+  superSolarPanel: SuperSolarPanelOnMapAsset,
 };
 export const placeholders = {
-  padlockBuilding: PadlockBuilding,
-  padlockREG: PadlockREG,
-  placeholderBuilding: PlaceholderBuilding,
-  placeholderREG: PlaceholderREG,
+  padlockBuilding: PadlockBuildingOnMapAsset,
+  padlockREG: PadlockREGOnMapAsset,
+  placeholderBuilding: PlaceholderBuildingOnMapAsset,
+  placeholderREG: PlaceholderREGOnMapAsset,
 };
 export const defaultBuildings = {
-  townHall: TownHall,
-  dieselFactory: DieselFactory,
+  townHall: TownHallOnMapAsset,
+  dieselFactory: DieselFactoryOnMapAsset,
 };
 
 export default {

@@ -1,3 +1,3 @@
-import rotateDeviceImg from "./appUtils-rotateDeviceImg.webp";
+import rotateDeviceImg from "./appUtils-rotateDeviceImgAppUtil.webp";
 
 export default rotateDeviceImg;

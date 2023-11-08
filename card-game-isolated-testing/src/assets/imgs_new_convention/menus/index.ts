@@ -1,9 +1,9 @@
 // Card_Type_Menu
 
 // Card Type Selection Menu
-import BuiildingsMenu from "./menus-buildings.webp";
-import REGsMenu from "./menus-regs.webp";
-import SPsMenu from "./menus-sps.webp";
+import BuiildingsMenu from "./menus-buildingsMenu.webp";
+import REGsMenu from "./menus-regsMenu.webp";
+import SPsMenu from "./menus-spsMenu.webp";
 
 export const menus = {
   buildingsMenu: BuiildingsMenu,

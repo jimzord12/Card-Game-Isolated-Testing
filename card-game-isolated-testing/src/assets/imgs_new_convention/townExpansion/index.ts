@@ -1,9 +1,9 @@
-import TownExpansionEmblem from "./townExpansion-Emblem.webp";
-import TownExpansionIcon from "./townExpansion-Icon.webp";
+import TownExpansionEmblem from "./townExpansion-townExpansionEmblem.webp";
+import TownExpansionIcon from "./townExpansion-townExpansionIcon.webp";
 
 export const townExpansion = {
-  emblem: TownExpansionEmblem,
-  icon: TownExpansionIcon,
+  townExpansionemblem: TownExpansionEmblem,
+  townExpansionicon: TownExpansionIcon,
 };
 
 export default townExpansion;

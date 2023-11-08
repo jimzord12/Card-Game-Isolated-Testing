@@ -7,7 +7,7 @@ interface Props {
 }
 
 const LoadingScreen = React.memo(({ setHasLoadingScreenLoaded }: Props) => {
-  console.log("💩 SKATA: Entering Loading Screen");
+  // console.log("💩 SKATA: Entering Loading Screen");
 
   useEffect(() => {
     // setHasLoadingScreenLoaded(true);

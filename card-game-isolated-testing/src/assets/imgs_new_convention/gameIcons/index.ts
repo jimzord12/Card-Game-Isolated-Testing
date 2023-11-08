@@ -1,77 +1,75 @@
 // -> Details
 // Card_Info
-import CalenderIcon from "./gameIcons-calendar.webp";
-import IdIcon from "./gameIcons-id.webp";
-import UserIcon from "./gameIcons-user.webp";
+import CalenderIcon from "./gameIcons-calendarGameIcon.webp";
+import IdIcon from "./gameIcons-idGameIcon.webp";
+import UserIcon from "./gameIcons-userGameIcon.webp";
 
 // Economy
-import ExpensesIcon from "./gameIcons-expenses.webp";
-import IncomeIcon from "./gameIcons-income.webp";
-import TotalGold from "./gameIcons-totalGold.webp";
+import ExpensesIcon from "./gameIcons-expensesGameIcon.webp";
+import IncomeIcon from "./gameIcons-incomeGameIcon.webp";
+import TotalGold from "./gameIcons-totalGoldGameIcon.webp";
 
 // Green_Energy
-import BatteryIcon from "./gameIcons-battery.webp";
-import GreenEnergyProdIcon from "./gameIcons-energyProduction.webp";
-import GreenEnergyUtilizationIcon from "./gameIcons-energyUtilization.webp";
+import BatteryIcon from "./gameIcons-batteryGameIcon.webp";
+import GreenEnergyProdIcon from "./gameIcons-energyProductionGameIcon.webp";
+import GreenEnergyUtilizationIcon from "./gameIcons-energyUtilizationGameIcon.webp";
 
 // Growth
-import GrowthIcon from "./gameIcons-growth.webp";
+import GrowthIcon from "./gameIcons-growthGameIcon.webp";
 
 // Happiness
-import AngryIcon from "./gameIcons-angryFace.webp";
-import HappyIcon from "./gameIcons-happyFace.webp";
-import NeutralIcon from "./gameIcons-neutralFace.webp";
-import OverjoyedIcon from "./gameIcons-overjoyedFace.webp";
-import SadIcon from "./gameIcons-sadFace.webp";
+import AngryIcon from "./gameIcons-angryFaceGameIcon.webp";
+import HappyIcon from "./gameIcons-happyFaceGameIcon.webp";
+import NeutralIcon from "./gameIcons-neutralFaceGameIcon.webp";
+import OverjoyedIcon from "./gameIcons-overjoyedFaceGameIcon.webp";
+import SadIcon from "./gameIcons-sadFaceGameIcon.webp";
 
 // Score
-import RankIcon from "./gameIcons-rank.webp";
+import RankIcon from "./gameIcons-rankGameIcon.webp";
 //TODO: Clean Env Meter!
 
 // Spacing
-import BuildingsSpaceIcon from "./gameIcons-buildingsSpace.webp";
-import CitizensSpaceIcon from "./gameIcons-citizensSpace.webp";
-import RegsSpaceIcon from "./gameIcons-regSpace.webp";
+import BuildingsSpaceIcon from "./gameIcons-buildingsSpaceGameIcon.webp";
+import CitizensSpaceIcon from "./gameIcons-citizensSpaceGameIcon.webp";
+import RegsSpaceIcon from "./gameIcons-regSpaceGameIcon.webp";
 //////////////////////////////////////////////////////////////////////////
 
 // -> Resources
 // Circular
-import CitizenCircularIcon from "./gameIcons-citizenCircular.webp";
-import ConcreteCircularIcon from "./gameIcons-concreteCircular.webp";
-import CrystalsCircularIcon from "./gameIcons-crystalsCircular.webp";
-import DieselBarrelCircularIcon from "./gameIcons-dieselBarrelCircular.webp";
-import GoldCircularIcon from "./gameIcons-goldCircular.webp";
-import MetalsCircularIcon from "./gameIcons-metalsCircular.webp";
+import CitizenCircularIcon from "./gameIcons-citizenCircularGameIcon.webp";
+import ConcreteCircularIcon from "./gameIcons-concreteCircularGameIcon.webp";
+import CrystalsCircularIcon from "./gameIcons-crystalsCircularGameIcon.webp";
+import DieselBarrelCircularIcon from "./gameIcons-dieselBarrelCircularGameIcon.webp";
+import GoldCircularIcon from "./gameIcons-goldCircularGameIcon.webp";
+import MetalsCircularIcon from "./gameIcons-metalsCircularGameIcon.webp";
 
 // Default
-import ConcreteIcon from "./gameIcons-concrete.webp";
-import CrystalsIcon from "./gameIcons-crystals.webp";
-import DieselBarrelIcon from "./gameIcons-dieselBarrel.webp";
-import GoldIcon from "./gameIcons-gold.webp";
-import MetalsIcon from "./gameIcons-metals.webp";
+import ConcreteIcon from "./gameIcons-concreteGameIcon.webp";
+import CrystalsIcon from "./gameIcons-crystalsGameIcon.webp";
+import DieselBarrelIcon from "./gameIcons-dieselBarrelGameIcon.webp";
+import GoldIcon from "./gameIcons-goldGameIcon.webp";
+import MetalsIcon from "./gameIcons-metalsGameIcon.webp";
 ///////////////////////////////////////////////////////////////////////////
 
 // -> Utility
 // Arrows
-import {
-  default as BlueLevelUpArrow,
-  default as GreenArrowUpgrade,
-} from "./gameIcons-blueLevelUpArrow.webp";
-import GreenWavyArrow from "./gameIcons-greenWavyArrow.webp";
-import BlueSideBarArrow from "./gameIcons-sideBarArrow.webp";
+import BlueLevelUpArrow from "./gameIcons-blueLevelUpArrowGameIcon.webp";
+import GreenArrowUpgrade from "./gameIcons-greenArrowUpgradeGameIcon.webp";
+import GreenWavyArrow from "./gameIcons-greenWavyArrowGameIcon.webp";
+import BlueSideBarArrow from "./gameIcons-sideBarArrowGameIcon.webp";
 
 // Card_Actions
-import ActivateGradient3D from "./gameIcons-activateGradient.webp";
-import LevelUpGradient3D from "./gameIcons-levelUpGradient.webp";
-import SellGradient3D from "./gameIcons-sellGradient.webp";
+import ActivateGradient3D from "./gameIcons-activateGradientGameIcon.webp";
+import LevelUpGradient3D from "./gameIcons-levelUpGradientGameIcon.webp";
+import SellGradient3D from "./gameIcons-sellGradientGameIcon.webp";
 
 // Custom_Slider
-import SliderBar from "./gameIcons-sliderBar.webp";
-import SliderDot from "./gameIcons-sliderDot.webp";
+import SliderBar from "./gameIcons-sliderBarGameIcon.webp";
+import SliderDot from "./gameIcons-sliderDotGameIcon.webp";
 
 // other
-import CraftBtn from "./gameIcons-craftButton.webp";
-import ModalCloseWoodenSign from "./gameIcons-woodenCloseModal.webp";
+import CraftBtn from "./gameIcons-craftButtonGameIcon.webp";
+import ModalCloseWoodenSign from "./gameIcons-woodenCloseModalGameIcon.webp";
 
 const arrows = {
   levelUpArrow: BlueLevelUpArrow,
@@ -94,20 +92,20 @@ const other = {
 };
 
 const resourcesCircularIcons = {
-  citizen: CitizenCircularIcon,
-  gold: GoldCircularIcon,
-  concrete: ConcreteCircularIcon,
-  crystals: CrystalsCircularIcon,
-  metals: MetalsCircularIcon,
-  dieselbarrel: DieselBarrelCircularIcon,
+  citizenCircular: CitizenCircularIcon,
+  goldCircular: GoldCircularIcon,
+  concreteCircular: ConcreteCircularIcon,
+  crystalsCircular: CrystalsCircularIcon,
+  metalsCircular: MetalsCircularIcon,
+  dieselbarrelCircular: DieselBarrelCircularIcon,
 };
 
 const resourcesDefaultIcons = {
-  gold: GoldIcon,
-  concrete: ConcreteIcon,
-  crystals: CrystalsIcon,
-  metals: MetalsIcon,
-  dieselbarrel: DieselBarrelIcon,
+  goldResourceIcon: GoldIcon,
+  concreteResourceIcon: ConcreteIcon,
+  crystalsResourceIcon: CrystalsIcon,
+  metalsResourceIcon: MetalsIcon,
+  dieselbarrelResourceIcon: DieselBarrelIcon,
 };
 
 // Circular
@@ -142,9 +140,9 @@ const score = {
 };
 
 const spacing = {
-  buildings: BuildingsSpaceIcon,
-  regs: RegsSpaceIcon,
-  citizens: CitizensSpaceIcon,
+  buildingsSpace: BuildingsSpaceIcon,
+  regsSpace: RegsSpaceIcon,
+  citizensSpace: CitizensSpaceIcon,
 };
 
 export const detailsIcons = {
