@@ -3,8 +3,8 @@ import UseLandscape from "../../hooks/useLandscape";
 import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import RotateDevice from "../RotateDevice/RotateDevice";
 
-const ImageProviderV3 = lazy(
-  () => import("../../context/ImageContext/ImageContextV4")
+const ImageProviderV5 = lazy(
+  () => import("../../context/ImageContext/ImageContextV5")
 );
 const Game = lazy(() => import("../Game/Game"));
 
@@ -29,14 +29,14 @@ const EntryPoint = () => {
       )}
 
       {start && (
-        <ImageProviderV3 setLoading={setLoading}>
+        <ImageProviderV5 setLoading={setLoading}>
           {!loading && (
             <>
               <RotateDevice show={show} />
               <Game />
             </>
           )}
-        </ImageProviderV3>
+        </ImageProviderV5>
       )}
     </>
   );

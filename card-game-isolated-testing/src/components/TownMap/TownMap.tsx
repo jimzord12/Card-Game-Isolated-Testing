@@ -5,12 +5,13 @@ import styles from "./css/general.module.css";
 
 // Components
 
-import { ImageContextAPI } from "../../context/ImageContext/ImageContextV4";
+import { ImageContextAPI } from "../../context/ImageContext/ImageContextV5";
 // import { testingPlaceholderImgs } from "../../data/test/placeholderImgs";
 import GlowOutlineFilter from "../GlowOutlineFilter";
 
 const TownMap = () => {
   const { images /* clearCache */ } = ImageContextAPI();
+  console.log("Town Map - IMAGES: ", images);
   // const [highlightedImg, setHighlightedImg] = useState<number | null>(null);
   // const [selectedMapEntity, setSelectedMapEntity] = useState<number | null>(
   //   null

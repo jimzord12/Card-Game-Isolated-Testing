@@ -1,7 +1,8 @@
 import { ImageGroups, ImageNameKey } from "../../types";
+// import { originalImageUrls } from "./originalImageUrls";
 
 export const imageNamesArray: ImageNameKey[] = [
-  // Cards
+  // Cards, Amount: 11 | Build: ✅
   "amusementParkCard", // ✅
   "energyDrinkCard", // ✅
   "heartPhoneCard", // ✅
@@ -13,14 +14,15 @@ export const imageNamesArray: ImageNameKey[] = [
   "superSolarPanelCard", // ✅
   "stocksChartCard", // ✅
   "toolStoreCard", // ✅
-  // Emblems
+
+  // Emblems, Amount: 5 | Build: ✅
   "concreteEmblem", // ✅
   "crystalsEmblem", // ✅
   "metalsEmblem", // ✅
   "islandStatsEmblem", // ✅
   "oilRigEmblem", // ✅
 
-  //Frames
+  //Frames, Amount: 6 // ✅
   "bambooFrame", // ✅
   "greenLeavesFrame", // ✅
   "metalFrame", // ✅
@@ -28,7 +30,7 @@ export const imageNamesArray: ImageNameKey[] = [
   "stefaniFrame", // ✅
   "goldFrame", // ✅
 
-  // Game Icons
+  // Game Icons, Amount: 41 | Build: ✅
   "activateGradientGameIcon", // ✅
   "angryFaceGameIcon", // ✅
   "batteryGameIcon", // ✅
@@ -71,10 +73,10 @@ export const imageNamesArray: ImageNameKey[] = [
   "userGameIcon", // ✅
   "woodenCloseModalGameIcon", // ✅
 
-  // Labels
+  // Labels, Amount: 11 | Build: ❌
   "colorfulLabel", // ✅
   "goldenSpecialLabel", // ✅
-  "goldenStandardLabel", // ✅
+  "goldenStandardLabel", // ✅ | Build: ❌
   "greenEnergyLabel", // ✅
   "levelLabel", // ✅
   "quarryLevelLabel", // ✅
@@ -84,15 +86,15 @@ export const imageNamesArray: ImageNameKey[] = [
   "woodenNormalLabel", // ✅
   "woodenShortLabel", // ✅
 
-  // Maps
+  // Maps, Amount: 1 | Build: ✅
   "townMap", // ✅
 
-  // Menus
+  // Menus, Amount: 3 | Build: ✅
   "buildingsMenu", // ✅
   "regsMenu", // ✅
   "spsMenu", // ✅
 
-  // Backgrounds
+  // Backgrounds, Amount: 15 | Build: ✅
   "amusementParkBG", // ✅
   "dieselFactoryBG", // ✅
   "hospitalBG", // ✅
@@ -109,14 +111,14 @@ export const imageNamesArray: ImageNameKey[] = [
   "townHallBG", // ✅
   "windTurbineBG", // ✅
 
-  // On Map Assets
+  // On Map Assets, Amount: 23  | Build: ❌
   "amusementParkOnMapAsset", // ✅
   "buildingPadLockOnMapAsset", // ✅
   "buildingPlaceholderOnMapAsset", // ✅
   "dieselFactoryOnMapAsset", // ✅
   "forest_01OnMapAsset", // ✅
   "hospitalOnMapAsset", // ✅
-  "orange_Bush_and_Shadow_01OnMapAsset", // ✅
+  "orange_Bush_and_Shadow_01OnMapAsset", // ✅  | Build: ❌
   "radioStationOnMapAsset", // ✅
   "REG__01OnMapAsset", // ✅
   "REGPadlockOnMapAsset", // ✅
@@ -127,24 +129,24 @@ export const imageNamesArray: ImageNameKey[] = [
   "superWindTurbineOnMapAsset", // ✅
   "toolStoreOnMapAsset", // ✅
   "townHallOnMapAsset", // ✅
-  "tree_01OnMapAsset", // ✅
-  "tree_02OnMapAsset", // ✅
-  "tree_03OnMapAsset", // ✅
-  "tree_05OnMapAsset", // ✅
-  "trees_and_Shadow_01_BigOnMapAsset", // ✅
-  "trees_and_Shadow_01_SmallOnMapAsset", // ✅
+  "tree_01OnMapAsset", // ✅  | Build: ❌
+  "tree_02OnMapAsset", // ✅  | Build: ❌
+  "tree_03OnMapAsset", // ✅  | Build: ❌
+  "tree_05OnMapAsset", // ✅  | Build: ❌
+  "trees_and_Shadow_01_BigOnMapAsset", // ✅  | Build: ❌
+  "trees_and_Shadow_01_SmallOnMapAsset", // ✅  | Build: ❌
 
-  // Quarries
+  // Quarries, Amount: 4 | Build: ✅
   "concreteIconQuarry", // ✅
   "crystalsIconQuarry", // ✅
   "metalsIconQuarry", // ✅
   "oilRigIconQuarry", // ✅
 
-  // Town Expansion
+  // Town Expansion, Amount: 2 | Build: ✅
   "townExpansionEmblem", // ✅
   "townExpansionIcon", // ✅
 
-  // Workers
+  // Workers, Amount: 6 | Build: ✅
   "concreteWorker", // ✅
   "crystalsWorker", // ✅
   "doctorWorker", // ✅
@@ -152,12 +154,14 @@ export const imageNamesArray: ImageNameKey[] = [
   "oilRigWorker", // ✅
   "simpleCitizenWorker", // ✅
 
-  // App Utils
+  // App Utils, Amount: 1 // ✅
   "rotateDeviceImgAppUtil", // ✅
 
-  // Error
+  // Error, Amount: 1 // ✅
   "catBreakError", // ✅
 ];
+
+// export const imageUrlssArray = originalImageUrls;
 
 export const imageGrpKeys: ImageGroups = {
   cards: {

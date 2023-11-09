@@ -1,8 +1,26 @@
+import viteManifestJson from "../../../../dist/manifest.json";
 import {
   imageGrpKeys,
   imageNamesArray,
 } from "../../../constants/utils/imageGrpTypeKeys";
 import { ImageGroups, ImageNameKey, ImageObject } from "../../../types";
+import { convertImagePath } from "../../../utils/convertImagePath";
+
+const isProduction = import.meta.env.MODE === "production";
+
+type ManifestEntry = {
+  file: string;
+  src?: string;
+  css?: string[];
+  dynamicImports?: string[];
+  isEntry?: boolean;
+};
+type ViteManifest = {
+  [key: string]: ManifestEntry;
+};
+
+// Now assert the imported JSON to the correct type
+const viteManifest = viteManifestJson as ViteManifest;
 
 export const getImagesFromModule = async (): Promise<string[]> => {
   const modules = await Promise.all([
@@ -15,7 +33,10 @@ export const getImagesFromModule = async (): Promise<string[]> => {
         typeof value === "string" ? value : Object.values(value)
       )
   );
-  console.log(unorganizedImageObjects);
+  console.log(
+    "ImageUtilsV2 - unorganizedImageObjects",
+    unorganizedImageObjects
+  );
   const allImages: string[] = unorganizedImageObjects.flatMap((image) =>
     typeof image === "string"
       ? image
@@ -27,26 +48,49 @@ export const getImagesFromModule = async (): Promise<string[]> => {
             : Object.values(value as ImageObject)
         )
   );
-  console.log(allImages);
+  console.log("ImageUtilsV2 - allImages: ", allImages.length);
   return Array.from(new Set([...allImages]));
 };
 
-// ✨ V1
+export function preloadImages(imageUrls: string[]): Promise<void[]> {
+  const loadPromises = imageUrls.map((url) => {
+    return new Promise<void>((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error(`Failed to load image at ${url}`));
+      img.src = url;
+    });
+  });
+
+  return Promise.all(loadPromises);
+}
+
 const urlKeyProvider = (url: string) => {
   // Check if we're in production mode
   const isProduction = import.meta.env.MODE === "production";
   const imageGroups: ImageGroups = imageGrpKeys;
 
   let parts = url.split("/");
-  // console.log("                                                        ");
-  // console.log("--------------------------------------------------------");
-  // console.log("💩 - [0] Parts: ", parts);
+  console.log("                                                        ");
+  console.log("--------------------------------------------------------");
+  console.log("💩 - [0] Parts: ", parts);
+  console.log("💩 - [1] Url: ", url);
 
   if (parts[1] === "assets") {
     parts = parts.slice(2);
   }
-  const groupPart = parts.at(isProduction ? 0 : -2);
-  let filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
+
+  let filePart;
+  let groupPart;
+
+  if (isProduction) {
+    const useful = parts[1].split("-");
+    groupPart = useful[0];
+    filePart = useful[1];
+  } else {
+    filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
+    groupPart = parts.at(isProduction ? 0 : -2);
+  }
   // if(isProduction) {
 
   // }
@@ -57,19 +101,18 @@ const urlKeyProvider = (url: string) => {
     filePart = filePart.replace(/-\w{8,}\./, ".");
   }
 
-  const keyWithExtension = filePart.split("-")[1];
+  const keyWithExtension = isProduction ? filePart : filePart.split("-")[1];
 
   const group = groupPart as keyof ImageGroups;
 
-  // console.log("💩 - [1] Url: ", url);
-  // console.log("💩 - [2] groupPart: ", groupPart);
-  // console.log("💩 - [3] filePart: ", filePart);
-  // console.log("💩 - [4] isProduction: ", isProduction);
-  // console.log("💩 - [5] keyWithExtension: ", keyWithExtension);
-  // console.log("--------------------------------------------------------");
+  console.log("💩 - [2] groupPart: ", groupPart);
+  console.log("💩 - [3] filePart: ", filePart);
+  console.log("💩 - [4] isProduction: ", isProduction);
+  console.log("💩 - [5] keyWithExtension: ", keyWithExtension);
+  console.log("--------------------------------------------------------");
 
-  // console.log("                                                        ");
-  // console.log("💩 - [7] Parts: ", parts)
+  console.log("                                                        ");
+  console.log("💩 - [7] Parts: ", parts);
 
   const key = keyWithExtension.replace(
     /\.\w+$/,
@@ -79,24 +122,27 @@ const urlKeyProvider = (url: string) => {
   return [key, group];
 };
 
-export const buildImageGroups = async (
-  cacheName: string,
-  imageUrls: string[]
-): Promise<ImageGroups> => {
-  const cache = await caches.open(cacheName);
+export const buildImageGroupsV2 = (hashedImageUrls: string[]): ImageGroups => {
   const imageGroups: ImageGroups = imageGrpKeys;
+  const originalImageUrls = hashedImageUrls.map(convertImagePath);
+  const imageUrls = isProduction ? hashedImageUrls : originalImageUrls;
 
-  imageUrls.forEach(async (url) => {
+  imageUrls.forEach((url: string) => {
     const [key, group] = urlKeyProvider(url);
-    const cacheResponse = await cache.match(key);
-    const localUrl = await cacheResponse
-      ?.blob()
-      .then((blob) => URL.createObjectURL(blob));
 
     if (group in imageGroups) {
       const imageMap = imageGroups[group];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (imageMap as any)[key] = localUrl;
+
+      if (isProduction) {
+        const manifestEntry = viteManifest[url];
+        if (manifestEntry) {
+          (imageMap as any)[key] = manifestEntry.file;
+          // (imageMap as any)[key] = viteManifest[url].file;
+        } else {
+          (imageMap as any)[key] = url;
+        }
+      }
     }
   });
 

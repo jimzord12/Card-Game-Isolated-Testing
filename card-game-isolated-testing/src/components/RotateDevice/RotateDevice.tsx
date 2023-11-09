@@ -1,4 +1,4 @@
-import { ImageContextAPI } from "../../context/ImageContext/ImageContextV4";
+import { ImageContextAPI } from "../../context/ImageContext/ImageContextV5";
 import styles from "./rotateDevice.module.css";
 interface Props {
   show: boolean;
