@@ -5,8 +5,9 @@ import {
 import { ImageGroups, ImageNameKey, ImageObject } from "../../../types";
 
 export const getImagesFromModule = async (): Promise<string[]> => {
-  const imagesPath = "../../../assets/imgs_new_convention";
-  const modules = await Promise.all([import(imagesPath)]);
+  const modules = await Promise.all([
+    import("../../../assets/imgs_new_convention"),
+  ]);
 
   const unorganizedImageObjects: (string | ImageObject)[] = modules.flatMap(
     (module: ImageObject) =>
@@ -26,20 +27,50 @@ export const getImagesFromModule = async (): Promise<string[]> => {
             : Object.values(value as ImageObject)
         )
   );
-
+  console.log(allImages);
   return Array.from(new Set([...allImages]));
 };
 
+// ✨ V1
 const urlKeyProvider = (url: string) => {
+  // Check if we're in production mode
+  const isProduction = import.meta.env.MODE === "production";
   const imageGroups: ImageGroups = imageGrpKeys;
 
-  const parts = url.split("/");
-  const groupPart = parts.at(-2);
-  const filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
+  let parts = url.split("/");
+  console.log("                                                        ");
+  console.log("--------------------------------------------------------");
+  console.log("💩 - [0] Parts: ", parts);
+
+  if (parts[1] === "assets") {
+    parts = parts.slice(2);
+  }
+  const groupPart = parts.at(isProduction ? 0 : -2);
+  let filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
+  // if(isProduction) {
+
+  // }
+
+  // If in production, remove the hash from the filename
+  if (isProduction) {
+    // This regex is designed to remove a hash like '-9b7ca980'
+    filePart = filePart.replace(/-\w{8,}\./, ".");
+  }
 
   const keyWithExtension = filePart.split("-")[1];
 
   const group = groupPart as keyof ImageGroups;
+
+  console.log("💩 - [1] Url: ", url);
+  console.log("💩 - [2] groupPart: ", groupPart);
+  console.log("💩 - [3] filePart: ", filePart);
+  console.log("💩 - [4] isProduction: ", isProduction);
+  console.log("💩 - [5] keyWithExtension: ", keyWithExtension);
+  console.log("--------------------------------------------------------");
+
+  console.log("                                                        ");
+  // console.log("💩 - [7] Parts: ", parts)
+
   const key = keyWithExtension.replace(
     /\.\w+$/,
     ""
@@ -57,19 +88,6 @@ export const buildImageGroups = async (
 
   imageUrls.forEach(async (url) => {
     const [key, group] = urlKeyProvider(url);
-    // const parts = url.split("/");
-    // const groupPart = parts.at(-2);
-    // const filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
-
-    // const keyWithExtension = filePart.split("-")[1];
-
-    // const group = groupPart as keyof ImageGroups;
-    // const key = keyWithExtension.replace(
-    //   /\.\w+$/,
-    //   ""
-    // ) as keyof (typeof imageGroups)[typeof group];
-
-    // console.log("The Key is: ", key);
     const cacheResponse = await cache.match(key);
     const localUrl = await cacheResponse
       ?.blob()
@@ -135,7 +153,7 @@ export async function storeImagesInCacheWithKeys(
           console.error(`Failed to fetch ${imageUrl}: ${response.status}`);
           return; // Skip this image and continue with the next
         }
-        const cachedImageKey = getImageName(imageUrl);
+        const [cachedImageKey] = urlKeyProvider(imageUrl);
         const cacheKey = cachedImageKey; // Use the constructed key name
         await cache.put(cacheKey, response.clone());
       } catch (error) {
@@ -145,21 +163,21 @@ export async function storeImagesInCacheWithKeys(
   );
 }
 
-export const getImageName = (url: string): string => {
-  const imageGroups: ImageGroups = imageGrpKeys;
-  const parts = url.split("/");
-  const groupPart = parts.at(-2);
-  const filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
-  const keyWithExtension = filePart.split("-")[1];
+// export const getImageName = (url: string): string => {
+//   const imageGroups: ImageGroups = imageGrpKeys;
+//   const parts = url.split("/");
+//   const groupPart = parts.at(-2);
+//   const filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
+//   const keyWithExtension = filePart.split("-")[1];
 
-  const group = groupPart as keyof ImageGroups;
-  const key = keyWithExtension.replace(
-    /\.\w+$/,
-    ""
-  ) as keyof (typeof imageGroups)[typeof group];
+//   const group = groupPart as keyof ImageGroups;
+//   const key = keyWithExtension.replace(
+//     /\.\w+$/,
+//     ""
+//   ) as keyof (typeof imageGroups)[typeof group];
 
-  return key;
-};
+//   return key;
+// };
 
 export function extractLastUrlSegment(url: string): string | ImageNameKey {
   const parts = url.split("/");

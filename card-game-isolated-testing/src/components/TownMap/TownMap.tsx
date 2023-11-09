@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+// import { useCallback, useEffect, useState } from "react";
 
 // CSS Modules
 import styles from "./css/general.module.css";
@@ -11,10 +11,10 @@ import GlowOutlineFilter from "../GlowOutlineFilter";
 
 const TownMap = () => {
   const { images /* clearCache */ } = ImageContextAPI();
-  const [highlightedImg, setHighlightedImg] = useState<number | null>(null);
-  const [selectedMapEntity, setSelectedMapEntity] = useState<number | null>(
-    null
-  );
+  // const [highlightedImg, setHighlightedImg] = useState<number | null>(null);
+  // const [selectedMapEntity, setSelectedMapEntity] = useState<number | null>(
+  //   null
+  // );
 
   // const placeholderTestImages = useMemo(() => testingPlaceholderImgs(), []);
 
@@ -55,18 +55,18 @@ const TownMap = () => {
   //   console.log("👉 IMAGES -> Cards -> Hospital: ", images.cards.hospital);
   // }, [images]);
 
-  useEffect(() => {
-    if (selectedMapEntity === null) return;
-    console.log("The Selected Image is this: ", selectedMapEntity);
-  }, [selectedMapEntity]);
+  // useEffect(() => {
+  //   if (selectedMapEntity === null) return;
+  //   console.log("The Selected Image is this: ", selectedMapEntity);
+  // }, [selectedMapEntity]);
 
-  const handleHover = useCallback((id: number) => {
-    setHighlightedImg(id);
-  }, []);
+  // const handleHover = useCallback((id: number) => {
+  //   setHighlightedImg(id);
+  // }, []);
 
-  const handleLeave = useCallback(() => {
-    setHighlightedImg(null);
-  }, []);
+  // const handleLeave = useCallback(() => {
+  //   setHighlightedImg(null);
+  // }, []);
 
   return (
     // <>
