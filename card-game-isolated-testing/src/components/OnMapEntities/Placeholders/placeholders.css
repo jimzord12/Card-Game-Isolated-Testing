@@ -105,11 +105,11 @@
 
 .placeholderSpot11 {
   outline: 2px solid green;
-  width: var(--placeholder-width);
-  height: var(--placeholder-height);
+  width: 10%;
+  height: 10%;
   position: absolute;
-  top: 33%;
-  left: 84%;
+  top: 35%;
+  left: 85.6%;
   z-index: 106;
 }
 

@@ -1,10 +1,10 @@
-import { ImageContextAPI } from "../../context/ImageContext/ImageContextV5";
+import { UseGlobalContext } from "../../context/GlobalContext/GlobalContext";
 import styles from "./rotateDevice.module.css";
 interface Props {
   show: boolean;
 }
 const RotateDevice = ({ show }: Props) => {
-  const { images } = ImageContextAPI();
+  const { images } = UseGlobalContext();
 
   if (!show) return null;
   return (

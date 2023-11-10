@@ -1,11 +1,13 @@
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-import { placeholders } from "../../../../assets/imgs/onMapAssets";
 // Wrap those Raw images with this
 import GlowImage from "../../../GlowImage/GlowImage";
 
 // Import all CSS Styles Required
+import { RegSpot, TownMapEntitiesData } from "../../../../types";
 import "../animations.css";
+import "../placeholders.css";
+import R_Padlock from "./R_Padlock";
 import styles from "./rPlaceholders.module.css";
 
 interface propsTypes {
@@ -16,7 +18,13 @@ interface propsTypes {
   setSelectedMapEntity: Dispatch<SetStateAction<number | null>>;
   //   imageDetails: ImageDetail[];
   id: number;
-  spot: number
+  isLocked: boolean;
+  spot: RegSpot;
+  mapEntities: TownMapEntitiesData;
+  imgUrls: {
+    placeholder: string;
+    padlock: string;
+  };
 }
 
 const PlaceholderREG = ({
@@ -25,40 +33,33 @@ const PlaceholderREG = ({
   handleLeave,
   setSelectedMapEntity,
   id,
-  spot
+  spot,
+  isLocked,
+  mapEntities,
+  imgUrls,
 }: propsTypes) => {
-  const randomValue = useMemo((): number => {
-    const min = 6;
-    const max = 8;
-    return Math.random() * (max - min) + min;
-  }, []);
-
   return (
-    <div
-      className={styles.regPlaceholderContainer}
-      onClick={() => setSelectedMapEntity(id)}
-      onMouseEnter={() => handleHover(id)}
-      onMouseLeave={() => handleLeave(id)}
-    >
-      <div className={styles.regPadlockContainer}>
-        <img
-          className={styles.regPadlock}
-          style={{
-            animation: `floatPadlock${
-              spot % 2 === 0 ? "1" : "2"
-            } ${randomValue}s ease-in-out infinite`,
-          }}
-          src={placeholders.padlockREG}
-        />
-      </div>
-      <GlowImage
-        src={placeholders.placeholderREG}
-        alt="REG - Placeholder"
-        isHovered={highlightedImg === id}
-        onHover={() => handleHover(id)}
-        onLeave={() => handleLeave(id)}
-      />
-    </div>
+    <>
+      {mapEntities[spot] === null ? (
+        <div className={`placeholderSpot${spot}`} key={id}>
+          <div
+            className={styles.regPlaceholderContainer}
+            onClick={() => setSelectedMapEntity(id)}
+            onMouseEnter={() => handleHover(id)}
+            onMouseLeave={() => handleLeave(id)}
+          >
+            {isLocked && <R_Padlock spot={spot} padlockImg={imgUrls.padlock} />}
+            <GlowImage
+              src={imgUrls.placeholder}
+              alt="REG - Placeholder"
+              isHovered={highlightedImg === id}
+              onHover={() => handleHover(id)}
+              onLeave={() => handleLeave(id)}
+            />
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 };
 

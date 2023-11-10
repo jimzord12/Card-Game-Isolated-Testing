@@ -1,4 +1,4 @@
-import { CardData, CardRequirements } from ".";
+import { CardData, CardRequirements } from "..";
 
 export type RegSpot = 0 | 1 | 3 | 8 | 10 | 11 | 13;
 export type RegTemplateId = 201 | 202 | 203 | 204;

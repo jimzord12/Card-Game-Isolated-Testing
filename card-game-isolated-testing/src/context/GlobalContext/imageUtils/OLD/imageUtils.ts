@@ -1,12 +1,12 @@
 import {
   imageGrpKeys,
   imageNamesArray,
-} from "../../../constants/utils/imageGrpTypeKeys";
-import { ImageGroups, ImageNameKey, ImageObject } from "../../../types";
+} from "../../../../constants/utils/imageGrpTypeKeys";
+import { ImageGroups, ImageNameKey, ImageObject } from "../../../../types";
 
 export const getImagesFromModule = async (): Promise<string[]> => {
   const modules = await Promise.all([
-    import("../../../assets/imgs_new_convention"),
+    import("../../../../assets/imgs_new_convention"),
   ]);
 
   const unorganizedImageObjects: (string | ImageObject)[] = modules.flatMap(

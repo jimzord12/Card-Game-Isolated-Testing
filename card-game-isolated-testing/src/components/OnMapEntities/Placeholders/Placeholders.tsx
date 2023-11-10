@@ -1,12 +1,23 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import PlaceholderBuilding from "./Buildings/B_placeholder";
 import PlaceholderREG from "./REGs/R_placeholder";
 
-import "./placeholders.css";
-import { PlaceholderImageDetail } from "../../../types";
+import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
+import { placeholderInfo } from "../../../data/test/placeholderInfo";
+import {
+  BuildingSpot,
+  CardLevel,
+  RegSpot,
+  TownMapEntitiesData,
+} from "../../../types";
 
 interface props {
-  images: PlaceholderImageDetail[];
+  // images: PlaceholderImageDetail[];
+  playerInfo: {
+    townHallLevel: CardLevel;
+    [key: string]: any;
+  };
+  mapEntities: TownMapEntitiesData;
   highlightedImg: number | null;
   handleHover: (id: number) => void;
   handleLeave: (id: number) => void;
@@ -16,41 +27,67 @@ interface props {
 }
 
 const Placeholders = ({
-  images,
+  playerInfo,
+  mapEntities,
   highlightedImg,
   handleHover,
   handleLeave,
   setSelectedMapEntity,
 }: props) => {
+  const { images } = UseGlobalContext();
+  if (images === undefined)
+    throw new Error("⛔ Placeholders, images are undefined!");
+
+  const filteredImgs = useMemo(
+    () => ({
+      building: {
+        placeholder: images.onMapAssets.buildingPlaceholderOnMapAsset,
+        padlock: images.onMapAssets.buildingPadLockOnMapAsset,
+      },
+      reg: {
+        placeholder: images.onMapAssets.REGPlaceholderOnMapAsset,
+        padlock: images.onMapAssets.REGPadlockOnMapAsset,
+      },
+    }),
+    [images]
+  );
+
   return (
     <div>
-      {images.map((img) => {
-        if (img.type !== "placeholder") return;
-        if (img.subType === "building") {
+      {placeholderInfo.map((placeholder) => {
+        if (placeholder.subType === "building") {
           return (
-            <div className={`placeholderSpot${img.spot}`} key={img.id}>
-              <PlaceholderBuilding
-                id={img.id}
-                spot={img.spot}
-                highlightedImg={highlightedImg}
-                handleHover={handleHover}
-                handleLeave={handleLeave}
-                setSelectedMapEntity={setSelectedMapEntity}
-              />
-            </div>
+            <PlaceholderBuilding
+              key={placeholder.id}
+              id={placeholder.id}
+              isLocked={
+                placeholder.id === 402
+                  ? true
+                  : playerInfo.townHallLevel < placeholder.unlocksAt
+              }
+              spot={placeholder.spot as BuildingSpot}
+              highlightedImg={highlightedImg}
+              handleHover={handleHover}
+              handleLeave={handleLeave}
+              setSelectedMapEntity={setSelectedMapEntity}
+              mapEntities={mapEntities}
+              imgUrls={filteredImgs.building}
+            />
           );
-        } else if (img.subType === "reg") {
+        } else if (placeholder.subType === "reg") {
           return (
-            <div className={`placeholderSpot${img.spot}`} key={img.id}>
-              <PlaceholderREG
-                id={img.id}
-                spot={img.spot}
-                highlightedImg={highlightedImg}
-                handleHover={handleHover}
-                handleLeave={handleLeave}
-                setSelectedMapEntity={setSelectedMapEntity}
-              />
-            </div>
+            <PlaceholderREG
+              key={placeholder.id}
+              id={placeholder.id}
+              isLocked={playerInfo.townHallLevel < placeholder.unlocksAt}
+              spot={placeholder.spot as RegSpot}
+              highlightedImg={highlightedImg}
+              handleHover={handleHover}
+              handleLeave={handleLeave}
+              setSelectedMapEntity={setSelectedMapEntity}
+              mapEntities={mapEntities}
+              imgUrls={filteredImgs.reg}
+            />
           );
         } else {
           throw new Error("⛔ Problem Origin: Placeholders.tsx");

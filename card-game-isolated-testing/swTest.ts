@@ -153,7 +153,6 @@ self.addEventListener("fetch", (event: FetchEvent) => {
 
   event.respondWith(
     caches.match(event.request).then((response) => {
-      console.log("AAAAAAAA: ", event.request);
       if (response) {
         return response;
       }

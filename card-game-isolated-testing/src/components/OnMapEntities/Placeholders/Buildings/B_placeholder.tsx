@@ -1,12 +1,15 @@
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-import { placeholders } from "../../../../assets/imgs/onMapAssets";
 // Wrap those Raw images with this
 import GlowImage from "../../../GlowImage/GlowImage";
+import BuildingPadlock from "./B_Padlock";
 
 // Import all CSS Styles Required
+import { BuildingSpot, TownMapEntitiesData } from "../../../../types";
 import "../animations.css";
 import styles from "./bPlaceholders.module.css";
+import "../placeholders.css";
+
 
 interface propsTypes {
   highlightedImg: number | null;
@@ -14,7 +17,13 @@ interface propsTypes {
   handleLeave: (id: number) => void;
   setSelectedMapEntity: Dispatch<SetStateAction<number | null>>;
   id: number;
-  spot: number;
+  spot: BuildingSpot;
+  isLocked: boolean;
+  mapEntities: TownMapEntitiesData;
+  imgUrls: {
+    placeholder: string;
+    padlock: string;
+  };
 }
 
 const PlaceholderBuilding = ({
@@ -24,39 +33,35 @@ const PlaceholderBuilding = ({
   setSelectedMapEntity,
   id,
   spot,
+  isLocked,
+  mapEntities,
+  imgUrls,
 }: propsTypes) => {
-  const randomValue = useMemo((): number => {
-    const min = 6;
-    const max = 8;
-    return Math.random() * (max - min) + min;
-  }, []);
-
   return (
-    <div
-      className={styles.buildingPlaceholderContainer}
-      onClick={() => setSelectedMapEntity(id)}
-      onMouseEnter={() => handleHover(id)}
-      onMouseLeave={() => handleLeave(id)}
-    >
-      <div className={styles.buildingPadlockContainer}>
-        <img
-          className={styles.buildingPadlock}
-          style={{
-            animation: `floatPadlock${
-              spot % 2 === 0 ? "1" : "2"
-            } ${randomValue}s ease-in-out infinite`,
-          }}
-          src={placeholders.padlockBuilding}
-        />
-      </div>
-      <GlowImage
-        src={placeholders.placeholderBuilding}
-        alt="Building - Placeholder"
-        isHovered={highlightedImg === id}
-        onHover={() => handleHover(id)}
-        onLeave={() => handleLeave(id)}
-      />
-    </div>
+    <>
+      {mapEntities[spot] === null ? (
+        <div className={`placeholderSpot${spot}`} key={id}>
+          <div
+            className={styles.buildingPlaceholderContainer}
+            onClick={() => setSelectedMapEntity(id)}
+            onMouseEnter={() => handleHover(id)}
+            onMouseLeave={() => handleLeave(id)}
+          >
+            {isLocked && (
+              <BuildingPadlock spot={spot} padlockImg={imgUrls.padlock} />
+            )}
+
+            <GlowImage
+              src={imgUrls.placeholder}
+              alt="Building - Placeholder"
+              isHovered={highlightedImg === id}
+              onHover={() => handleHover(id)}
+              onLeave={() => handleLeave(id)}
+            />
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 };
 

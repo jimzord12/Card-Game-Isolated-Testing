@@ -15,7 +15,7 @@
   z-index: 108;
 }
 
-.regSpotWind2 {
+.regSpotWind3 {
   outline: 2px solid blue;
   width: var(--reg-width-wind);
   height: var(--reg-height-wind);
@@ -25,7 +25,7 @@
   z-index: 107;
 }
 
-.regSpotWind3 {
+.regSpotWind8 {
   outline: 2px solid violet;
   width: 18%;
   height: 29%;
@@ -35,7 +35,7 @@
   z-index: 109;
 }
 
-.regSpotWind4 {
+.regSpotWind10 {
   outline: 2px solid brown;
   width: 16.5%;
   height: 31.3%;
@@ -45,7 +45,7 @@
   z-index: 110;
 }
 
-.regSpotWind5 {
+.regSpotWind11 {
   outline: 2px solid cyan;
   width: 13%;
   height: 23.3%;
@@ -55,7 +55,7 @@
   z-index: 111;
 }
 
-.regSpotWind6 {
+.regSpotWind13 {
   outline: 2px solid orange;
   /* width: var(--reg-width-wind-big);
   height: var(--reg-height-wind-big); */

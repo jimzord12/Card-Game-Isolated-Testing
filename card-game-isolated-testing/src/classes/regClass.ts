@@ -6,17 +6,17 @@ import {
 } from "../constants/cardStats/coefficients";
 import { templateDataReg } from "../constants/templates/regs";
 import {
-  RegTemplateId,
-  CardType,
-  RegSpot,
+  CardLevel,
   CardRarity,
+  CardRequirements,
+  CardType,
+  OneToFive,
+  RegCardData,
+  RegMaintenance,
   RegName,
   RegOutput,
-  RegMaintenance,
-  CardRequirements,
-  CardLevel,
-  RegCardData,
-  OneToFive,
+  RegSpot,
+  RegTemplateId,
 } from "../types";
 import { formatDate, roundToDecimal } from "../utils/utilityFunctions";
 
@@ -48,7 +48,7 @@ export default class RegCard {
     image: string
   ) {
     console.log("======================================================");
-    console.log("1. The dataFromDB: ", data);
+    console.log("1. Constructor: The Input Data: ", data);
     console.log("======================================================");
 
     // From Caller
@@ -93,7 +93,7 @@ export default class RegCard {
   ) {
     const _level: OneToFive = 1;
     const defaultValues = {
-      id: newId,
+      id: newId + 2000,
       rarity: this.generateRarityLevel(),
       priceTag: null,
       in_mp: false,

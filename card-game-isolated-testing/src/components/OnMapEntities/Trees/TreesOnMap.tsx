@@ -1,15 +1,21 @@
 // interface propsTypes {}
-import { treeImgs } from "../../../data/imageData";
+// import { treeImgs } from "../../../data/imageData";
+// import { multipleTree } from "../../../assets/imgs_new_convention/onMapAssets";
+import { useMemo } from "react";
+import { ImageGroups } from "../../../types";
+import { treeImgsProccesor } from "../../../utils/images/treeImgsProccesor";
 import Tree from "./Tree";
+import { treesType } from "../../../types/MapEntitiesTypes/TreesType";
 
-type treesType = {
-  spot: number;
-  img: string;
-};
+interface Props {
+  images: ImageGroups | undefined;
+}
 
-const trees: treesType[] = treeImgs;
+const TreesOnMap = ({ images }: Props) => {
+  if (images === undefined)
+    throw new Error("TreesOnMap: images Object is undefined!");
 
-const TreesOnMap = () => {
+  const trees: treesType[] = useMemo(() => treeImgsProccesor(images), [images]);
   return (
     <>
       {trees.map(({ spot, img }, index) => (

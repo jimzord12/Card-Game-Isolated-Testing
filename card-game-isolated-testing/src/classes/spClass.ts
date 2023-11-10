@@ -1,14 +1,14 @@
 import { rarityMultiplier } from "../constants/cardStats/coefficients";
 import { templateDataSP } from "../constants/templates/sps";
 import {
-  SPTemplateId,
-  CardType,
   CardRarity,
+  CardRequirements,
+  CardType,
+  OneToFive,
+  SPCardData,
   SPName,
   SPOutput,
-  CardRequirements,
-  SPCardData,
-  OneToFive,
+  SPTemplateId,
 } from "../types";
 import { formatDate, roundToDecimal } from "../utils/utilityFunctions";
 
@@ -77,7 +77,7 @@ export default class SPCard {
     _state: boolean = false
   ) {
     const defaultValues = {
-      id: newId,
+      id: newId + 3000,
       rarity: this.generateRarityLevel(),
       priceTag: null,
       in_mp: false,

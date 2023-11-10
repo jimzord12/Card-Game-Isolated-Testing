@@ -97,7 +97,7 @@ export default class BuildingCard {
   ) {
     const _level: OneToFive = 1;
     const defaultValues = {
-      id: newId,
+      id: newId + 1000,
       rarity: this.generateRarityLevel(),
       priceTag: null,
       in_mp: false,

@@ -25,7 +25,7 @@ interface ImageProviderProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function ImageContextAPI() {
+export function UseGlobalContext() {
   return useContext(ImageContext);
 }
 
@@ -58,7 +58,7 @@ const ImageProviderV5: React.FC<ImageProviderProps> = ({
         const allImages: string[] = await getImagesFromModule();
         await preloadImages(allImages);
         const imagesObject = buildImageGroupsV2(hashedImages); // Is Env-Aware (Prod or Dev)
-        console.log("Image Context V5, Image Objext: ", imagesObject);
+        console.log("Global Context, Image Objext: ", allImages.length);
         setImages(imagesObject);
       } catch (error) {
         console.error("Error loading images:", error);

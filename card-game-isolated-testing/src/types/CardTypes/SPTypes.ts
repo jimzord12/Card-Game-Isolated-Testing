@@ -1,4 +1,4 @@
-import { CardData, CardRequirements } from ".";
+import { CardData, CardRequirements } from "..";
 
 export type SPOutput = { boost: number };
 export type SPTemplateId = 301 | 302 | 303;

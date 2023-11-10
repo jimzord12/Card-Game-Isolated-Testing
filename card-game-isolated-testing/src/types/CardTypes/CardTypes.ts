@@ -1,4 +1,4 @@
-import { OneToFive } from ".";
+import { BuildingStats, OneToFive } from "..";
 
 export type CardSpot =
   | 0
@@ -41,6 +41,6 @@ export interface CardData {
   creationTime: string;
   creator: string;
   endDate?: string;
-  usedFrom?: any; // Replace 'any' with a more specific type if possible
-  stats?: any; // Replace 'any' with a more specific type if possible
+  // usedFrom?: any; // Replace 'any' with a more specific type if possible
+  stats?: BuildingStats; // ✨ This is only for the ToolStore Building Card
 }

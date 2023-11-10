@@ -4,7 +4,7 @@ import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import RotateDevice from "../RotateDevice/RotateDevice";
 
 const ImageProviderV5 = lazy(
-  () => import("../../context/ImageContext/ImageContextV5")
+  () => import("../../context/GlobalContext/GlobalContext")
 );
 const Game = lazy(() => import("../Game/Game"));
 

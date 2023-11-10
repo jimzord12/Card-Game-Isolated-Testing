@@ -3,7 +3,7 @@
   --building-height: 22%;
 }
 
-.buildingSpot1 {
+.buildingSpot2 {
   outline: 2px solid red;
   width: var(--building-width);
   height: var(--building-height);
@@ -13,7 +13,7 @@
   z-index: 108;
 }
 
-.buildingSpot2 {
+.buildingSpot4 {
   outline: 2px solid blue;
   width: var(--building-width);
   height: var(--building-height);
@@ -23,7 +23,7 @@
   z-index: 107;
 }
 
-.buildingSpot3 {
+.buildingSpot5 {
   outline: 2px solid violet;
   width: var(--building-width);
   height: var(--building-height);
@@ -33,7 +33,7 @@
   z-index: 109;
 }
 
-.buildingSpot4 {
+.buildingSpot6 {
   outline: 2px solid brown;
   width: var(--building-width);
   height: var(--building-height);
@@ -43,7 +43,7 @@
   z-index: 110;
 }
 
-.buildingSpot5 {
+.buildingSpot7 {
   outline: 2px solid cyan;
   width: var(--building-width);
   height: var(--building-height);
@@ -53,7 +53,7 @@
   z-index: 111;
 }
 
-.buildingSpot6 {
+.buildingSpot9 {
   outline: 2px solid orange;
   width: var(--building-width);
   height: var(--building-height);
@@ -63,7 +63,7 @@
   z-index: 113;
 }
 
-.buildingSpot7 {
+.buildingSpot12 {
   outline: 2px solid green;
   width: var(--building-width);
   height: var(--building-height);

@@ -1,4 +1,4 @@
-import { CardData, CardRequirements } from ".";
+import { CardData, CardRequirements } from "..";
 
 export type BuildingSpot = 0 | 2 | 4 | 5 | 6 | 7 | 9 | 12;
 export type BuildingMaintenance = { energy: number };
@@ -17,7 +17,7 @@ export interface BuildingCardData
 }
 
 export type BuildingStats = {
-  // This is only for the ToolStore Building Card
+  // ✨ This Type is only for the ToolStore Building Card
   gold: number;
   concrete: number;
   crystals: number;

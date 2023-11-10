@@ -1,4 +1,4 @@
-import { OneToFive } from ".";
+import { OneToFive } from "../index";
 
 export type DefaultBuildingName = "TownHall" | "DieselFactory";
 export type DefaultBuildingLevel = OneToFive;

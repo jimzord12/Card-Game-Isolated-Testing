@@ -33,10 +33,10 @@ export const getImagesFromModule = async (): Promise<string[]> => {
         typeof value === "string" ? value : Object.values(value)
       )
   );
-  console.log(
-    "ImageUtilsV2 - unorganizedImageObjects",
-    unorganizedImageObjects
-  );
+  // console.log(
+  //   "ImageUtilsV2 - unorganizedImageObjects",
+  //   unorganizedImageObjects
+  // );
   const allImages: string[] = unorganizedImageObjects.flatMap((image) =>
     typeof image === "string"
       ? image
@@ -48,7 +48,7 @@ export const getImagesFromModule = async (): Promise<string[]> => {
             : Object.values(value as ImageObject)
         )
   );
-  console.log("ImageUtilsV2 - allImages: ", allImages.length);
+  // console.log("ImageUtilsV2 - allImages: ", allImages.length);
   return Array.from(new Set([...allImages]));
 };
 
@@ -67,17 +67,19 @@ export function preloadImages(imageUrls: string[]): Promise<void[]> {
 
 const urlKeyProvider = (url: string) => {
   // Check if we're in production mode
-  const isProduction = import.meta.env.MODE === "production";
+  // const isProduction = import.meta.env.MODE === "production";
   const imageGroups: ImageGroups = imageGrpKeys;
+  // console.log("[-1] - url: ", url);
 
   let parts = url.split("/");
-  console.log("                                                        ");
-  console.log("--------------------------------------------------------");
-  console.log("💩 - [0] Parts: ", parts);
-  console.log("💩 - [1] Url: ", url);
+  // console.log("                                                        ");
+  // console.log("--------------------------------------------------------");
+  // console.log("💩 - [0] Parts: ", parts);
+  // console.log("💩 - [1] Url: ", url);
 
   if (parts[1] === "assets") {
     parts = parts.slice(2);
+    // console.log("[0] - parts: ", parts);
   }
 
   let filePart;
@@ -87,6 +89,10 @@ const urlKeyProvider = (url: string) => {
     const useful = parts[1].split("-");
     groupPart = useful[0];
     filePart = useful[1];
+
+    // console.log("[1] - useful: ", useful);
+    // console.log("[2] - groupPart: ", groupPart);
+    // console.log("[3] - filePart: ", filePart);
   } else {
     filePart = parts.at(-1) ?? "xxxxxxxxxxxxxxxx";
     groupPart = parts.at(isProduction ? 0 : -2);
@@ -105,14 +111,14 @@ const urlKeyProvider = (url: string) => {
 
   const group = groupPart as keyof ImageGroups;
 
-  console.log("💩 - [2] groupPart: ", groupPart);
-  console.log("💩 - [3] filePart: ", filePart);
-  console.log("💩 - [4] isProduction: ", isProduction);
-  console.log("💩 - [5] keyWithExtension: ", keyWithExtension);
-  console.log("--------------------------------------------------------");
+  // console.log("💩 - [2] groupPart: ", groupPart);
+  // console.log("💩 - [3] filePart: ", filePart);
+  // console.log("💩 - [4] isProduction: ", isProduction);
+  // console.log("💩 - [5] keyWithExtension: ", keyWithExtension);
+  // console.log("--------------------------------------------------------");
 
-  console.log("                                                        ");
-  console.log("💩 - [7] Parts: ", parts);
+  // console.log("                                                        ");
+  // console.log("💩 - [7] Parts: ", parts);
 
   const key = keyWithExtension.replace(
     /\.\w+$/,
@@ -124,8 +130,14 @@ const urlKeyProvider = (url: string) => {
 
 export const buildImageGroupsV2 = (hashedImageUrls: string[]): ImageGroups => {
   const imageGroups: ImageGroups = imageGrpKeys;
-  const originalImageUrls = hashedImageUrls.map(convertImagePath);
-  const imageUrls = isProduction ? hashedImageUrls : originalImageUrls;
+  let imageUrls;
+
+  if (isProduction) {
+    imageUrls = hashedImageUrls;
+  } else {
+    imageUrls = hashedImageUrls.map(convertImagePath);
+  }
+  // console.log("imageUrls: ", imageUrls);
 
   imageUrls.forEach((url: string) => {
     const [key, group] = urlKeyProvider(url);
@@ -135,13 +147,16 @@ export const buildImageGroupsV2 = (hashedImageUrls: string[]): ImageGroups => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
       if (isProduction) {
-        const manifestEntry = viteManifest[url];
-        if (manifestEntry) {
-          (imageMap as any)[key] = manifestEntry.file;
-          // (imageMap as any)[key] = viteManifest[url].file;
-        } else {
-          (imageMap as any)[key] = url;
-        }
+        // const orignalUrl = convertImagePath(url);
+        // console.log("orignalUrl: ", orignalUrl);
+        const manifestEntry = viteManifest[convertImagePath(url)];
+        // console.log("AAAAAA: ", manifestEntry);
+        // if (manifestEntry) {
+        (imageMap as any)[key] = manifestEntry.file;
+        // (imageMap as any)[key] = viteManifest[url].file;
+        // }
+      } else {
+        (imageMap as any)[key] = url;
       }
     }
   });
