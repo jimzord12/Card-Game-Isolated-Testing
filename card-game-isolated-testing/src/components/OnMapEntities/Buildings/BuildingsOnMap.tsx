@@ -1,15 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
+import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
 import { TownMapEntitiesData } from "../../../types";
+import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
 import GlowImage from "../../GlowImage/GlowImage";
 import "./buildings.css";
-
-// interface ImageDetail {
-//   id: number;
-//   src: string;
-//   alt: string;
-//   isHovered: boolean;
-//   spot: number;
-// }
 
 interface Props {
   highlightedImg: number | null;
@@ -31,7 +25,8 @@ const BuildingsOnMap = ({
       {Object.entries(mapEntities).map(([spot, card]) =>
         card === null ||
         card?.type === undefined ||
-        card?.type !== "building" ? null : (
+        card?.type !== "building" ||
+        !isBuildingCard(card) ? null : (
           <div
             key={card.id}
             className={`buildingSpot${spot}`}
@@ -39,7 +34,7 @@ const BuildingsOnMap = ({
           >
             <GlowImage
               key={card.id}
-              src={card.img}
+              src={cardUrlsWithShadow.buildings[card.name]}
               alt={card.name}
               isHovered={highlightedImg === card.id}
               onHover={() => handleHover(card.id)}

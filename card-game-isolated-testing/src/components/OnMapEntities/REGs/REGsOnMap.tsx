@@ -1,5 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
+import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
 import { TownMapEntitiesData } from "../../../types";
+import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
+
 import GlowImage from "../../GlowImage/GlowImage";
 import "./solar.css";
 import "./wind.css";
@@ -24,7 +27,8 @@ const RegsOnMap = ({
       {Object.entries(mapEntities).map(([spot, card]) =>
         card === null ||
         card?.type === undefined ||
-        card?.type !== "reg" ? null : (
+        card?.type !== "reg" ||
+        !isRegCard(card) ? null : (
           <div
             key={card.id}
             className={
@@ -36,7 +40,7 @@ const RegsOnMap = ({
           >
             <GlowImage
               key={card.id}
-              src={card.img}
+              src={cardUrlsWithShadow.reg[card.name]}
               alt={card.name}
               isHovered={highlightedImg === card.id}
               onHover={() => handleHover(card.id)}

@@ -45,7 +45,7 @@ export interface CardData {
   stats?: BuildingStats; // ✨ This is only for the ToolStore Building Card
 }
 
-export interface CardUrl {
+export interface CardNoShadowUrl {
   buildings: {
     AmusementPark: string;
     ToolStore: string;
@@ -62,5 +62,20 @@ export interface CardUrl {
     WallStreet: string;
     LoveApp: string;
     SuperStrong: string;
+  };
+}
+
+export interface CardWithShadowUrl {
+  buildings: {
+    AmusementPark: string;
+    ToolStore: string;
+    Hospital: string;
+    RadioStation: string;
+  };
+  reg: {
+    SimpleWindTurbine: string;
+    SimpleSolarPanel: string;
+    SuperWindTurbine: string;
+    SuperSolarPanel: string;
   };
 }

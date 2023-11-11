@@ -1,10 +1,10 @@
 .defaultBuildingTownHall {
   outline: 2px solid red;
-  width: 25%;
-  height: 25%;
+  width: 22%;
+  height: 27%;
   position: absolute;
-  top: 30%;
-  left: 11.9%;
+  top: 28.5%;
+  left: 14.5%;
   z-index: 99;
 }
 
@@ -16,4 +16,97 @@
   top: 5%;
   left: 43%;
   z-index: 99;
+}
+
+/* @media only screen and (min-width: 764px) and (max-width: 900px) {
+  .defaultBuildingTownHall {
+    top: 28.5%;
+    left: 14%;
+  }
+} */
+
+/* @media only screen and (max-width: 763px) {
+  .defaultBuildingTownHall {
+    top: 30.5%;
+    left: 14%;
+  }
+} */
+
+/* DEVICE: Surface Pro 7 (1368 x 912) */
+@media only screen and (min-aspect-ratio: 3/2) and (max-aspect-ratio: 3/2) {
+  .defaultBuildingTownHall {
+    top: 29%;
+    left: 14%;
+  }
+}
+
+/* DEVICE: Surface Pro 7 (1368 x 912) */
+@media only screen and (min-aspect-ratio: 4/3) and (max-aspect-ratio: 4/3) {
+  .defaultBuildingTownHall {
+    top: 31%;
+    left: 14%;
+  }
+}
+
+/* DEVICE: iPhone XR (896 x 414) */
+@media only screen and (min-aspect-ratio: 448/207) and (max-aspect-ratio: 448/207) {
+  .defaultBuildingTownHall {
+    top: 28.7%;
+    left: 13.8%;
+  }
+}
+
+/* DEVICE: iPhone SE (667 x 375) */
+@media only screen and (min-aspect-ratio: 667/375) and (max-aspect-ratio: 667/375) {
+  .defaultBuildingTownHall {
+    top: 30.4%;
+    left: 14%;
+  }
+}
+
+/* DEVICE: iPad Pro (1366 x 1024) */
+@media only screen and (min-aspect-ratio: 683/512) and (max-aspect-ratio: 683/512) {
+  .defaultBuildingTownHall {
+    top: 31.2%;
+    left: 14%;
+  }
+}
+
+/* DEVICE: iPhone 12 Pro (844 x 390) */
+@media only screen and (min-aspect-ratio: 422/195) and (max-aspect-ratio: 422/195) {
+  .defaultBuildingTownHall {
+    top: 28.7%;
+    left: 13.8%;
+  }
+}
+
+/* DEVICE: iPhone 14 Pro Max (932 x 430) */
+@media only screen and (min-aspect-ratio: 466/215) and (max-aspect-ratio: 466/215) {
+  .defaultBuildingTownHall {
+    top: 28.7%;
+    left: 13.8%;
+  }
+}
+
+/* DEVICE: Pixel 7 (915 x 412) */
+@media only screen and (min-aspect-ratio: 915/412) and (max-aspect-ratio: 915/412) {
+  .defaultBuildingTownHall {
+    top: 28.7%;
+    left: 14%;
+  }
+}
+
+/* DEVICE: Samsung Galaxy S8+ (740 x 360) */
+@media only screen and (min-aspect-ratio: 37/18) and (max-aspect-ratio: 37/18) {
+  .defaultBuildingTownHall {
+    top: 29.1%;
+    left: 14%;
+  }
+}
+
+@media only screen and (min-aspect-ratio: 16/9) and (max-aspect-ratio: 16/9) {
+  .defaultBuildingTownHall {
+    top: 28.5%;
+    left: 14.5%;
+  }
 }

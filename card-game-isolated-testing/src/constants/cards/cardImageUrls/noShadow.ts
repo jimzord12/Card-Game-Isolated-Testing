@@ -1,15 +1,14 @@
 import viteManifestJson from "../../../../dist/manifest.json";
-import { CardUrl } from "../../../types";
+import { CardNoShadowUrl } from "../../../types";
 import { ViteManifest } from "../../../types/ViteManifest";
 
 const viteManifest: ViteManifest = viteManifestJson;
 
-const devModeCardUrls: CardUrl = {
+const devModeCardUrls: CardNoShadowUrl = {
   buildings: {
     AmusementPark:
       "src/assets/imgs_new_convention/cards/cards-amusementParkCard.webp",
-    ToolStore:
-      "src/assets/imgs_new_convention/emblems/emblems-concreteEmblem.webp",
+    ToolStore: "src/assets/imgs_new_convention/cards/cards-toolStoreCard.webp",
     Hospital: "src/assets/imgs_new_convention/cards/cards-hospitalCard.webp",
     RadioStation:
       "src/assets/imgs_new_convention/cards/cards-radioStationCard.webp",
@@ -33,7 +32,7 @@ const devModeCardUrls: CardUrl = {
   },
 };
 
-const prodModeCardUrls: CardUrl = {
+const prodModeCardUrls: CardNoShadowUrl = {
   buildings: {
     AmusementPark: viteManifest[devModeCardUrls.buildings.AmusementPark].file,
     ToolStore: viteManifest[devModeCardUrls.buildings.ToolStore].file,

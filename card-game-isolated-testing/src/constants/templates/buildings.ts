@@ -3,7 +3,10 @@ import {
   BuildingTemplateId,
   TemplateDataBuilding,
 } from "../../types";
-import { devModeCardUrls, prodModeCardUrls } from "../cards/cardImageUrls";
+import {
+  devModeCardUrls,
+  prodModeCardUrls,
+} from "../cards/cardImageUrls/noShadow";
 
 const isProduction = import.meta.env.MODE === "production";
 
