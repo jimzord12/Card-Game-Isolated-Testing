@@ -35,12 +35,12 @@
 /* DEVICE: Surface Pro 7 (1368 x 912) */
 @media only screen and (min-aspect-ratio: 3/2) and (max-aspect-ratio: 3/2) {
   .defaultBuildingTownHall {
-    top: 29%;
+    top: 30.3%;
     left: 14%;
   }
 }
 
-/* DEVICE: Surface Pro 7 (1368 x 912) */
+/* DEVICE: Surface Duo (720 x 540) */
 @media only screen and (min-aspect-ratio: 4/3) and (max-aspect-ratio: 4/3) {
   .defaultBuildingTownHall {
     top: 31%;
