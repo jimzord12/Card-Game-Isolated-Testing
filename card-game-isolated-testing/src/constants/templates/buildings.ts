@@ -1,9 +1,20 @@
-import { TemplateDataBuilding, BuildingTemplateId } from "../../types";
+import {
+  BuildingName,
+  BuildingTemplateId,
+  TemplateDataBuilding,
+} from "../../types";
+import { devModeCardUrls, prodModeCardUrls } from "../cards/cardImageUrls";
+
+const isProduction = import.meta.env.MODE === "production";
 
 const toolStoreTemplate: TemplateDataBuilding = {
   id: 101,
   name: "ToolStore",
   type: "building",
+
+  image: isProduction
+    ? prodModeCardUrls.buildings.ToolStore
+    : devModeCardUrls.buildings.ToolStore,
   baseMaintenance: {
     energy: 30,
   },
@@ -31,6 +42,9 @@ const amusementParkTemplate: TemplateDataBuilding = {
   id: 102,
   name: "AmusementPark",
   type: "building",
+  image: isProduction
+    ? prodModeCardUrls.buildings.AmusementPark
+    : devModeCardUrls.buildings.AmusementPark,
   baseMaintenance: {
     energy: 300,
   },
@@ -50,8 +64,11 @@ const amusementParkTemplate: TemplateDataBuilding = {
 
 const hopsitalTemplate: TemplateDataBuilding = {
   id: 103,
-  name: "Hopsital",
+  name: "Hospital",
   type: "building",
+  image: isProduction
+    ? prodModeCardUrls.buildings.Hospital
+    : devModeCardUrls.buildings.Hospital,
   baseMaintenance: {
     energy: 800,
   },
@@ -73,6 +90,9 @@ const radioStationTemplate: TemplateDataBuilding = {
   id: 104,
   name: "RadioStation",
   type: "building",
+  image: isProduction
+    ? prodModeCardUrls.buildings.RadioStation
+    : devModeCardUrls.buildings.RadioStation,
   baseMaintenance: {
     energy: 800,
   },
@@ -90,11 +110,21 @@ const radioStationTemplate: TemplateDataBuilding = {
   desc: "Enchances Special Effects",
 };
 
-const templateDataBuilding: Record<BuildingTemplateId, TemplateDataBuilding> = {
+const templateIdToTemplateDataBuilding: Record<
+  BuildingTemplateId,
+  TemplateDataBuilding
+> = {
   101: amusementParkTemplate,
   102: hopsitalTemplate,
   103: radioStationTemplate,
   104: toolStoreTemplate,
 };
 
-export { templateDataBuilding };
+const nameToTemplateDataBuilding: Record<BuildingName, TemplateDataBuilding> = {
+  AmusementPark: amusementParkTemplate,
+  Hospital: hopsitalTemplate,
+  RadioStation: radioStationTemplate,
+  ToolStore: toolStoreTemplate,
+};
+
+export { nameToTemplateDataBuilding, templateIdToTemplateDataBuilding };

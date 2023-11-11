@@ -1,4 +1,7 @@
-import { TemplateDataReg, RegTemplateId } from "../../types";
+import { RegName, RegTemplateId, TemplateDataReg } from "../../types";
+import { devModeCardUrls, prodModeCardUrls } from "../cards/cardImageUrls";
+
+const isProduction = import.meta.env.MODE === "production";
 
 const desc = "Produces Energy";
 
@@ -6,6 +9,9 @@ const simpleWindTurbineTemplate: TemplateDataReg = {
   id: 201,
   name: "SimpleWindTurbine",
   type: "reg",
+  image: isProduction
+    ? prodModeCardUrls.reg.SimpleWindTurbine
+    : devModeCardUrls.reg.SimpleWindTurbine,
   baseMaintenance: {
     gold: 30,
   },
@@ -27,6 +33,9 @@ const superWindTurbineTemplate: TemplateDataReg = {
   id: 202,
   name: "SuperWindTurbine",
   type: "reg",
+  image: isProduction
+    ? prodModeCardUrls.reg.SuperWindTurbine
+    : devModeCardUrls.reg.SuperWindTurbine,
   baseMaintenance: {
     gold: 300,
   },
@@ -48,6 +57,9 @@ const simpleSolarPaneTemplate: TemplateDataReg = {
   id: 203,
   name: "SimpleSolarPanel",
   type: "reg",
+  image: isProduction
+    ? prodModeCardUrls.reg.SimpleSolarPanel
+    : devModeCardUrls.reg.SimpleSolarPanel,
   baseMaintenance: {
     gold: 800,
   },
@@ -69,6 +81,9 @@ const superSolarPanelTemplate: TemplateDataReg = {
   id: 204,
   name: "SuperSolarPanel",
   type: "reg",
+  image: isProduction
+    ? prodModeCardUrls.reg.SuperSolarPanel
+    : devModeCardUrls.reg.SuperSolarPanel,
   baseMaintenance: {
     gold: 800,
   },
@@ -86,11 +101,18 @@ const superSolarPanelTemplate: TemplateDataReg = {
   desc,
 };
 
-const templateDataReg: Record<RegTemplateId, TemplateDataReg> = {
+const templateIdToTemplateDataREG: Record<RegTemplateId, TemplateDataReg> = {
   201: simpleWindTurbineTemplate,
   202: superWindTurbineTemplate,
   203: simpleSolarPaneTemplate,
   204: superSolarPanelTemplate,
 };
 
-export { templateDataReg };
+const nameToTemplateDataREG: Record<RegName, TemplateDataReg> = {
+  SimpleWindTurbine: simpleWindTurbineTemplate,
+  SuperWindTurbine: superWindTurbineTemplate,
+  SimpleSolarPanel: simpleSolarPaneTemplate,
+  SuperSolarPanel: superSolarPanelTemplate,
+};
+
+export { nameToTemplateDataREG, templateIdToTemplateDataREG };

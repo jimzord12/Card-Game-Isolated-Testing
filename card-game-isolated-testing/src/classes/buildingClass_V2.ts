@@ -3,8 +3,8 @@ import {
   levelReqMulti,
   rarityMultiplier,
   upgradeCoef,
-} from "../constants/cardStats/coefficients";
-import { templateDataBuilding } from "../constants/templates/buildings";
+} from "../constants/cards/cardStats/coefficients";
+import { nameToTemplateDataBuilding, templateIdToTemplateDataBuilding } from "../constants/templates/buildings";
 import {
   BuildingCardData,
   BuildingMaintenance,
@@ -26,7 +26,7 @@ export default class BuildingCard {
   readonly templateId: BuildingTemplateId;
   readonly type: CardType = "building"; // ✨
   readonly img: string;
-  // readonly templateData: TemplateDataBuilding;
+  // readonly templateData: templateIdToTemplateDataBuilding;
   public spot: BuildingSpot; // ✨
   public rarity: CardRarity;
   public priceTag: number | null;
@@ -48,7 +48,7 @@ export default class BuildingCard {
 
   private constructor(
     data: BuildingCardData,
-    // templateData: TemplateDataBuilding,
+    // templateData: templateIdToTemplateDataBuilding,
     image: string
   ) {
     console.log("======================================================");
@@ -73,16 +73,16 @@ export default class BuildingCard {
     // From Templates
     this.templateId = data.templateId;
     this.maintenance = this.updateMaintenance(
-      templateDataBuilding[this.templateId].baseMaintenance
+      templateIdToTemplateDataBuilding[this.templateId].baseMaintenance
     );
     this.requirements = this.updateRequirements(
-      templateDataBuilding[this.templateId].baseRequirements
+      templateIdToTemplateDataBuilding[this.templateId].baseRequirements
     );
     this.output = this.updateOutput(
-      templateDataBuilding[this.templateId].baseOutput
+      templateIdToTemplateDataBuilding[this.templateId].baseOutput
     )!;
-    this.desc = templateDataBuilding[this.templateId].desc;
-    this.name = templateDataBuilding[this.templateId].name;
+    this.desc = templateIdToTemplateDataBuilding[this.templateId].desc;
+    this.name = templateIdToTemplateDataBuilding[this.templateId].name;
   }
 
   // Factory Methods
@@ -90,8 +90,9 @@ export default class BuildingCard {
     newId: number,
     ownerId: number,
     playerName: string,
-    image: string,
-    _templateId: BuildingTemplateId,
+    cardName: BuildingName,
+    // image: string,
+    // _templateId: BuildingTemplateId,
     _spot: BuildingSpot = 0,
     _state: boolean = false
   ) {
@@ -105,16 +106,16 @@ export default class BuildingCard {
       creator: playerName,
       spot: _spot,
       level: _level,
-      templateId: _templateId,
+      templateId: nameToTemplateDataBuilding[cardName].id,
       ownerId: ownerId,
       state: _state,
     };
-    return new BuildingCard(defaultValues, image);
+    return new BuildingCard(defaultValues, nameToTemplateDataBuilding[cardName].image);
   }
 
   static fromDb(
     dataFromDB: BuildingCardData,
-    // templateData: TemplateDataBuilding,
+    // templateData: templateIdToTemplateDataBuilding,
     image: string
   ) {
     // Transform CardFromDB to BuildingCard properties
@@ -128,7 +129,7 @@ export default class BuildingCard {
     if (newLevel >= 1 && newLevel <= 5) this.level = newLevel as CardLevel;
 
     const calculatedOutput = this.updateOutput(
-      templateDataBuilding[this.templateId].baseOutput
+      templateIdToTemplateDataBuilding[this.templateId].baseOutput
     );
 
     if (calculatedOutput === undefined)
@@ -137,10 +138,10 @@ export default class BuildingCard {
     this.output = calculatedOutput;
 
     this.maintenance = this.updateMaintenance(
-      templateDataBuilding[this.templateId].baseMaintenance
+      templateIdToTemplateDataBuilding[this.templateId].baseMaintenance
     );
     this.requirements = this.updateRequirements(
-      templateDataBuilding[this.templateId].baseRequirements
+      templateIdToTemplateDataBuilding[this.templateId].baseRequirements
     );
 
     return this.level;

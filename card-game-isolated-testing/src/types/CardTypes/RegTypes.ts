@@ -6,8 +6,8 @@ export type RegMaintenance = { gold: number };
 export type RegOutput = { energy: number };
 export type RegName =
   | "SimpleWindTurbine"
-  | "SuperWindTurbine"
   | "SimpleSolarPanel"
+  | "SuperWindTurbine"
   | "SuperSolarPanel";
 
 export interface RegCardData extends Omit<CardData, "spot" | "templateId"> {
@@ -18,6 +18,7 @@ export interface RegCardData extends Omit<CardData, "spot" | "templateId"> {
 export interface TemplateDataReg {
   id: RegTemplateId;
   type: "reg";
+  image: string;
   name: RegName;
   baseOutput: RegOutput;
   baseMaintenance: RegMaintenance;

@@ -1,8 +1,8 @@
 // src/store/index.ts
 import { create } from "zustand";
-import BuildingCard from "../classes/buildingClass";
-import RegCard from "../classes/regClass";
-import SPCard from "../classes/spClass";
+import BuildingCard from "../classes/buildingClass_V2";
+import RegCard from "../classes/regClass_V2";
+import SPCard from "../classes/spClass_V2";
 
 type Card = BuildingCard | RegCard | SPCard;
 

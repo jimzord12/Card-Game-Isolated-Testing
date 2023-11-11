@@ -1,6 +1,6 @@
 import { BuildingSpot, RegSpot } from "..";
-import BuildingCard from "../../classes/buildingClass";
-import RegCard from "../../classes/regClass";
+import BuildingCard from "../../classes/buildingClass_V2";
+import RegCard from "../../classes/regClass_V2";
 
 // export type TownMapEntitiesData = {
 //   0: BuildingCard | null;

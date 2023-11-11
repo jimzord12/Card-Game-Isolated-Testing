@@ -9,8 +9,8 @@ import styles from "./css/general.module.css";
 
 // import { testingPlaceholderImgs } from "../../data/test/placeholderImgs";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import BuildingCard from "../../classes/buildingClass";
-import RegCard from "../../classes/regClass";
+import BuildingCard from "../../classes/buildingClass_V2";
+import RegCard from "../../classes/regClass_V2";
 import { UseGlobalContext } from "../../context/GlobalContext/GlobalContext";
 import { useTownMapStore } from "../../store/townMapEntitiesStore";
 import { CardLevel } from "../../types";
@@ -49,22 +49,22 @@ const TownMap = () => {
       2,
       2,
       "ssss",
-      "src/assets/imgs_new_convention/cards/cards-simpleWindTurbineCard.webp",
-      204,
+      "SimpleSolarPanel",
       11,
       true
     );
+
     const testCardBuilding = BuildingCard.createNew(
-      1,
-      1,
-      "skata",
-      "src/assets/imgs_new_convention/onMapAssets/onMapAssets-radioStationOnMapAsset.webp",
-      104,
-      4,
-      true
+      1, // Card's Unique ID
+      1, // Player/Owner ID
+      "Player_02", // Player Name
+      "AmusementPark", // Card's Name, is Typed
+      4, // Spot on Map, is Typed
+      true // Card's Initial State
     );
     addEntityOnMap(testCardREG);
     addEntityOnMap(testCardBuilding);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -139,15 +139,6 @@ const TownMap = () => {
             mapEntities={mapEntities}
             entityType="default"
           />
-
-          {/* PLACEHOLDERS */}
-          {/* <EntityTemplateGroup
-            setSelectedMapEntity={setSelectedMapEntity}
-            imageDetails={placeholders}
-            handleHover={handleHover}
-            handleLeave={handleLeave}
-            highlightedImg={highlightedImg}
-          /> */}
 
           {/* >>> TREES & BUSHES <<< */}
           <TreesOnMap images={images} />

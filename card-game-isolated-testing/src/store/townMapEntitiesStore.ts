@@ -1,7 +1,7 @@
 // src/store/index.ts
 import { create } from "zustand";
-import BuildingCard from "../classes/buildingClass";
-import RegCard from "../classes/regClass";
+import BuildingCard from "../classes/buildingClass_V2";
+import RegCard from "../classes/regClass_V2";
 import { CardSpot, TownMapEntitiesData } from "../types";
 
 interface TownMapState {

@@ -1,5 +1,8 @@
-import { rarityMultiplier } from "../constants/cardStats/coefficients";
-import { templateDataSP } from "../constants/templates/sps";
+import { rarityMultiplier } from "../constants/cards/cardStats/coefficients";
+import {
+  nameToTemplateDataSP,
+  templateIdToTemplateDataSP,
+} from "../constants/templates/sps";
 import {
   CardRarity,
   CardRequirements,
@@ -57,13 +60,13 @@ export default class SPCard {
     this.templateId = data.templateId;
 
     this.requirements = this.calculateRequirements(
-      templateDataSP[this.templateId].baseRequirements
+      templateIdToTemplateDataSP[this.templateId].baseRequirements
     );
     this.output = this.calculateOutput(
-      templateDataSP[this.templateId].baseOutput
+      templateIdToTemplateDataSP[this.templateId].baseOutput
     )!;
-    this.desc = templateDataSP[this.templateId].desc;
-    this.name = templateDataSP[this.templateId].name;
+    this.desc = templateIdToTemplateDataSP[this.templateId].desc;
+    this.name = templateIdToTemplateDataSP[this.templateId].name;
   }
 
   // Factory Methods
@@ -71,9 +74,7 @@ export default class SPCard {
     newId: number,
     ownerId: number,
     playerName: string,
-    image: string,
-    _templateId: SPTemplateId,
-
+    cardName: SPName,
     _state: boolean = false
   ) {
     const defaultValues = {
@@ -83,11 +84,11 @@ export default class SPCard {
       in_mp: false,
       creationTime: formatDate(new Date()),
       creator: playerName,
-      templateId: _templateId,
+      templateId: nameToTemplateDataSP[cardName].id,
       ownerId: ownerId,
       state: _state,
     };
-    return new SPCard(defaultValues, image);
+    return new SPCard(defaultValues, nameToTemplateDataSP[cardName].image);
   }
 
   static fromDb(dataFromDB: SPCardData, image: string) {

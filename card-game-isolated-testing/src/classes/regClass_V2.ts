@@ -3,8 +3,11 @@ import {
   levelReqMulti,
   rarityMultiplier,
   upgradeCoef,
-} from "../constants/cardStats/coefficients";
-import { templateDataReg } from "../constants/templates/regs";
+} from "../constants/cards/cardStats/coefficients";
+import {
+  nameToTemplateDataREG,
+  templateIdToTemplateDataREG,
+} from "../constants/templates/regs";
 import {
   CardLevel,
   CardRarity,
@@ -69,16 +72,16 @@ export default class RegCard {
     // From Templates
     this.templateId = data.templateId;
     this.maintenance = this.updateMaintenance(
-      templateDataReg[this.templateId].baseMaintenance
+      templateIdToTemplateDataREG[this.templateId].baseMaintenance
     );
     this.requirements = this.updateRequirements(
-      templateDataReg[this.templateId].baseRequirements
+      templateIdToTemplateDataREG[this.templateId].baseRequirements
     );
     this.output = this.updateOutput(
-      templateDataReg[this.templateId].baseOutput
+      templateIdToTemplateDataREG[this.templateId].baseOutput
     )!;
-    this.desc = templateDataReg[this.templateId].desc;
-    this.name = templateDataReg[this.templateId].name;
+    this.desc = templateIdToTemplateDataREG[this.templateId].desc;
+    this.name = templateIdToTemplateDataREG[this.templateId].name;
   }
 
   // Factory Methods
@@ -86,8 +89,7 @@ export default class RegCard {
     newId: number,
     ownerId: number,
     playerName: string,
-    image: string,
-    _templateId: RegTemplateId,
+    cardName: RegName,
     _spot: RegSpot = 0,
     _state: boolean = false
   ) {
@@ -101,11 +103,11 @@ export default class RegCard {
       creator: playerName,
       spot: _spot,
       level: _level,
-      templateId: _templateId,
+      templateId: nameToTemplateDataREG[cardName].id,
       ownerId: ownerId,
       state: _state,
     };
-    return new RegCard(defaultValues, image);
+    return new RegCard(defaultValues, nameToTemplateDataREG[cardName].image);
   }
 
   static fromDb(dataFromDB: RegCardData, image: string) {
@@ -119,7 +121,7 @@ export default class RegCard {
     if (newLevel >= 1 && newLevel <= 5) this.level = newLevel as CardLevel;
 
     const calculatedOutput = this.updateOutput(
-      templateDataReg[this.templateId].baseOutput
+      templateIdToTemplateDataREG[this.templateId].baseOutput
     );
 
     if (calculatedOutput === undefined)
@@ -128,10 +130,10 @@ export default class RegCard {
     this.output = calculatedOutput;
 
     this.maintenance = this.updateMaintenance(
-      templateDataReg[this.templateId].baseMaintenance
+      templateIdToTemplateDataREG[this.templateId].baseMaintenance
     );
     this.requirements = this.updateRequirements(
-      templateDataReg[this.templateId].baseRequirements
+      templateIdToTemplateDataREG[this.templateId].baseRequirements
     );
 
     return this.level;

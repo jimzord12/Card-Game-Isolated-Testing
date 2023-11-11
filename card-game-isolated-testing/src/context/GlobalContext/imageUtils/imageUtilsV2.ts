@@ -4,22 +4,11 @@ import {
   imageNamesArray,
 } from "../../../constants/utils/imageGrpTypeKeys";
 import { ImageGroups, ImageNameKey, ImageObject } from "../../../types";
+import { ViteManifest } from "../../../types/ViteManifest";
 import { convertImagePath } from "../../../utils/convertImagePath";
 
 const isProduction = import.meta.env.MODE === "production";
 
-type ManifestEntry = {
-  file: string;
-  src?: string;
-  css?: string[];
-  dynamicImports?: string[];
-  isEntry?: boolean;
-};
-type ViteManifest = {
-  [key: string]: ManifestEntry;
-};
-
-// Now assert the imported JSON to the correct type
 const viteManifest = viteManifestJson as ViteManifest;
 
 export const getImagesFromModule = async (): Promise<string[]> => {

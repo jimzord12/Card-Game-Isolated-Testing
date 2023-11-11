@@ -7,7 +7,7 @@ export type BuildingTemplateId = 101 | 102 | 103 | 104;
 export type BuildingName =
   | "ToolStore"
   | "AmusementPark"
-  | "Hopsital"
+  | "Hospital"
   | "RadioStation";
 
 export interface BuildingCardData
@@ -26,8 +26,9 @@ export type BuildingStats = {
 
 export interface TemplateDataBuilding {
   id: BuildingTemplateId;
-  type: "building";
   name: BuildingName;
+  type: "building";
+  image: string;
   baseOutput: BuildingOutput;
   baseMaintenance: BuildingMaintenance;
   baseRequirements: CardRequirements;

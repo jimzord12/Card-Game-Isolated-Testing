@@ -12,6 +12,7 @@ export interface SPCardData
 export interface TemplateDataSP {
   id: SPTemplateId;
   type: "sp";
+  image: string;
   name: SPName;
   baseOutput: SPOutput;
   baseRequirements: CardRequirements;

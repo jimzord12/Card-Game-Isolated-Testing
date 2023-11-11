@@ -44,3 +44,23 @@ export interface CardData {
   // usedFrom?: any; // Replace 'any' with a more specific type if possible
   stats?: BuildingStats; // ✨ This is only for the ToolStore Building Card
 }
+
+export interface CardUrl {
+  buildings: {
+    AmusementPark: string;
+    ToolStore: string;
+    Hospital: string;
+    RadioStation: string;
+  };
+  reg: {
+    SimpleWindTurbine: string;
+    SimpleSolarPanel: string;
+    SuperWindTurbine: string;
+    SuperSolarPanel: string;
+  };
+  sps: {
+    WallStreet: string;
+    LoveApp: string;
+    SuperStrong: string;
+  };
+}
