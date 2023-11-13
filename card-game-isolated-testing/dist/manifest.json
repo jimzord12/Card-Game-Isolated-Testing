@@ -11,7 +11,7 @@
       "src/assets/imgs_new_convention/index.ts",
       "src/components/Game/Game.tsx"
     ],
-    "file": "assets/index-c60cc052.js",
+    "file": "assets/index-4d7c7d52.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -680,7 +680,7 @@
     "css": [
       "assets/Game-1720811a.css"
     ],
-    "file": "assets/Game-ceca6d41.js",
+    "file": "assets/Game-bbd3367b.js",
     "imports": [
       "index.html"
     ],
