@@ -1,9 +1,12 @@
+import ModalProvider from "../../context/ModalContext/ModalProvider";
 import TownMap from "../TownMap/TownMap";
 
 const Game = () => {
   return (
     <div>
-      <TownMap />
+      <ModalProvider>
+        <TownMap />
+      </ModalProvider>
     </div>
   );
 };

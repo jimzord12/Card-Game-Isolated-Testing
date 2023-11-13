@@ -1,9 +1,12 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useCallback } from "react";
 import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
-import { TownMapEntitiesData } from "../../../types";
+import { BuildingName, TownMapEntitiesData } from "../../../types";
 import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
 import GlowImage from "../../GlowImage/GlowImage";
 import "./buildings.css";
+
+import { useModalStore } from "../../../stores/modalStore";
+import StandardModal from "../../Modals/StandardModal/StandardModal";
 
 interface Props {
   highlightedImg: number | null;
@@ -20,6 +23,24 @@ const BuildingsOnMap = ({
   setSelectedMapEntity,
   mapEntities,
 }: Props) => {
+  const pushModal = useModalStore((state) => state.pushModal);
+
+  const handleOpenStandardModal = useCallback(
+    (cardName: BuildingName, cardId: number) => {
+      pushModal(
+        <StandardModal
+          message={`This is the Standard Modal For a [Building] OnMap-Entity, Name: [${cardName}], ID: [${cardId}]`}
+          onConfirm={() => {
+            console.log("✅ You pressed the Confirm Button!");
+          }}
+          onCancel={() => {
+            console.log("❌ You pressed the Cancel Button!");
+          }}
+        />
+      );
+    },
+    []
+  );
   return (
     <div>
       {Object.entries(mapEntities).map(([spot, card]) =>
@@ -30,7 +51,10 @@ const BuildingsOnMap = ({
           <div
             key={card.id}
             className={`buildingSpot${spot}`}
-            onClick={() => setSelectedMapEntity(card.id)}
+            onClick={() => {
+              setSelectedMapEntity(card.id);
+              handleOpenStandardModal(card.name, card.id);
+            }}
           >
             <GlowImage
               key={card.id}

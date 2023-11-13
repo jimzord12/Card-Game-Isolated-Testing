@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 // Wrap those Raw images with this
 import GlowImage from "../../../GlowImage/GlowImage";
@@ -9,6 +9,9 @@ import "../animations.css";
 import "../placeholders.css";
 import R_Padlock from "./R_Padlock";
 import styles from "./rPlaceholders.module.css";
+
+import { useModalStore } from "../../../../stores/modalStore";
+import StandardModal from "../../../Modals/StandardModal/StandardModal";
 
 interface propsTypes {
   highlightedImg: number | null;
@@ -38,12 +41,52 @@ const PlaceholderREG = ({
   mapEntities,
   imgUrls,
 }: propsTypes) => {
+  const [animate, setAnimate] = useState(false);
+  const pushModal = useModalStore((state) => state.pushModal);
+
+  const handleClickWhenLocked = useCallback(() => {
+    setAnimate(true);
+  }, []);
+
+  const handleAnimationEnd = useCallback(() => {
+    setAnimate(false);
+  }, []);
+
+  const handleOpenStandardModal = useCallback((spot: RegSpot) => {
+    pushModal(
+      <StandardModal
+        message={`This is the Standard Modal For a [REG] Placeholder, SPOT: [${spot}]`}
+        onConfirm={() => {
+          console.log("✅ You pressed the Confirm Button!");
+        }}
+        onCancel={() => {
+          console.log("❌ You pressed the Cancel Button!");
+        }}
+      />
+    );
+  }, []);
+
   return (
     <>
       {mapEntities[spot] === null ? (
-        <div className={`placeholderSpot${spot}`} key={id}>
+        <div
+          className={`placeholderSpot${spot}`}
+          key={id}
+          onClick={() => {
+            if (isLocked) {
+              handleClickWhenLocked();
+            } else {
+              handleOpenStandardModal(spot);
+            }
+          }}
+          onAnimationEnd={handleAnimationEnd}
+        >
           <div
-            className={styles.regPlaceholderContainer}
+            className={
+              animate && isLocked
+                ? `${styles.regPlaceholderContainer} shakeHorizontal`
+                : styles.regPlaceholderContainer
+            }
             onClick={() => setSelectedMapEntity(id)}
             onMouseEnter={() => handleHover(id)}
             onMouseLeave={() => handleLeave(id)}
