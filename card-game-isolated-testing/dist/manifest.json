@@ -1,0 +1,690 @@
+{
+  "index.css": {
+    "file": "assets/index-ea2dd827.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "css": [
+      "assets/index-ea2dd827.css"
+    ],
+    "dynamicImports": [
+      "src/assets/imgs_new_convention/index.ts",
+      "src/components/Game/Game.tsx"
+    ],
+    "file": "assets/index-c60cc052.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/assets/imgs_new_convention/appUtils/appUtils-rotateDeviceImgAppUtil.webp": {
+    "file": "assets/appUtils-rotateDeviceImgAppUtil-dcfe160e.webp",
+    "src": "src/assets/imgs_new_convention/appUtils/appUtils-rotateDeviceImgAppUtil.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-amusementParkCard.webp": {
+    "file": "assets/cards-amusementParkCard-9b7ca980.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-amusementParkCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-energyDrinkCard.webp": {
+    "file": "assets/cards-energyDrinkCard-b407d4d3.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-energyDrinkCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-heartPhoneCard.webp": {
+    "file": "assets/cards-heartPhoneCard-d08aed21.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-heartPhoneCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-hospitalCard.webp": {
+    "file": "assets/cards-hospitalCard-19c8f8fa.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-hospitalCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-radioStationCard.webp": {
+    "file": "assets/cards-radioStationCard-38243469.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-radioStationCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-simpleSolarPanelCard.webp": {
+    "file": "assets/cards-simpleSolarPanelCard-b8dc8c82.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-simpleSolarPanelCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-simpleWindTurbineCard.webp": {
+    "file": "assets/cards-simpleWindTurbineCard-576f411b.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-simpleWindTurbineCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-stocksChartCard.webp": {
+    "file": "assets/cards-stocksChartCard-20488d3d.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-stocksChartCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-superSolarPanelCard.webp": {
+    "file": "assets/cards-superSolarPanelCard-5ed70383.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-superSolarPanelCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-superWindTurbineCard.webp": {
+    "file": "assets/cards-superWindTurbineCard-ac5f1464.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-superWindTurbineCard.webp"
+  },
+  "src/assets/imgs_new_convention/cards/cards-toolStoreCard.webp": {
+    "file": "assets/cards-toolStoreCard-9c11ed13.webp",
+    "src": "src/assets/imgs_new_convention/cards/cards-toolStoreCard.webp"
+  },
+  "src/assets/imgs_new_convention/emblems/emblems-concreteEmblem.webp": {
+    "file": "assets/emblems-concreteEmblem-1d5953c2.webp",
+    "src": "src/assets/imgs_new_convention/emblems/emblems-concreteEmblem.webp"
+  },
+  "src/assets/imgs_new_convention/emblems/emblems-crystalsEmblem.webp": {
+    "file": "assets/emblems-crystalsEmblem-575bfc6d.webp",
+    "src": "src/assets/imgs_new_convention/emblems/emblems-crystalsEmblem.webp"
+  },
+  "src/assets/imgs_new_convention/emblems/emblems-islandStatsEmblem.webp": {
+    "file": "assets/emblems-islandStatsEmblem-534d64cd.webp",
+    "src": "src/assets/imgs_new_convention/emblems/emblems-islandStatsEmblem.webp"
+  },
+  "src/assets/imgs_new_convention/emblems/emblems-metalsEmblem.webp": {
+    "file": "assets/emblems-metalsEmblem-d0597762.webp",
+    "src": "src/assets/imgs_new_convention/emblems/emblems-metalsEmblem.webp"
+  },
+  "src/assets/imgs_new_convention/emblems/emblems-oilRigEmblem.webp": {
+    "file": "assets/emblems-oilRigEmblem-29f62d3b.webp",
+    "src": "src/assets/imgs_new_convention/emblems/emblems-oilRigEmblem.webp"
+  },
+  "src/assets/imgs_new_convention/error/error-catBreakError.webp": {
+    "file": "assets/error-catBreakError-bf2e256c.webp",
+    "src": "src/assets/imgs_new_convention/error/error-catBreakError.webp"
+  },
+  "src/assets/imgs_new_convention/frames/frames-bambooFrame.webp": {
+    "file": "assets/frames-bambooFrame-52f9bcc1.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-bambooFrame.webp"
+  },
+  "src/assets/imgs_new_convention/frames/frames-goldFrame.webp": {
+    "file": "assets/frames-goldFrame-02fe49e2.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-goldFrame.webp"
+  },
+  "src/assets/imgs_new_convention/frames/frames-greenLeavesFrame.webp": {
+    "file": "assets/frames-greenLeavesFrame-e5f23039.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-greenLeavesFrame.webp"
+  },
+  "src/assets/imgs_new_convention/frames/frames-metalFrame.webp": {
+    "file": "assets/frames-metalFrame-7ef55219.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-metalFrame.webp"
+  },
+  "src/assets/imgs_new_convention/frames/frames-rustyFrame.webp": {
+    "file": "assets/frames-rustyFrame-d40a19e8.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-rustyFrame.webp"
+  },
+  "src/assets/imgs_new_convention/frames/frames-stefaniFrame.webp": {
+    "file": "assets/frames-stefaniFrame-38b0fdce.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-stefaniFrame.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-activateGradientGameIcon.webp": {
+    "file": "assets/gameIcons-activateGradientGameIcon-197f8ab5.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-activateGradientGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-angryFaceGameIcon.webp": {
+    "file": "assets/gameIcons-angryFaceGameIcon-26f01165.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-angryFaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-batteryGameIcon.webp": {
+    "file": "assets/gameIcons-batteryGameIcon-114c71b5.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-batteryGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-blueLevelUpArrowGameIcon.webp": {
+    "file": "assets/gameIcons-blueLevelUpArrowGameIcon-5928365b.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-blueLevelUpArrowGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-buildingsSpaceGameIcon.webp": {
+    "file": "assets/gameIcons-buildingsSpaceGameIcon-dee793f6.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-buildingsSpaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-calendarGameIcon.webp": {
+    "file": "assets/gameIcons-calendarGameIcon-8a00ac8b.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-calendarGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-citizenCircularGameIcon.webp": {
+    "file": "assets/gameIcons-citizenCircularGameIcon-cd64d6ea.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-citizenCircularGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-citizensSpaceGameIcon.webp": {
+    "file": "assets/gameIcons-citizensSpaceGameIcon-e35aa05e.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-citizensSpaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-concreteCircularGameIcon.webp": {
+    "file": "assets/gameIcons-concreteCircularGameIcon-b97cb605.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-concreteCircularGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-concreteGameIcon.webp": {
+    "file": "assets/gameIcons-concreteGameIcon-a95d91f8.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-concreteGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-craftButtonGameIcon.webp": {
+    "file": "assets/gameIcons-craftButtonGameIcon-d3287fff.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-craftButtonGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-crystalsCircularGameIcon.webp": {
+    "file": "assets/gameIcons-crystalsCircularGameIcon-54924486.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-crystalsCircularGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-crystalsGameIcon.webp": {
+    "file": "assets/gameIcons-crystalsGameIcon-df5bc6dd.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-crystalsGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-dieselBarrelCircularGameIcon.webp": {
+    "file": "assets/gameIcons-dieselBarrelCircularGameIcon-69ddc88f.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-dieselBarrelCircularGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-dieselBarrelGameIcon.webp": {
+    "file": "assets/gameIcons-dieselBarrelGameIcon-37362c54.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-dieselBarrelGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-energyProductionGameIcon.webp": {
+    "file": "assets/gameIcons-energyProductionGameIcon-94dba81c.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-energyProductionGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-energyUtilizationGameIcon.webp": {
+    "file": "assets/gameIcons-energyUtilizationGameIcon-32737cc5.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-energyUtilizationGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-expensesGameIcon.webp": {
+    "file": "assets/gameIcons-expensesGameIcon-490d5395.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-expensesGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-goldCircularGameIcon.webp": {
+    "file": "assets/gameIcons-goldCircularGameIcon-540c3790.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-goldCircularGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-goldGameIcon.webp": {
+    "file": "assets/gameIcons-goldGameIcon-4bf3a1b2.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-goldGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-greenArrowUpgradeGameIcon.webp": {
+    "file": "assets/gameIcons-greenArrowUpgradeGameIcon-21fc1ef7.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-greenArrowUpgradeGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-greenWavyArrowGameIcon.webp": {
+    "file": "assets/gameIcons-greenWavyArrowGameIcon-71f1a0bf.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-greenWavyArrowGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-growthGameIcon.webp": {
+    "file": "assets/gameIcons-growthGameIcon-6ee5de2d.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-growthGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-happyFaceGameIcon.webp": {
+    "file": "assets/gameIcons-happyFaceGameIcon-a2b8f843.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-happyFaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-idGameIcon.webp": {
+    "file": "assets/gameIcons-idGameIcon-649e0f25.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-idGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-incomeGameIcon.webp": {
+    "file": "assets/gameIcons-incomeGameIcon-245c19b6.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-incomeGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-levelUpGradientGameIcon.webp": {
+    "file": "assets/gameIcons-levelUpGradientGameIcon-5e937ede.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-levelUpGradientGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-metalsCircularGameIcon.webp": {
+    "file": "assets/gameIcons-metalsCircularGameIcon-a4301401.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-metalsCircularGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-metalsGameIcon.webp": {
+    "file": "assets/gameIcons-metalsGameIcon-015f8180.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-metalsGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-neutralFaceGameIcon.webp": {
+    "file": "assets/gameIcons-neutralFaceGameIcon-a350c2c3.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-neutralFaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-overjoyedFaceGameIcon.webp": {
+    "file": "assets/gameIcons-overjoyedFaceGameIcon-a9fecb87.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-overjoyedFaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-rankGameIcon.webp": {
+    "file": "assets/gameIcons-rankGameIcon-faaceb28.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-rankGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-regSpaceGameIcon.webp": {
+    "file": "assets/gameIcons-regSpaceGameIcon-ae284bd8.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-regSpaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-sadFaceGameIcon.webp": {
+    "file": "assets/gameIcons-sadFaceGameIcon-b18ef92f.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-sadFaceGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-sellGradientGameIcon.webp": {
+    "file": "assets/gameIcons-sellGradientGameIcon-07e5a404.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-sellGradientGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-sideBarArrowGameIcon.webp": {
+    "file": "assets/gameIcons-sideBarArrowGameIcon-9f0bc2e3.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-sideBarArrowGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-sliderBarGameIcon.webp": {
+    "file": "assets/gameIcons-sliderBarGameIcon-29186e1b.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-sliderBarGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-sliderDotGameIcon.webp": {
+    "file": "assets/gameIcons-sliderDotGameIcon-234e3cbd.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-sliderDotGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-totalGoldGameIcon.webp": {
+    "file": "assets/gameIcons-totalGoldGameIcon-63593f45.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-totalGoldGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-userGameIcon.webp": {
+    "file": "assets/gameIcons-userGameIcon-080cb807.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-userGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/gameIcons/gameIcons-woodenCloseModalGameIcon.webp": {
+    "file": "assets/gameIcons-woodenCloseModalGameIcon-ca5446bf.webp",
+    "src": "src/assets/imgs_new_convention/gameIcons/gameIcons-woodenCloseModalGameIcon.webp"
+  },
+  "src/assets/imgs_new_convention/index.ts": {
+    "assets": [
+      "assets/appUtils-rotateDeviceImgAppUtil-dcfe160e.webp",
+      "assets/cards-amusementParkCard-9b7ca980.webp",
+      "assets/cards-hospitalCard-19c8f8fa.webp",
+      "assets/cards-radioStationCard-38243469.webp",
+      "assets/cards-toolStoreCard-9c11ed13.webp",
+      "assets/cards-simpleSolarPanelCard-b8dc8c82.webp",
+      "assets/cards-simpleWindTurbineCard-576f411b.webp",
+      "assets/cards-superSolarPanelCard-5ed70383.webp",
+      "assets/cards-superWindTurbineCard-ac5f1464.webp",
+      "assets/cards-energyDrinkCard-b407d4d3.webp",
+      "assets/cards-heartPhoneCard-d08aed21.webp",
+      "assets/cards-stocksChartCard-20488d3d.webp",
+      "assets/emblems-concreteEmblem-1d5953c2.webp",
+      "assets/emblems-crystalsEmblem-575bfc6d.webp",
+      "assets/emblems-islandStatsEmblem-534d64cd.webp",
+      "assets/emblems-metalsEmblem-d0597762.webp",
+      "assets/emblems-oilRigEmblem-29f62d3b.webp",
+      "assets/error-catBreakError-bf2e256c.webp",
+      "assets/frames-bambooFrame-52f9bcc1.webp",
+      "assets/frames-goldFrame-02fe49e2.webp",
+      "assets/frames-greenLeavesFrame-e5f23039.webp",
+      "assets/frames-metalFrame-7ef55219.webp",
+      "assets/frames-rustyFrame-d40a19e8.webp",
+      "assets/frames-stefaniFrame-38b0fdce.webp",
+      "assets/gameIcons-calendarGameIcon-8a00ac8b.webp",
+      "assets/gameIcons-idGameIcon-649e0f25.webp",
+      "assets/gameIcons-userGameIcon-080cb807.webp",
+      "assets/gameIcons-expensesGameIcon-490d5395.webp",
+      "assets/gameIcons-incomeGameIcon-245c19b6.webp",
+      "assets/gameIcons-totalGoldGameIcon-63593f45.webp",
+      "assets/gameIcons-batteryGameIcon-114c71b5.webp",
+      "assets/gameIcons-energyProductionGameIcon-94dba81c.webp",
+      "assets/gameIcons-energyUtilizationGameIcon-32737cc5.webp",
+      "assets/gameIcons-growthGameIcon-6ee5de2d.webp",
+      "assets/gameIcons-angryFaceGameIcon-26f01165.webp",
+      "assets/gameIcons-happyFaceGameIcon-a2b8f843.webp",
+      "assets/gameIcons-neutralFaceGameIcon-a350c2c3.webp",
+      "assets/gameIcons-overjoyedFaceGameIcon-a9fecb87.webp",
+      "assets/gameIcons-sadFaceGameIcon-b18ef92f.webp",
+      "assets/gameIcons-rankGameIcon-faaceb28.webp",
+      "assets/gameIcons-buildingsSpaceGameIcon-dee793f6.webp",
+      "assets/gameIcons-citizensSpaceGameIcon-e35aa05e.webp",
+      "assets/gameIcons-regSpaceGameIcon-ae284bd8.webp",
+      "assets/gameIcons-citizenCircularGameIcon-cd64d6ea.webp",
+      "assets/gameIcons-concreteCircularGameIcon-b97cb605.webp",
+      "assets/gameIcons-crystalsCircularGameIcon-54924486.webp",
+      "assets/gameIcons-dieselBarrelCircularGameIcon-69ddc88f.webp",
+      "assets/gameIcons-goldCircularGameIcon-540c3790.webp",
+      "assets/gameIcons-metalsCircularGameIcon-a4301401.webp",
+      "assets/gameIcons-concreteGameIcon-a95d91f8.webp",
+      "assets/gameIcons-crystalsGameIcon-df5bc6dd.webp",
+      "assets/gameIcons-dieselBarrelGameIcon-37362c54.webp",
+      "assets/gameIcons-goldGameIcon-4bf3a1b2.webp",
+      "assets/gameIcons-metalsGameIcon-015f8180.webp",
+      "assets/gameIcons-blueLevelUpArrowGameIcon-5928365b.webp",
+      "assets/gameIcons-greenArrowUpgradeGameIcon-21fc1ef7.webp",
+      "assets/gameIcons-greenWavyArrowGameIcon-71f1a0bf.webp",
+      "assets/gameIcons-sideBarArrowGameIcon-9f0bc2e3.webp",
+      "assets/gameIcons-activateGradientGameIcon-197f8ab5.webp",
+      "assets/gameIcons-levelUpGradientGameIcon-5e937ede.webp",
+      "assets/gameIcons-sellGradientGameIcon-07e5a404.webp",
+      "assets/gameIcons-sliderBarGameIcon-29186e1b.webp",
+      "assets/gameIcons-sliderDotGameIcon-234e3cbd.webp",
+      "assets/gameIcons-craftButtonGameIcon-d3287fff.webp",
+      "assets/gameIcons-woodenCloseModalGameIcon-ca5446bf.webp",
+      "assets/labels-colorfulLabel-7a089b6d.webp",
+      "assets/labels-goldenSpecialLabel-1abd27d0.webp",
+      "assets/labels-goldenStandardLabel-a2febea6.webp",
+      "assets/labels-greenEnergyLabel-69e83d47.webp",
+      "assets/labels-levelLabel-4038c6df.webp",
+      "assets/labels-quarryLevelLabel-4d3426ee.webp",
+      "assets/labels-rustyLabel-6baa1849.webp",
+      "assets/labels-woodenGroundLabel-fecd16e0.webp",
+      "assets/labels-woodenLongLabel-b6064ee5.webp",
+      "assets/labels-woodenNormalLabel-99ee1218.webp",
+      "assets/labels-woodenShortLabel-5d6e6380.webp",
+      "assets/maps-townMap-39c5a94c.webp",
+      "assets/menus-buildingsMenu-300a63ca.webp",
+      "assets/menus-regsMenu-18dbf8fc.webp",
+      "assets/menus-spsMenu-dad3c4bd.webp",
+      "assets/modal_backgrounds-dieselFactoryBG-290f39b8.webp",
+      "assets/modal_backgrounds-townHallBG-7291f976.webp",
+      "assets/modal_backgrounds-amusementParkBG-6d3e3520.webp",
+      "assets/modal_backgrounds-hospitalBG-5379848d.webp",
+      "assets/modal_backgrounds-radioStationBG-fe75031c.webp",
+      "assets/modal_backgrounds-toolStoreBG-88c0f33f.webp",
+      "assets/modal_backgrounds-solarPanelBG-556ac4b2.webp",
+      "assets/modal_backgrounds-windTurbineBG-2558077f.webp",
+      "assets/modal_backgrounds-quarryConcreteBG-b81afead.webp",
+      "assets/modal_backgrounds-quarryCrystalsBG-118749c9.webp",
+      "assets/modal_backgrounds-quarryMetalsBG-4e704bad.webp",
+      "assets/modal_backgrounds-quarryOilRigBG-0613f0c4.webp",
+      "assets/modal_backgrounds-townExpansionBG-08febcd5.webp",
+      "assets/modal_backgrounds-levelUpBuildingBG-14829513.webp",
+      "assets/modal_backgrounds-levelUpRegBG-a2d7e81a.webp",
+      "assets/onMapAssets-amusementParkOnMapAsset-7a337f85.webp",
+      "assets/onMapAssets-hospitalOnMapAsset-bccfdcb4.webp",
+      "assets/onMapAssets-radioStationOnMapAsset-8a59f60c.webp",
+      "assets/onMapAssets-toolStoreOnMapAsset-34733201.webp",
+      "assets/onMapAssets-simpleSolarPanelOnMapAsset-79f98844.webp",
+      "assets/onMapAssets-simpleWindTurbineOnMapAsset-50a12edb.webp",
+      "assets/onMapAssets-superSolarPanelOnMapAsset-ee14edd4.webp",
+      "assets/onMapAssets-superWindTurbineOnMapAsset-08b744ef.webp",
+      "assets/onMapAssets-buildingPadLockOnMapAsset-7ae98293.webp",
+      "assets/onMapAssets-REGPadlockOnMapAsset-e1ceeef4.webp",
+      "assets/onMapAssets-buildingPlaceholderOnMapAsset-8df9b897.webp",
+      "assets/onMapAssets-REGPlaceholderOnMapAsset-66679cc0.webp",
+      "assets/onMapAssets-dieselFactoryOnMapAsset-634fad11.webp",
+      "assets/onMapAssets-townHallOnMapAsset-5274ee6d.webp",
+      "assets/onMapAssets-tree_01OnMapAsset-ce310b9d.webp",
+      "assets/onMapAssets-tree_02OnMapAsset-ba369d6f.webp",
+      "assets/onMapAssets-tree_03OnMapAsset-e4a33875.webp",
+      "assets/onMapAssets-tree_05OnMapAsset-0156e03c.webp",
+      "assets/onMapAssets-orange_Bush_and_Shadow_01OnMapAsset-0f074636.webp",
+      "assets/onMapAssets-trees_and_Shadow_01_BigOnMapAsset-e2a75201.webp",
+      "assets/onMapAssets-trees_and_Shadow_01_SmallOnMapAsset-1f36805b.webp",
+      "assets/onMapAssets-forest_01OnMapAsset-3f777e63.webp",
+      "assets/onMapAssets-REG__01OnMapAsset-63de6cb6.webp",
+      "assets/quarries-concreteIconQuarry-8964633e.webp",
+      "assets/quarries-crystalsIconQuarry-3743f85f.webp",
+      "assets/quarries-metalsIconQuarry-10c5a23d.webp",
+      "assets/quarries-oilRigIconQuarry-e45f9efa.webp",
+      "assets/townExpansion-townExpansionEmblem-3586e94d.webp",
+      "assets/townExpansion-townExpansionIcon-7cb53d36.webp",
+      "assets/workers-concreteWorker-11428e8b.webp",
+      "assets/workers-crystalsWorker-f007d5bf.webp",
+      "assets/workers-doctorWorker-35d46b66.webp",
+      "assets/workers-metalsWorker-ad543648.webp",
+      "assets/workers-oilRigWorker-f994f9af.webp",
+      "assets/workers-simpleCitizenWorker-29875cd7.webp"
+    ],
+    "file": "assets/index-30f4b4cf.js",
+    "isDynamicEntry": true,
+    "src": "src/assets/imgs_new_convention/index.ts"
+  },
+  "src/assets/imgs_new_convention/labels/labels-colorfulLabel.webp": {
+    "file": "assets/labels-colorfulLabel-7a089b6d.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-colorfulLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-goldenSpecialLabel.webp": {
+    "file": "assets/labels-goldenSpecialLabel-1abd27d0.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-goldenSpecialLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-goldenStandardLabel.webp": {
+    "file": "assets/labels-goldenStandardLabel-a2febea6.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-goldenStandardLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-greenEnergyLabel.webp": {
+    "file": "assets/labels-greenEnergyLabel-69e83d47.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-greenEnergyLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-levelLabel.webp": {
+    "file": "assets/labels-levelLabel-4038c6df.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-levelLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-quarryLevelLabel.webp": {
+    "file": "assets/labels-quarryLevelLabel-4d3426ee.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-quarryLevelLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-rustyLabel.webp": {
+    "file": "assets/labels-rustyLabel-6baa1849.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-rustyLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-woodenGroundLabel.webp": {
+    "file": "assets/labels-woodenGroundLabel-fecd16e0.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-woodenGroundLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-woodenLongLabel.webp": {
+    "file": "assets/labels-woodenLongLabel-b6064ee5.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-woodenLongLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-woodenNormalLabel.webp": {
+    "file": "assets/labels-woodenNormalLabel-99ee1218.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-woodenNormalLabel.webp"
+  },
+  "src/assets/imgs_new_convention/labels/labels-woodenShortLabel.webp": {
+    "file": "assets/labels-woodenShortLabel-5d6e6380.webp",
+    "src": "src/assets/imgs_new_convention/labels/labels-woodenShortLabel.webp"
+  },
+  "src/assets/imgs_new_convention/maps/maps-townMap.webp": {
+    "file": "assets/maps-townMap-39c5a94c.webp",
+    "src": "src/assets/imgs_new_convention/maps/maps-townMap.webp"
+  },
+  "src/assets/imgs_new_convention/menus/menus-buildingsMenu.webp": {
+    "file": "assets/menus-buildingsMenu-300a63ca.webp",
+    "src": "src/assets/imgs_new_convention/menus/menus-buildingsMenu.webp"
+  },
+  "src/assets/imgs_new_convention/menus/menus-regsMenu.webp": {
+    "file": "assets/menus-regsMenu-18dbf8fc.webp",
+    "src": "src/assets/imgs_new_convention/menus/menus-regsMenu.webp"
+  },
+  "src/assets/imgs_new_convention/menus/menus-spsMenu.webp": {
+    "file": "assets/menus-spsMenu-dad3c4bd.webp",
+    "src": "src/assets/imgs_new_convention/menus/menus-spsMenu.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-amusementParkBG.webp": {
+    "file": "assets/modal_backgrounds-amusementParkBG-6d3e3520.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-amusementParkBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-dieselFactoryBG.webp": {
+    "file": "assets/modal_backgrounds-dieselFactoryBG-290f39b8.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-dieselFactoryBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-hospitalBG.webp": {
+    "file": "assets/modal_backgrounds-hospitalBG-5379848d.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-hospitalBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-levelUpBuildingBG.webp": {
+    "file": "assets/modal_backgrounds-levelUpBuildingBG-14829513.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-levelUpBuildingBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-levelUpRegBG.webp": {
+    "file": "assets/modal_backgrounds-levelUpRegBG-a2d7e81a.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-levelUpRegBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryConcreteBG.webp": {
+    "file": "assets/modal_backgrounds-quarryConcreteBG-b81afead.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryConcreteBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryCrystalsBG.webp": {
+    "file": "assets/modal_backgrounds-quarryCrystalsBG-118749c9.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryCrystalsBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryMetalsBG.webp": {
+    "file": "assets/modal_backgrounds-quarryMetalsBG-4e704bad.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryMetalsBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryOilRigBG.webp": {
+    "file": "assets/modal_backgrounds-quarryOilRigBG-0613f0c4.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-quarryOilRigBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-radioStationBG.webp": {
+    "file": "assets/modal_backgrounds-radioStationBG-fe75031c.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-radioStationBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-solarPanelBG.webp": {
+    "file": "assets/modal_backgrounds-solarPanelBG-556ac4b2.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-solarPanelBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-toolStoreBG.webp": {
+    "file": "assets/modal_backgrounds-toolStoreBG-88c0f33f.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-toolStoreBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-townExpansionBG.webp": {
+    "file": "assets/modal_backgrounds-townExpansionBG-08febcd5.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-townExpansionBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-townHallBG.webp": {
+    "file": "assets/modal_backgrounds-townHallBG-7291f976.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-townHallBG.webp"
+  },
+  "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-windTurbineBG.webp": {
+    "file": "assets/modal_backgrounds-windTurbineBG-2558077f.webp",
+    "src": "src/assets/imgs_new_convention/modal_backgrounds/modal_backgrounds-windTurbineBG.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-REGPadlockOnMapAsset.webp": {
+    "file": "assets/onMapAssets-REGPadlockOnMapAsset-e1ceeef4.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-REGPadlockOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-REGPlaceholderOnMapAsset.webp": {
+    "file": "assets/onMapAssets-REGPlaceholderOnMapAsset-66679cc0.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-REGPlaceholderOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-REG__01OnMapAsset.webp": {
+    "file": "assets/onMapAssets-REG__01OnMapAsset-63de6cb6.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-REG__01OnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-amusementParkOnMapAsset.webp": {
+    "file": "assets/onMapAssets-amusementParkOnMapAsset-7a337f85.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-amusementParkOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-buildingPadLockOnMapAsset.webp": {
+    "file": "assets/onMapAssets-buildingPadLockOnMapAsset-7ae98293.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-buildingPadLockOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-buildingPlaceholderOnMapAsset.webp": {
+    "file": "assets/onMapAssets-buildingPlaceholderOnMapAsset-8df9b897.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-buildingPlaceholderOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-dieselFactoryOnMapAsset.webp": {
+    "file": "assets/onMapAssets-dieselFactoryOnMapAsset-634fad11.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-dieselFactoryOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-forest_01OnMapAsset.webp": {
+    "file": "assets/onMapAssets-forest_01OnMapAsset-3f777e63.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-forest_01OnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-hospitalOnMapAsset.webp": {
+    "file": "assets/onMapAssets-hospitalOnMapAsset-bccfdcb4.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-hospitalOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-orange_Bush_and_Shadow_01OnMapAsset.webp": {
+    "file": "assets/onMapAssets-orange_Bush_and_Shadow_01OnMapAsset-0f074636.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-orange_Bush_and_Shadow_01OnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-radioStationOnMapAsset.webp": {
+    "file": "assets/onMapAssets-radioStationOnMapAsset-8a59f60c.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-radioStationOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-simpleSolarPanelOnMapAsset.webp": {
+    "file": "assets/onMapAssets-simpleSolarPanelOnMapAsset-79f98844.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-simpleSolarPanelOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-simpleWindTurbineOnMapAsset.webp": {
+    "file": "assets/onMapAssets-simpleWindTurbineOnMapAsset-50a12edb.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-simpleWindTurbineOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-superSolarPanelOnMapAsset.webp": {
+    "file": "assets/onMapAssets-superSolarPanelOnMapAsset-ee14edd4.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-superSolarPanelOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-superWindTurbineOnMapAsset.webp": {
+    "file": "assets/onMapAssets-superWindTurbineOnMapAsset-08b744ef.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-superWindTurbineOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-toolStoreOnMapAsset.webp": {
+    "file": "assets/onMapAssets-toolStoreOnMapAsset-34733201.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-toolStoreOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-townHallOnMapAsset.webp": {
+    "file": "assets/onMapAssets-townHallOnMapAsset-5274ee6d.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-townHallOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_01OnMapAsset.webp": {
+    "file": "assets/onMapAssets-tree_01OnMapAsset-ce310b9d.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_01OnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_02OnMapAsset.webp": {
+    "file": "assets/onMapAssets-tree_02OnMapAsset-ba369d6f.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_02OnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_03OnMapAsset.webp": {
+    "file": "assets/onMapAssets-tree_03OnMapAsset-e4a33875.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_03OnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_05OnMapAsset.webp": {
+    "file": "assets/onMapAssets-tree_05OnMapAsset-0156e03c.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-tree_05OnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-trees_and_Shadow_01_BigOnMapAsset.webp": {
+    "file": "assets/onMapAssets-trees_and_Shadow_01_BigOnMapAsset-e2a75201.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-trees_and_Shadow_01_BigOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/onMapAssets/onMapAssets-trees_and_Shadow_01_SmallOnMapAsset.webp": {
+    "file": "assets/onMapAssets-trees_and_Shadow_01_SmallOnMapAsset-1f36805b.webp",
+    "src": "src/assets/imgs_new_convention/onMapAssets/onMapAssets-trees_and_Shadow_01_SmallOnMapAsset.webp"
+  },
+  "src/assets/imgs_new_convention/quarries/quarries-concreteIconQuarry.webp": {
+    "file": "assets/quarries-concreteIconQuarry-8964633e.webp",
+    "src": "src/assets/imgs_new_convention/quarries/quarries-concreteIconQuarry.webp"
+  },
+  "src/assets/imgs_new_convention/quarries/quarries-crystalsIconQuarry.webp": {
+    "file": "assets/quarries-crystalsIconQuarry-3743f85f.webp",
+    "src": "src/assets/imgs_new_convention/quarries/quarries-crystalsIconQuarry.webp"
+  },
+  "src/assets/imgs_new_convention/quarries/quarries-metalsIconQuarry.webp": {
+    "file": "assets/quarries-metalsIconQuarry-10c5a23d.webp",
+    "src": "src/assets/imgs_new_convention/quarries/quarries-metalsIconQuarry.webp"
+  },
+  "src/assets/imgs_new_convention/quarries/quarries-oilRigIconQuarry.webp": {
+    "file": "assets/quarries-oilRigIconQuarry-e45f9efa.webp",
+    "src": "src/assets/imgs_new_convention/quarries/quarries-oilRigIconQuarry.webp"
+  },
+  "src/assets/imgs_new_convention/townExpansion/townExpansion-townExpansionEmblem.webp": {
+    "file": "assets/townExpansion-townExpansionEmblem-3586e94d.webp",
+    "src": "src/assets/imgs_new_convention/townExpansion/townExpansion-townExpansionEmblem.webp"
+  },
+  "src/assets/imgs_new_convention/townExpansion/townExpansion-townExpansionIcon.webp": {
+    "file": "assets/townExpansion-townExpansionIcon-7cb53d36.webp",
+    "src": "src/assets/imgs_new_convention/townExpansion/townExpansion-townExpansionIcon.webp"
+  },
+  "src/assets/imgs_new_convention/workers/workers-concreteWorker.webp": {
+    "file": "assets/workers-concreteWorker-11428e8b.webp",
+    "src": "src/assets/imgs_new_convention/workers/workers-concreteWorker.webp"
+  },
+  "src/assets/imgs_new_convention/workers/workers-crystalsWorker.webp": {
+    "file": "assets/workers-crystalsWorker-f007d5bf.webp",
+    "src": "src/assets/imgs_new_convention/workers/workers-crystalsWorker.webp"
+  },
+  "src/assets/imgs_new_convention/workers/workers-doctorWorker.webp": {
+    "file": "assets/workers-doctorWorker-35d46b66.webp",
+    "src": "src/assets/imgs_new_convention/workers/workers-doctorWorker.webp"
+  },
+  "src/assets/imgs_new_convention/workers/workers-metalsWorker.webp": {
+    "file": "assets/workers-metalsWorker-ad543648.webp",
+    "src": "src/assets/imgs_new_convention/workers/workers-metalsWorker.webp"
+  },
+  "src/assets/imgs_new_convention/workers/workers-oilRigWorker.webp": {
+    "file": "assets/workers-oilRigWorker-f994f9af.webp",
+    "src": "src/assets/imgs_new_convention/workers/workers-oilRigWorker.webp"
+  },
+  "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp": {
+    "file": "assets/workers-simpleCitizenWorker-29875cd7.webp",
+    "src": "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp"
+  },
+  "src/components/Game/Game.css": {
+    "file": "assets/Game-1720811a.css",
+    "src": "src/components/Game/Game.css"
+  },
+  "src/components/Game/Game.tsx": {
+    "css": [
+      "assets/Game-1720811a.css"
+    ],
+    "file": "assets/Game-ceca6d41.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/Game/Game.tsx"
+  }
+}
