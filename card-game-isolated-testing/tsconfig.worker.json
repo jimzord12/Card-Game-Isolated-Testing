@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json", // This extends your base tsconfig
   "compilerOptions": {
-    "lib": ["ES2020", "WebWorker"] // Only include WebWorker lib for service worker
+    "lib": ["ES2022", "WebWorker"] // Only include WebWorker lib for service worker
   },
   "include": ["./serviceWorkers/sw.ts", "./serviceWorkers/swTest.ts"]
 }
