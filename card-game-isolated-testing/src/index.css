@@ -22,6 +22,12 @@ body {
   /* min-height: 100vh; */
 }
 
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
 
 /* a {
   font-weight: 500;
@@ -63,7 +69,7 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 } */
-
+/* 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
