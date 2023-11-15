@@ -24,4 +24,14 @@
     height: 100%;
     background-size: cover;
   }
+
+  /* This will hide the scrollbar for all elements in your application */
+  /* .hideScrollbar {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
+
+  .hideScrollbar::-webkit-scrollbar {
+    display: none;
+  } */
 }
