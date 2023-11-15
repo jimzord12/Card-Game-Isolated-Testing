@@ -1,0 +1,32 @@
+.spaceSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: start;
+  height: 100%;
+  width: 33.33%;
+  outline: 3px blueviolet solid;
+}
+
+.economySection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: start;
+  height: 100%;
+  width: 33.33%;
+  outline: 3px blueviolet solid;
+}
+
+.CitizenStatsSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: start;
+  height: 100%;
+  width: 33.33%;
+  outline: 3px blueviolet solid;
+}

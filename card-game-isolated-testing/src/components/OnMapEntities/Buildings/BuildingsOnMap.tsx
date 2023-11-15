@@ -6,6 +6,7 @@ import GlowImage from "../../GlowImage/GlowImage";
 import "./buildings.css";
 
 import { useModalStore } from "../../../stores/modalStore";
+import { ActionsSectionAction } from "../../../types/ModalTypes/ActionsSectionTypes";
 import StandardModal from "../../Modals/StandardModal/StandardModal";
 
 interface Props {
@@ -15,6 +16,20 @@ interface Props {
   setSelectedMapEntity: Dispatch<SetStateAction<number | null>>;
   mapEntities: TownMapEntitiesData;
 }
+
+const buildingActions = (cardName: BuildingName): ActionsSectionAction[] => {
+  if (cardName === "AmusementPark" || cardName === "RadioStation") {
+    return [
+      { text: "Level Up", handler: doStaff },
+      { text: "Manage Workers", handler: doOtherStaff },
+    ];
+  } else {
+    return [
+      { text: "Level Up", handler: doStaff },
+      { text: "Manage Workers", handler: doOtherStaff },
+    ];
+  }
+};
 
 const BuildingsOnMap = ({
   highlightedImg,
@@ -27,17 +42,44 @@ const BuildingsOnMap = ({
 
   const handleOpenStandardModal = useCallback(
     (cardName: BuildingName, cardId: number) => {
-      pushModal(
-        <StandardModal
-          message={`This is the Standard Modal For a [Building] OnMap-Entity, Name: [${cardName}], ID: [${cardId}]`}
-          onConfirm={() => {
-            console.log("✅ You pressed the Confirm Button!");
-          }}
-          onCancel={() => {
-            console.log("❌ You pressed the Cancel Button!");
-          }}
-        />
-      );
+      if (cardName === "AmusementPark" || cardName === "RadioStation") {
+        {
+          /* TODO: Make This for PASSIVE Buildings*/
+        }
+
+        pushModal(
+          <StandardModal
+            actions={buildingActions(cardName)}
+            confirmationMsg="Are you sure you want to lvl up?"
+            onConfirm={() => {
+              console.log("✅ You pressed the Confirm Button!");
+            }}
+            onCancel={() => {
+              console.log("❌ You pressed the Cancel Button!");
+            }}
+          >
+            {/* TODO: ADD LAYOUT*/}
+          </StandardModal>
+        );
+      } else {
+        {
+          /* TODO: Make This for ACTIVE Buildings*/
+        }
+        pushModal(
+          <StandardModal
+            actions={buildingActions(cardName)}
+            confirmationMsg="Are you sure you want to lvl up?"
+            onConfirm={() => {
+              console.log("✅ You pressed the Confirm Button!");
+            }}
+            onCancel={() => {
+              console.log("❌ You pressed the Cancel Button!");
+            }}
+          >
+            {/* TODO: ADD LAYOUT*/}
+          </StandardModal>
+        );
+      }
     },
     []
   );

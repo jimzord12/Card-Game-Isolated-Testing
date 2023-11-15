@@ -1,39 +1,50 @@
-import { useCallback } from "react";
-import { useModalStore } from "../../../stores/modalStore";
-import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import { ReactNode } from "react";
+import { ActionsSectionAction } from "../../../types/ModalTypes/ActionsSectionTypes";
+import ActionsSection from "../ActionsSection/ActionsSection";
 import styles from "./standardModalStyles.module.css";
 
 type Props = {
   onConfirm: () => void;
   onCancel: () => void;
-  message: string;
+  confirmationMsg: string;
+  children: ReactNode;
+  actions: ActionsSectionAction[];
 };
 
-const StandardModal = ({ onConfirm, onCancel, message }: Props) => {
-  const pushModal = useModalStore((state) => state.pushModal);
+const StandardModal = ({
+  // onConfirm,
+  // onCancel,
+  // confirmationMsg,
+  children,
+  actions,
+}: Props) => {
+  // const pushModal = useModalStore((state) => state.pushModal);
   // const popModal = useModalStore((state) => state.popModal);
 
-  const handleOpenConfirmationModal = useCallback(() => {
-    pushModal(
-      <ConfirmationModal
-        message="Are you sure you want to perform this action?"
-        onConfirm={() => {
-          onConfirm();
-        }}
-        onCancel={() => {
-          onCancel();
-        }}
-      />
-    );
-  }, []);
+  // const handleOpenConfirmationModal = useCallback(() => {
+  //   pushModal(
+  //     <ConfirmationModal
+  //       message={confirmationMsg}
+  //       onConfirm={() => {
+  //         onConfirm();
+  //       }}
+  //       onCancel={() => {
+  //         onCancel();
+  //       }}
+  //     />
+  //   );
+  // }, []);
 
   return (
     <div className={styles.standardModalContainer}>
-      <p>{message}</p>
-      <div>
-        <button onClick={handleOpenConfirmationModal}>
-          lvl Up - Open Confirmation Modal
-        </button>
+      <div className={styles.anotherContainer}>
+        <div className={styles.layoutContainer}>{children}</div>
+        <div className={styles.actionButtonsContainer}>
+          <ActionsSection actions={actions} />
+        </div>
+        {/* <button onClick={handleOpenConfirmationModal}>
+        lvl Up - Open Confirmation Modal
+      </button> */}
       </div>
     </div>
   );

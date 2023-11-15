@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContext";
 import { useModalStore } from "../../../../stores/modalStore";
+import { ActionsSectionAction } from "../../../../types/ModalTypes/ActionsSectionTypes";
 import GlowImage from "../../../GlowImage/GlowImage";
 import StandardModal from "../../../Modals/StandardModal/StandardModal";
 import "../defaultBuildings.css";
+import TownHallModalLayout from "./TownHallModalLayout/TownHallModalLayout";
 
 interface Props {
   highlightedImg: number | null;
@@ -11,6 +13,18 @@ interface Props {
   handleLeave: (id: number) => void;
   setSelectedMapEntity: Dispatch<SetStateAction<number | null>>;
 }
+
+const doStaff = () => {
+  console.log("do staff");
+};
+const doOtherStaff = () => {
+  console.log("doOtherStaff");
+};
+
+const townhallActions: ActionsSectionAction[] = [
+  { text: "Level Up", handler: doStaff },
+  { text: "Manage Workers", handler: doOtherStaff },
+];
 
 const TownHallOnMap = ({
   highlightedImg,
@@ -22,31 +36,36 @@ const TownHallOnMap = ({
 
   const pushModal = useModalStore((state) => state.pushModal);
   const popModal = useModalStore((state) => state.popModal);
+  const provideModalData = useModalStore((state) => state.provideModalData);
+
+  if (images === undefined)
+    throw new Error("⛔ TownHallOnMap, images is undefined!");
 
   // This Renders the StandardModal
-  const handleOpenFactoryModal = useCallback(() => {
+  const handleOpenTownHallModal = useCallback(() => {
+    provideModalData({ modalBg: images?.modal_backgrounds.townHallBG });
     pushModal(
       <StandardModal
-        message="This is Town Hall [TOWN HALL - Modal]"
+        actions={townhallActions}
+        confirmationMsg="Are you sure you want to lvl up?"
         onConfirm={() => {
           popModal();
         }}
         onCancel={() => {
           popModal();
         }}
-      />
+      >
+        <TownHallModalLayout />
+      </StandardModal>
     );
   }, []);
-
-  if (images === undefined)
-    throw new Error("⛔ TownHallOnMap, images is undefined!");
 
   return (
     <div
       className="defaultBuildingTownHall"
       onClick={() => {
         setSelectedMapEntity(0o1);
-        handleOpenFactoryModal();
+        handleOpenTownHallModal();
       }}
     >
       <GlowImage

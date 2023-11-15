@@ -1,48 +1,10 @@
-// import { ReactNode } from "react";
-// import { useModalStore } from "../../stores/modalStore";
-
-// import styles from "./baseModal.module.css";
-
-// type Props = {
-//   children: ReactNode;
-//   index: number; // Index to identify which modal to close
-//   // You can add more props that handle behaviors like closing the modal
-// };
-
-// const Modal = ({ children, index }: Props) => {
-//   const popModal = useModalStore((state) => state.popModal);
-//   // This function would handle closing the modal when the backdrop is clicked
-//   const handleClose = () => {
-//     // Logic to remove the modal from the stack
-//     let times = useModalStore.getState().stack.length - 1 - index;
-//     while (times >= 0) {
-//       popModal();
-//       times--;
-//     }
-//   };
-
-//   return (
-//     <div
-//       className={
-//         styles.modalBackdrop
-//       } /* Enable to close on backdrop click onClick={handleClose} */
-//     >
-//       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-//         {children}
-//         <button className={styles.modalCloseButton} onClick={handleClose}>
-//           &times;
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Modal;
-
 import { ReactNode, useEffect, useState } from "react";
 import { useModalStore } from "../../stores/modalStore";
 
 import styles from "./baseModal.module.css";
+import ModalCloseBtn from "./BaseModalParts/ModalCloseBtn/ModalCloseBtn";
+import ModalLevelIndicator from "./BaseModalParts/ModalLevelIndicator/ModalLevelIndicator";
+import ModalRarityIndicator from "./BaseModalParts/ModalRarityIndicator/ModalRarityIndicator";
 
 type Props = {
   children: ReactNode;
@@ -51,8 +13,13 @@ type Props = {
 
 const Modal = ({ children, index }: Props) => {
   const [isClosing, setIsClosing] = useState(false);
+
+  // From Zustange Stores
   const popModal = useModalStore((state) => state.popModal);
   const modalStack = useModalStore((state) => state.stack);
+  const modalBg = useModalStore((state) => state.modalData.modalBg);
+  const modalLevel = useModalStore((state) => state.modalData.modalLevel);
+  const modalRarity = useModalStore((state) => state.modalData.modalRarity);
 
   useEffect(() => {
     if (modalStack.length - 1 < index) {
@@ -73,16 +40,23 @@ const Modal = ({ children, index }: Props) => {
 
   const modalClass = isClosing
     ? `${styles.modalContent} ${styles.slideOutEllipticTopBck}`
-    : styles.modalContent;
+    : `${styles.modalContent} ${styles.enterAnimation}`;
 
   return (
     <div className={styles.modalBackdrop} onClick={handleClose}>
-      <div className={modalClass} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={modalClass}
+        style={{
+          background: `url(${modalBg})`,
+          backgroundSize: "cover",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {children}
-        <button className={styles.modalCloseButton} onClick={handleClose}>
-          &times;
-        </button>
       </div>
+      <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />
+      <ModalLevelIndicator isClosing={isClosing} level={modalLevel} />
+      <ModalRarityIndicator isClosing={isClosing} rarity={modalRarity} />
     </div>
   );
 };
