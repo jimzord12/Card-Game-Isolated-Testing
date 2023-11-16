@@ -58,7 +58,7 @@
 }
 
 .bounceInTop {
-  animation: bounce-in-top 1.1s both;
+  animation: bounce-in-top 1.1s both 0.3s;
 }
 
 @keyframes bounce-in-top {

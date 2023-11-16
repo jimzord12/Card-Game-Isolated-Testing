@@ -11,12 +11,12 @@ const EnergySection = () => {
     <section className={styles.energySection}>
       <GreenLabel
         gameIcon={images?.gameIcons.energyProductionGameIcon}
-        valueToDisplay={"45/60"}
+        valueToDisplay={"30 MWh"}
         alt="CitizensSpace"
       />
       <GreenLabel
         gameIcon={images?.gameIcons.energyUtilizationGameIcon}
-        valueToDisplay={"1/3"}
+        valueToDisplay={"25 MWh"}
         alt="REGsSpace"
       />
     </section>

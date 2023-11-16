@@ -11,13 +11,13 @@ import { UseGlobalContext } from "../../context/GlobalContext/GlobalContext";
 import { useTownMapStore } from "../../stores/townMapEntitiesStore";
 
 // Types
-import { CardLevel } from "../../types";
 
 // Classes
 import BuildingCard from "../../classes/buildingClass_V2";
 import RegCard from "../../classes/regClass_V2";
 
 // Components
+import { useGameVarsStore } from "../../stores/gameVars";
 import GlowOutlineFilter from "../GlowOutlineFilter";
 import EntityTemplateGroup from "../OnMapEntities/EntityTemplateGroup/EntityTemplateGroup";
 import Placeholders from "../OnMapEntities/Placeholders/Placeholders";
@@ -34,6 +34,7 @@ const TownMap = () => {
   // Zustang Store Related
   const mapEntities = useTownMapStore((state) => state.mapEntities);
   const addEntityOnMap = useTownMapStore((state) => state.addEntity);
+  const townHallLevel = useGameVarsStore((state) => state.townhallLevel);
 
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ TownMap: images are undefined!");
@@ -75,10 +76,10 @@ const TownMap = () => {
     setHighlightedImg(null);
   }, []);
 
-  const FAKE_PLAYER_INFO: {
-    townHallLevel: CardLevel;
-    [key: string]: any;
-  } = { townHallLevel: 2 };
+  // const FAKE_PLAYER_INFO: {
+  //   townHallLevel: CardLevel;
+  //   [key: string]: any;
+  // } = { townHallLevel: townHallLevel };
 
   return (
     <>
@@ -97,7 +98,7 @@ const TownMap = () => {
             handleHover={handleHover}
             handleLeave={handleLeave}
             highlightedImg={highlightedImg}
-            playerInfo={FAKE_PLAYER_INFO}
+            townhallLevel={townHallLevel}
             mapEntities={mapEntities}
           />
 

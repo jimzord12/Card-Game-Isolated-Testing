@@ -11,6 +11,7 @@ type Props = {
 const ConfirmationModal = ({ onConfirm, onCancel, message }: Props) => {
   // const [isClosing, setIsClosing] = useState(false);
   const popModal = useModalStore((state) => state.popModal);
+  const provideModalData = useModalStore((state) => state.provideModalData);
 
   // const handleClose = useCallback(() => {
   //   setIsClosing(true);
@@ -21,15 +22,17 @@ const ConfirmationModal = ({ onConfirm, onCancel, message }: Props) => {
 
   const confirmHandler = useCallback(() => {
     onConfirm();
+    provideModalData({ modalType: "standard" });
     popModal();
     // handleClose();
-  }, [onConfirm]);
+  }, []);
 
   const cancelHandler = useCallback(() => {
     onCancel();
+    provideModalData({ modalType: "standard" });
     popModal();
     // handleClose();
-  }, [onCancel]);
+  }, []);
 
   // const modalClass = isClosing
   //   ? `${styles.confirmationModal} ${styles.slideOutEllipticTopBck}`
@@ -37,9 +40,15 @@ const ConfirmationModal = ({ onConfirm, onCancel, message }: Props) => {
 
   return (
     <div className={styles.confirmationModal}>
-      <p>{message}</p>
-      <button onClick={confirmHandler}>Confirm</button>
-      <button onClick={cancelHandler}>Cancel</button>
+      <div className={styles.background}>
+        <div className={styles.content}>
+          <p>{message}</p>
+          <div className={styles.buttons}>
+            <button onClick={confirmHandler}>Confirm</button>
+            <button onClick={cancelHandler}>Cancel</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

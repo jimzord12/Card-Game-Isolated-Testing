@@ -52,6 +52,10 @@
   object-fit: contain;
 }
 
+.sadFaceSpecific {
+  transform: translateY(2.5%);
+}
+
 .value {
   position: absolute;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;

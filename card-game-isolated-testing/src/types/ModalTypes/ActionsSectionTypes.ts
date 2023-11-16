@@ -7,5 +7,5 @@ export type ActionsSectionType =
 
 export type ActionsSectionAction = {
   text: string;
-  handler: () => void;
+  handler: (any: any) => void;
 };

@@ -6,17 +6,14 @@ import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 import { placeholderInfo } from "../../../data/test/placeholderInfo";
 import {
   BuildingSpot,
-  CardLevel,
+  Level,
   RegSpot,
   TownMapEntitiesData,
 } from "../../../types";
 
 interface props {
   // images: PlaceholderImageDetail[];
-  playerInfo: {
-    townHallLevel: CardLevel;
-    [key: string]: any;
-  };
+  townhallLevel: Level;
   mapEntities: TownMapEntitiesData;
   highlightedImg: number | null;
   handleHover: (id: number) => void;
@@ -27,7 +24,7 @@ interface props {
 }
 
 const Placeholders = ({
-  playerInfo,
+  townhallLevel,
   mapEntities,
   highlightedImg,
   handleHover,
@@ -63,7 +60,7 @@ const Placeholders = ({
               isLocked={
                 placeholder.id === 402
                   ? true
-                  : playerInfo.townHallLevel < placeholder.unlocksAt
+                  : townhallLevel < placeholder.unlocksAt
               }
               spot={placeholder.spot as BuildingSpot}
               highlightedImg={highlightedImg}
@@ -79,7 +76,7 @@ const Placeholders = ({
             <PlaceholderREG
               key={placeholder.id}
               id={placeholder.id}
-              isLocked={playerInfo.townHallLevel < placeholder.unlocksAt}
+              isLocked={townhallLevel < placeholder.unlocksAt}
               spot={placeholder.spot as RegSpot}
               highlightedImg={highlightedImg}
               handleHover={handleHover}

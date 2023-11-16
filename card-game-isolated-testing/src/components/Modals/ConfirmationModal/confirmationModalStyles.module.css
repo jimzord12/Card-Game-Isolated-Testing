@@ -1,5 +1,34 @@
 .confirmationModal {
   color: red;
+  min-width: 220px;
+  min-height: 120px;
+}
+
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #30e8bf, #ff8235);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  border-radius: 4px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(-20%);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .slideOutEllipticTopBck {

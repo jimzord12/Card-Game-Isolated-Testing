@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { useModalStore } from "../../../stores/modalStore";
 
+import { useGameVarsStore } from "../../../stores/gameVars";
 import ModalCloseBtn from "../BaseModalParts/ModalCloseBtn/ModalCloseBtn";
 import ModalLevelIndicator from "../BaseModalParts/ModalLevelIndicator/ModalLevelIndicator";
 import ModalRarityIndicator from "../BaseModalParts/ModalRarityIndicator/ModalRarityIndicator";
@@ -18,8 +19,10 @@ const Modal = ({ children, index }: Props) => {
   const popModal = useModalStore((state) => state.popModal);
   const modalStack = useModalStore((state) => state.stack);
   // const modalBg = useModalStore((state) => state.modalData.modalBg);
-  const modalLevel = useModalStore((state) => state.modalData.modalLevel);
+  // const modalLevel = useModalStore((state) => state.modalData.modalLevel);
+  const townhallLevel = useGameVarsStore((state) => state.townhallLevel);
   const modalRarity = useModalStore((state) => state.modalData.modalRarity);
+  const modalType = useModalStore((state) => state.modalData.modalType);
 
   useEffect(() => {
     if (modalStack.length - 1 < index) {
@@ -47,9 +50,14 @@ const Modal = ({ children, index }: Props) => {
       <div className={modalClass} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
-      <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />
-      <ModalLevelIndicator isClosing={isClosing} level={modalLevel} />
-      <ModalRarityIndicator isClosing={isClosing} rarity={modalRarity} />
+      {/* //TODO: The Code below must go to StandardModal.tsx */}
+      {modalType === "standard" && (
+        <>
+          <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />
+          <ModalLevelIndicator isClosing={isClosing} level={townhallLevel} />
+          <ModalRarityIndicator isClosing={isClosing} rarity={modalRarity} />
+        </>
+      )}
     </div>
   );
 };

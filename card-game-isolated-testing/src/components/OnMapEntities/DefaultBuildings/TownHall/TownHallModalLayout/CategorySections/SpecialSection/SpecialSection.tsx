@@ -11,12 +11,12 @@ const SpecialSection = () => {
     <section className={styles.specialSection}>
       <SpecialLabel
         gameIcon={images?.gameIcons.rankGameIcon}
-        valueToDisplay={"45/60"}
+        valueToDisplay={"125th"}
         alt="CitizensSpace"
       />
       <SpecialLabel
         gameIcon={images?.gameIcons.rankGameIcon}
-        valueToDisplay={"1/3"}
+        valueToDisplay={"Coming Soon"}
         alt="REGsSpace"
       />
     </section>
