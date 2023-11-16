@@ -1,5 +1,5 @@
 import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContext";
-import styles from "./standardLabelStyles.module.css";
+import styles from "./rustyLabelStyles.module.css";
 
 interface Props {
   gameIcon: string;
@@ -7,10 +7,10 @@ interface Props {
   alt: string;
 }
 
-const StandardLabel = ({ gameIcon, valueToDisplay, alt }: Props) => {
+const RustyLabel = ({ gameIcon, valueToDisplay, alt }: Props) => {
   const { images } = UseGlobalContext();
   if (images === undefined)
-    throw new Error("⛔ StandardLabel, images is undefined!");
+    throw new Error("⛔ RustyLabel, images is undefined!");
 
   return (
     <div className={styles.labelContainer}>
@@ -20,7 +20,7 @@ const StandardLabel = ({ gameIcon, valueToDisplay, alt }: Props) => {
       <div className={styles.label}>
         <img
           className={styles.labelImg}
-          src={images?.labels.goldenStandardLabel}
+          src={images?.labels.rustyLabel}
           alt="label"
         />
         <div className={styles.value}>{valueToDisplay}</div>
@@ -29,4 +29,4 @@ const StandardLabel = ({ gameIcon, valueToDisplay, alt }: Props) => {
   );
 };
 
-export default StandardLabel;
+export default RustyLabel;

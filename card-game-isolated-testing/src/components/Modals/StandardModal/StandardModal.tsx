@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useModalStore } from "../../../stores/modalStore";
 import { ActionsSectionAction } from "../../../types/ModalTypes/ActionsSectionTypes";
 import ActionsSection from "../ActionsSection/ActionsSection";
 import styles from "./standardModalStyles.module.css";
@@ -20,6 +21,7 @@ const StandardModal = ({
 }: Props) => {
   // const pushModal = useModalStore((state) => state.pushModal);
   // const popModal = useModalStore((state) => state.popModal);
+  const modalBg = useModalStore((state) => state.modalData.modalBg);
 
   // const handleOpenConfirmationModal = useCallback(() => {
   //   pushModal(
@@ -37,6 +39,15 @@ const StandardModal = ({
 
   return (
     <div className={styles.standardModalContainer}>
+      <div
+        style={{
+          background: `url(${modalBg})`,
+          backgroundSize: "cover",
+        }}
+        className={styles.backgroundImage}
+      />
+      <div className={styles.backgroundFilter} />
+
       <div className={styles.anotherContainer}>
         <div className={styles.layoutContainer}>{children}</div>
         <div className={styles.actionButtonsContainer}>

@@ -1,0 +1,77 @@
+.labelContainer {
+  position: relative;
+  /* display: flex; */
+  /* flex-direction: row;
+  justify-content: space-between;
+  align-items: center; */
+  width: 100%;
+  height: 100%;
+  /* outline: 1px red solid; */
+}
+
+.gameIconContainer {
+  position: absolute;
+  /* top: 0%;
+  left: 34%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  /* transform: translate(0%, 0%); */
+}
+
+.gameIconImg {
+  /* display: flex; */
+  /* align-self: flex-start; */
+  width: 80%;
+  height: 80%;
+  /* width: 93%;
+      height: 85%; */
+  object-fit: contain;
+  /* transform: translate(5%, 10%); */
+}
+
+.label {
+  position: absolute;
+  left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  /* transform: translate(0%, 37%); */
+  left: 0%;
+}
+
+.labelImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.value {
+  position: absolute;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 2vw;
+  color: rgb(5, 117, 7);
+  /* left: 43%;
+      top: 24%; */
+  /* transform: translate(20%, 0%); */
+  z-index: 101;
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .value {
+    font-size: 12px;
+    transform: translate(0%, 0%);
+  }
+}
+
+@media (min-width: 1200px) {
+  .value {
+    font-size: 32px;
+  }
+}

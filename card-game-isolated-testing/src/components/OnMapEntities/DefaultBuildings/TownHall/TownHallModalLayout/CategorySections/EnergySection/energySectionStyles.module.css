@@ -1,0 +1,18 @@
+.energySection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(46, 179, 34, 0.5);
+  border-radius: 4px;
+}
+
+@media screen and (min-width: 1500px) {
+  .energySection {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

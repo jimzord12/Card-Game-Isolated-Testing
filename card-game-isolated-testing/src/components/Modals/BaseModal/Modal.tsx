@@ -1,10 +1,10 @@
 import { ReactNode, useEffect, useState } from "react";
-import { useModalStore } from "../../stores/modalStore";
+import { useModalStore } from "../../../stores/modalStore";
 
+import ModalCloseBtn from "../BaseModalParts/ModalCloseBtn/ModalCloseBtn";
+import ModalLevelIndicator from "../BaseModalParts/ModalLevelIndicator/ModalLevelIndicator";
+import ModalRarityIndicator from "../BaseModalParts/ModalRarityIndicator/ModalRarityIndicator";
 import styles from "./baseModal.module.css";
-import ModalCloseBtn from "./BaseModalParts/ModalCloseBtn/ModalCloseBtn";
-import ModalLevelIndicator from "./BaseModalParts/ModalLevelIndicator/ModalLevelIndicator";
-import ModalRarityIndicator from "./BaseModalParts/ModalRarityIndicator/ModalRarityIndicator";
 
 type Props = {
   children: ReactNode;
@@ -17,7 +17,7 @@ const Modal = ({ children, index }: Props) => {
   // From Zustange Stores
   const popModal = useModalStore((state) => state.popModal);
   const modalStack = useModalStore((state) => state.stack);
-  const modalBg = useModalStore((state) => state.modalData.modalBg);
+  // const modalBg = useModalStore((state) => state.modalData.modalBg);
   const modalLevel = useModalStore((state) => state.modalData.modalLevel);
   const modalRarity = useModalStore((state) => state.modalData.modalRarity);
 
@@ -44,14 +44,7 @@ const Modal = ({ children, index }: Props) => {
 
   return (
     <div className={styles.modalBackdrop} onClick={handleClose}>
-      <div
-        className={modalClass}
-        style={{
-          background: `url(${modalBg})`,
-          backgroundSize: "cover",
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={modalClass} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
       <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />

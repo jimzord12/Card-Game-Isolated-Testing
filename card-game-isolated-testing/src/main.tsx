@@ -4,8 +4,9 @@ import App from "./App.tsx";
 import "./index.css";
 
 const isProduction = import.meta.env.MODE === "production";
+const disableSW = true;
 
-if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator && !disableSW) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register(isProduction ? "/sw.js" : "../swTest.ts")

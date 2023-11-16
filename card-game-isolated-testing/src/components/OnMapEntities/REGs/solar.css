@@ -4,7 +4,7 @@
 }
 
 .regSpotSolar1 {
-  outline: 2px solid red;
+  /* outline: 2px solid red; */
   width: 6%;
   height: 6.5%;
   position: absolute;
@@ -14,7 +14,7 @@
 }
 
 .regSpotSolar3 {
-  outline: 2px solid blue;
+  /* outline: 2px solid blue; */
   width: var(--reg-width-solar);
   height: var(--reg-height-solar);
   position: absolute;
@@ -24,7 +24,7 @@
 }
 
 .regSpotSolar8 {
-  outline: 2px solid violet;
+  /* outline: 2px solid violet; */
   width: var(--reg-width-solar);
   height: var(--reg-height-solar);
   position: absolute;
@@ -34,7 +34,7 @@
 }
 
 .regSpotSolar10 {
-  outline: 2px solid brown;
+  /* outline: 2px solid brown; */
   width: 14%;
   height: 17%;
   position: absolute;
@@ -44,7 +44,7 @@
 }
 
 .regSpotSolar11 {
-  outline: 2px solid cyan;
+  /* outline: 2px solid cyan; */
   width: var(--reg-width-solar);
   height: var(--reg-height-solar);
   position: absolute;
@@ -54,7 +54,7 @@
 }
 
 .regSpotSolar13 {
-  outline: 2px solid orange;
+  /* outline: 2px solid orange; */
   width: 11%;
   height: 14%;
   position: absolute;

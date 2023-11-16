@@ -16,7 +16,7 @@ const ModalRarityIndicator = ({ isClosing, rarity }: Props) => {
 
   const modalRarityClass = isClosing
     ? `${styles.modalRarityContainer} ${styles.slideOutEllipticTopBck}`
-    : `${styles.modalRarityContainer}`;
+    : `${styles.modalRarityContainer} ${styles.bounceInTop}`;
 
   if (images === undefined)
     throw new Error("⛔ ModalRarityIndicator, images is undefined!");

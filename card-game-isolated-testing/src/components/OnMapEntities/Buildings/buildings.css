@@ -4,7 +4,7 @@
 }
 
 .buildingSpot2 {
-  outline: 2px solid red;
+  /* outline: 2px solid red; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;
@@ -14,7 +14,7 @@
 }
 
 .buildingSpot4 {
-  outline: 2px solid blue;
+  /* outline: 2px solid blue; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;
@@ -24,7 +24,7 @@
 }
 
 .buildingSpot5 {
-  outline: 2px solid violet;
+  /* outline: 2px solid violet; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;
@@ -34,7 +34,7 @@
 }
 
 .buildingSpot6 {
-  outline: 2px solid brown;
+  /* outline: 2px solid brown; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;
@@ -44,7 +44,7 @@
 }
 
 .buildingSpot7 {
-  outline: 2px solid cyan;
+  /* outline: 2px solid cyan; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;
@@ -54,7 +54,7 @@
 }
 
 .buildingSpot9 {
-  outline: 2px solid orange;
+  /* outline: 2px solid orange; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;
@@ -64,7 +64,7 @@
 }
 
 .buildingSpot12 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;

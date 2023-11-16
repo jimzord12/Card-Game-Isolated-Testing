@@ -1,15 +1,15 @@
 .glowOnHover {
-  width: 220px;
-  height: 50px;
-  border: none;
+  width: 140px;
+  height: 36px;
+  font-size: 16px;
+  border: 1px solid whitesmoke;
   outline: none;
   color: #fff;
-  background: #111;
+  background: rgb(233, 244, 233);
   cursor: pointer;
   position: relative;
   z-index: 0;
   border-radius: 10px;
-  font-size: 24px;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   /* font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif; */
 }
@@ -58,9 +58,10 @@
   z-index: -1;
   content: "";
   position: absolute;
+  border: 1px solid whitesmoke;
   width: 100%;
   height: 100%;
-  background: #111;
+  background: green;
   left: 0;
   top: 0;
   border-radius: 10px;
@@ -78,11 +79,21 @@
   }
 }
 
-@media screen and (max-height: 600px) and (orientation: landscape) {
+/* @media screen and (max-height: 600px) and (orientation: landscape) {
   .glowOnHover {
     width: 140px;
     height: 36px;
-    /* max-height: 100%; */
     font-size: 16px;
+
+  }
+} */
+
+@media screen and (min-width: 1500px) {
+  .glowOnHover {
+    min-width: 220px;
+    width: 320px;
+    height: 85px;
+    font-size: 38px;
+    border: 2px solid whitesmoke;
   }
 }

@@ -1,0 +1,61 @@
+.spaceSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  height: 95%;
+  width: 33.33%;
+  border-right: 2px rgba(179, 168, 23, 0.85) solid;
+}
+
+.economySection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  height: 95%;
+  width: 33.33%;
+  border-right: 2px rgba(179, 168, 23, 0.85) solid;
+
+  /* border: 3px blueviolet solid; */
+}
+
+.citizenStatsSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: center;
+  height: 95%;
+  width: 33.33%;
+  /* border: 3px blueviolet solid; */
+}
+
+.citizenHappiness {
+  /* position: absolute; */
+  width: 100%;
+  height: 66.66%;
+}
+
+.citizenGrowth {
+  /* position: absolute; */
+  width: 100%;
+  height: 33.33%;
+}
+
+@media screen and (min-height: 600px) and (orientation: landscape) {
+  .economySection {
+    padding-left: 12px;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .spaceSection {
+    border-right: 4px rgba(179, 168, 23, 0.85) solid;
+  }
+  .economySection {
+    border-right: 4px rgba(179, 168, 23, 0.85) solid;
+  }
+}

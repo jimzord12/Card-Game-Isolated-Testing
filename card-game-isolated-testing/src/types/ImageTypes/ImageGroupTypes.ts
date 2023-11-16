@@ -28,7 +28,7 @@ type FrameImageGroup = {
   stefaniFrame: string;
 };
 
-type GameIconsImageGroup = {
+export type GameIconsImageGroup = {
   activateGradientGameIcon: string;
   angryFaceGameIcon: string;
   batteryGameIcon: string;

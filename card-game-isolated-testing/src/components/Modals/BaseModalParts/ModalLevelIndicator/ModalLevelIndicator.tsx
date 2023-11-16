@@ -11,7 +11,7 @@ const ModalLevelIndicator = ({ isClosing, level }: Props) => {
 
   const modalLevelIconClass = isClosing
     ? `${styles.modalLevelIconContainer} ${styles.slideOutEllipticTopBck}`
-    : `${styles.modalLevelIconContainer}`;
+    : `${styles.modalLevelIconContainer} ${styles.bounceInTop}`;
 
   if (images === undefined)
     throw new Error("⛔ ModalLevelIndicator, images is undefined!");

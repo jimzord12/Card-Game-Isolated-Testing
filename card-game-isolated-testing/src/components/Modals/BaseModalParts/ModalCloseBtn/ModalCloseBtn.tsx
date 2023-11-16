@@ -11,7 +11,7 @@ const ModalCloseBtn = ({ onCloseHandler, isClosing }: Props) => {
 
   const modalCloseIconClass = isClosing
     ? `${styles.modalCloseIconContainer} ${styles.slideOutEllipticTopBck}`
-    : `${styles.modalCloseIconContainer}`;
+    : `${styles.modalCloseIconContainer} ${styles.bounceInTop}`;
 
   if (images === undefined)
     throw new Error("⛔ ModalCloseBtn, images is undefined!");

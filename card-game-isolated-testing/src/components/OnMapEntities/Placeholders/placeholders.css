@@ -4,7 +4,7 @@
 }
 
 .placeholderSpot1 {
-  outline: 2px solid red;
+  /* outline: 2px solid red; */
   width: 4.5%;
   height: 4.5%;
   position: absolute;
@@ -14,7 +14,7 @@
 }
 
 .placeholderSpot2 {
-  outline: 2px solid blue;
+  /* outline: 2px solid blue; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;
@@ -24,7 +24,7 @@
 }
 
 .placeholderSpot3 {
-  outline: 2px solid violet;
+  /* outline: 2px solid violet; */
   width: 9%;
   height: 9%;
   position: absolute;
@@ -34,7 +34,7 @@
 }
 
 .placeholderSpot4 {
-  outline: 2px solid brown;
+  /* outline: 2px solid brown; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;
@@ -44,7 +44,7 @@
 }
 
 .placeholderSpot5 {
-  outline: 2px solid cyan;
+  /* outline: 2px solid cyan; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;
@@ -54,7 +54,7 @@
 }
 
 .placeholderSpot6 {
-  outline: 2px solid orange;
+  /* outline: 2px solid orange; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;
@@ -64,7 +64,7 @@
 }
 
 .placeholderSpot7 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;
@@ -74,7 +74,7 @@
 }
 
 .placeholderSpot8 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: 10.5%;
   height: 10.5%;
   position: absolute;
@@ -84,7 +84,7 @@
 }
 
 .placeholderSpot9 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;
@@ -94,7 +94,7 @@
 }
 
 .placeholderSpot10 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: 14%;
   height: 14%;
   position: absolute;
@@ -104,7 +104,7 @@
 }
 
 .placeholderSpot11 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: 10%;
   height: 10%;
   position: absolute;
@@ -114,7 +114,7 @@
 }
 
 .placeholderSpot12 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;
@@ -124,7 +124,7 @@
 }
 
 .placeholderSpot13 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: var(--placeholder-width);
   height: var(--placeholder-height);
   position: absolute;

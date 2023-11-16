@@ -6,7 +6,7 @@
 }
 
 .regSpotWind1 {
-  outline: 2px solid red;
+  /* outline: 2px solid red; */
   width: 10%;
   height: 16%;
   position: absolute;
@@ -16,7 +16,7 @@
 }
 
 .regSpotWind3 {
-  outline: 2px solid blue;
+  /* outline: 2px solid blue; */
   width: var(--reg-width-wind);
   height: var(--reg-height-wind);
   position: absolute;
@@ -26,7 +26,7 @@
 }
 
 .regSpotWind8 {
-  outline: 2px solid violet;
+  /* outline: 2px solid violet; */
   width: 18%;
   height: 29%;
   position: absolute;
@@ -36,7 +36,7 @@
 }
 
 .regSpotWind10 {
-  outline: 2px solid brown;
+  /* outline: 2px solid brown; */
   width: 16.5%;
   height: 31.3%;
   position: absolute;
@@ -46,7 +46,7 @@
 }
 
 .regSpotWind11 {
-  outline: 2px solid cyan;
+  /* outline: 2px solid cyan; */
   width: 13%;
   height: 23.3%;
   position: absolute;
@@ -56,7 +56,7 @@
 }
 
 .regSpotWind13 {
-  outline: 2px solid orange;
+  /* outline: 2px solid orange; */
   /* width: var(--reg-width-wind-big);
   height: var(--reg-height-wind-big); */
   width: 12%;
@@ -69,7 +69,7 @@
 }
 
 .regSpotWind7 {
-  outline: 2px solid green;
+  /* outline: 2px solid green; */
   width: var(--reg-width-wind);
   height: var(--reg-height-wind);
   position: absolute;

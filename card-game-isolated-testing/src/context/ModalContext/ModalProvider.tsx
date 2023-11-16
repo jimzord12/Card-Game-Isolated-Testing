@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Modal from "../../components/Modals/Modal";
+import Modal from "../../components/Modals/BaseModal/Modal";
 import { useModalStore } from "../../stores/modalStore";
 
 interface Props {

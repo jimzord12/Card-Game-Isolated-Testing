@@ -1,0 +1,86 @@
+.townHallModalLayout {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  gap: 8px;
+
+  /* outline: 3px rgb(255, 0, 0) solid; */
+}
+
+.citizenSectionContainer {
+  width: 100%;
+  height: 100%;
+  /* padding: 2px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(14, 172, 204, 0.5);
+  border-radius: 4px;
+  /* outline: 1px purple solid; */
+}
+
+.theRestSectionContainer {
+  width: 100%;
+  height: 50%;
+  /* padding: 2px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  /* border: 3px blue solid; */
+}
+
+.resourcesSectionContainer {
+  width: 50%;
+  height: 100%;
+  /* padding: 2px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(179, 111, 34, 0.5);
+  border-radius: 4px;
+  /* outline: 1px rgb(0, 255, 0) solid; */
+  gap: 12px;
+}
+
+.energySectionContainer {
+  width: 25%;
+  height: 100%;
+  /* padding: 2px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* outline: 1px rgb(0, 255, 0) solid; */
+  gap: 12px;
+}
+
+.specialSectionContainer {
+  width: 25%;
+  height: 100%;
+  /* padding: 2px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* outline: 1px rgb(0, 255, 0) solid; */
+  gap: 12px;
+}
+
+@media screen and (min-width: 1500px) {
+  /* .resourcesSectionContainer {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .energySectionContainer {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .specialSectionContainer {
+    padding-left: 12px;
+    padding-right: 12px;
+  } */
+}
