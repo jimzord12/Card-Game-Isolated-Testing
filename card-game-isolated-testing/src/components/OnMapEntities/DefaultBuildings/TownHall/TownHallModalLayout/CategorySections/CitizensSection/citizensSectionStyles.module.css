@@ -18,6 +18,7 @@
   height: 95%;
   width: 33.33%;
   border-right: 2px rgba(179, 168, 23, 0.85) solid;
+  padding-left: 12px;
 
   /* border: 3px blueviolet solid; */
 }
@@ -45,9 +46,13 @@
   height: 33.33%;
 }
 
-@media screen and (min-height: 600px) and (orientation: landscape) {
+@media screen and (min-width: 1200px) {
+  .spaceSection {
+    padding-left: 24px;
+  }
+
   .economySection {
-    padding-left: 12px;
+    padding-left: 24px;
   }
 }
 

@@ -2,7 +2,7 @@ import styles from "./actionSectionBtnStyles.module.css";
 
 interface Props {
   text: string;
-  clickHandler: () => void;
+  clickHandler: ((any: any) => void) | (() => void);
 }
 
 const ActionSectionBtn = ({ text, clickHandler }: Props) => {

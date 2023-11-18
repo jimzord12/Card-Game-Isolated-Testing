@@ -1,30 +1,37 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
-import { ModalData, ModalType } from "../types/ModalTypes/BaseModalTypes";
+import { ModalData } from "../types/ModalTypes/BaseModalTypes";
 
 type ModalState = {
   stack: ReactNode[];
   modalData: ModalData;
-  pushModal: (content: ReactNode, type: ModalType) => void;
+  rerender: boolean;
+  pushModal: (content: ReactNode) => void;
   popModal: () => void;
   clearModals: () => void;
   provideModalData: (modalData: ModalData) => void;
+  clearModalData: () => void;
 };
 
-export const useModalStore = create<ModalState>((set /*, get */) => ({
+export const useModalStore = create<ModalState>((set, get) => ({
+  rerender: false,
   stack: [],
   modalData: {
+    id: null,
     modalBg: null,
-    modalLevel: 1,
-    modalRarity: 4,
+    modalLevel: null,
+    modalRarityOrName: null,
     modalType: "standard",
   },
-  pushModal: (content, type) =>
+  pushModal: (content) =>
     set((state) => ({
       stack: [...state.stack, content],
-      modalData: { ...state.modalData, modalType: type },
+      modalData: { ...state.modalData },
     })),
-  popModal: () => set((state) => ({ stack: state.stack.slice(0, -1) })),
+  popModal: () => {
+    set((state) => ({ stack: state.stack.slice(0, -1) }));
+    get().clearModalData(); // Clear the modal data after popping the modal
+  },
   clearModals: () => set({ stack: [] }),
   provideModalData: (modalData) => {
     set((state) => ({
@@ -32,4 +39,14 @@ export const useModalStore = create<ModalState>((set /*, get */) => ({
       modalData: { ...state.modalData, ...modalData },
     }));
   },
+  clearModalData: () =>
+    set({
+      modalData: {
+        id: null,
+        modalBg: null,
+        modalLevel: null,
+        modalRarityOrName: null,
+        modalType: "standard",
+      },
+    }),
 }));

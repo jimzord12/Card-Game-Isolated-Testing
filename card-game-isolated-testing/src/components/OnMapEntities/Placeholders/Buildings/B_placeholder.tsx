@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 // Wrap those Raw images with this
 import GlowImage from "../../../GlowImage/GlowImage";
@@ -10,8 +16,9 @@ import "../animations.css";
 import "../placeholders.css";
 import styles from "./bPlaceholders.module.css";
 
+import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContext";
 import { useModalStore } from "../../../../stores/modalStore";
-import StandardModal from "../../../Modals/StandardModal/StandardModal";
+import CardPickerModal from "../../../Modals/CardPickerModal/CardPickerModal";
 
 interface propsTypes {
   highlightedImg: number | null;
@@ -41,6 +48,15 @@ const PlaceholderBuilding = ({
 }: propsTypes) => {
   const [animate, setAnimate] = useState(false);
   const pushModal = useModalStore((state) => state.pushModal);
+  // const modalBg = useModalStore((state) => state.modalData.modalBg);
+  const modalId = useModalStore((state) => state.modalData.id);
+
+  const provideModalData = useModalStore((state) => state.provideModalData);
+
+  const { images } = UseGlobalContext();
+
+  if (images === undefined)
+    throw new Error("⛔ B_Placeholder, images is undefined!");
 
   const handleClickWhenLocked = useCallback(() => {
     setAnimate(true);
@@ -50,19 +66,22 @@ const PlaceholderBuilding = ({
     setAnimate(false);
   }, []);
 
-  const handleOpenStandardModal = useCallback((spot: BuildingSpot) => {
-    pushModal(
-      <StandardModal
-        message={`This is the Standard Modal For a [BUILDING] Placeholder, SPOT: [${spot}]`}
-        onConfirm={() => {
-          console.log("✅ You pressed the Confirm Button!");
-        }}
-        onCancel={() => {
-          console.log("❌ You pressed the Cancel Button!");
-        }}
-      />
-    );
+  const handleOpenModal = useCallback(() => {
+    provideModalData({
+      id: id,
+      modalBg: images?.modal_backgrounds.levelUpBuildingBG,
+      modalLevel: null,
+      modalRarityOrName: "Pick A Card",
+      modalType: "standard",
+    });
   }, []);
+
+  useEffect(() => {
+    console.log("UseEffect For [B_PlaceHolder], ID: ", modalId);
+    if (modalId !== id) return;
+    pushModal(<CardPickerModal type="building" spot={spot} />);
+  }, [modalId]);
+
   return (
     <>
       {mapEntities[spot] === null ? (
@@ -73,7 +92,7 @@ const PlaceholderBuilding = ({
             if (isLocked) {
               handleClickWhenLocked();
             } else {
-              handleOpenStandardModal(spot);
+              handleOpenModal();
             }
           }}
           onAnimationEnd={handleAnimationEnd}

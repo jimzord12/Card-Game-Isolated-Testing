@@ -42,12 +42,12 @@ const TownMap = () => {
   // 🧪 For Testing
   useEffect(() => {
     const testCardREG = RegCard.createNew(
-      2,
-      2,
-      "ssss",
-      "SimpleSolarPanel",
-      11,
-      true
+      2, // Card's Unique ID
+      2, // Player/Owner ID
+      "ssss", // Player Name
+      "SimpleSolarPanel", // Card's Name, is Typed
+      11, // Spot on Map, is Typed
+      true // Card's Initial State
     );
 
     const testCardBuilding = BuildingCard.createNew(
@@ -58,8 +58,8 @@ const TownMap = () => {
       4, // Spot on Map, is Typed
       true // Card's Initial State
     );
-    addEntityOnMap(testCardREG);
-    addEntityOnMap(testCardBuilding);
+    // addEntityOnMap(testCardREG);
+    // addEntityOnMap(testCardBuilding);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
