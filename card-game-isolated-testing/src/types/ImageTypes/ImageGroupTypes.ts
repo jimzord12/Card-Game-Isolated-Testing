@@ -26,6 +26,9 @@ type FrameImageGroup = {
   metalFrame: string;
   rustyFrame: string;
   stefaniFrame: string;
+  buildingCardFrame: string;
+  regCardFrame: string;
+  spCardFrame: string;
 };
 
 export type GameIconsImageGroup = {

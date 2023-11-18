@@ -18,7 +18,7 @@ type Props = {
   rarityOrName: number | string;
 };
 
-const StandardModal = ({ children, actions, level, rarityOrName }: Props) => {
+const StandardModal = ({ children, actions, /*level ,*/ rarityOrName }: Props) => {
   // const pushModal = useModalStore((state) => state.pushModal);
   const popModal = useModalStore((state) => state.popModal);
   const modalBg = useModalStore((state) => state.modalData.modalBg);

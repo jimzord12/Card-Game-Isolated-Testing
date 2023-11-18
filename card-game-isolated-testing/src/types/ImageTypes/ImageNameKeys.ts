@@ -24,7 +24,10 @@ type FrameImageNameKey =
   | "rustyFrame"
   | "goldFrame"
   | "metalFrame"
-  | "stefaniFrame";
+  | "stefaniFrame"
+  | "buildingCardFrame"
+  | "regCardFrame"
+  | "spCardFrame";
 
 type GameIconImageNameKey =
   | "activateGradientGameIcon"

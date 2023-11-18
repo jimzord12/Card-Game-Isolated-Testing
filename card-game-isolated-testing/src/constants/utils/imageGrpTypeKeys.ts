@@ -190,6 +190,9 @@ export const imageGrpKeys: ImageGroups = {
     metalFrame: "",
     rustyFrame: "",
     stefaniFrame: "",
+    buildingCardFrame: "",
+    regCardFrame: "",
+    spCardFrame: "",
   },
   gameIcons: {
     activateGradientGameIcon: "",

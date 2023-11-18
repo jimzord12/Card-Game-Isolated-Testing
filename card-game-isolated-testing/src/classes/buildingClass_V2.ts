@@ -4,7 +4,10 @@ import {
   rarityMultiplier,
   upgradeCoef,
 } from "../constants/cards/cardStats/coefficients";
-import { nameToTemplateDataBuilding, templateIdToTemplateDataBuilding } from "../constants/templates/buildings";
+import {
+  nameToTemplateDataBuilding,
+  templateIdToTemplateDataBuilding,
+} from "../constants/templates/buildings";
 import {
   BuildingCardData,
   BuildingMaintenance,
@@ -95,7 +98,7 @@ export default class BuildingCard {
     // _templateId: BuildingTemplateId,
     _spot: BuildingSpot = 0,
     _state: boolean = false
-  ) {
+  ): BuildingCard {
     const _level: OneToFive = 1;
     const defaultValues = {
       id: newId + 1000,
@@ -110,7 +113,10 @@ export default class BuildingCard {
       ownerId: ownerId,
       state: _state,
     };
-    return new BuildingCard(defaultValues, nameToTemplateDataBuilding[cardName].image);
+    return new BuildingCard(
+      defaultValues,
+      nameToTemplateDataBuilding[cardName].image
+    );
   }
 
   static fromDb(

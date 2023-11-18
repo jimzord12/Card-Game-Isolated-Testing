@@ -13,8 +13,6 @@ import { useTownMapStore } from "../../stores/townMapEntitiesStore";
 // Types
 
 // Classes
-import BuildingCard from "../../classes/buildingClass_V2";
-import RegCard from "../../classes/regClass_V2";
 
 // Components
 import { useGameVarsStore } from "../../stores/gameVars";
@@ -33,7 +31,7 @@ const TownMap = () => {
   );
   // Zustang Store Related
   const mapEntities = useTownMapStore((state) => state.mapEntities);
-  const addEntityOnMap = useTownMapStore((state) => state.addEntity);
+  // const addEntityOnMap = useTownMapStore((state) => state.addEntity);
   const townHallLevel = useGameVarsStore((state) => state.townhallLevel);
 
   if (images?.maps === undefined || images?.onMapAssets === undefined)
@@ -41,23 +39,22 @@ const TownMap = () => {
 
   // 🧪 For Testing
   useEffect(() => {
-    const testCardREG = RegCard.createNew(
-      2, // Card's Unique ID
-      2, // Player/Owner ID
-      "ssss", // Player Name
-      "SimpleSolarPanel", // Card's Name, is Typed
-      11, // Spot on Map, is Typed
-      true // Card's Initial State
-    );
-
-    const testCardBuilding = BuildingCard.createNew(
-      1, // Card's Unique ID
-      1, // Player/Owner ID
-      "Player_02", // Player Name
-      "AmusementPark", // Card's Name, is Typed
-      4, // Spot on Map, is Typed
-      true // Card's Initial State
-    );
+    // const testCardREG = RegCard.createNew(
+    //   2, // Card's Unique ID
+    //   2, // Player/Owner ID
+    //   "ssss", // Player Name
+    //   "SimpleSolarPanel", // Card's Name, is Typed
+    //   11, // Spot on Map, is Typed
+    //   true // Card's Initial State
+    // );
+    // const testCardBuilding = BuildingCard.createNew(
+    //   1, // Card's Unique ID
+    //   1, // Player/Owner ID
+    //   "Player_02", // Player Name
+    //   "AmusementPark", // Card's Name, is Typed
+    //   4, // Spot on Map, is Typed
+    //   true // Card's Initial State
+    // );
     // addEntityOnMap(testCardREG);
     // addEntityOnMap(testCardBuilding);
     // eslint-disable-next-line react-hooks/exhaustive-deps

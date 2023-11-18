@@ -117,10 +117,10 @@ const templateIdToTemplateDataBuilding: Record<
   BuildingTemplateId,
   TemplateDataBuilding
 > = {
-  101: amusementParkTemplate,
-  102: hopsitalTemplate,
-  103: radioStationTemplate,
-  104: toolStoreTemplate,
+  101: toolStoreTemplate,
+  102: amusementParkTemplate,
+  103: hopsitalTemplate,
+  104: radioStationTemplate,
 };
 
 const nameToTemplateDataBuilding: Record<BuildingName, TemplateDataBuilding> = {

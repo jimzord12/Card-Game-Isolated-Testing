@@ -1,0 +1,209 @@
+"filename", "language", "JSON", "JSON with Comments", "TypeScript", "CSS", "TypeScript JSX", "XML", "Markdown", "JavaScript", "HTML", "comment", "blank", "total"
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\.eslintrc.cjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 1, 19
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 9, 28
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\global.d.ts", "TypeScript", 0, 0, 2, 0, 0, 0, 0, 0, 0, 194, 2, 198
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 1, 14
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\package-lock.json", "JSON", 2471, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2472
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\package.json", "JSON", 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 30
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\public\sw.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 7, 42
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\public\sw_OLD.ts", "TypeScript", 0, 0, 35, 0, 0, 0, 0, 0, 0, 2, 9, 46
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\public\vite.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\App.css", "CSS", 0, 0, 0, 6, 0, 0, 0, 0, 0, 4, 2, 12
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\App.tsx", "TypeScript JSX", 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\cards\index.ts", "TypeScript", 0, 0, 29, 0, 0, 0, 0, 0, 0, 3, 7, 39
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\emblems\index.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 2, 16
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\frames\index.ts", "TypeScript", 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 2, 16
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\gameIcons\details\index.ts", "TypeScript", 0, 0, 52, 0, 0, 0, 0, 0, 0, 9, 9, 70
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\gameIcons\resources\index.ts", "TypeScript", 0, 0, 26, 0, 0, 0, 0, 0, 0, 3, 5, 34
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\gameIcons\utility\index.ts", "TypeScript", 0, 0, 30, 0, 0, 0, 0, 0, 0, 5, 6, 41
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\labels\index.ts", "TypeScript", 0, 0, 26, 0, 0, 0, 0, 0, 0, 1, 3, 30
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\maps\index.ts", "TypeScript", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 4
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\menus\index.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 2, 3, 13
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\modal_backgrounds\index.ts", "TypeScript", 0, 0, 42, 0, 0, 0, 0, 0, 0, 7, 8, 57
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\onMapAssets\bushesAndTrees\index.ts", "TypeScript", 0, 0, 24, 0, 0, 0, 0, 0, 0, 3, 4, 31
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\onMapAssets\index.ts", "TypeScript", 0, 0, 36, 0, 0, 0, 0, 0, 0, 4, 5, 45
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\quarries\index.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 0, 1, 2, 13
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\townExpansion\index.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs\workers\index.ts", "TypeScript", 0, 0, 16, 0, 0, 0, 0, 0, 0, 1, 3, 20
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\appUtils\index.ts", "TypeScript", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 4
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\cards\index.ts", "TypeScript", 0, 0, 33, 0, 0, 0, 0, 0, 0, 3, 7, 43
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\emblems\index.ts", "TypeScript", 0, 0, 15, 0, 0, 0, 0, 0, 0, 2, 3, 20
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\error\index.ts", "TypeScript", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1, 3
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\frames\index.ts", "TypeScript", 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 3, 26
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\gameIcons\index.ts", "TypeScript", 0, 0, 132, 0, 0, 0, 0, 0, 0, 20, 20, 172
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\index.ts", "TypeScript", 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 2, 32
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\labels\index.ts", "TypeScript", 0, 0, 33, 0, 0, 0, 0, 0, 0, 1, 4, 38
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\maps\index.ts", "TypeScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 2, 5
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\menus\index.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 0, 2, 4, 15
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\modal_backgrounds\index.ts", "TypeScript", 0, 0, 50, 0, 0, 0, 0, 0, 0, 7, 9, 66
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\onMapAssets\index.ts", "TypeScript", 0, 0, 69, 0, 0, 0, 0, 0, 0, 9, 11, 89
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\quarries\index.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 0, 1, 2, 14
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\townExpansion\index.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\imgs_new_convention\workers\index.ts", "TypeScript", 0, 0, 20, 0, 0, 0, 0, 0, 0, 1, 4, 25
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\assets\react.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\classes\OLD\buildingClass.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 228, 32, 260
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\classes\OLD\card.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 16, 140
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\classes\OLD\regClass.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 211, 32, 243
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\classes\OLD\spClass.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 144, 19, 163
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\classes\buildingClass_V2.ts", "TypeScript", 0, 0, 222, 0, 0, 0, 0, 0, 0, 13, 32, 267
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\classes\regClass_V2.ts", "TypeScript", 0, 0, 206, 0, 0, 0, 0, 0, 0, 7, 32, 245
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\classes\spClass_V2.ts", "TypeScript", 0, 0, 140, 0, 0, 0, 0, 0, 0, 6, 18, 164
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Buttons\ActionSectionBtn\ActionSectionBtn.tsx", "TypeScript JSX", 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 4, 17
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Buttons\ActionSectionBtn\actionSectionBtnStyles.module.css", "CSS", 0, 0, 0, 82, 0, 0, 0, 0, 0, 9, 9, 100
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Cards\NormalCard\NormalCard.tsx", "TypeScript JSX", 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 2, 6
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Cards\NormalCard\normalCard.module.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Cards\Parts\CardLayout\CardLayout.tsx", "TypeScript JSX", 0, 0, 0, 0, 32, 0, 0, 0, 0, 12, 6, 50
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Cards\Parts\CardLayout\cardLayout.module.css", "CSS", 0, 0, 0, 95, 0, 0, 0, 0, 0, 4, 17, 116
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Cards\Parts\LevelIndicator\LevelIndicator.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 10
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Cards\Parts\LevelIndicator\levelIndicator.module.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Cards\TemplateCard\TemplateCard.tsx", "TypeScript JSX", 0, 0, 0, 0, 45, 0, 0, 0, 0, 11, 8, 64
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\EntryPoint\EntryPoint.tsx", "TypeScript JSX", 0, 0, 0, 0, 37, 0, 0, 0, 0, 2, 7, 46
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\ErrorBoundry\ErrorBoundry.tsx", "TypeScript JSX", 0, 0, 0, 0, 30, 0, 0, 0, 0, 3, 9, 42
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\ForTesting\Button\Button.tsx", "TypeScript JSX", 0, 0, 0, 0, 15, 0, 0, 0, 0, 7, 4, 26
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\ForTesting\Button\button.module.css", "CSS", 0, 0, 0, 26, 0, 0, 0, 0, 0, 1, 6, 33
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\CircularGoldenLabel\CircularGoldenLabel.tsx", "TypeScript JSX", 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 7, 67
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\CircularGoldenLabel\circularLabelStyles.module.css", "CSS", 0, 0, 0, 56, 0, 0, 0, 0, 0, 17, 9, 82
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\GreenLabel\GreenLabel.tsx", "TypeScript JSX", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 5, 33
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\GreenLabel\greenLabelStyles.module.css", "CSS", 0, 0, 0, 53, 0, 0, 0, 0, 0, 15, 8, 76
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\RustyLabel\RustyLabel.tsx", "TypeScript JSX", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 5, 33
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\RustyLabel\rustyLabelStyles.module.css", "CSS", 0, 0, 0, 53, 0, 0, 0, 0, 0, 15, 8, 76
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\SpecialLabel\SpecialLabel.tsx", "TypeScript JSX", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 5, 33
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\SpecialLabel\specialLabelStyles.module.css", "CSS", 0, 0, 0, 53, 0, 0, 0, 0, 0, 15, 8, 76
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\StandardLabel\StandardLabel.tsx", "TypeScript JSX", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 5, 33
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GameAssets\Labels\StandardLabel\standardLabelStyles.module.css", "CSS", 0, 0, 0, 52, 0, 0, 0, 0, 0, 8, 8, 68
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Game\Game.tsx", "TypeScript JSX", 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 3, 15
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GlowImage\GlowImage.tsx", "TypeScript JSX", 0, 0, 0, 0, 26, 0, 0, 0, 0, 1, 4, 31
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GlowImage\styles.module.css", "CSS", 0, 0, 0, 8, 0, 0, 0, 0, 0, 1, 2, 11
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\GlowOutlineFilter.tsx", "TypeScript JSX", 0, 0, 0, 0, 41, 0, 0, 0, 0, 4, 3, 48
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\ActionsSection\ActionsSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 4, 26
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\ActionsSection\styles.module.css", "CSS", 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModalParts\ModalCloseBtn\ModalCloseBtn.tsx", "TypeScript JSX", 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 7, 31
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModalParts\ModalCloseBtn\modalCloseBtn.module.css", "CSS", 0, 0, 0, 74, 0, 0, 0, 0, 0, 0, 7, 81
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModalParts\ModalLevelIndicator\ModalLevelIndicator.tsx", "TypeScript JSX", 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 7, 36
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModalParts\ModalLevelIndicator\modalLevel.module.css", "CSS", 0, 0, 0, 89, 0, 0, 0, 0, 0, 2, 9, 100
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModalParts\ModalRarityIndicator\ModalRarityIndicator.tsx", "TypeScript JSX", 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 8, 53
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModalParts\ModalRarityIndicator\modalRarity.module.css", "CSS", 0, 0, 0, 89, 0, 0, 0, 0, 0, 0, 9, 98
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModal\Modal.tsx", "TypeScript JSX", 0, 0, 0, 0, 16, 0, 0, 0, 0, 35, 10, 61
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\BaseModal\baseModal.module.css", "CSS", 0, 0, 0, 51, 0, 0, 0, 0, 0, 3, 8, 62
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\CardPickerModal\CardPickerModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 126, 0, 0, 0, 0, 7, 12, 145
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\CardPickerModal\cardPickerModalStyles.module.css", "CSS", 0, 0, 0, 110, 0, 0, 0, 0, 0, 8, 16, 134
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\ConfirmationModal\ConfirmationModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 33, 0, 0, 0, 0, 15, 9, 57
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\ConfirmationModal\confirmationModalStyles.module.css", "CSS", 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 6, 50
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\StandardModal\StandardModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 70, 0, 0, 0, 0, 23, 11, 104
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\Modals\StandardModal\standardModalStyles.module.css", "CSS", 0, 0, 0, 95, 0, 0, 0, 0, 0, 8, 14, 117
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Buildings\BuildingsOnMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 109, 0, 0, 0, 0, 2, 8, 119
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Buildings\buildings.css", "CSS", 0, 0, 0, 60, 0, 0, 0, 0, 0, 7, 8, 75
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\DefaultBuildingsOnMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 34, 0, 0, 0, 0, 0, 4, 38
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\Factory\FactoryOnMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 40, 0, 0, 0, 0, 16, 9, 65
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\CitizensSection\CitizensSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 67, 0, 0, 0, 0, 3, 8, 78
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\CitizensSection\citizensSectionStyles.module.css", "CSS", 0, 0, 0, 54, 0, 0, 0, 0, 0, 4, 9, 67
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\EnergySection\EnergySection.tsx", "TypeScript JSX", 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 4, 27
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\EnergySection\energySectionStyles.module.css", "CSS", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 2, 19
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\ResoursesSection\ResourcesSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 37, 0, 0, 0, 0, 2, 5, 44
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\ResoursesSection\resourcesSectionStyles.module.css", "CSS", 0, 0, 0, 31, 0, 0, 0, 0, 0, 2, 4, 37
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\SpecialSection\SpecialSection.tsx", "TypeScript JSX", 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 4, 27
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\CategorySections\SpecialSection\specialSectionStyles.module.css", "CSS", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 2, 19
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\TownHallModalLayout.tsx", "TypeScript JSX", 0, 0, 0, 0, 54, 0, 0, 0, 0, 6, 6, 66
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallModalLayout\townHallModalStyles.module.css", "CSS", 0, 0, 0, 54, 0, 0, 0, 0, 0, 33, 8, 95
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\TownHall\TownHallOnMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 163, 0, 0, 0, 0, 108, 30, 301
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\DefaultBuildings\defaultBuildings.css", "CSS", 0, 0, 0, 76, 0, 0, 0, 0, 0, 23, 14, 113
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\EntityTemplateGroup\EntityTemplateGroup.tsx", "TypeScript JSX", 0, 0, 0, 0, 57, 0, 0, 0, 0, 2, 6, 65
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\Buildings\B_Padlock.tsx", "TypeScript JSX", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 4, 32
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\Buildings\B_placeholder.tsx", "TypeScript JSX", 0, 0, 0, 0, 110, 0, 0, 0, 0, 3, 16, 129
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\Buildings\bPlaceholders.module.css", "CSS", 0, 0, 0, 21, 0, 0, 0, 0, 0, 1, 3, 25
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\Placeholders.tsx", "TypeScript JSX", 0, 0, 0, 0, 88, 0, 0, 0, 0, 3, 7, 98
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\REGs\R_Padlock.tsx", "TypeScript JSX", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 4, 32
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\REGs\R_placeholder.tsx", "TypeScript JSX", 0, 0, 0, 0, 108, 0, 0, 0, 0, 4, 13, 125
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\REGs\rPlaceholders.module.css", "CSS", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 4, 36
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\animations.css", "CSS", 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 4, 52
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Placeholders\placeholders.css", "CSS", 0, 0, 0, 108, 0, 0, 0, 0, 0, 13, 14, 135
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\REGs\REGsOnMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 59, 0, 0, 0, 0, 14, 6, 79
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\REGs\solar.css", "CSS", 0, 0, 0, 52, 0, 0, 0, 0, 0, 15, 8, 75
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\REGs\wind.css", "CSS", 0, 0, 0, 61, 0, 0, 0, 0, 0, 11, 8, 80
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Trees\Tree.tsx", "TypeScript JSX", 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 4, 17
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Trees\TreesOnMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 21, 0, 0, 0, 0, 3, 5, 29
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\OnMapEntities\Trees\trees.css", "CSS", 0, 0, 0, 78, 0, 0, 0, 0, 0, 10, 10, 98
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\RotateDevice\RotateDevice.tsx", "TypeScript JSX", 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 3, 25
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\RotateDevice\rotateDevice.module.css", "CSS", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\TownMap\OLD\TownMap_OLD.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 106, 23, 129
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\TownMap\TownMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 80, 0, 0, 0, 0, 41, 23, 144
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\TownMap\css\general.module.css", "CSS", 0, 0, 0, 23, 0, 0, 0, 0, 0, 10, 5, 38
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\components\WorldMap\WorldMap.tsx", "TypeScript JSX", 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 2, 6
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\cache.ts", "TypeScript", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\cards\cardImageUrls\noShadow.ts", "TypeScript", 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 5, 56
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\cards\cardImageUrls\withShadow.ts", "TypeScript", 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 7, 58
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\cards\cardStats\coefficients.ts", "TypeScript", 0, 0, 32, 0, 0, 0, 0, 0, 0, 2, 4, 38
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\templates\buildings.ts", "TypeScript", 0, 0, 124, 0, 0, 0, 0, 0, 0, 0, 10, 134
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\templates\defaultBuildings.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\templates\regs.ts", "TypeScript", 0, 0, 112, 0, 0, 0, 0, 0, 0, 0, 10, 122
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\templates\sps.ts", "TypeScript", 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 8, 79
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\utils\imageGrpTypeKeys.ts", "TypeScript", 0, 0, 295, 0, 0, 0, 0, 0, 0, 16, 17, 328
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\utils\manifest.json", "JSON", 685, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 685
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\constants\utils\originalImageUrls.ts", "TypeScript", 0, 0, 132, 0, 0, 0, 0, 0, 0, 0, 1, 133
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\GlobalContext\GlobalContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 67, 0, 0, 0, 0, 23, 16, 106
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\GlobalContext\OLD\ImageContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 192, 22, 214
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\GlobalContext\OLD\ImageContextV3.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 149, 33, 182
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\GlobalContext\OLD\ImageContextV4.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 107, 19, 126
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\GlobalContext\OLD\ImageContext_V2.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 161, 24, 185
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\GlobalContext\imageUtils\OLD\imageUtils.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 167, 30, 197
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\GlobalContext\imageUtils\imageUtilsV2.ts", "TypeScript", 0, 0, 157, 0, 0, 0, 0, 0, 0, 6, 34, 197
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\context\ModalContext\ModalProvider.tsx", "TypeScript JSX", 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 5, 25
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\imageData.ts", "TypeScript", 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 2, 46
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\test\buildings\buildingImgs.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 2, 62
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\test\buildings\fakeCardDataBuildings.ts", "TypeScript", 0, 0, 55, 0, 0, 0, 0, 0, 0, 0, 2, 57
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\test\defaultBuildings\fakeCardDataDefaults.ts", "TypeScript", 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\test\defaultImgs.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 2, 24
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\test\placeholderInfo.ts", "TypeScript", 0, 0, 81, 0, 0, 0, 0, 0, 0, 13, 2, 96
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\test\regs\fakeCardDataRegs.ts", "TypeScript", 0, 0, 55, 0, 0, 0, 0, 0, 0, 0, 2, 57
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\data\test\regs\regImgs.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 2, 63
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\hooks\useLandscape.tsx", "TypeScript JSX", 0, 0, 0, 0, 21, 0, 0, 0, 0, 6, 6, 33
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\index.css", "CSS", 0, 0, 0, 22, 0, 0, 0, 0, 0, 57, 6, 85
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\main.tsx", "TypeScript JSX", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 4, 32
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\pages\Error\ErrorPage.tsx", "TypeScript JSX", 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 4, 30
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\pages\Error\errorPage.module.css", "CSS", 0, 0, 0, 32, 0, 0, 0, 0, 0, 8, 7, 47
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\pages\LoadingScreen\LoadingScreen.tsx", "TypeScript JSX", 0, 0, 0, 0, 24, 0, 0, 0, 0, 5, 5, 34
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\pages\LoadingScreen\SubComponents\GlowingSpheres.tsx", "TypeScript JSX", 0, 0, 0, 0, 38, 0, 0, 0, 0, 0, 4, 42
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\pages\LoadingScreen\SubComponents\spheres.module.css", "CSS", 0, 0, 0, 74, 0, 0, 0, 0, 0, 3, 9, 86
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\pages\LoadingScreen\loadingScreen.module.css", "CSS", 0, 0, 0, 80, 0, 0, 0, 0, 0, 1, 10, 91
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\stores\allCards.ts", "TypeScript", 0, 0, 23, 0, 0, 0, 0, 0, 0, 1, 5, 29
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\stores\gameVars.ts", "TypeScript", 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 3, 27
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\stores\modalStore.ts", "TypeScript", 0, 0, 52, 0, 0, 0, 0, 0, 0, 0, 3, 55
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\stores\townMapEntitiesStore.ts", "TypeScript", 0, 0, 43, 0, 0, 0, 0, 0, 0, 4, 5, 52
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\styles.module.css", "CSS", 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 5
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\CardTypes\BuildingTypes.ts", "TypeScript", 0, 0, 32, 0, 0, 0, 0, 0, 0, 1, 5, 38
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\CardTypes\CardTypes.ts", "TypeScript", 0, 0, 76, 0, 0, 0, 0, 0, 0, 1, 5, 82
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\CardTypes\DefaultBuildingTypes.ts", "TypeScript", 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\CardTypes\RegTypes.ts", "TypeScript", 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 4, 28
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\CardTypes\SPTypes.ts", "TypeScript", 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\CardTypes\index.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 2, 8
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\ImageTypes\ImageGroupTypes.ts", "TypeScript", 0, 0, 176, 0, 0, 0, 0, 0, 0, 0, 15, 191
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\ImageTypes\ImageNameKeys.ts", "TypeScript", 0, 0, 154, 0, 0, 0, 0, 0, 0, 0, 13, 167
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\ImageTypes\ImageTypes.ts", "TypeScript", 0, 0, 49, 0, 0, 0, 0, 0, 0, 2, 9, 60
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\ImageTypes\index.ts", "TypeScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 2, 6
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\MapEntitiesTypes\EntityTypes.ts", "TypeScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\MapEntitiesTypes\TownMapEntitiesTypes.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 0, 15, 5, 30
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\MapEntitiesTypes\TreesType.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 5
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\MapEntitiesTypes\index.ts", "TypeScript", 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 2, 5
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\ModalTypes\ActionsSectionTypes.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 2, 12
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\ModalTypes\BaseModalTypes.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\TypeGuardFns\BuildingGuards.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\TypeGuardFns\LevelTypeGuard.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\TypeGuardFns\RegGuards.ts", "TypeScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 3, 11
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\TypeGuardFns\SPGuards.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\UtilityTypes.ts", "TypeScript", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\ViteManifest\index.ts", "TypeScript", 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\types\index.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 5
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\utils\convertImagePath.ts", "TypeScript", 0, 0, 13, 0, 0, 0, 0, 0, 0, 3, 2, 18
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\utils\formatDate.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\utils\getRandomNumberInRange.ts", "TypeScript", 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\utils\images\treeImgsProccesor.ts", "TypeScript", 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 2, 42
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\utils\roundToDecimal.ts", "TypeScript", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\utils\utilityFunctions.ts", "TypeScript", 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\vite-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\src\webWorkers\imageLoader.worker.ts", "TypeScript", 0, 0, 21, 0, 0, 0, 0, 0, 0, 5, 6, 32
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\swTest.ts", "TypeScript", 0, 0, 164, 0, 0, 0, 0, 0, 0, 1, 10, 175
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\tsconfig.json", "JSON with Comments", 0, 22, 0, 0, 0, 0, 0, 0, 0, 2, 3, 27
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\tsconfig.node.json", "JSON", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\tsconfig.worker.json", "JSON", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\Jimzord12\Documents\GitHub\Card-Game-Isolated-Testing\card-game-isolated-testing\vite.config.ts", "TypeScript", 0, 0, 9, 0, 0, 0, 0, 0, 0, 7, 2, 18
+"Total", "-", 3202, 22, 3685, 2009, 2195, 2, 19, 53, 13, 2798, 1406, 15404

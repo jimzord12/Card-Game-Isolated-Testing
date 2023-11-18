@@ -22,6 +22,7 @@ export const useModalStore = create<ModalState>((set, get) => ({
     modalLevel: null,
     modalRarityOrName: null,
     modalType: "standard",
+    modalMenuIndex: null,
   },
   pushModal: (content) =>
     set((state) => ({
@@ -32,7 +33,6 @@ export const useModalStore = create<ModalState>((set, get) => ({
     set((state) => ({ stack: state.stack.slice(0, -1) }));
     get().clearModalData(); // Clear the modal data after popping the modal
   },
-  clearModals: () => set({ stack: [] }),
   provideModalData: (modalData) => {
     set((state) => ({
       ...state,
@@ -47,6 +47,8 @@ export const useModalStore = create<ModalState>((set, get) => ({
         modalLevel: null,
         modalRarityOrName: null,
         modalType: "standard",
+        modalMenuIndex: null,
       },
     }),
+  clearModals: () => set({ stack: [] }),
 }));

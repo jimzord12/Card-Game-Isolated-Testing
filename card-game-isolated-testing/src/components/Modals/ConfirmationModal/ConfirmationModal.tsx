@@ -11,7 +11,7 @@ type Props = {
 const ConfirmationModal = ({ onConfirm, onCancel, message }: Props) => {
   // const [isClosing, setIsClosing] = useState(false);
   const popModal = useModalStore((state) => state.popModal);
-  const provideModalData = useModalStore((state) => state.provideModalData);
+  // const provideModalData = useModalStore((state) => state.provideModalData);
 
   // const handleClose = useCallback(() => {
   //   setIsClosing(true);
@@ -22,14 +22,14 @@ const ConfirmationModal = ({ onConfirm, onCancel, message }: Props) => {
 
   const confirmHandler = useCallback(() => {
     onConfirm();
-    provideModalData({ modalType: "standard" });
+    // provideModalData({ modalType: "standard" });
     popModal();
     // handleClose();
   }, []);
 
   const cancelHandler = useCallback(() => {
     onCancel();
-    provideModalData({ modalType: "standard" });
+    // provideModalData({ modalType: "standard" });
     popModal();
     // handleClose();
   }, []);

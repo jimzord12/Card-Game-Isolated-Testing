@@ -1,17 +1,17 @@
 {
   "index.css": {
-    "file": "assets/index-ea2dd827.css",
+    "file": "assets/index-194f5853.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-ea2dd827.css"
+      "assets/index-194f5853.css"
     ],
     "dynamicImports": [
       "src/assets/imgs_new_convention/index.ts",
       "src/components/Game/Game.tsx"
     ],
-    "file": "assets/index-4d7c7d52.js",
+    "file": "assets/index-444cdbb9.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -91,6 +91,10 @@
     "file": "assets/frames-bambooFrame-52f9bcc1.webp",
     "src": "src/assets/imgs_new_convention/frames/frames-bambooFrame.webp"
   },
+  "src/assets/imgs_new_convention/frames/frames-buildingCardFrame.webp": {
+    "file": "assets/frames-buildingCardFrame-8ffc8b29.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-buildingCardFrame.webp"
+  },
   "src/assets/imgs_new_convention/frames/frames-goldFrame.webp": {
     "file": "assets/frames-goldFrame-02fe49e2.webp",
     "src": "src/assets/imgs_new_convention/frames/frames-goldFrame.webp"
@@ -103,9 +107,17 @@
     "file": "assets/frames-metalFrame-7ef55219.webp",
     "src": "src/assets/imgs_new_convention/frames/frames-metalFrame.webp"
   },
+  "src/assets/imgs_new_convention/frames/frames-regCardFrame.webp": {
+    "file": "assets/frames-regCardFrame-cfe7ec25.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-regCardFrame.webp"
+  },
   "src/assets/imgs_new_convention/frames/frames-rustyFrame.webp": {
     "file": "assets/frames-rustyFrame-d40a19e8.webp",
     "src": "src/assets/imgs_new_convention/frames/frames-rustyFrame.webp"
+  },
+  "src/assets/imgs_new_convention/frames/frames-spCardFrame.webp": {
+    "file": "assets/frames-spCardFrame-d8fa0fbf.webp",
+    "src": "src/assets/imgs_new_convention/frames/frames-spCardFrame.webp"
   },
   "src/assets/imgs_new_convention/frames/frames-stefaniFrame.webp": {
     "file": "assets/frames-stefaniFrame-38b0fdce.webp",
@@ -296,10 +308,13 @@
       "assets/emblems-oilRigEmblem-29f62d3b.webp",
       "assets/error-catBreakError-bf2e256c.webp",
       "assets/frames-bambooFrame-52f9bcc1.webp",
+      "assets/frames-buildingCardFrame-8ffc8b29.webp",
       "assets/frames-goldFrame-02fe49e2.webp",
       "assets/frames-greenLeavesFrame-e5f23039.webp",
       "assets/frames-metalFrame-7ef55219.webp",
+      "assets/frames-regCardFrame-cfe7ec25.webp",
       "assets/frames-rustyFrame-d40a19e8.webp",
+      "assets/frames-spCardFrame-d8fa0fbf.webp",
       "assets/frames-stefaniFrame-38b0fdce.webp",
       "assets/gameIcons-calendarGameIcon-8a00ac8b.webp",
       "assets/gameIcons-idGameIcon-649e0f25.webp",
@@ -408,7 +423,7 @@
       "assets/workers-oilRigWorker-f994f9af.webp",
       "assets/workers-simpleCitizenWorker-29875cd7.webp"
     ],
-    "file": "assets/index-30f4b4cf.js",
+    "file": "assets/index-430306a9.js",
     "isDynamicEntry": true,
     "src": "src/assets/imgs_new_convention/index.ts"
   },
@@ -673,14 +688,14 @@
     "src": "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp"
   },
   "src/components/Game/Game.css": {
-    "file": "assets/Game-1720811a.css",
+    "file": "assets/Game-1bc031f8.css",
     "src": "src/components/Game/Game.css"
   },
   "src/components/Game/Game.tsx": {
     "css": [
-      "assets/Game-1720811a.css"
+      "assets/Game-1bc031f8.css"
     ],
-    "file": "assets/Game-bbd3367b.js",
+    "file": "assets/Game-02e9ef67.js",
     "imports": [
       "index.html"
     ],

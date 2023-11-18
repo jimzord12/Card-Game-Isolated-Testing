@@ -1,7 +1,5 @@
-import { ReactNode, useState } from "react";
-import { useModalStore } from "../../../stores/modalStore";
+import { ReactNode } from "react";
 
-import { useGameVarsStore } from "../../../stores/gameVars";
 import styles from "./baseModal.module.css";
 
 type Props = {
@@ -9,7 +7,7 @@ type Props = {
   index: number;
 };
 
-const Modal = ({ children, index }: Props) => {
+const Modal = ({ children /*index*/ }: Props) => {
   // const [isClosing, setIsClosing] = useState(false);
 
   // From Zustange Stores

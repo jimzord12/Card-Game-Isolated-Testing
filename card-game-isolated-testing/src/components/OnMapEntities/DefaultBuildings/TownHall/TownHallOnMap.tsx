@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContext";
 import { useGameVarsStore } from "../../../../stores/gameVars";
 import { useModalStore } from "../../../../stores/modalStore";
@@ -47,14 +41,18 @@ const TownHallOnMap = ({
   const { images } = UseGlobalContext();
 
   // TownHall Modal - Menus State
-  const [isMainMenu, setIsMainMenu] = useState<boolean>(true);
+  // const [isMainMenu, setIsMainMenu] = useState<boolean>(true);
 
   // Zustand ModalStore
   const pushModal = useModalStore((state) => state.pushModal);
   const popModal = useModalStore((state) => state.popModal);
   const provideModalData = useModalStore((state) => state.provideModalData);
-  const modalBg = useModalStore((state) => state.modalData.modalBg);
+  // const clearModalData = useModalStore((state) => state.clearModalData);
+  // const modalBg = useModalStore((state) => state.modalData.modalBg);
   const modalId = useModalStore((state) => state.modalData.id);
+  const modalMenuIndex = useModalStore(
+    (state) => state.modalData.modalMenuIndex
+  );
 
   // Zustand GameVarsStore
   const townhallLevel = useGameVarsStore((state) => state.townhallLevel);
@@ -89,34 +87,56 @@ const TownHallOnMap = ({
     console.log("🤞 Happiness got Updated!");
   };
 
-  const notImplementedYet = () => {
-    console.log("🤞 notImplementedYet!");
+  const notImplementedYet_ManageWorkers = () => {
+    console.log("🤞 notImplementedYet_ManageWorkers!");
 
-    setIsMainMenu((prev) => {
-      console.log("💎 aosjdhn9asiuhd9auhdas9iu!");
-      console.log("💎 prev: ", prev);
+    // setIsMainMenu((prev) => {
+    // console.log("💎 aosjdhn9asiuhd9auhdas9iu!");
+    // console.log("💎 prev: ", prev);
+    if (modalMenuIndex === 0) {
+      // If it is on the Main Menu...
+      popModal();
+      provideModalData({
+        id: 1,
+        modalBg: images?.modal_backgrounds.townHallBG,
+        modalMenuIndex: 1,
+      });
+      // By changing the Zustand Store State, the useEffect will be triggered
+      // and create a new modal
+    } else if (modalMenuIndex === 1) {
+      // This is the ManageWorkers Menu
+      popModal();
+      provideModalData({
+        id: 1,
+        modalBg: images?.modal_backgrounds.townHallBG,
+        modalMenuIndex: 0,
+      });
+    } else {
+      throw new Error("⛔ notImplementedYet_ManageWorkers!!!");
+    }
 
-      if (prev === true) {
-        popModal();
-        provideModalData({
-          id: null,
-          modalBg: images?.modal_backgrounds.townHallBG,
-          modalLevel: null,
-          modalRarityOrName: null,
-          modalType: "standard",
-        });
-      } else {
-        popModal();
-        provideModalData({
-          id: 0o1,
-          modalBg: images?.modal_backgrounds.townHallBG,
-          modalLevel: townhallLevel,
-          modalRarityOrName: "Townhall",
-          modalType: "standard",
-        });
-      }
-      return !prev;
-    });
+    // if (prev === true) {
+    //   provideModalData({
+    //     id: null,
+    //     modalBg: images?.modal_backgrounds.townHallBG,
+    //     modalLevel: null,
+    //     modalRarityOrName: null,
+    //     modalMenuIndex: 1,
+    //     modalType: "standard",
+    //   });
+    // } else {
+    //   popModal();
+    //   provideModalData({
+    //     id: 0o1,
+    //     modalBg: images?.modal_backgrounds.townHallBG,
+    //     modalLevel: townhallLevel,
+    //     modalRarityOrName: "Townhall",
+    //     modalType: "standard",
+    //     modalMenuIndex: 0,
+    //   });
+    // }
+    // return !prev;
+    // });
   };
   // setIsMainMenu(false);
 
@@ -137,7 +157,7 @@ const TownHallOnMap = ({
 
   const townhallActions: ActionsSectionAction[] = [
     { text: "Level Up", handler: levelUpTownhall },
-    { text: "Manage Workers", handler: notImplementedYet },
+    { text: "Manage Workers", handler: notImplementedYet_ManageWorkers },
     { text: "Change Happiness", handler: changeHappiness },
   ];
 
@@ -192,19 +212,24 @@ const TownHallOnMap = ({
   // }, []);
 
   const handleOpenTownHallModal = useCallback(() => {
+    console.log("You Clicked On The TownHall!");
     provideModalData({
       id: 0o1,
       modalBg: images?.modal_backgrounds.townHallBG,
       modalLevel: townhallLevel,
       modalRarityOrName: "Townhall",
       modalType: "standard",
+      modalMenuIndex: 0,
     });
-  }, [isMainMenu, images, townhallActions]);
+  }, [images, townhallActions]);
 
   useEffect(() => {
+    console.log("1st UseEffect");
     console.log("UseEffect For [TH MainMenu], ID: ", modalId);
-    if (modalId !== 0o1) return;
-    console.log("SSSSSSSSSSSSSSSSSS");
+    console.log("1st UseEffect: modalMenuIndex: ", modalMenuIndex);
+    if (modalId !== 0o1 || modalMenuIndex !== 0) return;
+    console.log("1st UseEffect, was Executed!");
+
     pushModal(
       <StandardModal
         actions={townhallActions}
@@ -217,22 +242,21 @@ const TownHallOnMap = ({
           popModal();
         }}
       >
-        <TownHallModalLayout isMainMenu={isMainMenu} />
+        <TownHallModalLayout />
       </StandardModal>
     );
 
     // return () => {
     //   second
     // }
-  }, [modalId]);
+  }, [modalId, modalMenuIndex]);
 
   useEffect(() => {
-    console.log("UseEffect #1: ", isMainMenu);
-    console.log("UseEffect #2: ", modalId !== 0o1);
-    if (isMainMenu || modalId === 0o1) return;
-    console.log(":AAAA:::::::");
-    console.log(isMainMenu);
-    console.log(modalId);
+    console.log("2nd UseEffect");
+    console.log("modalId: ", modalId);
+    console.log("2nd UseEffect: modalMenuIndex: ", modalMenuIndex);
+    if (modalMenuIndex !== 1) return;
+    console.log("2nd UseEffect, was Executed!");
     pushModal(
       <StandardModal
         actions={townhallActions}
@@ -245,14 +269,14 @@ const TownHallOnMap = ({
           popModal();
         }}
       >
-        <TownHallModalLayout isMainMenu={isMainMenu} />
+        <TownHallModalLayout />
       </StandardModal>
     );
 
     // return () => {
     //   second
     // }
-  }, [isMainMenu, modalId]);
+  }, [modalId, modalMenuIndex]);
 
   return (
     <div

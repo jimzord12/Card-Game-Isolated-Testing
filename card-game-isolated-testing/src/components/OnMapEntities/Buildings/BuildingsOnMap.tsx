@@ -20,13 +20,13 @@ interface Props {
 const buildingActions = (cardName: BuildingName): ActionsSectionAction[] => {
   if (cardName === "AmusementPark" || cardName === "RadioStation") {
     return [
-      { text: "Level Up", handler: doStaff },
-      { text: "Manage Workers", handler: doOtherStaff },
+      { text: "Level Up", handler: () => {} },
+      { text: "Manage Workers", handler: () => {} },
     ];
   } else {
     return [
-      { text: "Level Up", handler: doStaff },
-      { text: "Manage Workers", handler: doOtherStaff },
+      { text: "Level Up", handler: () => {} },
+      { text: "Manage Workers", handler: () => {} },
     ];
   }
 };
@@ -41,7 +41,7 @@ const BuildingsOnMap = ({
   const pushModal = useModalStore((state) => state.pushModal);
 
   const handleOpenStandardModal = useCallback(
-    (cardName: BuildingName, cardId: number) => {
+    (cardName: BuildingName /*cardId: number*/) => {
       if (cardName === "AmusementPark" || cardName === "RadioStation") {
         {
           /* TODO: Make This for PASSIVE Buildings*/
@@ -49,8 +49,9 @@ const BuildingsOnMap = ({
 
         pushModal(
           <StandardModal
+            level={1}
+            rarityOrName={1}
             actions={buildingActions(cardName)}
-            confirmationMsg="Are you sure you want to lvl up?"
             onConfirm={() => {
               console.log("✅ You pressed the Confirm Button!");
             }}
@@ -58,7 +59,7 @@ const BuildingsOnMap = ({
               console.log("❌ You pressed the Cancel Button!");
             }}
           >
-            {/* TODO: ADD LAYOUT*/}
+            <div></div>
           </StandardModal>
         );
       } else {
@@ -67,8 +68,9 @@ const BuildingsOnMap = ({
         }
         pushModal(
           <StandardModal
+            level={1}
+            rarityOrName={1}
             actions={buildingActions(cardName)}
-            confirmationMsg="Are you sure you want to lvl up?"
             onConfirm={() => {
               console.log("✅ You pressed the Confirm Button!");
             }}
@@ -76,7 +78,7 @@ const BuildingsOnMap = ({
               console.log("❌ You pressed the Cancel Button!");
             }}
           >
-            {/* TODO: ADD LAYOUT*/}
+            <div></div>
           </StandardModal>
         );
       }
@@ -95,7 +97,7 @@ const BuildingsOnMap = ({
             className={`buildingSpot${spot}`}
             onClick={() => {
               setSelectedMapEntity(card.id);
-              handleOpenStandardModal(card.name, card.id);
+              handleOpenStandardModal(card.name);
             }}
           >
             <GlowImage

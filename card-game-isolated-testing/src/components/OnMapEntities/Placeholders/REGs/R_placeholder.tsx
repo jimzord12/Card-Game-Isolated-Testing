@@ -1,17 +1,23 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 // Wrap those Raw images with this
 import GlowImage from "../../../GlowImage/GlowImage";
 
 // Import all CSS Styles Required
+import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContext";
+import { useModalStore } from "../../../../stores/modalStore";
 import { RegSpot, TownMapEntitiesData } from "../../../../types";
+import CardPickerModal from "../../../Modals/CardPickerModal/CardPickerModal";
 import "../animations.css";
 import "../placeholders.css";
 import R_Padlock from "./R_Padlock";
 import styles from "./rPlaceholders.module.css";
-
-import { useModalStore } from "../../../../stores/modalStore";
-import StandardModal from "../../../Modals/StandardModal/StandardModal";
 
 interface propsTypes {
   highlightedImg: number | null;
@@ -43,6 +49,13 @@ const PlaceholderREG = ({
 }: propsTypes) => {
   const [animate, setAnimate] = useState(false);
   const pushModal = useModalStore((state) => state.pushModal);
+  const modalId = useModalStore((state) => state.modalData.id);
+  const provideModalData = useModalStore((state) => state.provideModalData);
+
+  const { images } = UseGlobalContext();
+
+  if (images === undefined)
+    throw new Error("⛔ R_Placeholder, images is undefined!");
 
   const handleClickWhenLocked = useCallback(() => {
     setAnimate(true);
@@ -52,19 +65,21 @@ const PlaceholderREG = ({
     setAnimate(false);
   }, []);
 
-  const handleOpenStandardModal = useCallback((spot: RegSpot) => {
-    pushModal(
-      <StandardModal
-        message={`This is the Standard Modal For a [REG] Placeholder, SPOT: [${spot}]`}
-        onConfirm={() => {
-          console.log("✅ You pressed the Confirm Button!");
-        }}
-        onCancel={() => {
-          console.log("❌ You pressed the Cancel Button!");
-        }}
-      />
-    );
+  const handleOpenModal = useCallback(() => {
+    provideModalData({
+      id: id,
+      modalBg: images?.modal_backgrounds.levelUpRegBG,
+      modalLevel: null,
+      modalRarityOrName: "Pick A Card",
+      modalType: "standard",
+    });
   }, []);
+
+  useEffect(() => {
+    console.log("UseEffect For [R_PlaceHolder], ID: ", modalId);
+    if (modalId !== id) return;
+    pushModal(<CardPickerModal type="reg" spot={spot} />);
+  }, [modalId]);
 
   return (
     <>
@@ -76,7 +91,7 @@ const PlaceholderREG = ({
             if (isLocked) {
               handleClickWhenLocked();
             } else {
-              handleOpenStandardModal(spot);
+              handleOpenModal(/*spot*/);
             }
           }}
           onAnimationEnd={handleAnimationEnd}

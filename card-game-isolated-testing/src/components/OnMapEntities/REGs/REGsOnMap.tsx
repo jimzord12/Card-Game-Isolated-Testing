@@ -1,14 +1,12 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
-import { RegName, TownMapEntitiesData } from "../../../types";
+import { TownMapEntitiesData } from "../../../types";
 import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
 
 import GlowImage from "../../GlowImage/GlowImage";
 import "./solar.css";
 import "./wind.css";
 
-import { useModalStore } from "../../../stores/modalStore";
-import StandardModal from "../../Modals/StandardModal/StandardModal";
 interface Props {
   highlightedImg: number | null;
   handleHover: (id: number) => void;
@@ -24,22 +22,23 @@ const RegsOnMap = ({
   setSelectedMapEntity,
   mapEntities,
 }: Props) => {
-  const pushModal = useModalStore((state) => state.pushModal);
+  // const pushModal = useModalStore((state) => state.pushModal);
 
   const handleOpenStandardModal = useCallback(
-    (cardName: RegName, cardId: number) => {
-      pushModal(
-        <StandardModal
-          message={`This is the Standard Modal For a [REG] OnMap-Entity, Name: [${cardName}], ID: [${cardId}]`}
-          onConfirm={() => {
-            console.log("✅ You pressed the Confirm Button!");
-          }}
-          onCancel={() => {
-            console.log("❌ You pressed the Cancel Button!");
-          }}
-        />
-      );
-    },
+    // (cardName: RegName, cardId: number) => {
+    //   pushModal(
+    //     <StandardModal
+    //       message={`This is the Standard Modal For a [REG] OnMap-Entity, Name: [${cardName}], ID: [${cardId}]`}
+    //       onConfirm={() => {
+    //         console.log("✅ You pressed the Confirm Button!");
+    //       }}
+    //       onCancel={() => {
+    //         console.log("❌ You pressed the Cancel Button!");
+    //       }}
+    //     />
+    //   );
+    // },
+    () => {},
     []
   );
   return (
@@ -58,7 +57,7 @@ const RegsOnMap = ({
             }
             onClick={() => {
               setSelectedMapEntity(card.id);
-              handleOpenStandardModal(card.name, card.id);
+              handleOpenStandardModal(/*card.name, card.id*/);
             }}
           >
             <GlowImage

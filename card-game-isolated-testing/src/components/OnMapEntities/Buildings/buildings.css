@@ -4,13 +4,13 @@
 }
 
 .buildingSpot2 {
-  /* outline: 2px solid red; */
+  /* outline: 2px solid green; */
   width: var(--building-width);
   height: var(--building-height);
   position: absolute;
-  top: 28%;
-  left: 49%;
-  z-index: 108;
+  top: 66%;
+  left: 2.6%;
+  z-index: 106;
 }
 
 .buildingSpot4 {
@@ -34,6 +34,16 @@
 }
 
 .buildingSpot6 {
+  /* outline: 2px solid red; */
+  width: var(--building-width);
+  height: var(--building-height);
+  position: absolute;
+  top: 28%;
+  left: 49%;
+  z-index: 108;
+}
+
+.buildingSpot7 {
   /* outline: 2px solid brown; */
   width: var(--building-width);
   height: var(--building-height);
@@ -43,7 +53,7 @@
   z-index: 110;
 }
 
-.buildingSpot7 {
+.buildingSpot9 {
   /* outline: 2px solid cyan; */
   width: var(--building-width);
   height: var(--building-height);
@@ -53,7 +63,7 @@
   z-index: 111;
 }
 
-.buildingSpot9 {
+.buildingSpot12 {
   /* outline: 2px solid orange; */
   width: var(--building-width);
   height: var(--building-height);
@@ -61,14 +71,4 @@
   top: 47%;
   left: 73.7%;
   z-index: 113;
-}
-
-.buildingSpot12 {
-  /* outline: 2px solid green; */
-  width: var(--building-width);
-  height: var(--building-height);
-  position: absolute;
-  top: 66%;
-  left: 2.6%;
-  z-index: 106;
 }

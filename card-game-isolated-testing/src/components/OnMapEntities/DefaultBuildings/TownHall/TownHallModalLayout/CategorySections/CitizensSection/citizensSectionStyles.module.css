@@ -46,7 +46,7 @@
   height: 33.33%;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1500px) {
   .spaceSection {
     padding-left: 24px;
   }

@@ -6,21 +6,25 @@ import ResourcesSection from "./CategorySections/ResoursesSection/ResourcesSecti
 import SpecialSection from "./CategorySections/SpecialSection/SpecialSection";
 import styles from "./townHallModalStyles.module.css";
 
-interface Props {
-  isMainMenu: boolean;
-  // setIsMainMenu: (isMainMenu: boolean) => void;
-}
+// interface Props {
+//   // isMainMenu: boolean;
+//   // setIsMainMenu: (isMainMenu: boolean) => void;
+// }
 
-const TownHallModalLayout = ({ isMainMenu }: Props) => {
-  const rerender = useModalStore((state) => state.rerender);
+const TownHallModalLayout = () => {
+  // const rerender = useModalStore((state) => state.rerender);
+  const modalMenuIndex = useModalStore(
+    (state) => state.modalData.modalMenuIndex
+  );
 
   useEffect(() => {
-    console.log("TownHallModalLayout :: RE-RENDERED! => ", isMainMenu);
-  }, [rerender, isMainMenu]);
+    console.log("TownHallModalLayout :: RE-RENDERED!");
+    console.log("The modalMenuIndex is: ", modalMenuIndex);
+  }, [modalMenuIndex]);
 
   return (
     <>
-      {isMainMenu ? (
+      {modalMenuIndex === 0 ? (
         <div className={styles.townHallModalLayout}>
           <div className={styles.citizenSectionContainer}>
             <CitizensSection />
@@ -37,7 +41,7 @@ const TownHallModalLayout = ({ isMainMenu }: Props) => {
             </div>
           </div>
         </div>
-      ) : (
+      ) : modalMenuIndex === 1 ? (
         <div
           style={{
             color: "white",
@@ -53,7 +57,7 @@ const TownHallModalLayout = ({ isMainMenu }: Props) => {
         >
           Coming Soon!
         </div>
-      )}
+      ) : null}
     </>
   );
 };
