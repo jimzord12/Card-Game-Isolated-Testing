@@ -21,7 +21,7 @@ import {
   RegSpot,
   RegTemplateId,
 } from "../types";
-import { formatDate, roundToDecimal } from "../utils/utilityFunctions";
+import { formatDate, roundToDecimal } from "../utils";
 
 export default class RegCard {
   readonly id: number;

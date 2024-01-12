@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import GlowingSpheres from "./SubComponents/GlowingSpheres";
 import styles from "./loadingScreen.module.css";
-interface Props {
-  // setHasLoadingScreenLoaded: RefObject<boolean>;
-  setHasLoadingScreenLoaded: () => void;
-}
 
-const LoadingScreen = React.memo(({ setHasLoadingScreenLoaded }: Props) => {
-  // console.log("💩 SKATA: Entering Loading Screen");
+// interface Props {
+//   // setHasLoadingScreenLoaded: RefObject<boolean>;
+//   setHasLoadingScreenLoaded: () => void;
+// }
 
-  useEffect(() => {
-    // setHasLoadingScreenLoaded(true);
-    setHasLoadingScreenLoaded();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+const LoadingScreen = React.memo(() => {
+  // const LoadingScreen = React.memo(({ setHasLoadingScreenLoaded }: Props) => {
+
+  // useEffect(() => {
+  //   // setHasLoadingScreenLoaded(true);
+  //   setHasLoadingScreenLoaded();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // const { loadingProgress } = ImageContextAPI();
   return (

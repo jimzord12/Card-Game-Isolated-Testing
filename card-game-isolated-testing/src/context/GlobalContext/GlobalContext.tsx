@@ -51,7 +51,7 @@ const ImageProviderV5: React.FC<ImageProviderProps> = ({
   useEffect(() => {
     if (areImagesReady) return;
 
-    setLoading(true);
+    // setLoading(true);
 
     const loadAssets = async () => {
       try {
@@ -65,6 +65,7 @@ const ImageProviderV5: React.FC<ImageProviderProps> = ({
       } finally {
         setAreImagesReady(true);
         setLoading(false);
+        console.log("Loading is false");
       }
     };
 

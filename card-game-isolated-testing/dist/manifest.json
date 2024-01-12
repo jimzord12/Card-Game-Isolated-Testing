@@ -1,17 +1,27 @@
 {
+  "_GlobalContext-8482a02a.js": {
+    "dynamicImports": [
+      "src/assets/imgs_new_convention/index.ts"
+    ],
+    "file": "assets/GlobalContext-8482a02a.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true
+  },
   "index.css": {
-    "file": "assets/index-194f5853.css",
+    "file": "assets/index-7ed4e978.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-194f5853.css"
+      "assets/index-7ed4e978.css"
     ],
     "dynamicImports": [
-      "src/assets/imgs_new_convention/index.ts",
+      "_GlobalContext-8482a02a.js",
       "src/components/Game/Game.tsx"
     ],
-    "file": "assets/index-444cdbb9.js",
+    "file": "assets/index-88e3cff8.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -688,16 +698,17 @@
     "src": "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp"
   },
   "src/components/Game/Game.css": {
-    "file": "assets/Game-1bc031f8.css",
+    "file": "assets/Game-88d3e980.css",
     "src": "src/components/Game/Game.css"
   },
   "src/components/Game/Game.tsx": {
     "css": [
-      "assets/Game-1bc031f8.css"
+      "assets/Game-88d3e980.css"
     ],
-    "file": "assets/Game-02e9ef67.js",
+    "file": "assets/Game-37f07fc3.js",
     "imports": [
-      "index.html"
+      "index.html",
+      "_GlobalContext-8482a02a.js"
     ],
     "isDynamicEntry": true,
     "src": "src/components/Game/Game.tsx"

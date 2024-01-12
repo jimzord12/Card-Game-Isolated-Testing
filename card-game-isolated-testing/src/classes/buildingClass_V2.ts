@@ -22,7 +22,7 @@ import {
   CardType,
   OneToFive,
 } from "../types";
-import { formatDate, roundToDecimal } from "../utils/utilityFunctions";
+import { formatDate, roundToDecimal } from "../utils";
 
 export default class BuildingCard {
   readonly id: number;
