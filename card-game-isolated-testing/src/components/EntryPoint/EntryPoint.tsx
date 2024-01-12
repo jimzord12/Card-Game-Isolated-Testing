@@ -1,7 +1,5 @@
 import { lazy, useEffect, useState } from "react";
-import UseLandscape from "../../hooks/useLandscape";
 import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
-import RotateDevice from "../RotateDevice/RotateDevice";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -14,7 +12,6 @@ const EntryPoint = () => {
   const [hasLoadingScreenLoaded, setHasLoadingScreenLoaded] = useState(false);
   const [start, setStart] = useState(false);
 
-  const show = UseLandscape();
 
   useEffect(() => {
     if (hasLoadingScreenLoaded) setStart(true);
@@ -32,7 +29,6 @@ const EntryPoint = () => {
         <ImageProviderV5 setLoading={setLoading}>
           {!loading && (
             <>
-              <RotateDevice show={show} />
               <Game />
             </>
           )}
