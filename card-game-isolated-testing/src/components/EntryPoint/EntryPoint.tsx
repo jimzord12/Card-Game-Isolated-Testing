@@ -16,11 +16,11 @@ const EntryPoint = () => {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
-
-            {/* The Routes below are protected by the: useRequireAuth hook */}
+            {/* START - The Routes below are protected by the: useRequireAuth hook */}
             <Route path="/game" element={<Game />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            {/* END - The Routes above are protected by the: useRequireAuth hook */}
           </Routes>
         </AuthProvider>
       </QueryClientProvider>
