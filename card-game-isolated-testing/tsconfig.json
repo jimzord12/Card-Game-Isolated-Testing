@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "./global.d.ts"],
+  "include": ["src", "./global.d.ts", "src/assets/homePageImgs"],
   "exclude": ["public/sw.js", "swTest.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -6,6 +6,11 @@ import SPCard from "../classes/spClass_V2";
 
 type Card = BuildingCard | RegCard | SPCard;
 
+// This probably manages all the cards in the game, in the sense what the players owns.
+// When a Card is crafted, it is added to this store.
+// When a Card is sold, it is removed from this store.
+// If a Card's state is changed, it is updated in this store.
+
 interface AllCardsState {
   cards: Card[];
   addCard: (card: Card) => void;

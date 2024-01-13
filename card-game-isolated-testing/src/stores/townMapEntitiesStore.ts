@@ -10,6 +10,8 @@ interface TownMapState {
   removeEntity: (card: BuildingCard | RegCard) => void;
 }
 
+// This store manages the activated cards that are displyed on the Town Map.
+
 export const useTownMapStore = create<TownMapState>((set) => ({
   mapEntities: {
     0: null,

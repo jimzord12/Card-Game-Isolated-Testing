@@ -10,6 +10,9 @@ type GameVarsState = {
   setTownhallLevel: (fn: Level | ((currentTHLevel: Level) => Level)) => void;
 };
 
+// This store manages the global game variables.
+// TODO: Manage workers and resources here too.
+
 export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   townhallLevel: 1,
   happiness: 25,

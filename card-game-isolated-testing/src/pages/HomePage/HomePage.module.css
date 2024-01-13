@@ -1,0 +1,36 @@
+.offscreenStyles {
+  position: absolute;
+  left: -9999px;
+}
+
+.errorStyles {
+  background-color: lightpink;
+  border-radius: 6px;
+  color: red;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.successStyles {
+  background-color: lightgreen;
+  border-radius: 6px;
+  color: green;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .errorStyles,
+  .successStyles {
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 639px) {
+  .errorStyles,
+  .successStyles {
+    max-width: 100%;
+  }
+}

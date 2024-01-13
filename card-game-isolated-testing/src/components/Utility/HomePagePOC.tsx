@@ -1,0 +1,73 @@
+import { useMediaQuery } from "@mui/material";
+import { UniwaLogo, footerImg, logoGenera } from "../../assets/homePageImgs";
+import SwitchBtn from "../WalletRelated/SwitchBtn";
+import { useState } from "react";
+import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
+import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
+// import { useNavigate } from 'react-router-dom';
+
+const HomePagePOC = () => {
+  const mediaMax320 = useMediaQuery("(max-width: 320px)");
+  const [usingLW, setUsingLW] = useState(false);
+
+  // const navigate = useNavigate();
+
+  return (
+    <div className="min-h-screen flex xl:flex-row flex-col relative">
+      <div className="flex flex-1 justify-between bg-siteblack py-8 sm:px-12 px-8 flex-col">
+        <img
+          src={logoGenera}
+          alt="logo"
+          className="w-[300px] h-[130px] object-contain cursor-pointer"
+          //   onClick={() => navigate('/battle')}
+        />
+
+        <div className="flex-1 flex justify-center flex-col xl:mt-16 my-16">
+          <div className="flex flex-row w-full">
+            <h1 className="flex font-rajdhani font-bold text-white sm:text-6xl text-4xl head-text">
+              <>
+                {"Welcome to GENERA's"} <br /> Energy Transition Card Game
+              </>
+            </h1>
+          </div>
+          <p
+            className={`font-rajdhani font-normal text-[24px] text-siteWhite my-10`}
+          >
+            <>
+              This is a Web3 Application. <br />
+              {`Complete the steps below to gain access`} <br />
+            </>
+          </p>
+          <SwitchBtn usingLW={usingLW} setUsingLW={setUsingLW} />
+          <div style={{ height: 48 }} />
+          {/* HERE IS WHERE THE BRANCH BETWEEN METAMASK & LOCAL WALLET STARTS */}
+          <>{usingLW ? <HomePageLocalWallet /> : <HomePageMetamask />}</>
+        </div>
+
+        <p className="font-rajdhani font-medium text-base text-white">
+          <img
+            src={UniwaLogo}
+            alt="Uniwa Logo"
+            style={{
+              display: "inline-block",
+              marginRight: "10px",
+              width: mediaMax320 ? "42px" : "56px",
+              height: "auto",
+            }}
+          />
+          Made with 💙 by UNIWA{" "}
+        </p>
+      </div>
+
+      <div className="flex flex-1">
+        <img
+          src={footerImg}
+          alt="hero-img"
+          className="w-full xl:h-full object-cover"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default HomePagePOC;

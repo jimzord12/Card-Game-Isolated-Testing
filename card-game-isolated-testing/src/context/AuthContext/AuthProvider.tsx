@@ -13,7 +13,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<userAuthType>(null); // This should be your auth logic
 
   //TODO: (CHANGE)THIS is <<Mock>> logic for: Login & Logout
-  const login = (userCreds: userAuthType) => {
+  const login = (walletAddress: string) => {
     setUser(userCreds);
     console.log("🧪 - Logging in User - With Data: ", userCreds);
   };
