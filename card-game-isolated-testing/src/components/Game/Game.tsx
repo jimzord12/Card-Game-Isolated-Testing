@@ -15,7 +15,7 @@ type MapTypes = "town" | "world";
 const Game = () => {
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
-  const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("town");
+  const [mapToDisplay /*setMapToDisplay*/] = useState<MapTypes>("town");
 
   const auth = useRequireAuth();
 

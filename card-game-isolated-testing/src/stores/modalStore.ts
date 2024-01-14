@@ -22,7 +22,7 @@ export const useModalStore = create<ModalState>((set, get) => ({
     modalLevel: null,
     modalRarityOrName: null,
     modalType: "standard",
-    modalMenuIndex: null,
+    modalMenuIndex: null, // Used for Nested Modals. When a modal is opened from another modal, this is the index of the modal that opened it
   },
   pushModal: (content) =>
     set((state) => ({

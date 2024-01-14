@@ -32,7 +32,7 @@ export const actionBtnManger = (currentStep: number) => {
     case 3:
       return {
         text: "Login with Wallet",
-        handler: (e) => {
+        handler: (/*e: React.MouseEvent*/) => {
           //TODO: Login with Wallet
           // handlePlayerLogin2(e);
         },

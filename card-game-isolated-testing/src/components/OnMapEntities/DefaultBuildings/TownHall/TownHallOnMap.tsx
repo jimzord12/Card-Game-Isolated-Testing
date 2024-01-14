@@ -233,14 +233,14 @@ const TownHallOnMap = ({
     pushModal(
       <StandardModal
         actions={townhallActions}
-        onConfirm={() => {
-          popModal();
-        }}
-        level={townhallLevel}
+        // onConfirm={() => {
+        //   popModal();
+        // }}
+        // level={townhallLevel}
         rarityOrName={"Townhall"}
-        onCancel={() => {
-          popModal();
-        }}
+        // onCancel={() => {
+        //   popModal();
+        // }}
       >
         <TownHallModalLayout />
       </StandardModal>
@@ -260,14 +260,14 @@ const TownHallOnMap = ({
     pushModal(
       <StandardModal
         actions={townhallActions}
-        onConfirm={() => {
-          popModal();
-        }}
+        // onConfirm={() => {
+        //   popModal();
+        // }}
         level={townhallLevel}
         rarityOrName={"Townhall"}
-        onCancel={() => {
-          popModal();
-        }}
+        // onCancel={() => {
+        //   popModal();
+        // }}
       >
         <TownHallModalLayout />
       </StandardModal>

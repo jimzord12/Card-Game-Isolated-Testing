@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { userAuthType } from "../../../../context/AuthContext/authTypes";
 import { gaslessOldPlayer } from "../../../../../api/apiFns/gasless/gaslessOldPlayer";
+import { handleCloseTxModal } from "./handleCloseTxModal";
+import { Dispatch, SetStateAction } from "react";
 
 export const handleOldPlayerETH = async (
-  e,
+  e: React.MouseEvent,
   userData: userAuthType,
+  login: (walletAddress: string) => Promise<void>,
+  setTransactionModalOpen: Dispatch<SetStateAction<boolean>>,
   setErrMsg: (msg: string) => void,
   resetUser: () => void
 ) => {
@@ -27,28 +32,30 @@ export const handleOldPlayerETH = async (
 
   try {
     // 👉 Pseudo Gasless Mechanism
-    // setTransactionModalOpen(true); ✨ // OPEN MODAL
+    setTransactionModalOpen(true); // OPEN MODAL
     const { message, tx } = await gaslessOldPlayer(userData.wallet);
 
     if (message === "User sufficient ETH balance") {
-      //   setTransactionModalOpen(false); ✨ // Immedietly CLSOE MODAL
+      setTransactionModalOpen(false); // Immedietly CLSOE MODAL
+      login(userData.wallet); // Login the User
     } else if (message === "User got 0.5 ETH") {
-      // await handleCloseTxModal(tx); ✨ // CLOSE MODAL AFTER 3 SECONDS
+      await handleCloseTxModal(tx, setTransactionModalOpen); // CLOSE MODAL AFTER 3 SECONDS
+      login(userData.wallet); // Login the User
     }
   } catch (err) {
     // Error Handling, based on the error
     console.error("1. Response Error from Server: ", err);
-    console.error("2. Response Error from Server: ", err.message);
-    if (err?.message.includes("user rejected signing")) {
+    console.error("2. Response Error from Server: ", (err as any).message);
+    if (!(err as any)?.message.includes("user rejected signing")) {
       setErrMsg("You rejected the Wallet Ownership Challenge. Suspicious...");
-    } else if (!err?.response) {
+    } else if (!(err as any)?.response) {
       setErrMsg("No Server Response");
-    } else if (err.response?.status === 400) {
+    } else if ((err as any).response?.status === 400) {
       setErrMsg("Missing Username or Password");
-    } else if (err.response?.status === 401) {
+    } else if ((err as any).response?.status === 401) {
       setErrMsg("Propably You don't have an Account");
     } else if (
-      err?.response?.data?.message ===
+      (err as any)?.response?.data?.message ===
       "Transfer already made in the last 24 hours"
     ) {
       setErrMsg(

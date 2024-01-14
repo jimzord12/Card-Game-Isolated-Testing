@@ -27,10 +27,11 @@ function useLocalWallet() {
             throw new Error("⛔ - useLocalWallet: setUser is null");
           setUser({ ...userData });
         } else {
-          throw new Error("No Local Wallet was found");
+          console.log("💥 - No Local Wallet was found");
         }
       } catch (error) {
-        if (error?.response.status === 401) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((error as any)?.response.status === 401) {
           console.log(
             "🔷 - Tried to Automatically Fetch User Data and Failed!"
           );
@@ -85,11 +86,12 @@ function useLocalWallet() {
       const balanceEth = ethers.formatEther(balanceWei);
       setBalance(balanceEth);
       return balanceEth;
-    } else {
-      throw new Error(
-        "⛔ - UseLocalWallet Hook: wallet | provider is undefined"
-      );
     }
+    // else {
+    //   throw new Error(
+    //     "⛔ - UseLocalWallet Hook: wallet | provider is undefined"
+    //   );
+    // }
   };
 
   return {

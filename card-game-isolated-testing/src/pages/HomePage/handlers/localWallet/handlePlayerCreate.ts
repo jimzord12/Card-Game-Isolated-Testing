@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HDNodeWallet, Wallet } from "ethers";
 import { createPlayer } from "../../../../../api/apiFns/createPlayer";
 import { gaslessNewPlayer } from "../../../../../api/apiFns/gasless/gaslessNewPlayer";
 import { fetchUserDataWithWallet } from "../../../../../api/apiFns";
 import { userAuthType } from "../../../../context/AuthContext/authTypes";
+import { Dispatch, SetStateAction } from "react";
+import { handleCloseTxModal } from "./handleCloseTxModal";
 
 /**
  * @description - Creates a new Player in the DB and sends him 0.5 ETH
@@ -22,7 +25,8 @@ export const handlePlayerCreate = async (
   playerName: string,
   localWallet: HDNodeWallet | Wallet,
   // getEthBalance: () => Promise<string>,
-  setUser: (prevState: userAuthType | null) => void | null,
+  setTransactionModalOpen: Dispatch<SetStateAction<boolean>>,
+  setUser: Dispatch<SetStateAction<userAuthType>> | null,
   setErrMsg: (msg: string) => void,
   resetUser: () => void,
   setSuccessMsg: (msg: string) => void
@@ -32,6 +36,10 @@ export const handlePlayerCreate = async (
       "The player name must begin with a letter, not exceed 16 characters and can contain only letters, numbers and spaces"
     );
     return;
+  }
+
+  if (setUser === null) {
+    throw new Error("⛔ Custom: HandlePlayerCreate: setUser is null");
   }
 
   e.preventDefault();
@@ -48,14 +56,14 @@ export const handlePlayerCreate = async (
       const userData = await fetchUserDataWithWallet(localWallet.address);
 
       // 👉 Pseudo Gasless Mechanism
-      // setTransactionModalOpen(true); ✨ // OPEN MODAL
+      setTransactionModalOpen(true); // OPEN MODAL
       console.log("🐱‍🏍 Starting the Gasless Mechanism...");
       const { message, tx } = await gaslessNewPlayer(localWallet.address);
 
       if (message === "User sufficient ETH balance") {
-        //   setTransactionModalOpen(false); ✨ // Immedietly CLSOE MODAL
+        setTransactionModalOpen(false); // Immedietly CLSOE MODAL
       } else {
-        // await handleCloseTxModal(tx); ✨ // CLOSE MODAL AFTER 3 SECONDS
+        await handleCloseTxModal(tx, setTransactionModalOpen); // CLOSE MODAL AFTER 3 SECONDS
       }
 
       setUser({ ...userData });
@@ -73,15 +81,15 @@ export const handlePlayerCreate = async (
     // ⛔ Error Handling, based on the error
   } catch (err) {
     console.error("Response Error from Server: ", err);
-    if (!err?.response) {
+    if (!(err as any)?.response) {
       setErrMsg("No Server Response");
-    } else if (err.response?.data?.errno === 1062) {
+    } else if ((err as any).response?.data?.errno === 1062) {
       console.error("DUPLICATES!!");
       setErrMsg("Name or Wallet already exists!");
-    } else if (err.response?.status === 400) {
+    } else if ((err as any).response?.status === 400) {
       setErrMsg("Missing Username or Wallet");
-    } else if (err.response?.status === 401) {
-      setErrMsg("Propably You don't have an Account");
+    } else if ((err as any).response?.status === 401) {
+      setErrMsg("Probably You don't have an Account");
     } else {
       setErrMsg("Login Failed");
     }

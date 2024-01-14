@@ -5,7 +5,7 @@ const GIVE_ETH_NEW_PLAYER = "gasless/register";
 
 interface ResponseData {
   message: string;
-  tx: ethers.TransactionReceipt;
+  tx: ethers.TransactionResponse;
 }
 
 export const gaslessNewPlayer = async (

@@ -1,16 +1,14 @@
-import { useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth/useAuth";
 import useInput from "../../hooks/useInput";
 import useLocalWallet from "../../hooks/blockchain/useLocalWallet";
-import { waitForTx } from "../../utils/waitForTx";
-import { ethers } from "ethers";
 import SizedBox from "../../components/Utility/SizedBox";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/Buttons/CustomButton/CustomButton";
 import styles from "./HomePage.module.css";
 import { handlePlayerCreate } from "./handlers/localWallet/handlePlayerCreate";
+import TransactionModal from "../../components/Modals/HomePageModals/TransactionModal";
+import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
 
 // const LOGIN_URL = "authNoPwd";
 // const CREATE_PL_URL = "register/player";
@@ -27,14 +25,10 @@ export function HomePageLocalWallet() {
     wallet: localWallet,
     deleteWallet,
     generateWallet,
-    retrieveWallet,
     balance,
     getEthBalance,
   } = useLocalWallet();
 
-  const [providerLW, setProviderLW] = useState<ethers.JsonRpcProvider | null>(
-    null
-  );
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
@@ -46,7 +40,7 @@ export function HomePageLocalWallet() {
 
   return (
     <div className="flex flex-col">
-      {/* ✨ <TransactionModal open={isTransactionModalOpen} /> */}
+      <TransactionModal open={isTransactionModalOpen} />
 
       {localWallet ? (
         <>
@@ -116,7 +110,16 @@ export function HomePageLocalWallet() {
             <CustomButton
               title={"Start Playing"}
               // handleClick={() => console.log("Mocking -> handlePlayerLogin2()")}
-              handleClick={() => login(localWallet.address)}
+              handleClick={(e) =>
+                handleOldPlayerETH(
+                  e,
+                  userData,
+                  login,
+                  setTransactionModalOpen,
+                  setErrMsg,
+                  resetUser
+                )
+              }
               restStyles="mt-6 w-fit z-10"
             />
           ) : (
@@ -128,7 +131,7 @@ export function HomePageLocalWallet() {
                   e,
                   playerName,
                   localWallet,
-                  getEthBalance,
+                  setTransactionModalOpen,
                   setUser,
                   setErrMsg,
                   resetUser,

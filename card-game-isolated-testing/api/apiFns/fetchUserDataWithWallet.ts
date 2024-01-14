@@ -35,6 +35,11 @@ export const fetchUserDataWithWallet = async (
     walletAddress: walletAddress,
   });
 
+  console.log(
+    "🚀+✅ Successfully Retrieved Data for User:",
+    response.data.username
+  );
+
   return response.data;
 };
 

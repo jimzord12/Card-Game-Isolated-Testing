@@ -7,7 +7,7 @@ type Props = {
   index: number;
 };
 
-const Modal = ({ children /*index*/ }: Props) => {
+const BareBonesModal = ({ children /*index*/ }: Props) => {
   // const [isClosing, setIsClosing] = useState(false);
 
   // From Zustange Stores
@@ -57,4 +57,4 @@ const Modal = ({ children /*index*/ }: Props) => {
   );
 };
 
-export default Modal;
+export default BareBonesModal;

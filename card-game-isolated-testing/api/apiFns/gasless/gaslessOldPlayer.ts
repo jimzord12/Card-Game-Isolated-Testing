@@ -5,7 +5,7 @@ const GIVE_ETH_OLD_PLAYER = "gasless/login";
 
 interface ResponseData {
   message: string;
-  tx: ethers.TransactionReceipt;
+  tx: ethers.TransactionResponse;
 }
 
 export const gaslessOldPlayer = async (

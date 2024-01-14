@@ -1,8 +1,8 @@
 // import { Link } from "react-router-dom";
 // import { useCallback, useState } from "react";
 import { useAuth } from "../../hooks/auth/useAuth";
-import { useMutation } from "@tanstack/react-query";
-import { fetchUserDataWithWallet } from "../../../api/apiFns";
+// import { useMutation } from "@tanstack/react-query";
+// import { fetchUserDataWithWallet } from "../../../api/apiFns";
 import styles from "./HomePage.module.css";
 import SizedBox from "../../components/Utility/SizedBox";
 import WalletStepper from "../../components/WalletRelated/WalletStepper";
@@ -13,36 +13,37 @@ import { useState } from "react";
 import { actionBtnManger } from "./utils/actionBtnManger";
 
 const HomePageMetamask = () => {
-  const { user: authedUser, login, logout } = useAuth();
-  const [user, resetUser, userAttribs] = useInput("user", "");
+  const { user: authedUser /*login, logout*/ } = useAuth();
+  const [, /*user, resetUser*/ userAttribs] = useInput("user", "");
 
-  const [currentStep, setCurrentStep] = useState(0);
-  const [errMsg, setErrMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  const [currentStep /*setCurrentStep*/] = useState(0);
+  const [errMsg /*setErrMsg*/] = useState("");
+  const [successMsg /*setSuccessMsg*/] = useState("");
 
   const [showNewPlayerForm, setShowNewPlayerForm] = useState(false);
-  const [showNewPlayerForm2, setShowNewPlayerForm2] = useState(true);
+  const [showNewPlayerForm2 /*setShowNewPlayerForm2*/] = useState(true);
 
-  const [isTransactionModalOpen, setTransactionModalOpen] = useState(false);
+  // const [isTransactionModalOpen, setTransactionModalOpen] = useState(false); // ✨ Temporary Commented Out
 
-  const {
-    mutate: loginMutation,
-    isPending,
-    error,
-  } = useMutation({
-    mutationFn: (walletAddress: string) =>
-      fetchUserDataWithWallet(walletAddress),
-    onSuccess: (data) => {
-      // Handle successful login
-      console.log("🐱‍🏍 - The Received Data: ", data);
-      login(data);
-      // auth.login(data); // Assuming you have a login function in your auth context
-    },
-    onError: (error) => {
-      // Handle error
-      console.error("⛔ - Login error: ", error);
-    },
-  });
+  // ✨ Temporary Commented Out
+  // const {
+  //   mutate: loginMutation,
+  //   isPending,
+  //   error,
+  // } = useMutation({
+  //   mutationFn: (walletAddress: string) =>
+  //     fetchUserDataWithWallet(walletAddress),
+  //   onSuccess: (data) => {
+  //     // Handle successful login
+  //     console.log("🐱‍🏍 - The Received Data: ", data);
+  //     login(data);
+  //     // auth.login(data); // Assuming you have a login function in your auth context
+  //   },
+  //   onError: (error) => {
+  //     // Handle error
+  //     console.error("⛔ - Login error: ", error);
+  //   },
+  // });
 
   /* //TODO: Needs Metasmask Provider to work...
   const stepManager = () => {

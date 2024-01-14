@@ -1,30 +1,31 @@
 import { ReactNode, useState } from "react";
-import { useGameVarsStore } from "../../../stores/gameVars";
+// import { useGameVarsStore } from "../../../stores/gameVars";
 import { useModalStore } from "../../../stores/modalStore";
-import { CardLevel, Level } from "../../../types";
+// import { CardLevel, Level } from "../../../types";
 import { ActionsSectionAction } from "../../../types/ModalTypes/ActionsSectionTypes";
 import ActionsSection from "../ActionsSection/ActionsSection";
 import ModalCloseBtn from "../BaseModalParts/ModalCloseBtn/ModalCloseBtn";
 import ModalLevelIndicator from "../BaseModalParts/ModalLevelIndicator/ModalLevelIndicator";
 import ModalRarityIndicator from "../BaseModalParts/ModalRarityIndicator/ModalRarityIndicator";
 import styles from "./standardModalStyles.module.css";
+import { CardLevel, Level } from "../../../types";
 
 type Props = {
-  onConfirm: () => void;
-  onCancel: () => void;
+  // onConfirm: () => void;
+  // onCancel: () => void;
   children: ReactNode;
   actions?: ActionsSectionAction[];
-  level: Level | CardLevel;
+  level?: Level | CardLevel;
   rarityOrName: number | string;
 };
 
-const StandardModal = ({ children, actions, /*level ,*/ rarityOrName }: Props) => {
+const StandardModal = ({ children, actions, level, rarityOrName }: Props) => {
   // const pushModal = useModalStore((state) => state.pushModal);
   const popModal = useModalStore((state) => state.popModal);
   const modalBg = useModalStore((state) => state.modalData.modalBg);
   const [isClosing, setIsClosing] = useState(false);
   const provideModalData = useModalStore((state) => state.provideModalData);
-  const townhallLevel = useGameVarsStore((state) => state.townhallLevel);
+  // const townhallLevel = useGameVarsStore((state) => state.townhallLevel);
 
   // const handleOpenConfirmationModal = useCallback(() => {
   //   pushModal(
@@ -90,7 +91,7 @@ const StandardModal = ({ children, actions, /*level ,*/ rarityOrName }: Props) =
       </div>
       <div className={styles.modalElements}>
         <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />
-        <ModalLevelIndicator isClosing={isClosing} level={townhallLevel} />
+        <ModalLevelIndicator isClosing={isClosing} level={level} />
         <ModalRarityIndicator
           isClosing={isClosing}
           rarityOrName={rarityOrName}

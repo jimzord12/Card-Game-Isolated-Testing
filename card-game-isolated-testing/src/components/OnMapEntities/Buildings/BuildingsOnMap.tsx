@@ -52,12 +52,12 @@ const BuildingsOnMap = ({
             level={1}
             rarityOrName={1}
             actions={buildingActions(cardName)}
-            onConfirm={() => {
-              console.log("✅ You pressed the Confirm Button!");
-            }}
-            onCancel={() => {
-              console.log("❌ You pressed the Cancel Button!");
-            }}
+            // onConfirm={() => {
+            //   console.log("✅ You pressed the Confirm Button!");
+            // }}
+            // onCancel={() => {
+            //   console.log("❌ You pressed the Cancel Button!");
+            // }}
           >
             <div></div>
           </StandardModal>
@@ -71,19 +71,19 @@ const BuildingsOnMap = ({
             level={1}
             rarityOrName={1}
             actions={buildingActions(cardName)}
-            onConfirm={() => {
-              console.log("✅ You pressed the Confirm Button!");
-            }}
-            onCancel={() => {
-              console.log("❌ You pressed the Cancel Button!");
-            }}
+            // onConfirm={() => {
+            //   console.log("✅ You pressed the Confirm Button!");
+            // }}
+            // onCancel={() => {
+            //   console.log("❌ You pressed the Cancel Button!");
+            // }}
           >
             <div></div>
           </StandardModal>
         );
       }
     },
-    []
+    [pushModal]
   );
   return (
     <div>

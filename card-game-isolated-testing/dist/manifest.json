@@ -1,29 +1,35 @@
 {
-  "_GlobalContext-8482a02a.js": {
-    "dynamicImports": [
-      "src/assets/imgs_new_convention/index.ts"
-    ],
-    "file": "assets/GlobalContext-8482a02a.js",
-    "imports": [
-      "index.html"
-    ],
-    "isDynamicEntry": true
-  },
   "index.css": {
-    "file": "assets/index-7ed4e978.css",
+    "file": "assets/index-af628a9e.css",
     "src": "index.css"
   },
   "index.html": {
+    "assets": [
+      "assets/logoGenera-1474e2eb.png",
+      "assets/footerImg-b974a533.jpg",
+      "assets/Uniwa-Logo-11f3d0dd.png"
+    ],
     "css": [
-      "assets/index-7ed4e978.css"
+      "assets/index-af628a9e.css"
     ],
     "dynamicImports": [
-      "_GlobalContext-8482a02a.js",
-      "src/components/Game/Game.tsx"
+      "src/assets/imgs_new_convention/index.ts"
     ],
-    "file": "assets/index-88e3cff8.js",
+    "file": "assets/index-77ed5e1a.js",
     "isEntry": true,
     "src": "index.html"
+  },
+  "src/assets/homePageImgs/Uniwa-Logo.png": {
+    "file": "assets/Uniwa-Logo-11f3d0dd.png",
+    "src": "src/assets/homePageImgs/Uniwa-Logo.png"
+  },
+  "src/assets/homePageImgs/footerImg.jpg": {
+    "file": "assets/footerImg-b974a533.jpg",
+    "src": "src/assets/homePageImgs/footerImg.jpg"
+  },
+  "src/assets/homePageImgs/logoGenera.png": {
+    "file": "assets/logoGenera-1474e2eb.png",
+    "src": "src/assets/homePageImgs/logoGenera.png"
   },
   "src/assets/imgs_new_convention/appUtils/appUtils-rotateDeviceImgAppUtil.webp": {
     "file": "assets/appUtils-rotateDeviceImgAppUtil-dcfe160e.webp",
@@ -696,21 +702,5 @@
   "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp": {
     "file": "assets/workers-simpleCitizenWorker-29875cd7.webp",
     "src": "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp"
-  },
-  "src/components/Game/Game.css": {
-    "file": "assets/Game-88d3e980.css",
-    "src": "src/components/Game/Game.css"
-  },
-  "src/components/Game/Game.tsx": {
-    "css": [
-      "assets/Game-88d3e980.css"
-    ],
-    "file": "assets/Game-37f07fc3.js",
-    "imports": [
-      "index.html",
-      "_GlobalContext-8482a02a.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "src/components/Game/Game.tsx"
   }
 }

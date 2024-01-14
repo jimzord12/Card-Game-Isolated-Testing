@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const getLocalValue = (key: string, initValue?: () => any | string) => {
+const getLocalValue = (key: string, initValue?: string) => {
   //SSR Next.js
   if (typeof window === "undefined") return initValue;
 
@@ -14,12 +14,12 @@ const getLocalValue = (key: string, initValue?: () => any | string) => {
   }
 
   // return result of a function
-  if (initValue instanceof Function) return initValue();
+  // if (initValue instanceof Function) return initValue();
 
   return initValue;
 };
 
-const useLocalStorage = (key: string, initValue?: () => any | string) => {
+const useLocalStorage = (key: string, initValue?: string) => {
   const [value, setValue] = useState(() => {
     return getLocalValue(key, initValue);
   });
