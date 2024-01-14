@@ -1,5 +1,7 @@
 import { HDNodeWallet, Wallet, ethers } from "ethers";
 import { useEffect, useState } from "react";
+import { fetchUserDataWithWallet } from "../../../api/apiFns";
+import { useAuth } from "../auth/useAuth";
 
 function useLocalWallet() {
   const provider = new ethers.JsonRpcProvider(
@@ -8,17 +10,39 @@ function useLocalWallet() {
 
   const [wallet, setWallet] = useState<HDNodeWallet | Wallet | null>(null);
   const [balance, setBalance] = useState("-1");
-  const [hasLocalWalletHookRun, setHasLocalWalletHookRun] = useState(false);
+
+  const { setUser } = useAuth();
 
   useEffect(() => {
-    try {
-      const success = retrieveWallet();
-      if (success) //TODO: Use the Wallet Address to get the User Data. Use an api funtion.
-    } catch (error) {
-      console.log(
-        "🔷 - Automatic Local Wallet Retrival Failed, probably no Wallet is stored."
-      );
+    async function automaticLogin() {
+      try {
+        const { success, walletAddress } = retrieveWallet();
+        //TODO: Use the Wallet Address to get the User Data. Use an api funtion.
+        if (success) {
+          console.log(
+            "✅ - Local Wallet Discovery Success. Retrieving User Data..."
+          );
+          const userData = await fetchUserDataWithWallet(walletAddress);
+          if (setUser === null)
+            throw new Error("⛔ - useLocalWallet: setUser is null");
+          setUser({ ...userData });
+        } else {
+          throw new Error("No Local Wallet was found");
+        }
+      } catch (error) {
+        if (error?.response.status === 401) {
+          console.log(
+            "🔷 - Tried to Automatically Fetch User Data and Failed!"
+          );
+        } else {
+          console.log(
+            "🔷 - Automatic UserData Local Wallet Retrival Failed, probably no Wallet is stored."
+          );
+        }
+      }
     }
+
+    automaticLogin();
   }, []);
 
   const generateWallet = () => {
@@ -36,12 +60,9 @@ function useLocalWallet() {
     if (privateKey) {
       const existingWallet = new Wallet(privateKey);
       setWallet(existingWallet);
-      setHasLocalWalletHookRun(true);
-      return true;
+      return { walletAddress: existingWallet.address, success: true };
     } else {
-      setHasLocalWalletHookRun(true);
-
-      throw new Error("No Local Wallet was found");
+      return { walletAddress: null, success: false };
     }
   };
 
@@ -79,7 +100,6 @@ function useLocalWallet() {
     balance,
     getEthBalance,
     // connectWalletWithProvider,
-    hasLocalWalletHookRun,
   };
 }
 

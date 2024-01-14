@@ -1,7 +1,18 @@
 import axiosPublic from "../apiConfig";
 import { isValidWalletAddress } from "../../src/utils";
 
-const loginWithWallet = async (walletAddress: string | null) => {
+const LOGIN_URL = "authNoPwd";
+
+interface ResponseData {
+  username: string;
+  wallet: string;
+  aT: string;
+  rT: string;
+}
+
+export const fetchUserDataWithWallet = async (
+  walletAddress: string | null
+): Promise<ResponseData> => {
   console.log("🚀 Trying to: [POST] -> (Login) with Wallet: ", walletAddress);
 
   if (
@@ -20,11 +31,11 @@ const loginWithWallet = async (walletAddress: string | null) => {
     );
   }
 
-  const response = await axiosPublic.post(`authNoPwd`, {
+  const response = await axiosPublic.post(LOGIN_URL, {
     walletAddress: walletAddress,
   });
 
   return response.data;
 };
 
-export default loginWithWallet;
+export default fetchUserDataWithWallet;

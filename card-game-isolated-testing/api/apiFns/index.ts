@@ -1,4 +1,4 @@
 import getPlayerByWallet from "./getPlayerByWallet";
-import loginWithWallet from "./loginWithWallet";
+import fetchUserDataWithWallet from "./fetchUserDataWithWallet";
 
-export { getPlayerByWallet, loginWithWallet };
+export { getPlayerByWallet, fetchUserDataWithWallet };

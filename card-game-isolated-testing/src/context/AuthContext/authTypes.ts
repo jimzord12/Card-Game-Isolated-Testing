@@ -12,7 +12,8 @@ export interface AuthProviderProps {
 }
 
 export interface AuthContextProps {
-  user: userAuthType;
-  login: (userCreds: userAuthType) => void;
-  logout: () => void;
+  user: userAuthType | null;
+  setUser: React.Dispatch<React.SetStateAction<userAuthType>> | null;
+  login: ((walletAddress: string) => Promise<void>) | null;
+  logout: (() => void) | null;
 }

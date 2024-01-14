@@ -11,7 +11,8 @@ const useInput = (key: string, initValue: string) => {
     value,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.value === "" || regex.test(e.target.value))
-        setValue(e.target.value);
+        console.log("Player Name Input: ", e.target.value);
+      setValue(e.target.value);
     },
   };
 

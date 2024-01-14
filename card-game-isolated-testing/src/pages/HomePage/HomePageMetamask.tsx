@@ -2,7 +2,7 @@
 // import { useCallback, useState } from "react";
 import { useAuth } from "../../hooks/auth/useAuth";
 import { useMutation } from "@tanstack/react-query";
-import { loginWithWallet } from "../../../api/apiFns";
+import { fetchUserDataWithWallet } from "../../../api/apiFns";
 import styles from "./HomePage.module.css";
 import SizedBox from "../../components/Utility/SizedBox";
 import WalletStepper from "../../components/WalletRelated/WalletStepper";
@@ -30,7 +30,8 @@ const HomePageMetamask = () => {
     isPending,
     error,
   } = useMutation({
-    mutationFn: (walletAddress: string) => loginWithWallet(walletAddress),
+    mutationFn: (walletAddress: string) =>
+      fetchUserDataWithWallet(walletAddress),
     onSuccess: (data) => {
       // Handle successful login
       console.log("🐱‍🏍 - The Received Data: ", data);

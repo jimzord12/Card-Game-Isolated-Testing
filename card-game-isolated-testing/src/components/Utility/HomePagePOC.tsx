@@ -24,9 +24,17 @@ const HomePagePOC = () => {
 
         <div className="flex-1 flex justify-center flex-col xl:mt-16 my-16">
           <div className="flex flex-row w-full">
-            <h1 className="flex font-rajdhani font-bold text-white sm:text-6xl text-4xl head-text">
+            <h1 className="flex flex-col font-rajdhani font-bold text-white sm:text-6xl text-4xl head-text">
               <>
-                {"Welcome to GENERA's"} <br /> Energy Transition Card Game
+                <div className="inline">
+                  {"Welcome to"}{" "}
+                  <span
+                    style={{ color: "green", textShadow: "2px 2px 2px white" }}
+                  >
+                    GENERA's
+                  </span>{" "}
+                </div>
+                Energy Transition Card Game
               </>
             </h1>
           </div>
@@ -36,6 +44,13 @@ const HomePagePOC = () => {
             <>
               This is a Web3 Application. <br />
               {`Complete the steps below to gain access`} <br />
+              <span style={{ fontSize: 16 }}>
+                Select{" "}
+                <span style={{ color: "limegreen", fontWeight: "bold" }}>
+                  'Use Local Wallet'
+                </span>{" "}
+                for a more user-friendly experience
+              </span>
             </>
           </p>
           <SwitchBtn usingLW={usingLW} setUsingLW={setUsingLW} />
