@@ -6,8 +6,6 @@ import Leaderboard from "../../pages/Leaderboard/Leaderboard";
 import AuthProvider from "../../context/AuthContext/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import HomePagePOC from "../Utility/HomePagePOC";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +22,6 @@ const EntryPoint = () => {
             <Route path="/leaderboard" element={<Leaderboard />} />
             {/* END - The Routes above are protected by the: useRequireAuth hook */}
           </Routes>
-          <ToastContainer />
         </AuthProvider>
       </QueryClientProvider>
     </BrowserRouter>

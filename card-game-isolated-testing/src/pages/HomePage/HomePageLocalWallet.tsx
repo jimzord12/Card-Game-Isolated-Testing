@@ -113,7 +113,7 @@ export function HomePageLocalWallet() {
               handleClick={(e) =>
                 handleOldPlayerETH(
                   e,
-                  localWallet.address,
+                  userData,
                   login,
                   setTransactionModalOpen,
                   setErrMsg,
@@ -130,7 +130,7 @@ export function HomePageLocalWallet() {
                 handlePlayerCreate(
                   e,
                   playerName,
-                  localWallet.address,
+                  localWallet,
                   setTransactionModalOpen,
                   setUser,
                   setErrMsg,
