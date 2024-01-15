@@ -13,7 +13,6 @@ export const useMetamask = () => {
   const [ethersProvider, setEthersProvider] = useState<BrowserProvider | null>(
     null
   );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [metamaskProvider, setMetamaskProvider] = useState<any | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const clearError = () => setErrorMessage("");
@@ -21,20 +20,22 @@ export const useMetamask = () => {
   const [wallet, setWallet] = useState(disconnectedState);
 
   const getProvider = useCallback(async () => {
-    const metamaskProvider = await detectEthereumProvider({ silent: true });
-    if (metamaskProvider) {
-      setMetamaskProvider(metamaskProvider);
-      const _ethersProvider = new ethers.BrowserProvider(
-        metamaskProvider as unknown as Eip1193Provider
-      );
-      setEthersProvider(_ethersProvider);
-    } else if (metamaskProvider === null) {
-      setErrorMessage("Please install MetaMask!");
+    if (window?.ethereum) {
+      const metamaskProvider = await detectEthereumProvider({ silent: true });
+      if (metamaskProvider) {
+        setMetamaskProvider(metamaskProvider);
+        const _ethersProvider = new ethers.BrowserProvider(
+          metamaskProvider as unknown as Eip1193Provider
+        );
+        setEthersProvider(_ethersProvider);
+      } else {
+        setErrorMessage("Can not Create a ethers.js Provider from Metamask");
+        console.log(
+          "⛔ Custom: useMetamask: getProvider: metamaskProvider is null"
+        );
+      }
     } else {
-      setErrorMessage("Can not Create a ethers.js Provider from Metamask");
-      console.log(
-        "⛔ Custom: useMetamask: getProvider: metamaskProvider is null"
-      );
+      setErrorMessage("Please install MetaMask!");
     }
   }, []);
 
@@ -99,8 +100,7 @@ export const useMetamask = () => {
         params: [{ chainId: generaChain.chainId }],
       });
     } catch (switchError) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if ((switchError as any).code === 4902) {
+      if (switchError.code === 4902) {
         console.error("This chain does not exist.");
       } else {
         console.error("⛔ Custom: Eror while Switching Chains", switchError);
@@ -122,11 +122,13 @@ export const useMetamask = () => {
 
   const connectMetaMask = async () => {
     try {
+      const accounts = await metamaskProvider.request({
+        method: "eth_requestAccounts",
+      });
       clearError();
-      _updateWallet();
+      _updateWallet(accounts);
     } catch (err) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setErrorMessage((err as any).message);
+      setErrorMessage(err.message);
       console.log("⛔ Custom: useMetamask: connectMetaMask: err", err);
     }
   };

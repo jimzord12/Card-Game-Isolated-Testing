@@ -19,7 +19,7 @@ import { useWeb3Login } from "../../hooks/blockchain/useWeb3Login";
 import { fetchUserDataWithWallet } from "../../../api/apiFns";
 
 const HomePageMetamask = () => {
-  const { login, setUser } = useAuth();
+  const { user: userData, login, setUser } = useAuth();
   const [playerName, resetUser, userAttribs] = useInput("user", "");
   const {
     ethersProvider,
@@ -155,8 +155,7 @@ const HomePageMetamask = () => {
           }
         }
       } catch (error) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((error as any)!.response.status === 401) {
+        if (error.response.status === 401) {
           setErrMsg(
             "You are the true owner of this wallet, but you don't have a player account yet. Please create one."
           );
