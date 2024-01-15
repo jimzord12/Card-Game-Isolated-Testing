@@ -81,7 +81,7 @@ const HomePageMetamask = () => {
       // console.log("Wallet: ", wallet);
       stepManager();
     }
-  }, [metamaskProvider, wallet.chainId]);
+  }, [metamaskProvider, wallet.chainId, wallet.accounts.length]);
 
   useEffect(() => {
     console.log("first");
