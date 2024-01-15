@@ -9,44 +9,21 @@ import WalletStepper from "../../components/WalletRelated/WalletStepper";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import useInput from "../../hooks/useInput";
 import CustomButton from "../../components/Buttons/CustomButton/CustomButton";
-import { useEffect, useState } from "react";
-import { useMetamask } from "../../hooks/blockchain/useMetamask";
-import { generaChain } from "../../constants/web3/blockchainDetails";
-import TransactionModal from "../../components/Modals/HomePageModals/TransactionModal";
-import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
-import { handlePlayerCreate } from "./handlers/localWallet/handlePlayerCreate";
-import { useWeb3Login } from "../../hooks/blockchain/useWeb3Login";
-import { fetchUserDataWithWallet } from "../../../api/apiFns";
+import { useState } from "react";
+import { actionBtnManger } from "./utils/actionBtnManger";
 
 const HomePageMetamask = () => {
-  const { user: userData, login, setUser } = useAuth();
-  const [playerName, resetUser, userAttribs] = useInput("user", "");
-  const {
-    ethersProvider,
-    metamaskProvider,
-    // errorMessage,
-    wallet,
-    // getProvider,
-    // _updateWallet,
-    switchNetwork,
-    // addNetwork,
-    connectMetaMask,
-  } = useMetamask();
+  const { user: authedUser /*login, logout*/ } = useAuth();
+  const [, /*user, resetUser*/ userAttribs] = useInput("user", "");
 
-  const { signMessage } = useWeb3Login({
-    provider: ethersProvider,
-    walletAddr: wallet.accounts[0],
-    chainId: wallet.chainId,
-  });
-
-  const [currentStep, setCurrentStep] = useState(0);
-  const [errMsg, setErrMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-
-  const [isTransactionModalOpen, setTransactionModalOpen] = useState(false);
+  const [currentStep /*setCurrentStep*/] = useState(0);
+  const [errMsg /*setErrMsg*/] = useState("");
+  const [successMsg /*setSuccessMsg*/] = useState("");
 
   const [showNewPlayerForm, setShowNewPlayerForm] = useState(false);
-  const [showNewPlayerForm2, setShowNewPlayerForm2] = useState(true);
+  const [showNewPlayerForm2 /*setShowNewPlayerForm2*/] = useState(true);
+
+  // const [isTransactionModalOpen, setTransactionModalOpen] = useState(false); // ✨ Temporary Commented Out
 
   // ✨ Temporary Commented Out
   // const {
@@ -68,12 +45,14 @@ const HomePageMetamask = () => {
   //   },
   // });
 
+  /* //TODO: Needs Metasmask Provider to work...
   const stepManager = () => {
-    if (metamaskProvider) setCurrentStep(1); // Check if MetaMask is installed
-    if (wallet.accounts.length > 0) setCurrentStep(2); // Check if MetaMask is connected
-    if (wallet.chainId == generaChain.parsedChainId) setCurrentStep(3); // Check if MetaMask is installed
+    if (hasProvider) setCurrentStep(1); // Check if MetaMask is installed
+    if (walletAddr.accounts.length > 0) setCurrentStep(2); // Check if MetaMask is connected
+    if (walletAddr.chainId == generaChain.parsedChainId) setCurrentStep(3); // Check if MetaMask is installed
   };
-
+  */
+  
   useEffect(() => {
     if (metamaskProvider) {
       // console.log("UseEffect: from Metamask HomePage");
@@ -164,14 +143,19 @@ const HomePageMetamask = () => {
     }
   };
 
+
   // if (isPending) return <div style={{ fontSize: 24 }}>Loading...</div>;
 
   // if (error) return <div style={{ fontSize: 24 }}>{error.message}</div>;
 
   return (
+    // <div>
+    //   <h1 style={{ color: auth.user?.wallet ? "green" : "" }}>HomePage</h1>
+    //   <Link to={"/game"}>Go to Game</Link>
+    //   <br />
+    //   <button onClick={fakeLogin}>Login</button>
+    // </div>
     <div className="flex flex-col">
-      <TransactionModal open={isTransactionModalOpen} />
-
       <p className={errMsg ? styles.errorStyles : styles.offscreenStyles}>
         {errMsg}
       </p>
@@ -181,7 +165,7 @@ const HomePageMetamask = () => {
         <br /> - The awesome thing about Web3...
         <br /> {"..you don't even need to remember usernames & passwords!"}
       </p>
-      <div style={{ height: 16 }} />
+      <SizedBox />
       <div className="max-md:w-full xl:w-full w-2/3">
         {/* <SizedBox /> */}
 
@@ -193,14 +177,10 @@ const HomePageMetamask = () => {
         {showNewPlayerForm2 && (
           <div
             title="Player Creation Form"
-            className={`flex flex-col mt-8 mb-3 transition-height transition-opacity duration-700 ease-in ${
+            className={`flex flex-col mb-3 transition-height transition-opacity duration-700 ease-in ${
               showNewPlayerForm ? "opacity-100 h-full" : "opacity-0 h-[0px]"
             }`}
           >
-            <p>
-              Please enter a name for your Player. Afterwards, click the{" "}
-              <strong>"Create Player</strong>" button.
-            </p>
             <CustomInput
               label="Player Name"
               placeHolder="Enter your player name"
@@ -210,7 +190,7 @@ const HomePageMetamask = () => {
             <CustomInput
               label="Wallet Address (Filled Automatically)"
               placeHolder="Enter your wallet address"
-              value={wallet.accounts[0] ?? "Connect your Wallet First"}
+              value={authedUser?.wallet ?? "Connect your Wallet First"}
               // Attribs={walletAttribs}
             />
           </div>
@@ -219,8 +199,8 @@ const HomePageMetamask = () => {
       <div className="flex flex-col">
         <div className="flex gap-6">
           <CustomButton
-            title={actionBtnManger().text}
-            handleClick={actionBtnManger().handler}
+            title={actionBtnManger(currentStep).text}
+            handleClick={actionBtnManger(currentStep).handler}
             restStyles="mt-6 w-fit z-10"
             // isDisabled={!(currentStep == 0)}
           />
@@ -235,20 +215,8 @@ const HomePageMetamask = () => {
           {showNewPlayerForm && showNewPlayerForm2 ? (
             <CustomButton
               title="Create Player"
-              handleClick={async (e) => {
-                const success = await handlePlayerCreate(
-                  e,
-                  playerName,
-                  wallet.accounts[0],
-                  setTransactionModalOpen,
-                  setUser,
-                  setErrMsg,
-                  resetUser,
-                  setSuccessMsg
-                );
-
-                if (success) setShowNewPlayerForm2(false);
-              }} // ✨ Restore
+              handleClick={() => console.log("Creating a")} // 🧪 Mockup
+              // handleClick={handlePlayerCreate} // ✨ Restore
               restStyles="mt-6 w-fit z-10"
             />
           ) : (
@@ -257,8 +225,8 @@ const HomePageMetamask = () => {
                 <CustomButton
                   title="New Player?"
                   handleClick={() => {
+                    console.log("🧪 WalletAddr: ", authedUser?.username);
                     setShowNewPlayerForm(true);
-                    setErrMsg("");
                   }}
                   restStyles="mt-6 w-fit z-10"
                 />
