@@ -47,100 +47,16 @@ const HomePageMetamask = () => {
 
   /* //TODO: Needs Metasmask Provider to work...
   const stepManager = () => {
-    if (metamaskProvider) setCurrentStep(1); // Check if MetaMask is installed
-    if (wallet.accounts.length > 0) setCurrentStep(2); // Check if MetaMask is connected
-    if (wallet.chainId == generaChain.parsedChainId) setCurrentStep(3); // Check if MetaMask is installed
+    if (hasProvider) setCurrentStep(1); // Check if MetaMask is installed
+    if (walletAddr.accounts.length > 0) setCurrentStep(2); // Check if MetaMask is connected
+    if (walletAddr.chainId == generaChain.parsedChainId) setCurrentStep(3); // Check if MetaMask is installed
   };
+  */
 
-  useEffect(() => {
-    if (metamaskProvider) {
-      // console.log("UseEffect: from Metamask HomePage");
-      // console.log(metamaskProvider);
-      // console.log("Wallet: ", wallet);
-      stepManager();
-    }
-  }, [metamaskProvider, wallet.chainId]);
-
-  useEffect(() => {
-    console.log("first");
-  }, [errMsg, successMsg]);
-
-  const actionBtnManger = () => {
-    switch (currentStep) {
-      case 0:
-        return {
-          text: "Get MetaMask",
-          handler: () => {
-            window.open("https://metamask.io/", "_blank");
-          },
-        };
-        break;
-
-      case 1:
-        return {
-          text: "Connect Wallet",
-          handler: () => {
-            //TODO: Connect Wallet
-            connectMetaMask();
-          },
-        };
-        break;
-
-      case 2:
-        return {
-          text: "Select Genera Network",
-          handler: () => {
-            //TODO: Switch Network
-            switchNetwork();
-          },
-        };
-        break;
-
-      case 3:
-        return {
-          text: "Login with Wallet",
-          handler: handleLogin,
-        };
-        break;
-
-      default:
-        return { text: "Error!", handler: () => {} };
-    }
-  };
-
-  const handleLogin = async (e: React.MouseEvent) => {
-    //TODO: Login with Wallet
-    const success = await signMessage();
-    if (success) {
-      try {
-        const { username } = await fetchUserDataWithWallet(wallet.accounts[0]);
-        console.log("Handle Login: ", success, username);
-
-        if (username) {
-          try {
-            handleOldPlayerETH(
-              e,
-              wallet.accounts[0],
-              login!,
-              setTransactionModalOpen,
-              setErrMsg,
-              resetUser
-            );
-          } catch (error) {
-            setErrMsg(
-              "We are experiencing some issues. Please try again later."
-            );
-          }
-        }
-      } catch (error) {
-        if (error.response.status === 401) {
-          setErrMsg(
-            "You are the true owner of this wallet, but you don't have a player account yet. Please create one."
-          );
-        }
-      }
-    }
-  };
+  // const fakeLogin = useCallback(() => {
+  //   // setWalletAddress(randomWalletAddress);
+  //   loginMutation(randomWalletAddress);
+  // }, [loginMutation, randomWalletAddress]);
 
   // if (isPending) return <div style={{ fontSize: 24 }}>Loading...</div>;
 
