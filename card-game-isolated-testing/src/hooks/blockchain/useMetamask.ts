@@ -5,7 +5,6 @@ import detectEthereumProvider from "@metamask/detect-provider";
 import { generaChain } from "../../constants/blockchain/chainConfig";
 import { useCallback, useEffect, useState } from "react";
 import { BrowserProvider } from "ethers";
-import { formatBalance, formatChainAsNum } from "../../utils";
 
 const disconnectedState = { accounts: [], balance: "", chainId: -1 };
 

@@ -38,6 +38,9 @@ const HomePageMetamask = () => {
   const [showNewPlayerForm2 /*setShowNewPlayerForm2*/] = useState(true);
 
   // const [isTransactionModalOpen, setTransactionModalOpen] = useState(false); // ✨ Temporary Commented Out
+  const [showNewPlayerForm2 /*setShowNewPlayerForm2*/] = useState(true);
+
+  // const [isTransactionModalOpen, setTransactionModalOpen] = useState(false); // ✨ Temporary Commented Out
 
   // ✨ Temporary Commented Out
   // const {
@@ -281,6 +284,7 @@ const HomePageMetamask = () => {
           <div
             title="Player Creation Form"
             className={`flex flex-col mb-3 transition-height transition-opacity duration-700 ease-in ${
+            className={`flex flex-col mb-3 transition-height transition-opacity duration-700 ease-in ${
               showNewPlayerForm ? "opacity-100 h-full" : "opacity-0 h-[0px]"
             }`}
           >
@@ -302,6 +306,8 @@ const HomePageMetamask = () => {
       <div className="flex flex-col">
         <div className="flex gap-6">
           <CustomButton
+            title={actionBtnManger(currentStep).text}
+            handleClick={actionBtnManger(currentStep).handler}
             title={actionBtnManger(currentStep).text}
             handleClick={actionBtnManger(currentStep).handler}
             restStyles="mt-6 w-fit z-10"
@@ -328,6 +334,7 @@ const HomePageMetamask = () => {
                 <CustomButton
                   title="New Player?"
                   handleClick={() => {
+                    console.log("🧪 WalletAddr: ", authedUser?.username);
                     console.log("🧪 WalletAddr: ", authedUser?.username);
                     setShowNewPlayerForm(true);
                   }}
