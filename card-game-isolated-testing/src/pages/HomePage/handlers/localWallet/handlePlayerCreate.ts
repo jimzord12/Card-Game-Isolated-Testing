@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HDNodeWallet, Wallet } from "ethers";
 import { createPlayer } from "../../../../../api/apiFns/createPlayer";
 import { gaslessNewPlayer } from "../../../../../api/apiFns/gasless/gaslessNewPlayer";
 import { fetchUserDataWithWallet } from "../../../../../api/apiFns";
@@ -23,7 +22,7 @@ const usernameRegex = /([a-zA-Z][a-zA-Z0-9 ]{0,15})/;
 export const handlePlayerCreate = async (
   e: React.MouseEvent,
   playerName: string,
-  localWallet: HDNodeWallet | Wallet,
+  walletAddress: string,
   // getEthBalance: () => Promise<string>,
   setTransactionModalOpen: Dispatch<SetStateAction<boolean>>,
   setUser: Dispatch<SetStateAction<userAuthType>> | null,
@@ -45,7 +44,7 @@ export const handlePlayerCreate = async (
   e.preventDefault();
 
   try {
-    const { success } = await createPlayer(playerName, localWallet.address); // in DB
+    const { success } = await createPlayer(playerName, walletAddress); // in DB
 
     if (success) {
       resetUser(); // Cleaning the memory for security
@@ -53,12 +52,12 @@ export const handlePlayerCreate = async (
         `Your Account has been created! 🥳 Login to start playing!`
       );
 
-      const userData = await fetchUserDataWithWallet(localWallet.address);
+      const userData = await fetchUserDataWithWallet(walletAddress);
 
       // 👉 Pseudo Gasless Mechanism
       setTransactionModalOpen(true); // OPEN MODAL
       console.log("🐱‍🏍 Starting the Gasless Mechanism...");
-      const { message, tx } = await gaslessNewPlayer(localWallet.address);
+      const { message, tx } = await gaslessNewPlayer(walletAddress);
 
       if (message === "User sufficient ETH balance") {
         setTransactionModalOpen(false); // Immedietly CLSOE MODAL

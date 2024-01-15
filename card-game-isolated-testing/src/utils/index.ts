@@ -2,7 +2,12 @@ import { convertImagePath } from "./convertImagePath";
 import { formatDate } from "./formatDate";
 import { getRandomNumberInRange } from "./getRandomNumberInRange";
 import { roundToDecimal } from "./roundToDecimal";
-import { isValidWalletAddress } from "./walletAddressValidator";
+import { isValidWalletAddress } from "./blockchain/walletAddressValidator";
+import {
+  formatAddress,
+  formatBalance,
+  formatChainAsNum,
+} from "./blockchain/web3Essentials";
 
 export {
   convertImagePath,
@@ -10,4 +15,7 @@ export {
   getRandomNumberInRange,
   roundToDecimal,
   isValidWalletAddress,
+  formatAddress,
+  formatBalance,
+  formatChainAsNum,
 };
