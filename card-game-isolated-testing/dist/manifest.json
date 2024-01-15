@@ -1,6 +1,6 @@
 {
   "index.css": {
-    "file": "assets/index-af628a9e.css",
+    "file": "assets/index-9a3c844d.css",
     "src": "index.css"
   },
   "index.html": {
@@ -10,12 +10,12 @@
       "assets/Uniwa-Logo-11f3d0dd.png"
     ],
     "css": [
-      "assets/index-af628a9e.css"
+      "assets/index-9a3c844d.css"
     ],
     "dynamicImports": [
       "src/assets/imgs_new_convention/index.ts"
     ],
-    "file": "assets/index-77ed5e1a.js",
+    "file": "assets/index-74f8510b.js",
     "isEntry": true,
     "src": "index.html"
   },
