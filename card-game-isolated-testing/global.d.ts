@@ -1,4 +1,13 @@
+interface EthereumProvider {
+  // Define the properties and methods you expect from Ethereum provider
+  // For example:
+  request: (...args: any[]) => Promise<any>;
+}
+
 declare global {
+  interface Window {
+    ethereum?: EthereumProvider;
+  }
   // type EntityType = "building" | "reg" | "default" | "placeholder" | "padlock";
   // type SubType = "wind" | "solar" | "hall" | "diesel" | "reg" | "building";
   // type Level = 1 | 2 | 3 | 4 | 5;
