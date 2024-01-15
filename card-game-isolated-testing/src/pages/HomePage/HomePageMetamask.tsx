@@ -47,12 +47,11 @@ const HomePageMetamask = () => {
 
   /* //TODO: Needs Metasmask Provider to work...
   const stepManager = () => {
-    if (hasProvider) setCurrentStep(1); // Check if MetaMask is installed
-    if (walletAddr.accounts.length > 0) setCurrentStep(2); // Check if MetaMask is connected
-    if (walletAddr.chainId == generaChain.parsedChainId) setCurrentStep(3); // Check if MetaMask is installed
+    if (metamaskProvider) setCurrentStep(1); // Check if MetaMask is installed
+    if (wallet.accounts.length > 0) setCurrentStep(2); // Check if MetaMask is connected
+    if (wallet.chainId == generaChain.parsedChainId) setCurrentStep(3); // Check if MetaMask is installed
   };
-  */
-  
+
   useEffect(() => {
     if (metamaskProvider) {
       // console.log("UseEffect: from Metamask HomePage");
@@ -60,7 +59,7 @@ const HomePageMetamask = () => {
       // console.log("Wallet: ", wallet);
       stepManager();
     }
-  }, [metamaskProvider, wallet.chainId, wallet.accounts.length]);
+  }, [metamaskProvider, wallet.chainId]);
 
   useEffect(() => {
     console.log("first");
@@ -142,7 +141,6 @@ const HomePageMetamask = () => {
       }
     }
   };
-
 
   // if (isPending) return <div style={{ fontSize: 24 }}>Loading...</div>;
 
