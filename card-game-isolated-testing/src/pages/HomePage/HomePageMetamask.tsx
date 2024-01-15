@@ -11,10 +11,24 @@ import useInput from "../../hooks/useInput";
 import CustomButton from "../../components/Buttons/CustomButton/CustomButton";
 import { useState } from "react";
 import { actionBtnManger } from "./utils/actionBtnManger";
+import { useMetamask } from "../../hooks/blockchain/useMetamask";
+import { fetchUserDataWithWallet } from "../../../api/apiFns";
+import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
 
 const HomePageMetamask = () => {
-  const { user: authedUser /*login, logout*/ } = useAuth();
-  const [, /*user, resetUser*/ userAttribs] = useInput("user", "");
+  const { user: userData, login, setUser } = useAuth();
+  const [playerName, resetUser, userAttribs] = useInput("user", "");
+  const {
+    ethersProvider,
+    metamaskProvider,
+    // errorMessage,
+    wallet,
+    // getProvider,
+    // _updateWallet,
+    switchNetwork,
+    // addNetwork,
+    connectMetaMask,
+  } = useMetamask();
 
   const [currentStep /*setCurrentStep*/] = useState(0);
   const [errMsg /*setErrMsg*/] = useState("");
@@ -53,10 +67,95 @@ const HomePageMetamask = () => {
   };
   */
 
-  // const fakeLogin = useCallback(() => {
-  //   // setWalletAddress(randomWalletAddress);
-  //   loginMutation(randomWalletAddress);
-  // }, [loginMutation, randomWalletAddress]);
+  useEffect(() => {
+    if (metamaskProvider) {
+      // console.log("UseEffect: from Metamask HomePage");
+      // console.log(metamaskProvider);
+      // console.log("Wallet: ", wallet);
+      stepManager();
+    }
+  }, [metamaskProvider, wallet.chainId]);
+
+  useEffect(() => {
+    console.log("first");
+  }, [errMsg, successMsg]);
+
+  const actionBtnManger = () => {
+    switch (currentStep) {
+      case 0:
+        return {
+          text: "Get MetaMask",
+          handler: () => {
+            window.open("https://metamask.io/", "_blank");
+          },
+        };
+        break;
+
+      case 1:
+        return {
+          text: "Connect Wallet",
+          handler: () => {
+            //TODO: Connect Wallet
+            connectMetaMask();
+          },
+        };
+        break;
+
+      case 2:
+        return {
+          text: "Select Genera Network",
+          handler: () => {
+            //TODO: Switch Network
+            switchNetwork();
+          },
+        };
+        break;
+
+      case 3:
+        return {
+          text: "Login with Wallet",
+          handler: handleLogin,
+        };
+        break;
+
+      default:
+        return { text: "Error!", handler: () => {} };
+    }
+  };
+
+  const handleLogin = async (e: React.MouseEvent) => {
+    //TODO: Login with Wallet
+    const success = await signMessage();
+    if (success) {
+      try {
+        const { username } = await fetchUserDataWithWallet(wallet.accounts[0]);
+        console.log("Handle Login: ", success, username);
+
+        if (username) {
+          try {
+            handleOldPlayerETH(
+              e,
+              wallet.accounts[0],
+              login!,
+              setTransactionModalOpen,
+              setErrMsg,
+              resetUser
+            );
+          } catch (error) {
+            setErrMsg(
+              "We are experiencing some issues. Please try again later."
+            );
+          }
+        }
+      } catch (error) {
+        if (error.response.status === 401) {
+          setErrMsg(
+            "You are the true owner of this wallet, but you don't have a player account yet. Please create one."
+          );
+        }
+      }
+    }
+  };
 
   // if (isPending) return <div style={{ fontSize: 24 }}>Loading...</div>;
 
