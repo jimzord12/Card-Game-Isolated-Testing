@@ -1,8 +1,17 @@
-import axiosPublic from "../apiConfig";
-import { isValidWalletAddress } from "../../src/utils";
+import axiosPublic from "../../apiConfig";
+import { isValidWalletAddress } from "../../../src/utils";
+import { IPlayerDB } from "../../../src/types/PlayerTypes/Player";
+import { ICardDB } from "../../../src/types";
+
+interface ResponseData {
+  player: IPlayerDB;
+  cards: ICardDB[];
+}
 
 // #1 - Gets the Player's Data
-const getPlayerByWallet = async (walletAddress: string | null) => {
+const getPlayerByWallet = async (
+  walletAddress: string | null
+): Promise<ResponseData> => {
   console.log("🚀 Trying to: [GET] -> (Player) with Wallet: ", walletAddress);
 
   if (
@@ -21,7 +30,9 @@ const getPlayerByWallet = async (walletAddress: string | null) => {
     );
   }
 
-  const response = await axiosPublic.get(`/player/${walletAddress}`);
+  const response = await axiosPublic.get(`/players/${walletAddress}`);
+
+  console.log("🚀 [GET] ✅ -> (Player): ", response.data);
 
   return response.data;
 };

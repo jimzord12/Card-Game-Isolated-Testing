@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { AuthContextProps, AuthProviderProps, userAuthType } from "./authTypes";
-import { fetchUserDataWithWallet } from "../../../api/apiFns";
+import { loginWithWallet } from "../../../api/apiFns";
 import { useNavigate } from "react-router-dom";
 
 // Create a context for authentication
@@ -12,14 +12,25 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 // Component to provide authentication context
-export default function AuthProvider({ children }: AuthProviderProps) {
+export default function AuthProvider({
+  children,
+  disableForTesting = false,
+}: AuthProviderProps) {
   const [user, setUser] = useState<userAuthType>(null); // This should be your auth logic
+
+  useEffect(() => {
+    console.log(
+      "%c🛑 | 🧪 |  - Authentication is DISABLED - | 🧪 | 🛑 ",
+      "color: #ff0000; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 0px #000000;"
+    );
+    if (disableForTesting)
+      setUser({ wallet: "0x123", aT: "123", rT: "123", username: "testUser" });
+  }, []);
   const navigate = useNavigate();
 
-  //TODO: (CHANGE)THIS is <<Mock>> logic for: Login & Logout
   const login = async (walletAddress: string) => {
     try {
-      const response = await fetchUserDataWithWallet(walletAddress);
+      const response = await loginWithWallet(walletAddress);
       setUser({ ...response });
       console.log("🧪 - Logging in User - With Data: ", response);
       navigate("/game");

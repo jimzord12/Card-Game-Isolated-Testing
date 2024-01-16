@@ -16,7 +16,7 @@ import TransactionModal from "../../components/Modals/HomePageModals/Transaction
 import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
 import { handlePlayerCreate } from "./handlers/localWallet/handlePlayerCreate";
 import { useWeb3Login } from "../../hooks/blockchain/useWeb3Login";
-import { fetchUserDataWithWallet } from "../../../api/apiFns";
+import { loginWithWallet } from "../../../api/apiFns";
 
 const HomePageMetamask = () => {
   const { login, setUser } = useAuth();
@@ -135,7 +135,7 @@ const HomePageMetamask = () => {
     const success = await signMessage();
     if (success) {
       try {
-        const { username } = await fetchUserDataWithWallet(wallet.accounts[0]);
+        const { username } = await loginWithWallet(wallet.accounts[0]);
         console.log("Handle Login: ", success, username);
 
         if (username) {

@@ -1,6 +1,6 @@
 import { HDNodeWallet, Wallet, ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { fetchUserDataWithWallet } from "../../../api/apiFns";
+import { loginWithWallet } from "../../../api/apiFns";
 import { useAuth } from "../auth/useAuth";
 
 function useLocalWallet() {
@@ -22,7 +22,7 @@ function useLocalWallet() {
           console.log(
             "✅ - Local Wallet Discovery Success. Retrieving User Data..."
           );
-          const userData = await fetchUserDataWithWallet(walletAddress);
+          const userData = await loginWithWallet(walletAddress);
           if (setUser === null)
             throw new Error("⛔ - useLocalWallet: setUser is null");
           setUser({ ...userData });

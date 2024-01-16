@@ -2,20 +2,21 @@ import { Suspense, lazy, useState } from "react";
 import ModalProvider from "../../context/ModalContext/ModalProvider";
 import UseLandscape from "../../hooks/useLandscape";
 import RotateDevice from "../RotateDevice/RotateDevice";
-import TownMap from "../TownMap/TownMap";
 import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
 );
+const TownMap = lazy(() => import("../../pages/Maps/TownMap/TownMap"));
+const WorldMap = lazy(() => import("../../pages/Maps/WorldMap/WorldMap"));
 
 type MapTypes = "town" | "world";
 
 const Game = () => {
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
-  const [mapToDisplay /*setMapToDisplay*/] = useState<MapTypes>("town");
+  const [mapToDisplay /*setMapToDisplay*/] = useState<MapTypes>("world");
 
   const auth = useRequireAuth();
 
@@ -34,7 +35,7 @@ const Game = () => {
               <RotateDevice show={shouldShow} />
               <ModalProvider>
                 {mapToDisplay === "town" && <TownMap />}
-                {/* { mapToDisplay === "world" && <WorldMap />} */}
+                {mapToDisplay === "world" && <WorldMap />}
               </ModalProvider>
             </>
           )}

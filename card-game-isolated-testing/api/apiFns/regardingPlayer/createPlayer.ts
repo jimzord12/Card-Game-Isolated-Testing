@@ -1,4 +1,4 @@
-import axios from "../apiConfig";
+import axios from "../../apiConfig";
 
 const CREATE_PL_URL = "register/player";
 

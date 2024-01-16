@@ -79,3 +79,35 @@ export interface CardWithShadowUrl {
     SuperSolarPanel: string;
   };
 }
+
+export interface ICardDB {
+  id: number;
+  templateId: number;
+  level: number;
+  ownerId: number;
+  in_mp: null | number; // Replace 'any' with the actual type if known
+  priceTag: null | number; // Replace 'any' with the actual type if known
+  state: null | number;
+  locked: null | number;
+  town_id: null | number; // Replace 'any' with the actual type if known
+  rarity: null | number;
+  disabled: null | number; // Replace 'any' with the actual type if known
+  creationTime: string;
+  creator: string;
+  endDate: null | string;
+  stats?: ICardStatsDB;
+}
+
+export interface ICardStatsDB {
+  id: number;
+  cardId: number;
+  gold: number | null;
+  concrete: number | null;
+  metals: number | null;
+  crystals: number | null;
+  population: number | null;
+  energy: number | null;
+  rank: number | null;
+  expenses: number | null;
+  endDate: string | null;
+}

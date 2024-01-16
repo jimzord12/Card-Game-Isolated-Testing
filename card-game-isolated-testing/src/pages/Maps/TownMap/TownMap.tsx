@@ -5,21 +5,21 @@ import { useCallback, useEffect, useState } from "react";
 import styles from "./css/general.module.css";
 
 // Image Context
-import { UseGlobalContext } from "../../context/GlobalContext/GlobalContext";
+import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 
 // Zustang Stores
-import { useTownMapStore } from "../../stores/townMapEntitiesStore";
+import { useTownMapStore } from "../../../stores/townMapEntitiesStore";
 
 // Types
 
 // Classes
 
 // Components
-import { useGameVarsStore } from "../../stores/gameVars";
-import GlowOutlineFilter from "../GlowOutlineFilter";
-import EntityTemplateGroup from "../OnMapEntities/EntityTemplateGroup/EntityTemplateGroup";
-import Placeholders from "../OnMapEntities/Placeholders/Placeholders";
-import TreesOnMap from "../OnMapEntities/Trees/TreesOnMap";
+import { useGameVarsStore } from "../../../stores/gameVars";
+import GlowOutlineFilter from "../../../components/GlowOutlineFilter";
+import EntityTemplateGroup from "../../../components/OnMapEntities/EntityTemplateGroup/EntityTemplateGroup";
+import Placeholders from "../../../components/OnMapEntities/Placeholders/Placeholders";
+import TreesOnMap from "../../../components/OnMapEntities/Trees/TreesOnMap";
 
 // Modals
 

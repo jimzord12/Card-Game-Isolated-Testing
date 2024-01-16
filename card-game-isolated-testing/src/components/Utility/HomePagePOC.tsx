@@ -1,9 +1,10 @@
-import { useMediaQuery } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 import { UniwaLogo, footerImg, logoGenera } from "../../assets/homePageImgs";
 import SwitchBtn from "../WalletRelated/SwitchBtn";
 import { useState } from "react";
 import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
+import { Link } from "react-router-dom";
 // import { useNavigate } from 'react-router-dom';
 
 const HomePagePOC = () => {
@@ -13,7 +14,21 @@ const HomePagePOC = () => {
   // const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex xl:flex-row flex-col relative">
+    <div className="min-h-screen flex xl:flex-row flex-col relative ">
+      <div className="flex xl:flex-col flex-col relative gap-4 bg-neutral-600 items-center">
+        <h1 style={{ fontSize: 36 }}> 🧪 TESTING PAGES 🧪 </h1>
+        <Link to="/game">
+          <Button variant="contained">Go to Game</Button>
+        </Link>
+        <Link to="/marketplace">
+          <Button variant="contained">Go to MarketPlace</Button>
+        </Link>
+        <Link to="/leaderboard">
+          <Button variant="contained">Go to Leaderboard</Button>
+        </Link>
+        <h1 style={{ fontSize: 26 }}> ✨ Restore Afterwards ✨ </h1>
+      </div>
+
       <div className="flex flex-1 justify-between bg-siteblack py-8 sm:px-12 px-8 flex-col">
         <img
           src={logoGenera}

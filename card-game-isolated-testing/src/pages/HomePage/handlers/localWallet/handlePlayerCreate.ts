@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createPlayer } from "../../../../../api/apiFns/createPlayer";
+import { createPlayer } from "../../../../../api/apiFns/regardingPlayer/createPlayer";
 import { gaslessNewPlayer } from "../../../../../api/apiFns/gasless/gaslessNewPlayer";
-import { fetchUserDataWithWallet } from "../../../../../api/apiFns";
+import { loginWithWallet } from "../../../../../api/apiFns";
 import { userAuthType } from "../../../../context/AuthContext/authTypes";
 import { Dispatch, SetStateAction } from "react";
 import { handleCloseTxModal } from "./handleCloseTxModal";
@@ -52,7 +52,7 @@ export const handlePlayerCreate = async (
         `Your Account has been created! 🥳 Login to start playing!`
       );
 
-      const userData = await fetchUserDataWithWallet(walletAddress);
+      const userData = await loginWithWallet(walletAddress);
 
       // 👉 Pseudo Gasless Mechanism
       setTransactionModalOpen(true); // OPEN MODAL

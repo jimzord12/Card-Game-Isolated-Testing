@@ -9,6 +9,7 @@ export type userAuthType = {
 
 export interface AuthProviderProps {
   children: ReactNode;
+  disableForTesting?: boolean;
 }
 
 export interface AuthContextProps {
