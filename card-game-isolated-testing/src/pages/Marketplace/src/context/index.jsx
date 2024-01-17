@@ -1,26 +1,24 @@
-import React, { useState, useContext, createContext } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import React, { useState, useContext, createContext, useEffect } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useGameVarsStore } from "../../../../stores/gameVars";
 
-import { usePlayerContext } from '../../../context/playerContext/PlayerContext';
 import {
   getAllCardsForSale,
   getAllPlayers,
   getSoldCards,
   deletePurchase,
-} from '../../../../api/apiFns';
+} from "../../../../../api/apiFns";
 // import useLocationChange from '../hooks/useLocationChange';
 
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  // const { state } = useLocation();
-  const { fetchedPlayer, materialResourcesRef, playerContextInitialized } =
-    usePlayerContext();
+  const playerData = useGameVarsStore((state) => state.player);
 
   // const onLocationChange = useLocationChange(['allCards']);
   // const { setAuth, auth } = useAuth(); //@Get it from Main App! ✨
-  console.log('amsudnasiasdofgj: ', fetchedPlayer);
-  const [userId, setUserId] = useState(fetchedPlayer.id); //@Get it from Main App! ✨
+  console.log("🧪 Marketplace | Context | The Player Data: ", playerData);
+  const [userId, setUserId] = useState(playerData.id); //@Get it from Main App! ✨
   const [cards, setCards] = useState([]);
   const [playerCards, setPlayerCards] = useState([]);
   // const [marketplaceCards, setMarketplaceCards] = useState([]);
@@ -28,98 +26,104 @@ export const StateContextProvider = ({ children }) => {
   const [playersMapping, setPlayersMapping] = useState({});
   const [userSoldCards, setUserSoldCards] = useState([]);
   const [playerBalance, setPlayerBalance] = useState(
-    Math.trunc(materialResourcesRef.current.gold)
+    Math.trunc(playerData.gold)
   );
-  const [isActive, setIsActive] = useState('dashboard');
+  const [isActive, setIsActive] = useState("dashboard");
 
   //@Get it from Main App! ✨
-  const axiosPrivate = 'nothing...xD';
+  // const axiosPrivate = "nothing...xD";
 
   //@Get it from Main App! ✨
-  const playerWallet = fetchedPlayer.wallet;
+  const playerWallet = playerData.wallet;
   // const testingPlayerName = "the collector"
 
   // #2 - Query - Getting the Cards
   const {
+    data: allCardsData,
     isSuccess: isSuccessAllCards,
     isLoading: isLoadingAllCards,
     isError: isErrorAllCards,
     error: allCardsError,
-    refetch,
+    refetch: refetchAllCards,
   } = useQuery({
-    queryKey: ['allCards', axiosPrivate],
+    queryKey: ["allCards"],
     queryFn: getAllCardsForSale,
-    refetchOnMount: 'always',
-    enabled: playerContextInitialized,
-    onSuccess: (fetchedData) => {
-      console.log('SUCCESSFUL - All Cards (Marketplace): ', fetchedData);
-      setCards(fetchedData);
-      setPlayerCards(fetchedData.filter((card) => card.ownerId === userId));
-      // setMarketplaceCards(removeElementsFromArray(cards, playerCards));
-    },
+    refetchOnMount: "always",
+    enabled: playerData.gold !== null,
   });
+
+  useEffect(() => {
+    if (isSuccessAllCards && allCardsData) {
+      console.log("SUCCESSFUL - All Cards (Marketplace): ", allCardsData);
+      setCards(allCardsData);
+      setPlayerCards(allCardsData.filter((card) => card.ownerId === userId));
+    }
+  }, [isSuccessAllCards, allCardsData, userId]);
 
   // #3 - Query - Getting all Players
   //@Note: Need to get all the PLayers to map ownerID to ownerName or Wallet
   //@Get it from Main App! ✨
-  const {
-    isSuccess: isSuccessPlayers,
-    isLoading: isLoadingPlayers,
-    isError: isErrorPlayers,
-    error: PlayersError,
-  } = useQuery({
-    queryKey: ['allPlayers', axiosPrivate],
+  const { data: fetchedPlayersData, isSuccess: isSuccessPlayers } = useQuery({
+    queryKey: ["allPlayers"],
     queryFn: getAllPlayers,
     enabled: isSuccessAllCards,
-    onSuccess: (fetchedData) => {
-      console.log('All Cards (Marketplace): ', cards);
-      console.log("PLayer's - Cards (Marketplace): ", playerCards);
-      console.log('SUCCESSFUL - All Players (Marketplace): ', fetchedData);
-      setPlayers(fetchedData);
-      setPlayersMapping((prev) => {
-        const formatedPlayers = {};
-        fetchedData.forEach((player) => {
-          formatedPlayers[`${player.id}`] = player.name;
-        });
-        return { ...prev, ...formatedPlayers };
-      });
-    },
   });
 
+  useEffect(() => {
+    if (isSuccessPlayers && fetchedPlayersData) {
+      console.log(
+        "SUCCESSFUL - All Players (Marketplace): ",
+        fetchedPlayersData
+      );
+      setPlayers(fetchedPlayersData);
+      setPlayersMapping((prev) => {
+        const formattedPlayers = {};
+        fetchedPlayersData.forEach((player) => {
+          formattedPlayers[`${player.id}`] = player.name;
+        });
+        return { ...prev, ...formattedPlayers };
+      });
+    }
+  }, [isSuccessPlayers, fetchedPlayersData]);
+
   const {
+    data: soldCardsData,
     isSuccess: isSoldCardsSuccess,
     isLoading: isLoadingSoldCards,
     refetch: refetchSoldCards,
     isError: isErrorSoldCards,
-    // error,
   } = useQuery({
-    queryKey: ['playerSoldCards', axiosPrivate, userId],
+    queryKey: ["playerSoldCards", userId],
     queryFn: getSoldCards,
     retry: 0,
     enabled: isSuccessPlayers && players.length > 0,
-    onSuccess: (fetchedData) => {
-      console.log(
-        'SUCCESSFUL - Got Purchase Events (Marketplace): ',
-        fetchedData
-      );
-      //   setUserSoldCards(findSoldCards(playerCards, fetchedData));
-      setUserSoldCards(fetchedData);
-    },
-    onError: (error) => {
+    onError: () => {
       setUserSoldCards([]);
     },
   });
+
+  useEffect(() => {
+    if (isSoldCardsSuccess && soldCardsData) {
+      console.log(
+        "SUCCESSFUL - Got Purchase Events (Marketplace): ",
+        soldCardsData
+      );
+      setUserSoldCards(soldCardsData);
+    } else if (isErrorSoldCards) {
+      setUserSoldCards([]);
+    }
+  }, [isSoldCardsSuccess, soldCardsData, isErrorSoldCards]);
 
   const { mutate: removePurchaseEvent, isSuccess: hasCards4Sale } = useMutation(
     {
       mutationFn: deletePurchase,
       onSuccess: (data) => {
-        console.log('3 - Success - DELETE: ', data);
+        console.log("3 - Success - DELETE: ", data);
         refetchSoldCards();
       },
     }
   );
-  console.log('hhhhhhhh: ', removePurchaseEvent);
+  console.log("hhhhhhhh: ", removePurchaseEvent);
 
   return (
     <StateContext.Provider
@@ -140,8 +144,7 @@ export const StateContextProvider = ({ children }) => {
         isSuccessPlayers,
         isSoldCardsSuccess,
         playerWallet,
-        axiosPrivate,
-        refetch,
+        refetchAllCards,
         userSoldCards,
         refetchSoldCards,
         isLoadingSoldCards,

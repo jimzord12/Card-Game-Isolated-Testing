@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { AuthContextProps, AuthProviderProps, userAuthType } from "./authTypes";
-import { loginWithWallet } from "../../../api/apiFns";
+import { getPlayerByWallet, loginWithWallet } from "../../../api/apiFns";
 import { useNavigate } from "react-router-dom";
+import { useGameVarsStore } from "../../stores/gameVars";
 
 // Create a context for authentication
 export const AuthContext = createContext<AuthContextProps>({
@@ -17,6 +18,7 @@ export default function AuthProvider({
   disableForTesting = false,
 }: AuthProviderProps) {
   const [user, setUser] = useState<userAuthType>(null); // This should be your auth logic
+  const setPlayer = useGameVarsStore((state) => state.setPlayer);
 
   useEffect(() => {
     console.log(
@@ -30,9 +32,16 @@ export default function AuthProvider({
 
   const login = async (walletAddress: string) => {
     try {
+      console.log("🧪 1.1 | - 🚀 Logging in User - With Data...");
       const response = await loginWithWallet(walletAddress);
       setUser({ ...response });
-      console.log("🧪 - Logging in User - With Data: ", response);
+      console.log("🧪 1.2 | - ✅ Logged User in - With Data: ", response);
+      const playerData = await getPlayerByWallet(walletAddress);
+      console.log("🧪 2.1 | - 🚀 Fetching Player In-Game Data...");
+
+      setPlayer(playerData.player);
+      console.log("🧪 2.2 | - ✅ Successfully GOT Player Data: ", playerData);
+
       navigate("/game");
     } catch (error) {
       console.error("⛔ - Custom: AuthProvider: Login error: ", error);

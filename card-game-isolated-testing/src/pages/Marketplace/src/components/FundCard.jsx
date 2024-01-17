@@ -2,7 +2,6 @@ import React from "react";
 
 import { useStateContext } from "../context";
 //TODO: 💥 Have to use Zustang store instead of Context API
-import { usePlayerContext } from "../../../context/playerContext/PlayerContext";
 import { cardInfo } from "../constants/index";
 import { CustomButton } from "../components/index";
 
@@ -15,6 +14,7 @@ import { numberWithDots, findOwnerWallet } from "../utils";
 import styles from "./styles/FundCard.module.css";
 import WalletAvatar from "./WalletAvatar";
 import SimpleLoader from "./SimpleLoader";
+import { useGameVarsStore } from "../../../../stores/gameVars";
 // import { deletePurchase } from "../api/apiFns";
 
 //@Note: Need to get all the PLayers as well to map ownerID to ownerName or Wallet
@@ -28,7 +28,7 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
     removePurchaseEvent,
   } = useStateContext();
 
-  const { materialResourcesRef } = usePlayerContext();
+  const playerData = useGameVarsStore((state) => state.player);
 
   const cardDetails = cardInfo[card.templateId];
   console.log("1 - FundCard Card: ", card);
@@ -178,7 +178,7 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
                     axiosPrivate,
                     cardId: card.cardId,
                   });
-                  materialResourcesRef.current.gold += card.priceTag;
+                  playerData.gold += card.priceTag;
                 }}
               />
             )}
