@@ -1,7 +1,7 @@
 import styles from "./errorPage.module.css";
 
 const catImgUrl =
-  "src/assets/imgs_new_convention/error/error-catBreakError.webp";
+  "/src/assets/imgs_new_convention/error/error-catBreakError.webp";
 
 const ErrorPage = () => {
   return (

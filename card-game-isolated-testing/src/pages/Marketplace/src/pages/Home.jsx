@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+// import React, { useState, useEffect } from 'react';
+// import { useLocation } from 'react-router-dom';
 
-import { DisplayCards } from '../components';
-import { useStateContext } from '../context';
-import { removeElementsFromArray } from '../utils';
+import { DisplayCards } from "../components";
+import { useStateContext } from "../context";
+// import { removeElementsFromArray } from '../utils';
 
 const Home = () => {
   // const [isLoading, setIsLoading] = useState(false);
 
   const {
     cards,
-    playerCards,
+    // playerCards,
     isSuccessAllCards,
     isLoadingAllCards,
     isErrorAllCards,
     allCardsError,
-    setUserId,
-    userId,
+    // setUserId,
+    // userId,
     playerAvatar,
   } = useStateContext();
 
-  const location = useLocation();
+  // const location = useLocation();
   // const fetchCards = async () => {
   //   setIsLoading(true);
   //   const data = await getCampaigns();

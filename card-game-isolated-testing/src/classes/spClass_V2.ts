@@ -34,17 +34,13 @@ export default class SPCard {
   // private endDate?: number;
   // private usedFrom?: any; // Replace 'any' with a more specific type if possible
 
-  private constructor(
-    data: SPCardData,
-
-    image: string
-  ) {
+  private constructor(data: SPCardData) {
     console.log("======================================================");
-    console.log("1. The dataFromDB: ", data);
+    console.log("| ✨ Constructor SP Card | The provided data: ", data);
     console.log("======================================================");
 
     // From Caller
-    this.img = image;
+    this.img = templateIdToTemplateDataSP[data.templateId].image;
 
     // From DB or From Frontend
     this.id = data.id;
@@ -88,11 +84,11 @@ export default class SPCard {
       ownerId: ownerId,
       state: _state,
     };
-    return new SPCard(defaultValues, nameToTemplateDataSP[cardName].image);
+    return new SPCard(defaultValues);
   }
 
-  static fromDb(dataFromDB: SPCardData, image: string) {
-    return new SPCard(dataFromDB, image);
+  static fromDb(dataFromDB: SPCardData) {
+    return new SPCard(dataFromDB);
   }
 
   public activate(): void {

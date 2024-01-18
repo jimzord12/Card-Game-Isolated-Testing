@@ -12,7 +12,9 @@ export const deletePurchase = async (cardId: number): Promise<boolean> => {
   const response: AxiosResponse<MySQLOperation> = await axios.delete(
     DELETE_CARD_FROM_MARKETPLACE_URL,
     {
-      data: { cardId },
+      data: {
+        cardId: cardId,
+      },
     }
   );
 

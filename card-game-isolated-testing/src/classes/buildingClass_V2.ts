@@ -50,16 +50,15 @@ export default class BuildingCard {
   public doctors?: number;
 
   private constructor(
-    data: BuildingCardData,
+    data: BuildingCardData
     // templateData: templateIdToTemplateDataBuilding,
-    image: string
   ) {
     console.log("======================================================");
-    console.log("1. The dataFromDB: ", data);
+    console.log("| 🏡 Constructor Building Card | The provided data: ", data);
     console.log("======================================================");
 
     // From Caller
-    this.img = image;
+    this.img = templateIdToTemplateDataBuilding[data.templateId].image;
 
     // From DB or From Frontend
     this.id = data.id;
@@ -113,19 +112,15 @@ export default class BuildingCard {
       ownerId: ownerId,
       state: _state,
     };
-    return new BuildingCard(
-      defaultValues,
-      nameToTemplateDataBuilding[cardName].image
-    );
+    return new BuildingCard(defaultValues);
   }
 
   static fromDb(
-    dataFromDB: BuildingCardData,
+    dataFromDB: BuildingCardData
     // templateData: templateIdToTemplateDataBuilding,
-    image: string
   ) {
     // Transform CardFromDB to BuildingCard properties
-    return new BuildingCard(dataFromDB, image);
+    return new BuildingCard(dataFromDB);
   }
 
   /////////////////////////////////////////////////////////////////////////////

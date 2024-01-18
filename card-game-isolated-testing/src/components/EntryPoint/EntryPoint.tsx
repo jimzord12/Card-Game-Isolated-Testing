@@ -39,7 +39,7 @@ const EntryPoint = () => {
                 {/* <Route path="townMap" element={<TownMap />} />
                 <Route path="worldMap" element={<WorldMap />} /> */}
               </Route>
-              <Route path="marketplace" element={<Marketplace />} />
+              <Route path="marketplace/*" element={<Marketplace />} />
               <Route path="leaderboard" element={<Leaderboard />} />
               {/* END - The Routes above are protected by the: useRequireAuth hook */}
               <Route path="*" element={<NotFoundPage />} />

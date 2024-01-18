@@ -45,17 +45,22 @@ export default class RegCard {
   // private endDate?: number;
   // private usedFrom?: any; // Replace 'any' with a more specific type if possible
 
-  private constructor(
-    data: RegCardData,
-
-    image: string
-  ) {
+  private constructor(data: RegCardData) {
     console.log("======================================================");
-    console.log("1. Constructor: The Input Data: ", data);
+    console.log("| ⚡ Constructor REG Card | The provided data: ", data);
     console.log("======================================================");
 
+    console.log(
+      "[1] - CLASS | REG::: Template Data: ",
+      templateIdToTemplateDataREG
+    );
+    console.log("[2] - CLASS | REG::: Template ID: ", data.templateId);
+    console.log(
+      "[3] - CLASS | REG::: Template Data based on ID: ",
+      templateIdToTemplateDataREG[data.templateId]
+    );
     // From Caller
-    this.img = image;
+    this.img = templateIdToTemplateDataREG[data.templateId].image;
 
     // From DB or From Frontend
     this.id = data.id;
@@ -107,11 +112,11 @@ export default class RegCard {
       ownerId: ownerId,
       state: _state,
     };
-    return new RegCard(defaultValues, nameToTemplateDataREG[cardName].image);
+    return new RegCard(defaultValues);
   }
 
-  static fromDb(dataFromDB: RegCardData, image: string) {
-    return new RegCard(dataFromDB, image);
+  static fromDb(dataFromDB: RegCardData) {
+    return new RegCard(dataFromDB);
   }
 
   /////////////////////////////////////////////////////////////////////////////

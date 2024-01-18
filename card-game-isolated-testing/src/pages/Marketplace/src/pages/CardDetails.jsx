@@ -36,14 +36,27 @@ import { cardInfo as cardDesc, islands } from "../constants";
 import { useGameVarsStore } from "../../../../stores/gameVars";
 import {
   getPlayerByWallet,
+  ownersSwapper,
   purchaseCard,
   removeFromMP,
 } from "../../../../../api/apiFns";
+import { classBuilding, classREG, classSP } from "../../../../classes";
+import { mapOldCardIdsToNewOnes } from "../../../../utils/migration/mapOldCardIdsToNewOnes";
 
 // const CustomDivider = () => (
 //   <div className="border-1 border-white min-h-full mt-4"></div>
 // );
 
+const createCardObject = (cardDataFromDB) => {
+  switch (cardDataFromDB.templateId) {
+    case 1:
+      return new classREG({ ...cardDataFromDB, templateId: 201 });
+    case 7:
+      return new classSP({ ...cardDataFromDB, templateId: 301 });
+    case 13:
+      return new classBuilding({ ...cardDataFromDB, templateId: 101 });
+  }
+};
 const CardDetails = () => {
   const { state: locationState } = useLocation(); // Card's Data
 
@@ -57,7 +70,8 @@ const CardDetails = () => {
   };
 
   console.log("Marketplace | CardDetails | locationState: ", locationState);
-  const selectedCard = locationState.card;
+  const cardDataFromDB = locationState.card;
+  const selectedCard = createCardObject(cardDataFromDB);
   const navigate = useNavigate();
   const {
     playersMapping,
@@ -91,6 +105,10 @@ const CardDetails = () => {
   const cardDetails = cardInfo[selectedCard.templateId];
   const owner = playersMapping[selectedCard.ownerId];
   const redirectedFrom = locationState.from;
+
+  console.log("💰 |1| - CardDetails.jsx: Selected Card: ", selectedCard);
+  console.log("💰 |2| - CardDetails.jsx: cardDetails: ", cardDetails);
+  console.log("💰 |3| - CardDetails.jsx: redirectedFrom: ", redirectedFrom);
 
   // ✨🧪 REMOVE AFTER TESTING ✨🧪
   // const {
@@ -144,22 +162,26 @@ const CardDetails = () => {
     isPending: isTxPending,
     isSuccess: isTxSuccess,
     isError: isTxError,
-  } = useMutation(purchaseCard, {
-    // The mutation function doesn't need queryKey
+  } = useMutation({
+    mutationFn: purchaseCard, // This creates an Entry in the Maeketplace MySQL Table
     onError: (error) => {
-      console.log("--- FAILED ---- Created Purchase (Marketplace): ", error);
+      console.error(
+        " ⛔ - Custom: Marketplace | CardDetails.jsx : purchaseMutation: ",
+        error
+      );
       setTranType("failed");
     },
-    onSuccess: (data) => {
-      console.log("SUCCESSFUL - Created Purchase (Marketplace): ", data);
+    onSuccess: async (data) => {
+      console.log("✅ SUCCESSFUL - Created Purchase (Marketplace): ", data);
+      playerData.gold -= selectedCard.priceTag; // This is to update the player's Global State
+      await removeFromMP(selectedCard.id); // This changes the card's in_mp state to false (in the cards table)
+      await ownersSwapper(selectedCard.id, userId); // This changes the card's owner_id to the buyer's id (in the cards table
       setTranType("success");
-      playerData.gold -= selectedCard.priceTag;
-      removeFromMP({ cardId: selectedCard.id });
       setTimeout(() => {
-        setPlayerBalance((prev) => prev - selectedCard.priceTag);
         refetchSoldCards();
         refetchAllCards();
         refetchPlayerData();
+        setPlayerBalance((prev) => prev - selectedCard.priceTag); // This updates the player's balance only in Marketplace
         navigate("/marketplace");
         smoothScrollTo(0, 500);
       }, 3500);
@@ -217,7 +239,7 @@ const CardDetails = () => {
 
   const handlePurchase = () => {
     if (selectedCard.id) {
-      purchaseMutation.mutate({
+      purchaseMutation({
         cardId: selectedCard?.id,
         buyerId: userId,
         sellerId: selectedCard?.ownerId,
@@ -250,7 +272,9 @@ const CardDetails = () => {
       <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
         <div className="flex-1 flex-col">
           <img
-            src={cardDetails.image}
+            // TODO: Fix for Production
+            src={import.meta.env.VITE_HOST_URL + cardDetails.image}
+            // src={cardDetails.image}
             alt="campaign"
             className="w-full h-[410px] object-cover rounded-xl"
           />
@@ -292,7 +316,10 @@ const CardDetails = () => {
               <div>
                 <p className="mt-[0px] font-epilogue font-normal text-[16px] text-[#808191] text-justify">
                   {console.log("Card Description: ", cardDesc)}
-                  {cardDesc[selectedCard.templateId].desc}
+                  {
+                    cardDesc[mapOldCardIdsToNewOnes(selectedCard.templateId)]
+                      .desc
+                  }
                 </p>
               </div>
             </div>
@@ -424,7 +451,7 @@ const CardDetails = () => {
                 {redirectedFrom === "profile" ? null : (
                   <div className="flex justify-between border-solid border-b-2 border-gray-400 pb-1">
                     <p className="font-epilogue font-medium text-[16px] leading-[30px] text-left text-[#808191]">
-                      {"Card's Price:"}
+                      Card's Price:
                     </p>
                     <p className="font-epilogue font-medium text-[18px] leading-[30px] text-right text-white">
                       {`-${numberWithDots(selectedCard.priceTag)}`}
@@ -434,14 +461,14 @@ const CardDetails = () => {
 
                 {redirectedFrom === "profile" ? null : (
                   <div className="flex justify-between mt-2 mb-4">
-                    <p className="font-epilogue font-medium text-[16px] leading-[30px] text-left text-[#808191] text-justify">
+                    <p className="font-epilogue font-medium text-[16px] leading-[30px] text-left text-[#808191]">
                       New Balance:
                     </p>
-                    <p className="font-epilogue font-medium text-[18px] leading-[30px] text-right text-white text-justify">
+                    <p className="font-epilogue font-medium text-[18px] leading-[30px] text-right text-white">
                       <span
                         style={{
                           color:
-                            playerBalance - selectedCard.priceTag < 0
+                            playerBalance - selectedCard.priceTag > 0
                               ? ""
                               : "red",
                         }}
@@ -474,7 +501,7 @@ const CardDetails = () => {
                     title={
                       redirectedFrom === "profile"
                         ? "Remove Card"
-                        : playerBalance - selectedCard.priceTag < 0
+                        : playerBalance - selectedCard.priceTag > 0
                         ? "Buy Card"
                         : "Can't Buy Card"
                     }
@@ -482,7 +509,7 @@ const CardDetails = () => {
                     disabled={
                       redirectedFrom === "profile"
                         ? false
-                        : !playerBalance - selectedCard.priceTag < 0
+                        : !(playerBalance - selectedCard.priceTag > 0)
                     }
                     handleClick={() => {
                       setShowTranMsg(true);
@@ -621,7 +648,7 @@ const Message = ({
                   />
                 </>
               )}
-              {(isTranSuccess || showRemoveMsg) && (
+              {isTranSuccess && (
                 <h4 className="font-epilogue font-semibold text-[18px] text-white text-center">
                   Your transaction was successfully executed!
                 </h4>

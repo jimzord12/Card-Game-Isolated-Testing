@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-
-import { useStateContext } from '../context';
-import { DisplayCards } from '../components';
+import { useStateContext } from "../context";
+import { DisplayCards } from "../components";
 
 const Withdraw = () => {
   const {
     userId,
-    axiosPrivate,
     userSoldCards,
     isLoadingSoldCards,
     hasCards4Sale,

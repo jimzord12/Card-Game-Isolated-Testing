@@ -22,3 +22,19 @@ export interface IPlayerDB {
   timestamp: string | null;
   lastETHtransfer: string | null; // Assuming mySQL timestamp can be represented as a JavaScript Date object
 }
+
+export type PlayerData = Pick<
+  IPlayerDB,
+  | "id"
+  | "townhall_lvl"
+  | "workers_concrete"
+  | "workers_metals"
+  | "workers_crystals"
+  | "concrete"
+  | "metals"
+  | "crystals"
+  | "gold"
+  | "population"
+  | "rank"
+  | "timestamp"
+>;

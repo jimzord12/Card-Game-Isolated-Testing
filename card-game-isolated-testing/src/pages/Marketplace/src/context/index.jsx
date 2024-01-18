@@ -117,13 +117,15 @@ export const StateContextProvider = ({ children }) => {
   const { mutate: removePurchaseEvent, isSuccess: hasCards4Sale } = useMutation(
     {
       mutationFn: deletePurchase,
-      onSuccess: (data) => {
-        console.log("3 - Success - DELETE: ", data);
+      onSuccess: (wasSuccess) => {
+        console.log(
+          "✅ - 3 - Success - User Claimed his/her Gold from the Marketplace. The Response Data: ",
+          wasSuccess
+        );
         refetchSoldCards();
       },
     }
   );
-  console.log("hhhhhhhh: ", removePurchaseEvent);
 
   return (
     <StateContext.Provider

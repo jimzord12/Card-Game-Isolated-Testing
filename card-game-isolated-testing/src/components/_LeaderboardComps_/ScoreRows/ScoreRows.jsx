@@ -52,10 +52,11 @@ const ScoreRows = () => {
 
   return (
     <>
-      {isError ||
-        (fetchedPlayerIsError && (
-          <div style={{ fontSize: 24 }}>Oops! Something Went Wrong!</div>
-        ))}
+      {(isError || fetchedPlayerIsError) && (
+        <div style={{ fontSize: 24 }}>
+          Oops! Something Went Wrong! Please try again later.
+        </div>
+      )}
 
       {isLoading || fetchedPlayerIsLoading ? (
         <div style={{ fontSize: 24 }}>Loading...</div>

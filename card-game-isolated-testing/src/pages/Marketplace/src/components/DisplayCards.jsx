@@ -1,30 +1,34 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import FundCard from './FundCard';
-import { loader, sold } from '../assets';
+import FundCard from "./FundCard";
+import { loader, sold } from "../assets";
 
 const DisplayCards = ({
   title,
   isLoading,
   cards,
   playerAvatar,
-  from = 'not-withdraw',
+  from = "not-withdraw",
   isSuccess,
   isErrorSoldCards,
 }) => {
   const navigate = useNavigate();
 
   const handleNavigate = (card) => {
-    console.log('Displaying Cards: ', card.priceTag);
-    if (from === 'profile')
+    console.log("Displaying Cards: ", card.priceTag);
+    if (from === "profile") {
       navigate(`card-details/${card.id}`, {
         state: { card, from },
       });
-    navigate(`marketplace/card-details/${card.id}`, { state: { card, from } });
+    } else {
+      navigate(`marketplace/card-details/${card.id}`, {
+        state: { card, from },
+      });
+    }
   };
   useEffect(() => {
-    console.log('Re-render plz!');
+    console.log("Re-render plz!");
   }, [isSuccess, isErrorSoldCards]);
 
   return (
@@ -44,11 +48,11 @@ const DisplayCards = ({
 
         {!isLoading && cards.length === 0 && (
           <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
-            {from === 'withdraw'
-              ? 'None of your cards has been sold as of yet.'
-              : from === 'profile'
-              ? 'You have no cards for sale.'
-              : 'There are no cards for sale at the moment 😓.'}
+            {from === "withdraw"
+              ? "None of your cards has been sold as of yet."
+              : from === "profile"
+              ? "You have no cards for sale."
+              : "There are no cards for sale at the moment 😓."}
           </p>
         )}
 
@@ -59,7 +63,7 @@ const DisplayCards = ({
           cards.length > 0 &&
           cards.map((card, index) => (
             <div key={`card-${card.id}-${index}`}>
-              {from === 'withdraw' ? (
+              {from === "withdraw" ? (
                 <div className="relative">
                   <div className="absolute w-20 h-20 z-10 top-30">
                     <img className="z-10" src={sold} alt="sold-tag" />

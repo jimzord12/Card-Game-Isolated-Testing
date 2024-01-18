@@ -3,7 +3,12 @@ import { Route, Routes } from "react-router-dom";
 
 import { StateContextProvider } from "./context";
 import { Sidebar, Navbar } from "./components";
-import { CardDetails, CreateCampaign, Home, Profile, Withdraw } from "./pages";
+import {
+  CardDetails,
+  /*CreateCampaign,*/ Home,
+  Profile,
+  Withdraw,
+} from "./pages";
 import ErrorBoundary from "../../../components/ErrorBoundry/ErrorBoundry";
 
 const Marketplace = () => {
@@ -22,7 +27,7 @@ const Marketplace = () => {
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/withdraw" element={<Withdraw />} />
-              <Route path="/create-campaign" element={<CreateCampaign />} />
+              {/* <Route path="/create-campaign" element={<CreateCampaign />} /> */}
               <Route
                 path="marketplace/card-details/:id"
                 element={<CardDetails />}

@@ -24,17 +24,28 @@ const getPlayerByWallet = async (
     );
   }
 
-  if (isValidWalletAddress(walletAddress) == false) {
-    throw new Error(
-      "⛔ - Customer Error: walletAddress is invalid \n Origin: getPlayer() \n File: apiFns.ts"
-    );
+  // Using the Player Address to get the Player's Data
+  if (walletAddress.length > 16) {
+    if (isValidWalletAddress(walletAddress) == false) {
+      throw new Error(
+        "⛔ - Customer Error: walletAddress is invalid \n Origin: getPlayer() \n File: apiFns.ts"
+      );
+    }
+    const response = await axiosPublic.get(`/players/${walletAddress}`);
+    console.log("🚀 [GET] ✅ -> (Player): ", response.data);
+
+    return response.data;
   }
 
+  // TODO: 🧪 Comment this out AFTER Testing! ⛔
+  // Using the Player ID to get the Player's Data
   const response = await axiosPublic.get(`/players/${walletAddress}`);
+  console.log("🚀 [GET] ✅ -> (Player): ", {
+    player: response.data[0],
+    cards: [],
+  });
 
-  console.log("🚀 [GET] ✅ -> (Player): ", response.data);
-
-  return response.data;
+  return { player: response.data[0], cards: [] };
 };
 
 export default getPlayerByWallet;

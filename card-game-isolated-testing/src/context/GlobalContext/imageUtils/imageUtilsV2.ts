@@ -5,7 +5,7 @@ import {
 } from "../../../constants/utils/imageGrpTypeKeys";
 import { ImageGroups, ImageNameKey, ImageObject } from "../../../types";
 import { ViteManifest } from "../../../types/ViteManifest";
-import { convertImagePath } from "../../../utils/convertImagePath";
+import { convertImagePath } from "../../../utils/general/convertImagePath";
 
 const isProduction = import.meta.env.MODE === "production";
 

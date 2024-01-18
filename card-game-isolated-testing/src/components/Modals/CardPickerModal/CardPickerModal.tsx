@@ -13,7 +13,7 @@ import {
   RegName,
   RegSpot,
 } from "../../../types";
-import { getRandomNumberInRange } from "../../../utils/getRandomNumberInRange";
+import { getRandomNumberInRange } from "../../../utils/general/getRandomNumberInRange";
 import TemplateCard from "../../Cards/TemplateCard/TemplateCard";
 import ModalCloseBtn from "../BaseModalParts/ModalCloseBtn/ModalCloseBtn";
 import ModalRarityIndicator from "../BaseModalParts/ModalRarityIndicator/ModalRarityIndicator";

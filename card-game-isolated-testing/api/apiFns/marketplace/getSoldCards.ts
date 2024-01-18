@@ -3,7 +3,13 @@ import { ICardDB } from "../../../src/types/CardTypes";
 
 const GET_SOLD_CARDS_URL = "marketplace";
 
-export const getSoldCards = async (sellerId: number): Promise<ICardDB[]> => {
+interface args {
+  queryKey: ["playerSoldCards", number];
+}
+
+export const getSoldCards = async ({ queryKey }: args): Promise<ICardDB[]> => {
+  const sellerId = queryKey[1];
+
   console.log(
     `🚀 GET - (Sold Cards for PlayerID: [${sellerId}]), Sending Request...`
   );

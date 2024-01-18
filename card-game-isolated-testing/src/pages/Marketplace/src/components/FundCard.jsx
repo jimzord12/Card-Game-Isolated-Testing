@@ -15,6 +15,7 @@ import styles from "./styles/FundCard.module.css";
 import WalletAvatar from "./WalletAvatar";
 import SimpleLoader from "./SimpleLoader";
 import { useGameVarsStore } from "../../../../stores/gameVars";
+import { mapOldCardIdsToNewOnes } from "../../../../utils/migration/mapOldCardIdsToNewOnes";
 // import { deletePurchase } from "../api/apiFns";
 
 //@Note: Need to get all the PLayers as well to map ownerID to ownerName or Wallet
@@ -29,8 +30,9 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
   } = useStateContext();
 
   const playerData = useGameVarsStore((state) => state.player);
+  const setPlayerData = useGameVarsStore((state) => state.setPlayer);
 
-  const cardDetails = cardInfo[card.templateId];
+  const cardDetails = cardInfo[mapOldCardIdsToNewOnes(card.templateId)];
   console.log("1 - FundCard Card: ", card);
   console.log("2 - FundCard cardDetails: ", cardDetails);
   console.log("3 - Players: ", players);
@@ -77,7 +79,7 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
       }
     >
       <img
-        src={cardDetails.image}
+        src={import.meta.env.VITE_HOST_URL + cardDetails.image}
         alt="card Image"
         className="w-full h-[158px] object-cover rounded-[15px]"
       />
@@ -102,7 +104,7 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
             {iconFinder(cardDetails.type)}
             <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[14px] text-white">
               {/* <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[14px] text-[#808191]"> */}
-              {cardDetails.type}
+              {cardDetails.type.toUpperCase()}
             </p>
           </div>
         </div>
@@ -178,7 +180,14 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
                     axiosPrivate,
                     cardId: card.cardId,
                   });
-                  playerData.gold += card.priceTag;
+                  if (playerData) {
+                    const newPlayerGold = playerData.gold + card.priceTag;
+                    setPlayerData({ ...playerData, gold: newPlayerGold });
+                  } else {
+                    console.error(
+                      "⛔ Custom | [FundCard.jsx]: 😱 Tried to increase Player's Gold but playerData was NULL"
+                    );
+                  }
                 }}
               />
             )}
