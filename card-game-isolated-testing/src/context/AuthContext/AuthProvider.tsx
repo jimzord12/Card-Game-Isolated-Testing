@@ -47,6 +47,8 @@ export default function AuthProvider({
         playerData
       );
       console.log("🧪 3.1 | - 🐱‍🏍 Navigation to Game...");
+      if (playerData.player.gold === null)
+        throw new Error("⛔ - Custom: Player is not initialized (has No Gold)");
 
       navigate("/game");
     } catch (error) {

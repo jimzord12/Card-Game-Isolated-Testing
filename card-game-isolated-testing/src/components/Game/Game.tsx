@@ -5,6 +5,7 @@ import RotateDevice from "../RotateDevice/RotateDevice";
 import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
 import CustomButton from "../Buttons/CustomButton/CustomButton";
+import { useNavigate } from "react-router-dom";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -18,6 +19,7 @@ const Game = () => {
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
   const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("world");
+  const navigate = useNavigate();
 
   const auth = useRequireAuth();
 
@@ -42,6 +44,13 @@ const Game = () => {
                       prev === "world" ? "town" : "world"
                     )
                   }
+                />
+              </div>
+              <div className="z-[401] absolute top-24 left-20">
+                <CustomButton
+                  title="Marketplace"
+                  restStyles="bg-blue-500 hover:bg-blue-700"
+                  handleClick={() => navigate("/marketplace/")}
                 />
               </div>
               <ModalProvider>

@@ -77,7 +77,7 @@ export const StateContextProvider = ({ children }) => {
       );
       setPlayers(fetchedPlayersData);
       setPlayersMapping((prev) => {
-        const formattedPlayers = {};
+        const formattedPlayers = {};isSuccessPlayers
         fetchedPlayersData.forEach((player) => {
           formattedPlayers[`${player.id}`] = player.name;
         });

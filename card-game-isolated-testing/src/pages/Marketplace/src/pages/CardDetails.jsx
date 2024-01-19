@@ -75,7 +75,7 @@ const CardDetails = () => {
   const selectedCard = createCardObject(cardDataFromDB);
   const navigate = useNavigate();
   const {
-    playersMapping,
+    // playersMapping,
     // playerWallet,
     players,
     userId,
@@ -104,7 +104,7 @@ const CardDetails = () => {
   // const confirmationRef = useRef(null);
 
   const cardDetails = cardInfo[selectedCard.templateId];
-  const owner = playersMapping[selectedCard.ownerId];
+  const owner = players.find((player) => player.id === selectedCard.ownerId);
   const redirectedFrom = locationState.from;
 
   const canAfford = playerBalance - selectedCard.priceTag > 0;
@@ -451,14 +451,15 @@ const CardDetails = () => {
               </div>
               <div>
                 <h4 className="font-epilogue font-semibold text-[18px] text-white break-all">
-                  {owner}
+                  {owner.name}
                 </h4>
                 <p className="mt-[4px] font-epilogue font-normal text-[16px] text-[#808191]">
                   from:{" "}
-                  {
-                    islands.find((island) => island.id === playerData.island_id)
-                      .name
-                  }
+                  {console.log(
+                    "OWNER::::::::::::::::::::::::::::::::::::: ",
+                    owner
+                  )}
+                  {islands.find((island) => island.id === owner.island_id).name}
                 </p>
               </div>
             </div>
