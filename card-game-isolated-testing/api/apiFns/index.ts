@@ -7,28 +7,28 @@ import { getRandomNum } from "./web3Login/getRandomNum";
 import { validateSignedMsg } from "./web3Login/validateSignedMsg";
 
 // Regarding Player
-import getPlayerByWallet from "./player/getPlayerByWallet";
-import loginWithWallet from "./player/loginWithWallet";
-import { createPlayer } from "./player/createPlayer";
-import { getAllPlayers } from "./player/getAllPlayers";
-import { updatePlayerData } from "./player/updatePlayerData";
+import getPlayerByWallet from "./player/_getPlayerByWallet";
+import loginWithWallet from "./player/_loginWithWallet";
+import { createPlayer } from "./player/_createPlayer";
+import { getAllPlayers } from "./player/_getAllPlayers";
+import { updatePlayerData } from "./player/_updatePlayerData";
 
 // Regarding Marketplace
-import { removeFromMP } from "./marketplace/removeFromMP";
-import { purchaseCard } from "./marketplace/purchaseCard";
-import { deletePurchase } from "./marketplace/deletePurchase";
-import { getSoldCards } from "./marketplace/getSoldCards";
-import { getAllCardsForSale } from "./marketplace/getAllCardsForSale";
-import { ownersSwapper } from "./marketplace/ownersSwapper";
-import { sellCard } from "./marketplace/sellCard";
+import { removeFromMP } from "./marketplace/_removeFromMP";
+import { purchaseCard } from "./marketplace/_purchaseCard";
+import { deletePurchase } from "./marketplace/_deletePurchase";
+import { getSoldCards } from "./marketplace/_getSoldCards";
+import { getAllCardsForSale } from "./marketplace/_getAllCardsForSale";
+import { ownersSwapper } from "./marketplace/_ownersSwapper";
+import { sellCard } from "./marketplace/_sellCard";
 
 // Regarding Cards
-import { getAllCards } from "./cards/getAllCards";
-import { getCardById } from "./cards/getCardById";
-import { createCard } from "./cards/createCard";
-import { createCardStats } from "./cards/createCardStats";
-import { updateCardData } from "./cards/updateCardData";
-import { updateCardStats } from "./cards/updateCardStats";
+import { getAllCards } from "./cards/_getAllCards";
+import { getCardById } from "./cards/_getCardById";
+import { createCard } from "./cards/_createCard";
+import { createCardStats } from "./cards/_createCardStats";
+import { updateCardData } from "./cards/_updateCardData";
+import { updateCardStats } from "./cards/_updateCardStats";
 
 export {
   getPlayerByWallet,

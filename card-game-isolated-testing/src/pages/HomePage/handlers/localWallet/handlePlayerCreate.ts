@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createPlayer } from "../../../../../api/apiFns/player/createPlayer";
+import { createPlayer } from "../../../../../api/apiFns/player/_createPlayer";
 import { gaslessNewPlayer } from "../../../../../api/apiFns/gasless/gaslessNewPlayer";
 import { loginWithWallet } from "../../../../../api/apiFns";
 import { userAuthType } from "../../../../context/AuthContext/authTypes";
