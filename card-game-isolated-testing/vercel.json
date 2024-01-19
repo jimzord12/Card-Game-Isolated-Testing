@@ -1,4 +1,12 @@
 {
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "ignores": ["^api/"],
   "routes": [
     { "handle": "filesystem" },
     {
