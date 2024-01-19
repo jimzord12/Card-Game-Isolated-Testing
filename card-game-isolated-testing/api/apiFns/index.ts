@@ -14,7 +14,7 @@ import { getAllPlayers } from "./player/getAllPlayers";
 import { updatePlayerData } from "./player/updatePlayerData";
 
 // Regarding Marketplace
-import { removeFromMP } from "./marketplace/removeFromMp";
+import { removeFromMP } from "./marketplace/removeFromMP";
 import { purchaseCard } from "./marketplace/purchaseCard";
 import { deletePurchase } from "./marketplace/deletePurchase";
 import { getSoldCards } from "./marketplace/getSoldCards";
