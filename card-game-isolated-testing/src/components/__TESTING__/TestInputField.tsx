@@ -9,7 +9,9 @@ const TestInputField = () => {
 
   return (
     <div className="flex flex-col w-full p-4">
-      <label htmlFor="wallet_address">Provide Player's Wallet Address:</label>
+      <label htmlFor="wallet_address">
+        Provide Player's Wallet Address or ID:
+      </label>
 
       <input
         type="text"
@@ -25,7 +27,7 @@ const TestInputField = () => {
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded"
         onClick={() => hardcodePlayer(playerAddress)}
       >
-        Get Player Data
+        Login as
       </button>
 
       <section className="mt-4 text-2xl text-black bg-green-400 rounded-lg p-4">

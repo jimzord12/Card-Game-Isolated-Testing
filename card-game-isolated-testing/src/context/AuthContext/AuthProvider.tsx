@@ -21,26 +21,32 @@ export default function AuthProvider({
   const setPlayer = useGameVarsStore((state) => state.setPlayer);
 
   useEffect(() => {
-    console.log(
-      "%c🛑 | 🧪 |  - Authentication is DISABLED - | 🧪 | 🛑 ",
-      "color: #ff0000; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 0px #000000;"
-    );
-    if (disableForTesting)
+    if (disableForTesting) {
+      console.log(
+        "%c🛑 | 🧪 |  - Authentication is DISABLED - | 🧪 | 🛑 ",
+        "color: #ff0000; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 0px #000000;"
+      );
       setUser({ wallet: "0x123", aT: "123", rT: "123", username: "testUser" });
+    }
   }, []);
+
   const navigate = useNavigate();
 
   const login = async (walletAddress: string) => {
     try {
-      console.log("🧪 1.1 | - 🚀 Logging in User - With Data...");
+      console.log("🧪 1.1 | - 🚀 Logging in User...");
       const response = await loginWithWallet(walletAddress);
       setUser({ ...response });
       console.log("🧪 1.2 | - ✅ Logged User in - With Data: ", response);
-      const playerData = await getPlayerByWallet(walletAddress);
       console.log("🧪 2.1 | - 🚀 Fetching Player In-Game Data...");
-
-      setPlayer(playerData.player);
+      const playerData = await getPlayerByWallet(walletAddress);
       console.log("🧪 2.2 | - ✅ Successfully GOT Player Data: ", playerData);
+      setPlayer(playerData.player);
+      console.log(
+        "🧪 3.0 | - ✅ Added the Player Dato to Global State: ",
+        playerData
+      );
+      console.log("🧪 3.1 | - 🐱‍🏍 Navigation to Game...");
 
       navigate("/game");
     } catch (error) {

@@ -39,6 +39,7 @@ import {
   ownersSwapper,
   purchaseCard,
   removeFromMP,
+  updatePlayerData,
 } from "../../../../../api/apiFns";
 import { classBuilding, classREG, classSP } from "../../../../classes";
 import { mapOldCardIdsToNewOnes } from "../../../../utils/migration/mapOldCardIdsToNewOnes";
@@ -105,6 +106,10 @@ const CardDetails = () => {
   const cardDetails = cardInfo[selectedCard.templateId];
   const owner = playersMapping[selectedCard.ownerId];
   const redirectedFrom = locationState.from;
+
+  const canAfford = playerBalance - selectedCard.priceTag > 0;
+  const isNotTheOnwer = selectedCard.ownerId !== playerData.id;
+  const canBuy = canAfford && isNotTheOnwer;
 
   console.log("💰 |1| - CardDetails.jsx: Selected Card: ", selectedCard);
   console.log("💰 |2| - CardDetails.jsx: cardDetails: ", cardDetails);
@@ -173,20 +178,48 @@ const CardDetails = () => {
     },
     onSuccess: async (data) => {
       console.log("✅ SUCCESSFUL - Created Purchase (Marketplace): ", data);
-      playerData.gold -= selectedCard.priceTag; // This is to update the player's Global State
+      const newPlayerBalance = playerBalance - selectedCard.priceTag;
+
+      setPlayerData({ ...playerData, gold: newPlayerBalance }); // This is to update the player's Global State
+      setPlayerBalance(newPlayerBalance); // This updates the player's balance only in Marketplace
+      updatePlayerData(userId, { gold: newPlayerBalance }); // This updates the player's data in the DB
+
       await removeFromMP(selectedCard.id); // This changes the card's in_mp state to false (in the cards table)
       await ownersSwapper(selectedCard.id, userId); // This changes the card's owner_id to the buyer's id (in the cards table
       setTranType("success");
       setTimeout(() => {
         refetchSoldCards();
         refetchAllCards();
-        refetchPlayerData();
+        refetchPlayerData(playerData.walletAddress);
         setPlayerBalance((prev) => prev - selectedCard.priceTag); // This updates the player's balance only in Marketplace
         navigate("/marketplace");
         smoothScrollTo(0, 500);
       }, 3500);
     },
   });
+
+  // const {
+  //   isSuccess: isAfterPurchaseSuccess,
+  //   isLoading: isAfterPurchaseLoading,
+  //   isError: isAfterPurchaseError,
+  //   error: AfterPurchaseError,
+  // } = useQuery({
+  //   queryKey: ["afterPurchase"],
+  //   queryFn: () => {
+  //     removeFromMP(selectedCard.id); // This changes the card's in_mp state to false (in the cards table)
+  //     ownersSwapper(selectedCard.id, userId);
+  //     setTranType("success");
+  //     setTimeout(() => {
+  //       refetchSoldCards();
+  //       refetchAllCards();
+  //       refetchPlayerData();
+  //       setPlayerBalance((prev) => prev - selectedCard.priceTag); // This updates the player's balance only in Marketplace
+  //       navigate("/marketplace");
+  //       smoothScrollTo(0, 500);
+  //     }, 3500);
+  //   },
+  //   enabled: isTxSuccess && !!selectedCard.id,
+  // });
 
   // const {
   //   isSuccess: isSuccessOwnerSwap,
@@ -501,16 +534,12 @@ const CardDetails = () => {
                     title={
                       redirectedFrom === "profile"
                         ? "Remove Card"
-                        : playerBalance - selectedCard.priceTag > 0
+                        : canBuy
                         ? "Buy Card"
                         : "Can't Buy Card"
                     }
                     styles="w-full bg-[#8c6dfd]"
-                    disabled={
-                      redirectedFrom === "profile"
-                        ? false
-                        : !(playerBalance - selectedCard.priceTag > 0)
-                    }
+                    disabled={redirectedFrom === "profile" ? false : !canBuy}
                     handleClick={() => {
                       setShowTranMsg(true);
                       console.log("The Card Details: ", selectedCard);

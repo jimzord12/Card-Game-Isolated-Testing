@@ -22,48 +22,48 @@ export const checkIfImage = (url, callback) => {
 };
 
 export function numberWithDots(num, isSP = false) {
-  if (typeof num !== 'number') {
-    return 'Error: Input is not a number';
+  if (typeof num !== "number") {
+    return "Error: Input is not a number";
   }
-  console.log('1 - numberWithDots Number: ', num);
+  console.log("1 - numberWithDots Number: ", num);
 
   if (Number.isNaN(num)) {
-    return 'Error: Input is NaN';
+    return "Error: Input is NaN";
   }
 
   if (num <= 10 && num > 0) {
-    console.log('1 - numberWithDots Number: ', num);
-    console.log('numberWithDots Is SP: ', isSP);
+    console.log("1 - numberWithDots Number: ", num);
+    console.log("numberWithDots Is SP: ", isSP);
     // If the number is not an integer, multiply it by 100
     num *= 100;
-    console.log('2 - numberWithDots Number: ', num);
+    console.log("2 - numberWithDots Number: ", num);
 
     if (isSP) num -= 100;
-    console.log('3 - numberWithDots Number: ', num);
+    console.log("3 - numberWithDots Number: ", num);
 
-    return num + ' %';
+    return num + " %";
   }
   const numStr = num.toString();
   const regex = /\B(?=(\d{3})+(?!\d))/g;
-  return numStr.replace(regex, ',');
+  return numStr.replace(regex, ",");
 }
 
 export function formatDate(dateString) {
   const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
   const year = date.getFullYear();
 
   return `${day}/${month}/${year}`;
 }
 
 export const rarityCoverter = (rarityNumber) => {
-  if (rarityNumber === 1) return { text: 'Common', color: '255, 255, 255' };
-  if (rarityNumber === 2) return { text: 'Special', color: '0, 204, 0' };
-  if (rarityNumber === 3) return { text: 'Rare', color: '0, 102, 255' };
-  if (rarityNumber === 4) return { text: 'Mythic', color: '230, 0, 230' };
-  if (rarityNumber === 5) return { text: 'Legendary', color: '255, 102, 0' };
-  console.error('😱 Something Wrong at: utils-Functions, in: rarityCoverter()');
+  if (rarityNumber === 1) return { text: "Common", color: "255, 255, 255" };
+  if (rarityNumber === 2) return { text: "Special", color: "0, 204, 0" };
+  if (rarityNumber === 3) return { text: "Rare", color: "0, 102, 255" };
+  if (rarityNumber === 4) return { text: "Mythic", color: "230, 0, 230" };
+  if (rarityNumber === 5) return { text: "Legendary", color: "255, 102, 0" };
+  console.error("😱 Something Wrong at: utils-Functions, in: rarityCoverter()");
 };
 
 export const smoothScrollTo = (targetY, duration = 200) => {
@@ -91,23 +91,23 @@ export function getSoldCards(playerCards, soldCardsIds) {
     let hasCard = false;
     console.log(`[getSoldCards] (${index + 1}/${arr.length}) - ID: ${card.id}`);
     soldCardsIds.forEach((soldEvent) => {
-      console.log('Has been sold: ', soldEvent.cardId === card.id);
+      console.log("Has been sold: ", soldEvent.cardId === card.id);
       if (soldEvent.cardId === card.id) hasCard = true;
     });
     return hasCard;
   });
-  console.log('getSoldCards: ', soldCards);
+  console.log("getSoldCards: ", soldCards);
   return soldCards;
 }
 
 export function findOwnerWallet(card, playersArr) {
   const owner = playersArr.find((player) => {
-    console.log(`Current Player: ${player.name} | Address: ${player.wallet}`);
+    // console.log(`Current Player: ${player.name} | Address: ${player.wallet}`);
     // console.log(`card.ownerId: ${card.ownerId} | Address: ${player.wallet}`);
     return card.ownerId === player.id;
   });
   console.log(`Card ID: ${card.id}`);
-  console.log('findOwnerWallet: Owner: ', owner);
+  console.log("findOwnerWallet: Owner: ", owner);
   return owner.wallet;
 }
 

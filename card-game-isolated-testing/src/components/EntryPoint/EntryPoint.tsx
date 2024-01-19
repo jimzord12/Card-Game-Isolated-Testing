@@ -30,7 +30,7 @@ const EntryPoint = () => {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider disableForTesting>
+        <AuthProvider /*disableForTesting*/>
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path="/" element={<HomePagePOC />} />

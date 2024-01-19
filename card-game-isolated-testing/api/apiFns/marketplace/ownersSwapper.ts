@@ -8,13 +8,13 @@ const PUT_SWAP_CARD_OWNERS_MARKETPLACE_URL = "cards/marketplace";
 
 export const ownersSwapper = async (
   cardId: number,
-  ownerId: number
+  newOwnerId: number
 ): Promise<boolean> => {
   console.log("🚀 PUT - (Owners Swapper), Sending Request...");
 
   const response: AxiosResponse<MySQLOperation> = await axios.put(
     `${PUT_SWAP_CARD_OWNERS_MARKETPLACE_URL}/${cardId}`,
-    { ownerId }
+    { ownerId: newOwnerId }
   );
 
   console.log("🚀 PUT ✅ - (Owners Swapper): ", response.data);

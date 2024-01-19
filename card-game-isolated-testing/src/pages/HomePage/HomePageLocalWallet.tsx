@@ -10,16 +10,11 @@ import { handlePlayerCreate } from "./handlers/localWallet/handlePlayerCreate";
 import TransactionModal from "../../components/Modals/HomePageModals/TransactionModal";
 import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
 
-// const LOGIN_URL = "authNoPwd";
-// const CREATE_PL_URL = "register/player";
-// const GIVE_ETH_NEW_PLAYER = "gasless/register";
-// const GIVE_ETH_OLD_PLAYER = "gasless/login";
-// const usernameRegex = /([a-zA-Z][a-zA-Z0-9 ]{0,15})/;
-
-export function HomePageLocalWallet() {
+function HomePageLocalWallet() {
   // const navigate = useNavigate();
   const { user: userData, login, setUser } = useAuth();
   const [playerName, resetUser, userAttribs] = useInput("user", "");
+  console.log("🅱🅱🅱 : ", userData);
 
   const {
     wallet: localWallet,

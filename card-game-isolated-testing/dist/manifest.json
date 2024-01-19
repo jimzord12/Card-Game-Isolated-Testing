@@ -1,6 +1,18 @@
 {
+  "_regClass_V2-4a9a3f87.js": {
+    "file": "assets/regClass_V2-4a9a3f87.js",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "_useQuery-2612d8ee.js": {
+    "file": "assets/useQuery-2612d8ee.js",
+    "imports": [
+      "index.html"
+    ]
+  },
   "index.css": {
-    "file": "assets/index-04af3e36.css",
+    "file": "assets/index-f03fce17.css",
     "src": "index.css"
   },
   "index.html": {
@@ -10,14 +22,34 @@
       "assets/Uniwa-Logo-11f3d0dd.png"
     ],
     "css": [
-      "assets/index-04af3e36.css"
+      "assets/index-f03fce17.css"
     ],
     "dynamicImports": [
-      "src/assets/imgs_new_convention/index.ts"
+      "src/assets/imgs_new_convention/index.ts",
+      "src/pages/Maps/TownMap/TownMap.tsx",
+      "src/pages/Maps/WorldMap/WorldMap.jsx",
+      "src/pages/Marketplace/src/Marketplace.jsx",
+      "src/pages/Leaderboard/Leaderboard.jsx"
     ],
-    "file": "assets/index-7ac97dde.js",
+    "file": "assets/index-9fbb3aa8.js",
     "isEntry": true,
     "src": "index.html"
+  },
+  "node_modules/leaflet/dist/images/layers-2x.png": {
+    "file": "assets/layers-2x-066daca8.png",
+    "src": "node_modules/leaflet/dist/images/layers-2x.png"
+  },
+  "node_modules/leaflet/dist/images/layers.png": {
+    "file": "assets/layers-1dbbe9d0.png",
+    "src": "node_modules/leaflet/dist/images/layers.png"
+  },
+  "node_modules/leaflet/dist/images/marker-icon.png": {
+    "file": "assets/marker-icon-574c3a5c.png",
+    "src": "node_modules/leaflet/dist/images/marker-icon.png"
+  },
+  "node_modules/leaflet/dist/images/marker-shadow.png": {
+    "file": "assets/marker-shadow-264f5c64.png",
+    "src": "node_modules/leaflet/dist/images/marker-shadow.png"
   },
   "src/assets/homePageImgs/Uniwa-Logo.png": {
     "file": "assets/Uniwa-Logo-11f3d0dd.png",
@@ -702,5 +734,168 @@
   "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp": {
     "file": "assets/workers-simpleCitizenWorker-29875cd7.webp",
     "src": "src/assets/imgs_new_convention/workers/workers-simpleCitizenWorker.webp"
+  },
+  "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/bronze.png": {
+    "file": "assets/bronze-fbd71891.png",
+    "src": "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/bronze.png"
+  },
+  "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/gold.png": {
+    "file": "assets/gold-70f6250a.png",
+    "src": "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/gold.png"
+  },
+  "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/silver.png": {
+    "file": "assets/silver-185d372a.png",
+    "src": "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/silver.png"
+  },
+  "src/pages/Leaderboard/Leaderboard.css": {
+    "file": "assets/Leaderboard-94366d4b.css",
+    "src": "src/pages/Leaderboard/Leaderboard.css"
+  },
+  "src/pages/Leaderboard/Leaderboard.jsx": {
+    "assets": [
+      "assets/gold-70f6250a.png",
+      "assets/silver-185d372a.png",
+      "assets/bronze-fbd71891.png"
+    ],
+    "css": [
+      "assets/Leaderboard-94366d4b.css"
+    ],
+    "file": "assets/Leaderboard-4238a337.js",
+    "imports": [
+      "index.html",
+      "_useQuery-2612d8ee.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/Leaderboard/Leaderboard.jsx"
+  },
+  "src/pages/Maps/TownMap/TownMap.css": {
+    "file": "assets/TownMap-fac7953d.css",
+    "src": "src/pages/Maps/TownMap/TownMap.css"
+  },
+  "src/pages/Maps/TownMap/TownMap.tsx": {
+    "css": [
+      "assets/TownMap-fac7953d.css"
+    ],
+    "file": "assets/TownMap-653a9ebb.js",
+    "imports": [
+      "index.html",
+      "_regClass_V2-4a9a3f87.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/Maps/TownMap/TownMap.tsx"
+  },
+  "src/pages/Maps/WorldMap/WorldMap.css": {
+    "file": "assets/WorldMap-9ac435f7.css",
+    "src": "src/pages/Maps/WorldMap/WorldMap.css"
+  },
+  "src/pages/Maps/WorldMap/WorldMap.jsx": {
+    "assets": [
+      "assets/marker-icon-574c3a5c.png",
+      "assets/marker-icon-red-332b6a57.png",
+      "assets/marker-shadow-264f5c64.png",
+      "assets/layers-1dbbe9d0.png",
+      "assets/layers-2x-066daca8.png"
+    ],
+    "css": [
+      "assets/WorldMap-9ac435f7.css"
+    ],
+    "file": "assets/WorldMap-2bd7802f.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/Maps/WorldMap/WorldMap.jsx"
+  },
+  "src/pages/Maps/WorldMap/marker-icon-red.png": {
+    "file": "assets/marker-icon-red-332b6a57.png",
+    "src": "src/pages/Maps/WorldMap/marker-icon-red.png"
+  },
+  "src/pages/Marketplace/src/Marketplace.css": {
+    "file": "assets/Marketplace-0201c4e3.css",
+    "src": "src/pages/Marketplace/src/Marketplace.css"
+  },
+  "src/pages/Marketplace/src/Marketplace.jsx": {
+    "assets": [
+      "assets/dashboard-9abe5cff.svg",
+      "assets/logo-f22db5ca.svg",
+      "assets/profile-f54b3e99.svg",
+      "assets/sun-69416337.svg",
+      "assets/withdraw-557c41c6.svg",
+      "assets/search-c0aa1860.svg",
+      "assets/menu-7dec482b.svg",
+      "assets/loader-88a2ca85.svg",
+      "assets/sold-d1b13dcb.png"
+    ],
+    "css": [
+      "assets/Marketplace-0201c4e3.css"
+    ],
+    "file": "assets/Marketplace-4185da19.js",
+    "imports": [
+      "index.html",
+      "_useQuery-2612d8ee.js",
+      "_regClass_V2-4a9a3f87.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/Marketplace/src/Marketplace.jsx"
+  },
+  "src/pages/Marketplace/src/assets/create-campaign.svg": {
+    "file": "assets/create-campaign-713a46ac.svg",
+    "src": "src/pages/Marketplace/src/assets/create-campaign.svg"
+  },
+  "src/pages/Marketplace/src/assets/dashboard.svg": {
+    "file": "assets/dashboard-9abe5cff.svg",
+    "src": "src/pages/Marketplace/src/assets/dashboard.svg"
+  },
+  "src/pages/Marketplace/src/assets/loader.svg": {
+    "file": "assets/loader-88a2ca85.svg",
+    "src": "src/pages/Marketplace/src/assets/loader.svg"
+  },
+  "src/pages/Marketplace/src/assets/logo.svg": {
+    "file": "assets/logo-f22db5ca.svg",
+    "src": "src/pages/Marketplace/src/assets/logo.svg"
+  },
+  "src/pages/Marketplace/src/assets/logout.svg": {
+    "file": "assets/logout-71a38f8d.svg",
+    "src": "src/pages/Marketplace/src/assets/logout.svg"
+  },
+  "src/pages/Marketplace/src/assets/menu.svg": {
+    "file": "assets/menu-7dec482b.svg",
+    "src": "src/pages/Marketplace/src/assets/menu.svg"
+  },
+  "src/pages/Marketplace/src/assets/money.svg": {
+    "file": "assets/money-297846c0.svg",
+    "src": "src/pages/Marketplace/src/assets/money.svg"
+  },
+  "src/pages/Marketplace/src/assets/payment.svg": {
+    "file": "assets/payment-b9911756.svg",
+    "src": "src/pages/Marketplace/src/assets/payment.svg"
+  },
+  "src/pages/Marketplace/src/assets/profile.svg": {
+    "file": "assets/profile-f54b3e99.svg",
+    "src": "src/pages/Marketplace/src/assets/profile.svg"
+  },
+  "src/pages/Marketplace/src/assets/search.svg": {
+    "file": "assets/search-c0aa1860.svg",
+    "src": "src/pages/Marketplace/src/assets/search.svg"
+  },
+  "src/pages/Marketplace/src/assets/sold.png": {
+    "file": "assets/sold-d1b13dcb.png",
+    "src": "src/pages/Marketplace/src/assets/sold.png"
+  },
+  "src/pages/Marketplace/src/assets/sun.svg": {
+    "file": "assets/sun-69416337.svg",
+    "src": "src/pages/Marketplace/src/assets/sun.svg"
+  },
+  "src/pages/Marketplace/src/assets/thirdweb.png": {
+    "file": "assets/thirdweb-8f9bb89b.png",
+    "src": "src/pages/Marketplace/src/assets/thirdweb.png"
+  },
+  "src/pages/Marketplace/src/assets/type.svg": {
+    "file": "assets/type-b5600b95.svg",
+    "src": "src/pages/Marketplace/src/assets/type.svg"
+  },
+  "src/pages/Marketplace/src/assets/withdraw.svg": {
+    "file": "assets/withdraw-557c41c6.svg",
+    "src": "src/pages/Marketplace/src/assets/withdraw.svg"
   }
 }

@@ -16,6 +16,7 @@ import WalletAvatar from "./WalletAvatar";
 import SimpleLoader from "./SimpleLoader";
 import { useGameVarsStore } from "../../../../stores/gameVars";
 import { mapOldCardIdsToNewOnes } from "../../../../utils/migration/mapOldCardIdsToNewOnes";
+import { updatePlayerData } from "../../../../../api/apiFns";
 // import { deletePurchase } from "../api/apiFns";
 
 //@Note: Need to get all the PLayers as well to map ownerID to ownerName or Wallet
@@ -24,7 +25,6 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
     playersMapping,
     players,
     isSuccessPlayers,
-    axiosPrivate,
     // refetchSoldCards,
     removePurchaseEvent,
   } = useStateContext();
@@ -153,8 +153,7 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
             /> */}
                   {isSuccessPlayers && players.length > 0 ? (
                     <WalletAvatar
-                      walletAddress={
-                        // '0x9ba4DaC17C4286Fd32572A6d75203598C1c8C87E'
+                      walletAddress={ 
                         findOwnerWallet(card, players)
                       }
                     />
@@ -177,12 +176,13 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
                 // disabled={!canBuy}
                 handleClick={() => {
                   removePurchaseEvent({
-                    axiosPrivate,
                     cardId: card.cardId,
                   });
                   if (playerData) {
                     const newPlayerGold = playerData.gold + card.priceTag;
+                    console.log(" Updating Player Gold: ", newPlayerGold);
                     setPlayerData({ ...playerData, gold: newPlayerGold });
+                    updatePlayerData(playerData.id, { gold: newPlayerGold });
                   } else {
                     console.error(
                       "⛔ Custom | [FundCard.jsx]: 😱 Tried to increase Player's Gold but playerData was NULL"

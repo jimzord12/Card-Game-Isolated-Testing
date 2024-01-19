@@ -19,14 +19,17 @@ type ResponseType = { id: number };
 export const purchaseCard = async (
   purchaseDetails: PurchaseDetails
 ): Promise<ResponseType> => {
-  console.log("🚀 PUT - (Remove Card From MP), Sending Request...");
+  console.log(
+    "🚀 POST - (Purchasing a Card From MP), Sending Request: ",
+    purchaseDetails
+  );
 
   const response = await axios.post(
     POST_BUY_CARD_FROM_MARKETPLACE_URL,
     purchaseDetails
   );
 
-  console.log("🚀 PUT ✅ - (Remove Card From MP): ", response.data);
+  console.log("🚀 POST ✅ - (Purchasing a Card From MP): ", response.data);
 
   return response.data.id;
 };

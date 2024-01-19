@@ -18,7 +18,10 @@ export const updatePlayerData = async (
     playerData
   );
 
-  console.log("🚀 PUT ✅ - (Updating Player Stats): ", response.data);
+  console.log(
+    "🚀 PUT ✅ - (Updated Player Stats): ",
+    response.data.affectedRows === 1 ? true : false
+  );
 
   return response.data.affectedRows === 1 ? true : false;
 };

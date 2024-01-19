@@ -8,18 +8,44 @@ const useHardcoding = () => {
   // By Default, the 'Dimius' player is fetched from the API
   useEffect(() => {
     const getData = async () => {
-      const playerData = await getPlayerByWallet(
-        "0xe63761bfe4599aab4a7d4cfbb2229103199b3631"
-      );
-      setPlayer(playerData.player);
+      try {
+        const playerData = await getPlayerByWallet(
+          "0xe63761bfe4599aab4a7d4cfbb2229103199b3631"
+        );
+        setPlayer(playerData.player);
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((error as any)?.message === "Network Error") {
+          console.log("⛔ - Custom: The Error is: ", error);
+          throw new Error("⛔ - Custom: Web Server is probably down!");
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } else if ((error as any)?.request?.status === 401) {
+          throw new Error("⛔ - Custom: Player not found!");
+        } else {
+          console.log("⛔ - Custom: The Error is: ", error);
+          throw new Error("⛔ - Custom: Something went Wrong!");
+        }
+      }
     };
 
     getData();
   }, []);
 
   const hardcodePlayer = async (walletAddress: string) => {
-    const playerData = await getPlayerByWallet(walletAddress);
-    setPlayer(playerData.player);
+    if (!walletAddress) return;
+    try {
+      const playerData = await getPlayerByWallet(walletAddress);
+      setPlayer(playerData.player);
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((error as any)?.message === "Network Error") {
+        console.log("⛔ - Custom: The Error is: ", error);
+        throw new Error("⛔ - Custom: Web Server is probably down!");
+      } else {
+        console.log("The Error is: ", error);
+        throw new Error("⛔ - Custom: Player not found!");
+      }
+    }
   };
   return { hardcodePlayer };
 };

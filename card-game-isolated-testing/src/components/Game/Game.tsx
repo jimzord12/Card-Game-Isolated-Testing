@@ -4,6 +4,7 @@ import UseLandscape from "../../hooks/useLandscape";
 import RotateDevice from "../RotateDevice/RotateDevice";
 import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
+import CustomButton from "../Buttons/CustomButton/CustomButton";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -16,7 +17,7 @@ type MapTypes = "town" | "world";
 const Game = () => {
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
-  const [mapToDisplay /*setMapToDisplay*/] = useState<MapTypes>("world");
+  const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("world");
 
   const auth = useRequireAuth();
 
@@ -33,6 +34,16 @@ const Game = () => {
           {!loading && (
             <>
               <RotateDevice show={shouldShow} />
+              <div className="z-[401] absolute top-4 left-20">
+                <CustomButton
+                  title="Swap Map"
+                  handleClick={() =>
+                    setMapToDisplay((prev) =>
+                      prev === "world" ? "town" : "world"
+                    )
+                  }
+                />
+              </div>
               <ModalProvider>
                 {mapToDisplay === "town" && <TownMap />}
                 {mapToDisplay === "world" && <WorldMap />}

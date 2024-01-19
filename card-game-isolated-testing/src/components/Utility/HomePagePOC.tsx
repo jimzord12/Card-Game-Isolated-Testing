@@ -4,7 +4,7 @@ import SwitchBtn from "../WalletRelated/SwitchBtn";
 import { useState } from "react";
 import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
-import TestDashboard from "../__TESTING__/TestDashboard";
+// import TestDashboard from "../__TESTING__/TestDashboard";
 // import { useNavigate } from 'react-router-dom';
 
 const HomePagePOC = () => {
@@ -14,7 +14,7 @@ const HomePagePOC = () => {
 
   return (
     <div className="min-h-screen flex xl:flex-row flex-col relative ">
-      <TestDashboard />
+      {/* <TestDashboard /> */}
 
       <div className="flex flex-1 justify-between bg-siteblack py-8 sm:px-12 px-8 flex-col">
         <img

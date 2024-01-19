@@ -18,9 +18,16 @@ const HOST = isWSLocal
   : //  : 'https://genera-game-backend-v2.herokuapp.com/';
     "https://genera-game-express-server.onrender.com/";
 
-export default axios.create({
+export const axiosPublic = axios.create({
   baseURL: HOST,
   // baseURL: `http://localhost:${PORT}`,
   headers: { "Content-Type": "application/json" },
+  withCredentials: true,
+});
+
+export default axios.create({
+  baseURL: HOST,
+  // baseURL: `http://localhost:${PORT}`,
+  headers: { "Content-Type": "application/json", Authorization: "" },
   withCredentials: true,
 });

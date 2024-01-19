@@ -1,6 +1,6 @@
 interface CustomButtonProps {
   title: string;
-  handleClick: (e: any) => void;
+  handleClick: (e: React.MouseEvent) => void;
   restStyles?: string;
   isDisabled?: boolean;
 }

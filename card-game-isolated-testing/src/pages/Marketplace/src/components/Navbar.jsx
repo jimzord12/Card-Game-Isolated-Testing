@@ -1,38 +1,45 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import { logo, menu, search } from '../assets';
-import { navlinks } from '../constants';
-import { useStateContext } from '../context';
-import { CustomButton } from './';
-import WalletAvatar from './WalletAvatar';
+import { logo, menu, search } from "../assets";
+import { navlinks } from "../constants";
+import { useStateContext } from "../context";
+import { CustomButton } from "./";
+import WalletAvatar from "./WalletAvatar";
 
 const Navbar = () => {
   const navigate = useNavigate();
   // const [isActive, setIsActive] = useState("dashboard");
   const [toggleDrawer, setToggleDrawer] = useState(false);
-  const { playerWallet, cards, setCards, isActive, setIsActive } =
-    useStateContext();
-  const [searchTerm, setSearchTerm] = useState('');
+  const {
+    playerWallet,
+    cards,
+    setCards,
+    isActive,
+    setIsActive,
+    refetchAllCards,
+    refetchSoldCards,
+  } = useStateContext();
+  const [searchTerm, setSearchTerm] = useState("");
 
   function handleChange(e) {
-    console.log('Search Bar Input: ', e.target.value);
+    console.log("Search Bar Input: ", e.target.value);
     setSearchTerm(e.target.value);
   }
   function handleSearchClick() {
     let convertedSearchTerm = 0;
-    if (searchTerm.toLowerCase() === 'wind turbine') {
+    if (searchTerm.toLowerCase() === "wind turbine") {
       convertedSearchTerm = 1;
-    } else if (searchTerm.toLowerCase() === 'techstore') {
+    } else if (searchTerm.toLowerCase() === "techstore") {
       convertedSearchTerm = 13;
-    } else if (searchTerm.toLowerCase() === 'workaholism') {
+    } else if (searchTerm.toLowerCase() === "workaholism") {
       convertedSearchTerm = 7;
     }
     setCards(
       cards.filter((card) => {
-        console.log('Card SSDD: ', card);
+        console.log("Card SSDD: ", card);
         console.log(
-          'convertedSearchTerm SSDD: ',
+          "convertedSearchTerm SSDD: ",
           card.templateId === convertedSearchTerm
         );
         return card.templateId === convertedSearchTerm;
@@ -65,15 +72,16 @@ const Navbar = () => {
       <div className="sm:flex hidden flex-row justify-end gap-4">
         <CustomButton
           btnType="button"
-          title={'Connect'}
-          styles={'bg-[#8c6dfd]'}
+          title={"Refresh"}
+          styles={"bg-[#8c6dfd]"}
           handleClick={() => {
-            if (false) navigate('create-campaign');
-            else connect();
+            console.log("SKATA");
+            refetchAllCards();
+            refetchSoldCards();
           }}
         />
 
-        <Link to="/profile" onClick={() => setIsActive('profile')}>
+        <Link to="/profile" onClick={() => setIsActive("profile")}>
           <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
             {/* <img
               src={thirdweb}
@@ -88,7 +96,7 @@ const Navbar = () => {
       {/* Small screen navigation */}
       <div className="sm:hidden flex justify-between items-center relative">
         <div className="w-[40px] h-[40px] rounded-[10px] bg-[#2c2f32] flex justify-center items-center cursor-pointer">
-          <Link to="/battle/" onClick={() => setIsActive('dashboard')}>
+          <Link to="/battle/" onClick={() => setIsActive("dashboard")}>
             <img
               src={logo}
               alt="user"
@@ -109,7 +117,7 @@ const Navbar = () => {
 
         <div
           className={`absolute top-[60px] right-0 left-0 bg-[#1c1c24] z-10 shadow-secondary py-4 ${
-            !toggleDrawer ? '-translate-y-[100vh]' : 'translate-y-0'
+            !toggleDrawer ? "-translate-y-[100vh]" : "translate-y-0"
           } transition-all duration-700`}
         >
           <ul className="mb-4">
@@ -117,7 +125,7 @@ const Navbar = () => {
               <li
                 key={link.name}
                 className={`flex p-4 ${
-                  isActive === link.name && 'bg-[#3a3a43]'
+                  isActive === link.name && "bg-[#3a3a43]"
                 }`}
                 onClick={() => {
                   setIsActive(link.name);
@@ -129,12 +137,12 @@ const Navbar = () => {
                   src={link.imgUrl}
                   alt={link.name}
                   className={`w-[24px] h-[24px] object-contain ${
-                    isActive === link.name ? 'grayscale-0' : 'grayscale'
+                    isActive === link.name ? "grayscale-0" : "grayscale"
                   }`}
                 />
                 <p
                   className={`ml-[20px] font-epilogue font-semibold text-[14px] ${
-                    isActive === link.name ? 'text-[#1dc071]' : 'text-[#808191]'
+                    isActive === link.name ? "text-[#1dc071]" : "text-[#808191]"
                   }`}
                 >
                   {link.name}
@@ -146,11 +154,12 @@ const Navbar = () => {
           <div className="flex mx-4">
             <CustomButton
               btnType="button"
-              title={'Connect'}
-              styles={'bg-[#8c6dfd]'}
+              title={"Refresh"}
+              styles={"bg-[#8c6dfd]"}
               handleClick={() => {
-                if (false) navigate('create-campaign');
-                else connect();
+                console.log("SKATA");
+                refetchAllCards();
+                refetchSoldCards();
               }}
             />
           </div>
