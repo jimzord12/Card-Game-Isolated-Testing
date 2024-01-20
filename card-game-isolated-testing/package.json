@@ -8,13 +8,15 @@
     "build": "tsc && vite build",
     "build-local": "tsc && vite build && serve -s dist",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "serve -s dist"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@metamask/detect-provider": "^2.0.0",
     "@metamask/providers": "^14.0.2",
+    "@mui/lab": "^5.0.0-alpha.161",
     "@mui/material": "^5.15.4",
     "@tanstack/react-query": "^5.17.9",
     "axios": "^1.6.5",

@@ -9,12 +9,16 @@ import styles from "./HomePage.module.css";
 import { handlePlayerCreate } from "./handlers/localWallet/handlePlayerCreate";
 import TransactionModal from "../../components/Modals/HomePageModals/TransactionModal";
 import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
+import CountdownTimer from "../../components/CountDownTimer/CountDownTimer";
+import { loginWithWallet } from "../../../api/apiFns";
 
 function HomePageLocalWallet() {
   // const navigate = useNavigate();
   const { user: userData, login, setUser } = useAuth();
   const [playerName, resetUser, userAttribs] = useInput("user", "");
-  console.log("🅱🅱🅱 : ", userData);
+  // console.log("🅱🅱🅱 : ", userData);
+  const [waitingServer, setWaitingServer] = useState(false);
+  const [serverIsLive, setServerIsLive] = useState(false);
 
   const {
     wallet: localWallet,
@@ -22,6 +26,7 @@ function HomePageLocalWallet() {
     generateWallet,
     balance,
     getEthBalance,
+    setLW_HookHasRun,
   } = useLocalWallet();
 
   const [errMsg, setErrMsg] = useState("");
@@ -32,6 +37,32 @@ function HomePageLocalWallet() {
   useEffect(() => {
     if (userData?.wallet) getEthBalance();
   }, [getEthBalance, userData?.wallet]);
+
+  useEffect(() => {
+    const checkingServer = async () => {
+      try {
+        const response = await loginWithWallet(
+          "0xCe8E2AAd6a2aE2C69B31e5CFa7512878c4cA4197"
+        );
+        setServerIsLive(true);
+        setErrMsg("");
+        setWaitingServer(false);
+        setUser!({ ...response });
+      } catch (error) {
+        setErrMsg("Server Error: Please wait 45-60 secs and try again.");
+        setWaitingServer(true);
+      }
+    };
+    console.log("Checking for Server Status...");
+
+    // if (localWallet?.address && setLW_HookHasRun) {
+    //   if (!userData?.username || userData?.username === "") {
+    //     setErrMsg("Server Error: Please wait 45-60 secs and try again.");
+    //     setWaitingServer(true);
+    //   }
+    // }
+    if (setLW_HookHasRun) checkingServer();
+  }, [localWallet, userData?.username, waitingServer, setLW_HookHasRun]);
 
   return (
     <div className="flex flex-col">
@@ -68,6 +99,18 @@ function HomePageLocalWallet() {
             <p className={errMsg ? styles.errorStyles : styles.offscreenStyles}>
               {errMsg}
             </p>
+            {waitingServer && (
+              <CountdownTimer
+                initialCount={15}
+                setWaitingServer={setWaitingServer}
+              />
+            )}
+            {!serverIsLive && !waitingServer && (
+              <p className={styles.infoStyles}>
+                Wait a moment while we check the server status...
+              </p>
+            )}
+
             <p
               className={
                 successMsg ? styles.successStyles : styles.offscreenStyles
@@ -86,6 +129,7 @@ function HomePageLocalWallet() {
             placeHolder="Enter an Alias"
             Attribs={userAttribs}
             value={userData !== null ? userData.username : undefined}
+            isDisabled={!serverIsLive}
           />
 
           <SizedBox />
@@ -104,6 +148,7 @@ function HomePageLocalWallet() {
           {userData?.username && login !== null ? (
             <CustomButton
               title={"Start Playing"}
+              isDisabled={!serverIsLive}
               // handleClick={() => console.log("Mocking -> handlePlayerLogin2()")}
               handleClick={(e) =>
                 handleOldPlayerETH(
@@ -121,6 +166,7 @@ function HomePageLocalWallet() {
             <CustomButton
               title={"Create Player"}
               // handleClick={() => console.log("Mocking -> handlePlayerCreate()")}
+              isDisabled={!serverIsLive}
               handleClick={(e) =>
                 handlePlayerCreate(
                   e,

@@ -1,4 +1,4 @@
-interface CustomButtonProps {
+export interface CustomButtonProps {
   title: string;
   handleClick: (e: React.MouseEvent) => void;
   restStyles?: string;

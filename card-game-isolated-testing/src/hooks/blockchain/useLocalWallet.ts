@@ -10,6 +10,7 @@ function useLocalWallet() {
 
   const [wallet, setWallet] = useState<HDNodeWallet | Wallet | null>(null);
   const [balance, setBalance] = useState("-1");
+  const [setLW_HookHasRun, setSetLW_HookHasRun] = useState(false);
 
   const { setUser } = useAuth();
 
@@ -40,6 +41,8 @@ function useLocalWallet() {
             "🔷 - Automatic UserData Local Wallet Retrival Failed, probably no Wallet is stored."
           );
         }
+      } finally {
+        setSetLW_HookHasRun(true);
       }
     }
 
@@ -101,6 +104,7 @@ function useLocalWallet() {
     retrieveWallet,
     balance,
     getEthBalance,
+    setLW_HookHasRun,
     // connectWalletWithProvider,
   };
 }

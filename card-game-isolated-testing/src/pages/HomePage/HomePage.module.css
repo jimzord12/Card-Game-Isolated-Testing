@@ -12,6 +12,15 @@
   margin-bottom: 0.5rem;
 }
 
+.infoStyles {
+  background-color: rgb(18, 108, 172);
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .successStyles {
   background-color: lightgreen;
   border-radius: 6px;
@@ -22,6 +31,7 @@
 }
 
 @media (min-width: 640px) {
+  .infoStyles,
   .errorStyles,
   .successStyles {
     max-width: 50%;
@@ -29,6 +39,7 @@
 }
 
 @media (max-width: 639px) {
+  .infoStyles,
   .errorStyles,
   .successStyles {
     max-width: 100%;

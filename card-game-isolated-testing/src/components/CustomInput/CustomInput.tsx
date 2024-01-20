@@ -3,9 +3,16 @@ interface CustomInputProps {
   placeHolder: string;
   Attribs?: React.InputHTMLAttributes<HTMLInputElement>;
   value?: string | null;
+  isDisabled?: boolean;
 }
 
-function CustomInput({ label, placeHolder, Attribs, value }: CustomInputProps) {
+function CustomInput({
+  label,
+  placeHolder,
+  Attribs,
+  value,
+  isDisabled,
+}: CustomInputProps) {
   return (
     <>
       <label
@@ -16,9 +23,11 @@ function CustomInput({ label, placeHolder, Attribs, value }: CustomInputProps) {
       </label>
       <input
         type="text"
-        placeholder={value ? value : placeHolder}
+        placeholder={
+          isDisabled ? "...Temporary Disabled..." : value ? value : placeHolder
+        }
         // value={value}
-        readOnly={value ? true : false}
+        readOnly={isDisabled ? true : value ? true : false}
         {...Attribs}
         className="bg-siteDimBlack text-white outline-none focus:outline-[#309123] p-4 rounded-md sm:max-w-[50%] max-w-full"
       />
