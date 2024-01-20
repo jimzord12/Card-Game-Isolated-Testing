@@ -146,7 +146,7 @@ function HomePageLocalWallet() {
           />
           {userData?.username && login !== null ? (
             <CustomButton
-              title={"Start Playing"}
+              title="Start Playing"
               isDisabled={!serverIsLive}
               // handleClick={() => console.log("Mocking -> handlePlayerLogin2()")}
               handleClick={(e) =>

@@ -1,12 +1,12 @@
 {
-  "_regClass_V2-e08a8c2c.js": {
-    "file": "assets/regClass_V2-e08a8c2c.js",
+  "_regClass_V2-bf66039a.js": {
+    "file": "assets/regClass_V2-bf66039a.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useQuery-7b501272.js": {
-    "file": "assets/useQuery-7b501272.js",
+  "_useQuery-fbd9fb79.js": {
+    "file": "assets/useQuery-fbd9fb79.js",
     "imports": [
       "index.html"
     ]
@@ -31,7 +31,7 @@
       "src/pages/Marketplace/src/Marketplace.jsx",
       "src/pages/Leaderboard/Leaderboard.jsx"
     ],
-    "file": "assets/index-4b624720.js",
+    "file": "assets/index-27c7591a.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -760,10 +760,10 @@
     "css": [
       "assets/Leaderboard-94366d4b.css"
     ],
-    "file": "assets/Leaderboard-d44c9ff6.js",
+    "file": "assets/Leaderboard-1479d94f.js",
     "imports": [
       "index.html",
-      "_useQuery-7b501272.js"
+      "_useQuery-fbd9fb79.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Leaderboard/Leaderboard.jsx"
@@ -776,10 +776,10 @@
     "css": [
       "assets/TownMap-fac7953d.css"
     ],
-    "file": "assets/TownMap-1b7da2dc.js",
+    "file": "assets/TownMap-73a9a9ad.js",
     "imports": [
       "index.html",
-      "_regClass_V2-e08a8c2c.js"
+      "_regClass_V2-bf66039a.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Maps/TownMap/TownMap.tsx"
@@ -799,7 +799,7 @@
     "css": [
       "assets/WorldMap-9ac435f7.css"
     ],
-    "file": "assets/WorldMap-1f2c9185.js",
+    "file": "assets/WorldMap-5028e786.js",
     "imports": [
       "index.html"
     ],
@@ -829,11 +829,11 @@
     "css": [
       "assets/Marketplace-0201c4e3.css"
     ],
-    "file": "assets/Marketplace-259ca205.js",
+    "file": "assets/Marketplace-181d2507.js",
     "imports": [
       "index.html",
-      "_useQuery-7b501272.js",
-      "_regClass_V2-e08a8c2c.js"
+      "_useQuery-fbd9fb79.js",
+      "_regClass_V2-bf66039a.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Marketplace/src/Marketplace.jsx"
