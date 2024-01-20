@@ -41,13 +41,12 @@ function HomePageLocalWallet() {
   useEffect(() => {
     const checkingServer = async () => {
       try {
-        const response = await loginWithWallet(
-          "0xCe8E2AAd6a2aE2C69B31e5CFa7512878c4cA4197"
-        );
+        // const response =
+        await loginWithWallet("0xCe8E2AAd6a2aE2C69B31e5CFa7512878c4cA4197");
         setServerIsLive(true);
         setErrMsg("");
         setWaitingServer(false);
-        setUser!({ ...response });
+        // setUser!({ ...response });
       } catch (error) {
         setErrMsg("Server Error: Please wait 45-60 secs and try again.");
         setWaitingServer(true);
