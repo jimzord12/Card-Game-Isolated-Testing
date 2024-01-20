@@ -64,6 +64,9 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
   const cardRarity = rarityCoverter(card.rarity);
   const hoverStyles = from === "withdraw" ? "" : styles.card;
 
+  console.log("🅱 - THE Host URL: ", import.meta.env.VITE_HOST_URL);
+  console.log("🅱 - THE CARD PATH: ", cardDetails.image);
+
   return (
     <div
       // style={{
@@ -153,9 +156,7 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
             /> */}
                   {isSuccessPlayers && players.length > 0 ? (
                     <WalletAvatar
-                      walletAddress={ 
-                        findOwnerWallet(card, players)
-                      }
+                      walletAddress={findOwnerWallet(card, players)}
                     />
                   ) : (
                     <SimpleLoader />
