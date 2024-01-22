@@ -1,6 +1,6 @@
 export function isValidEthereumPrivateKey(key: string): boolean {
-  // Check if the key is a 64 hex characters string
-  if (!/^[a-fA-F0-9]{64}$/.test(key)) {
+  // Updated regex to allow optional '0x' prefix
+  if (!/^0x[a-fA-F0-9]{64}$|^[a-fA-F0-9]{64}$/.test(key)) {
     return false;
   }
 
@@ -17,6 +17,11 @@ export function isValidEthereumPrivateKey(key: string): boolean {
     );
 
     // Check if the key is less than the max valid private key
+    console.log("2 - isValidEthereumPrivateKey, keyBigInt: ", keyBigInt);
+    console.log(
+      "3 - isValidEthereumPrivateKey, Result: ",
+      keyBigInt < maxPrivateKey
+    );
     return keyBigInt < maxPrivateKey;
   } catch (e) {
     return false;

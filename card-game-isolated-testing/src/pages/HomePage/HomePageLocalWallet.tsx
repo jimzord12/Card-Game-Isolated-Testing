@@ -29,7 +29,6 @@ function HomePageLocalWallet() {
     balance,
     getEthBalance,
     setLW_HookHasRun,
-
     retrieveWallet,
   } = useLocalWallet();
 
@@ -75,8 +74,13 @@ function HomePageLocalWallet() {
       <RestoreWalletModal
         open={isRestoreWalletModalOpen}
         retrieveWallet={retrieveWallet}
+        setModalVisibility={setRestoreWalletModalOpen}
       />
-      <DeleteWalletModal open={isDeleteWalletModalOpen} />
+      <DeleteWalletModal
+        open={isDeleteWalletModalOpen}
+        setModalVisibility={setDeleteWalletModalOpen}
+        deleteWallet={deleteWallet}
+      />
 
       {localWallet ? (
         <>
@@ -144,9 +148,10 @@ function HomePageLocalWallet() {
 
           <SizedBox />
           <CustomInput
-            label="Local Wallet Address"
+            label="Public Address"
             placeHolder="Your Public Address"
             value={localWallet.address}
+            copyToClipboard
           />
 
           <SizedBox />
@@ -154,6 +159,7 @@ function HomePageLocalWallet() {
             label="Private Key"
             placeHolder="Your Public Address"
             value={localWallet.privateKey}
+            copyToClipboard
           />
           {userData?.username && login !== null ? (
             <CustomButton
@@ -194,7 +200,7 @@ function HomePageLocalWallet() {
           )}
           <CustomButton
             title={"Delete Wallet"}
-            handleClick={() => deleteWallet()}
+            handleClick={() => setDeleteWalletModalOpen(true)}
             restStyles="mt-6 w-fit z-10 bg-red-700"
           />
         </>

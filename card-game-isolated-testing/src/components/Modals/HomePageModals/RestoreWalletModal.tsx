@@ -3,11 +3,11 @@ import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography";
 import CustomInput from "../../CustomInput/CustomInput";
 import CustomButton from "../../Buttons/CustomButton/CustomButton";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import useInput from "../../../hooks/useInput";
 import { isValidEthereumPrivateKey } from "../../../utils/blockchain/privKeyValidator";
 
-type retrieveWalletReturnType = () =>
+type retrieveWalletReturnType =
   | {
       walletAddress: string;
       success: boolean;
@@ -22,6 +22,7 @@ interface RestoreWalletModalProps {
   retrieveWallet: (walletAddress?: string) => retrieveWalletReturnType;
   title?: string;
   message?: string;
+  setModalVisibility: Dispatch<SetStateAction<boolean>>;
 }
 
 const style = {
@@ -40,11 +41,15 @@ const style = {
 
 function RestoreWalletModal({
   open,
+  setModalVisibility,
   title = "To restore your wallet, you need your private key:",
   retrieveWallet,
 }: // message = "We will send you 0.5 ETH if your balance is insufficient.",
 RestoreWalletModalProps) {
-  const [privKeyValue, , userAttribs] = useInput("privKey", "");
+  const [privKeyValue, resetPrivKeyField, userAttribs] = useInput(
+    "privKey",
+    ""
+  );
 
   return (
     <Modal
@@ -63,21 +68,38 @@ RestoreWalletModalProps) {
             flexDirection: "column",
             alignItems: "center",
             mt: 2,
-            gap: 8,
+            gap: 4,
           }}
         >
           <CustomInput
             label="Please insert your private key:"
             placeHolder="0x23dcf1..."
             Attribs={userAttribs}
-            value={}
+
+            // value={}
           />
 
-          <CustomButton
-            title="Restore"
-            handleClick={() => retrieveWallet(privKeyValue)}
-            isDisabled={isValidEthereumPrivateKey(privKeyValue) ? false : true}
-          />
+          <div className="flex gap-6">
+            <CustomButton
+              title="Restore"
+              handleClick={() => {
+                retrieveWallet(privKeyValue);
+                setModalVisibility(false);
+                resetPrivKeyField();
+              }}
+              isDisabled={
+                isValidEthereumPrivateKey(privKeyValue) ? false : true
+              }
+              restStyles="bg-blue-600 hover:bg-blue-700"
+            />
+            <CustomButton
+              title="Cancel"
+              handleClick={() => {
+                setModalVisibility(false);
+              }}
+              restStyles="bg-red-500 hover:bg-red-600"
+            />
+          </div>
           {/* <Typography
             id="transaction-modal-description"
             sx={{ mt: 2 }}
