@@ -66,7 +66,7 @@ export const handlePlayerCreate = async (
         await handleCloseTxModal(tx, setTransactionModalOpen); // CLOSE MODAL AFTER 3 SECONDS
       }
 
-      const startingStats = await initNewPlayer(userId);
+      const startingStats = initNewPlayer(userId);
       const wasPlayerInitSuccess = await updatePlayerData(
         userId,
         startingStats
