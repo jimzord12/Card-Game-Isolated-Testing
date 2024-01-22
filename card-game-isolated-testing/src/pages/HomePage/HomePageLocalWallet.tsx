@@ -15,10 +15,8 @@ import RestoreWalletModal from "../../components/Modals/HomePageModals/RestoreWa
 import DeleteWalletModal from "../../components/Modals/HomePageModals/DeleteWalletModal";
 
 function HomePageLocalWallet() {
-  // const navigate = useNavigate();
   const { user: userData, login, setUser } = useAuth();
   const [playerName, resetUser, userAttribs] = useInput("user", "");
-  // console.log("🅱🅱🅱 : ", userData);
   const [waitingServer, setWaitingServer] = useState(false);
   const [serverIsLive, setServerIsLive] = useState(false);
 
@@ -46,26 +44,31 @@ function HomePageLocalWallet() {
   useEffect(() => {
     const checkingServer = async () => {
       try {
-        // const response =
         await loginWithWallet("0xCe8E2AAd6a2aE2C69B31e5CFa7512878c4cA4197");
         setServerIsLive(true);
         setErrMsg("");
         setWaitingServer(false);
-        // setUser!({ ...response });
       } catch (error) {
         setErrMsg("Server Error: Please wait 45-60 secs and try again.");
         setWaitingServer(true);
       }
     };
+
+    const serverTimeout = setTimeout(() => {
+      setErrMsg("Server Error: No response received.");
+      setWaitingServer(true);
+    }, 5000);
+
     console.log("🔃 Checking for Server Status...");
 
-    // if (localWallet?.address && setLW_HookHasRun) {
-    //   if (!userData?.username || userData?.username === "") {
-    //     setErrMsg("Server Error: Please wait 45-60 secs and try again.");
-    //     setWaitingServer(true);
-    //   }
-    // }
-    if (setLW_HookHasRun) checkingServer();
+    if (setLW_HookHasRun) {
+      checkingServer();
+      clearTimeout(serverTimeout);
+    }
+
+    return () => {
+      clearTimeout(serverTimeout);
+    };
   }, [localWallet, userData?.username, waitingServer, setLW_HookHasRun]);
 
   return (
@@ -165,7 +168,6 @@ function HomePageLocalWallet() {
             <CustomButton
               title="Start Playing"
               isDisabled={!serverIsLive}
-              // handleClick={() => console.log("Mocking -> handlePlayerLogin2()")}
               handleClick={(e) =>
                 handleOldPlayerETH(
                   e,
@@ -181,7 +183,6 @@ function HomePageLocalWallet() {
           ) : (
             <CustomButton
               title={"Create Player"}
-              // handleClick={() => console.log("Mocking -> handlePlayerCreate()")}
               isDisabled={!serverIsLive}
               handleClick={(e) =>
                 handlePlayerCreate(
@@ -212,13 +213,11 @@ function HomePageLocalWallet() {
           <SizedBox />
           <CustomButton
             title={"Create One Now"}
-            // handleClick={() => console.log("handleLocalWalletCreation()")}
             handleClick={generateWallet}
             restStyles="mt-6 w-fit z-10"
           />
           <CustomButton
             title={"Restore Wallet"}
-            // handleClick={() => console.log("handleLocalWalletCreation()")}
             handleClick={() => setRestoreWalletModalOpen(true)}
             restStyles="mt-6 w-fit z-10 bg-blue-700 text-white"
           />

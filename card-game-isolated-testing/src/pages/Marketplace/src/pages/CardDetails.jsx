@@ -1,35 +1,23 @@
 import React, { useState, useEffect /*useRef*/ } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  useMutation /*useMutation, useQueryClient*/,
-} from "@tanstack/react-query";
-// import { ethers } from 'ethers';
+import { useMutation } from "@tanstack/react-query";
 
 import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
 import { cardInfo } from "../constants/index";
-import { /*FaStar, FaGem,*/ FaBirthdayCake } from "react-icons/fa";
-import { /*BsFillBuildingsFill,*/ BsStars } from "react-icons/bs";
-import {
-  /*GiCrownCoin,
-  GiStarFormation,*/
-  GiUpgrade,
-  GiAbstract047,
-} from "react-icons/gi";
-// import { MdEnergySavingsLeaf } from 'react-icons/md';
+import { FaBirthdayCake } from "react-icons/fa";
+import { BsStars } from "react-icons/bs";
+import { GiUpgrade, GiAbstract047 } from "react-icons/gi";
 import { IoBuild } from "react-icons/io5";
 import { loader } from "../assets";
 import {
   numberWithDots,
-  // calculateBarPercentage,
   formatDate,
   smoothScrollTo,
   rarityCoverter,
   findOwnerWallet,
 } from "../utils";
-// import cardClass from "../../../models/Classes/classCard_V2";
-// import templateData from "../../../context/playerContext/testCardTemplateData.json";
-// import { thirdweb } from '../assets';
+
 import WalletAvatar from "../components/WalletAvatar";
 import { cardInfo as cardDesc, islands } from "../constants";
 
@@ -43,10 +31,6 @@ import {
 } from "../../../../../api/apiFns";
 import { classBuilding, classREG, classSP } from "../../../../classes";
 import { mapOldCardIdsToNewOnes } from "../../../../utils/migration/mapOldCardIdsToNewOnes";
-
-// const CustomDivider = () => (
-//   <div className="border-1 border-white min-h-full mt-4"></div>
-// );
 
 const createCardObject = (cardDataFromDB) => {
   switch (cardDataFromDB.templateId) {
@@ -75,8 +59,6 @@ const CardDetails = () => {
   const selectedCard = createCardObject(cardDataFromDB);
   const navigate = useNavigate();
   const {
-    // playersMapping,
-    // playerWallet,
     players,
     userId,
     refetchAllCards,
@@ -88,26 +70,15 @@ const CardDetails = () => {
 
   console.log("Marketplace - Card Details |1| - Selected Card: ", selectedCard);
 
-  // const [isLoading /*setIsLoading*/] = useState(false);
-  // const [amount, setAmount] = useState('');
-  // const [donators, setDonators] = useState([]);
-  // const [canBuy, setCanBuy] = useState(false);
-
   // Transaction States
   const [showTranMsg, setShowTranMsg] = useState(false);
   const [tranType, setTranType] = useState("verify");
-  // const [isTranLoading, setIsTranLoading] = useState(false);
-
-  // Initialization Flags
-  // const [initFlag, setInitFlag] = useState(false);
-
-  // const confirmationRef = useRef(null);
 
   const cardDetails = cardInfo[selectedCard.templateId];
   const owner = players.find((player) => player.id === selectedCard.ownerId);
   const redirectedFrom = locationState.from;
 
-  const canAfford = playerBalance - selectedCard.priceTag > 0;
+  const canAfford = playerBalance - selectedCard.priceTag >= 0;
   const isNotTheOnwer = selectedCard.ownerId !== playerData.id;
   const canBuy = canAfford && isNotTheOnwer;
 
@@ -198,74 +169,6 @@ const CardDetails = () => {
     },
   });
 
-  // const {
-  //   isSuccess: isAfterPurchaseSuccess,
-  //   isLoading: isAfterPurchaseLoading,
-  //   isError: isAfterPurchaseError,
-  //   error: AfterPurchaseError,
-  // } = useQuery({
-  //   queryKey: ["afterPurchase"],
-  //   queryFn: () => {
-  //     removeFromMP(selectedCard.id); // This changes the card's in_mp state to false (in the cards table)
-  //     ownersSwapper(selectedCard.id, userId);
-  //     setTranType("success");
-  //     setTimeout(() => {
-  //       refetchSoldCards();
-  //       refetchAllCards();
-  //       refetchPlayerData();
-  //       setPlayerBalance((prev) => prev - selectedCard.priceTag); // This updates the player's balance only in Marketplace
-  //       navigate("/marketplace");
-  //       smoothScrollTo(0, 500);
-  //     }, 3500);
-  //   },
-  //   enabled: isTxSuccess && !!selectedCard.id,
-  // });
-
-  // const {
-  //   isSuccess: isSuccessOwnerSwap,
-  //   isFetching: isOwnerSwap,
-  //   isError: isOwnerSwapError,
-  //   error: ownerSwapError,
-  // } = useQuery({
-  //   queryKey: [
-  //     'swapOwners',
-  //     axiosPrivate,
-  //     { cardId: selectedCard?.id, buyerId: userId },
-  //   ],
-  //   queryFn: ownersSwapper,
-  //   enabled: isTranSuccess && !!selectedCard.id,
-  //   onSuccess: (fetchedData) => {
-  //     console.log('SUCCESSFUL - Swapped Owners (Marketplace): ', fetchedData);
-  //   },
-  //   onError: (error) => {
-  //     console.log('--- FAILED ---- Swapped Owners (Marketplace): ', error);
-  //     // setTranType("failed");
-  //   },
-  // });
-
-  // @Note: Here use the classCard_V2 to calc the Card's Stats
-  // useEffect(() => {
-  //   console.log("UseEffect, State: ", state);
-  //   console.log("UseEffect, Template Data: ", templateData);
-  //   setSelectedCard(new cardClass(state, templateData[state.templateId]));
-  //   // setPlayerBalance(500000);
-  //   setInitFlag(true);
-  //   // setCanBuy(playerBalance - selectedCard.priceTag < 0 ? false : true);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (initFlag) {
-  //     console.log("1 - UseEffect, Seleceted Card: ", selectedCard);
-  //     console.log("2 - UseEffect, Player Balance: ", playerBalance);
-  //     console.log("3 - UseEffect, Price Tag: ", selectedCard.priceTag);
-  //     console.log(
-  //       "3 - UseEffect, Can Buy? : ",
-  //       playerBalance - selectedCard.priceTag > 0 ? true : false
-  //     );
-  //     setCanBuy(playerBalance - selectedCard.priceTag > 0 ? true : false);
-  //   }
-  // }, [initFlag]);
-
   useEffect(() => {
     if (showTranMsg) smoothScrollTo(document.body.scrollHeight, 1750);
   }, [showTranMsg]);
@@ -300,8 +203,6 @@ const CardDetails = () => {
   return (
     <div>
       {isTxPending && <Loader />}
-      {/* <div className="w-full flex flex-col mt-10 gap-[30px]"> */}
-      {/* {isTranSuccess && ( */}
       <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
         <div className="flex-1 flex-col">
           <img
@@ -321,9 +222,7 @@ const CardDetails = () => {
           </div>
         </div>
 
-        {/* <div className="flex w-full flex-wrap justify-between gap-[30px]"> */}
         <div className="flex md:w-[150px] w-full md:justify-center flex-wrap justify-center gap-[30px]">
-          {/* <CountBox title="Type" value={1234} /> */}
           <CountBox
             title="Rarity"
             value={rarityCoverter(selectedCard.rarity).text}
@@ -333,11 +232,8 @@ const CardDetails = () => {
             value={selectedCard.level === 0 ? "N/A" : selectedCard.level}
           />
           <CountBox title="Card ID" value={`#${selectedCard.id}`} />
-          {/* <CountBox title="Total Backers" value={donators.length} /> */}
         </div>
       </div>
-      {/* )} */}
-      {/* {isTranSuccess && ( */}
       <div className="mt-[60px] flex lg:flex-row flex-col gap-5">
         <div className="flex-[2] flex flex-col gap-[40px]">
           <div className="flex flex-col w-full mt-0">
@@ -376,7 +272,6 @@ const CardDetails = () => {
                     }
                   </MainCategory>
                 )}
-                {/* <CustomDivider /> */}
 
                 {selectedCard.maintenance && (
                   <MainCategory
@@ -390,8 +285,6 @@ const CardDetails = () => {
                   </MainCategory>
                 )}
 
-                {/* <CustomDivider /> */}
-
                 <MainCategory
                   text="Upgrade Requirements"
                   icon={<GiUpgrade size={20} color={"white"} />}
@@ -401,8 +294,6 @@ const CardDetails = () => {
                     isSp={selectedCard.type === "Special Effect"}
                   />
                 </MainCategory>
-
-                {/* <CustomDivider /> */}
 
                 <div className="flex gap-2 h-min w-full mt-[20px] border-[1px] border-[#808191] rounded-xl p-4">
                   <div className="flex gap-1 basis-[220px]">
@@ -416,7 +307,6 @@ const CardDetails = () => {
                         Creation:{" "}
                       </p>
                       <div className="flex gap-2 items-start">
-                        {/* <GiAbstract047 size={26} color={"white"} /> */}
                         <div className="flex justify-between w-full ">
                           <p className="indent-2 font-epilogue font-normal text-[14px] text-[#808191] leading-[22px] text-justify">
                             {formatDate(selectedCard.creationTime)}
@@ -439,11 +329,6 @@ const CardDetails = () => {
 
             <div className="mt-[20px] flex flex-row items-center flex-wrap gap-[14px] pl-2">
               <div className="w-[52px] h-[52px] flex items-center justify-center rounded-full bg-[#2c2f32] cursor-pointer">
-                {/* <img
-                    src={thirdweb}
-                    alt="user"
-                    className="w-[60%] h-[60%] object-contain"
-                  /> */}
                 <WalletAvatar
                   walletAddress={findOwnerWallet(selectedCard, players)}
                   scale={4}
@@ -544,8 +429,6 @@ const CardDetails = () => {
                     handleClick={() => {
                       setShowTranMsg(true);
                       console.log("The Card Details: ", selectedCard);
-                      // if (showConfirmation && confirmationRef.current) {
-                      // }
                     }}
                   />
                 </div>
@@ -554,7 +437,6 @@ const CardDetails = () => {
           </>
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 };
@@ -568,7 +450,6 @@ const SubCategories = ({ cardProps, isSp }) => {
     <div className="flex flex-col gap-2 pl-2 items-start">
       {catInfo.map(([category, value], index) => {
         return (
-          // <div className="flex flex-col">
           <div
             className="flex w-full items-start"
             key={`${cardProps.name}-${cardProps.id}-${index}`}
@@ -585,7 +466,6 @@ const SubCategories = ({ cardProps, isSp }) => {
               </p>
             </div>
           </div>
-          // </div>
         );
       })}
     </div>
@@ -597,9 +477,7 @@ const MainCategory = ({ children, text, icon }) => {
     <div className="flex gap-4 items-start w-full mt-[20px] border-[1px] border-[#808191] rounded-xl p-4">
       <div className="flex flex-col gap-4 basis-[220px]">
         <div className="flex flex-row gap-3">
-          {/* <icon size={20} color={"white"} /> */}
           {icon}
-          {/* text-[#808191] */}
           <p className="font-epilogue font-normal text-[16px] text-white leading-[26px] text-justify">
             {text}:
           </p>
@@ -652,7 +530,6 @@ const Message = ({
           {!isTranSuccess && !isTranError && !showRemoveMsg && (
             <h4 className="font-epilogue font-semibold text-[16px] leading-[22px] text-center text-white">
               {text}
-              {/* Are you certain you wish you complete this transaction? */}
             </h4>
           )}
           <div
@@ -690,11 +567,6 @@ const Message = ({
                 </h4>
               )}
             </>
-            {/* {showCardRemoval && (
-              <h4 className="bg-[#80d266] font-epilogue font-semibold text-[18px] text-white text-center">
-                Your Card was successfully returned to your inventory!
-              </h4>
-            )} */}
           </div>
         </div>
       )}
