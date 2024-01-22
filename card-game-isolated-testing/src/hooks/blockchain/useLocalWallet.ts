@@ -2,6 +2,7 @@ import { HDNodeWallet, Wallet, ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { loginWithWallet } from "../../../api/apiFns";
 import { useAuth } from "../auth/useAuth";
+import { isValidWalletAddress } from "../../utils";
 
 function useLocalWallet() {
   const provider = new ethers.JsonRpcProvider(
