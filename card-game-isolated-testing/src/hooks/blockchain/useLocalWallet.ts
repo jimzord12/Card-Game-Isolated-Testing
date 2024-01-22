@@ -2,6 +2,7 @@ import { HDNodeWallet, Wallet, ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { loginWithWallet } from "../../../api/apiFns";
 import { useAuth } from "../auth/useAuth";
+import { isValidWalletAddress } from "../../utils";
 
 function useLocalWallet() {
   const provider = new ethers.JsonRpcProvider(
@@ -59,14 +60,22 @@ function useLocalWallet() {
     setWallet(newWallet);
   };
 
-  const retrieveWallet = () => {
-    const privateKey = localStorage.getItem("walletPrivateKey");
-    if (privateKey) {
-      const existingWallet = new Wallet(privateKey);
-      setWallet(existingWallet);
-      return { walletAddress: existingWallet.address, success: true };
+  const retrieveWallet = (walletAddress?: string) => {
+    if (walletAddress) {
+      if (isValidWalletAddress(walletAddress)) {
+        const existingWallet = new Wallet(walletAddress);
+        setWallet(existingWallet);
+        return { walletAddress: existingWallet.address, success: true };
+      }
     } else {
-      return { walletAddress: null, success: false };
+      const privateKey = localStorage.getItem("walletPrivateKey");
+      if (privateKey) {
+        const existingWallet = new Wallet(privateKey);
+        setWallet(existingWallet);
+        return { walletAddress: existingWallet.address, success: true };
+      } else {
+        return { walletAddress: null, success: false };
+      }
     }
   };
 
