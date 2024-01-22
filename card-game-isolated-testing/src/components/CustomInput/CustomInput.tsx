@@ -49,7 +49,7 @@ function CustomInput({
           // value={value}
           readOnly={isDisabled ? true : value ? true : false}
           {...Attribs}
-          className="bg-siteDimBlack text-white outline-none focus:outline-[#309123] p-4 rounded-md w-full"
+          className="bg-siteDimBlack text-white outline-none focus:outline-[#309123] p-4 rounded-md w-full max-w-[560px]"
         />
         {copyToClipboard && value && !isDisabled && (
           <div className="ml-2 cursor-pointer hover:text-green-400">

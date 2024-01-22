@@ -1,18 +1,18 @@
 {
-  "_regClass_V2-bf66039a.js": {
-    "file": "assets/regClass_V2-bf66039a.js",
+  "_regClass_V2-fe1ca435.js": {
+    "file": "assets/regClass_V2-fe1ca435.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useQuery-fbd9fb79.js": {
-    "file": "assets/useQuery-fbd9fb79.js",
+  "_useQuery-91453cd7.js": {
+    "file": "assets/useQuery-91453cd7.js",
     "imports": [
       "index.html"
     ]
   },
   "index.css": {
-    "file": "assets/index-c9798a24.css",
+    "file": "assets/index-bff95a49.css",
     "src": "index.css"
   },
   "index.html": {
@@ -22,7 +22,7 @@
       "assets/Uniwa-Logo-11f3d0dd.png"
     ],
     "css": [
-      "assets/index-c9798a24.css"
+      "assets/index-bff95a49.css"
     ],
     "dynamicImports": [
       "src/assets/imgs_new_convention/index.ts",
@@ -31,7 +31,7 @@
       "src/pages/Marketplace/src/Marketplace.jsx",
       "src/pages/Leaderboard/Leaderboard.jsx"
     ],
-    "file": "assets/index-27c7591a.js",
+    "file": "assets/index-5c1ed5aa.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -760,10 +760,10 @@
     "css": [
       "assets/Leaderboard-94366d4b.css"
     ],
-    "file": "assets/Leaderboard-1479d94f.js",
+    "file": "assets/Leaderboard-51bbcc0a.js",
     "imports": [
       "index.html",
-      "_useQuery-fbd9fb79.js"
+      "_useQuery-91453cd7.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Leaderboard/Leaderboard.jsx"
@@ -776,10 +776,10 @@
     "css": [
       "assets/TownMap-fac7953d.css"
     ],
-    "file": "assets/TownMap-73a9a9ad.js",
+    "file": "assets/TownMap-67265d36.js",
     "imports": [
       "index.html",
-      "_regClass_V2-bf66039a.js"
+      "_regClass_V2-fe1ca435.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Maps/TownMap/TownMap.tsx"
@@ -799,7 +799,7 @@
     "css": [
       "assets/WorldMap-9ac435f7.css"
     ],
-    "file": "assets/WorldMap-5028e786.js",
+    "file": "assets/WorldMap-8a97ef68.js",
     "imports": [
       "index.html"
     ],
@@ -829,11 +829,11 @@
     "css": [
       "assets/Marketplace-0201c4e3.css"
     ],
-    "file": "assets/Marketplace-181d2507.js",
+    "file": "assets/Marketplace-423d4cac.js",
     "imports": [
       "index.html",
-      "_useQuery-fbd9fb79.js",
-      "_regClass_V2-bf66039a.js"
+      "_useQuery-91453cd7.js",
+      "_regClass_V2-fe1ca435.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Marketplace/src/Marketplace.jsx"

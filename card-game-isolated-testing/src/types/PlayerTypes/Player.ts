@@ -26,6 +26,7 @@ export interface IPlayerDB {
 export type PlayerData = Pick<
   IPlayerDB,
   | "id"
+  | "island_id"
   | "townhall_lvl"
   | "workers_concrete"
   | "workers_metals"

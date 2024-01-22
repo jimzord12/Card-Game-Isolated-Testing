@@ -57,7 +57,7 @@ function HomePageLocalWallet() {
         setWaitingServer(true);
       }
     };
-    console.log("Checking for Server Status...");
+    console.log("🔃 Checking for Server Status...");
 
     // if (localWallet?.address && setLW_HookHasRun) {
     //   if (!userData?.username || userData?.username === "") {
