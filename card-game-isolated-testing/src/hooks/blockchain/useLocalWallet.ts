@@ -67,6 +67,7 @@ function useLocalWallet() {
         setWallet(existingWallet);
         return { walletAddress: existingWallet.address, success: true };
       }
+      return { walletAddress: null, success: false };
     } else {
       const privateKey = localStorage.getItem("walletPrivateKey");
       if (privateKey) {
