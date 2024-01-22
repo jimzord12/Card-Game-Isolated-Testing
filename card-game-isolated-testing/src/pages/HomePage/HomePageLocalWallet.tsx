@@ -11,6 +11,8 @@ import TransactionModal from "../../components/Modals/HomePageModals/Transaction
 import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
 import CountdownTimer from "../../components/CountDownTimer/CountDownTimer";
 import { loginWithWallet } from "../../../api/apiFns";
+import RestoreWalletModal from "../../components/Modals/HomePageModals/RestoreWalletModal";
+import DeleteWalletModal from "../../components/Modals/HomePageModals/DeleteWalletModal";
 
 function HomePageLocalWallet() {
   // const navigate = useNavigate();
@@ -27,12 +29,16 @@ function HomePageLocalWallet() {
     balance,
     getEthBalance,
     setLW_HookHasRun,
+
+    retrieveWallet,
   } = useLocalWallet();
 
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
   const [isTransactionModalOpen, setTransactionModalOpen] = useState(false);
+  const [isDeleteWalletModalOpen, setDeleteWalletModalOpen] = useState(false);
+  const [isRestoreWalletModalOpen, setRestoreWalletModalOpen] = useState(false);
 
   useEffect(() => {
     if (userData?.wallet) getEthBalance();
@@ -66,6 +72,11 @@ function HomePageLocalWallet() {
   return (
     <div className="flex flex-col">
       <TransactionModal open={isTransactionModalOpen} />
+      <RestoreWalletModal
+        open={isRestoreWalletModalOpen}
+        retrieveWallet={retrieveWallet}
+      />
+      <DeleteWalletModal open={isDeleteWalletModalOpen} />
 
       {localWallet ? (
         <>
@@ -198,6 +209,12 @@ function HomePageLocalWallet() {
             // handleClick={() => console.log("handleLocalWalletCreation()")}
             handleClick={generateWallet}
             restStyles="mt-6 w-fit z-10"
+          />
+          <CustomButton
+            title={"Restore Wallet"}
+            // handleClick={() => console.log("handleLocalWalletCreation()")}
+            handleClick={() => setRestoreWalletModalOpen(true)}
+            restStyles="mt-6 w-fit z-10 bg-blue-700 text-white"
           />
         </>
       )}
