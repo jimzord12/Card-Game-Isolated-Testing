@@ -11,6 +11,8 @@ import TransactionModal from "../../components/Modals/HomePageModals/Transaction
 import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
 import CountdownTimer from "../../components/CountDownTimer/CountDownTimer";
 import { loginWithWallet } from "../../../api/apiFns";
+import RestoreWalletModal from "../../components/Modals/HomePageModals/RestoreWalletModal";
+import DeleteWalletModal from "../../components/Modals/HomePageModals/DeleteWalletModal";
 
 function HomePageLocalWallet() {
   // const navigate = useNavigate();
@@ -27,12 +29,15 @@ function HomePageLocalWallet() {
     balance,
     getEthBalance,
     setLW_HookHasRun,
+    retrieveWallet,
   } = useLocalWallet();
 
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
   const [isTransactionModalOpen, setTransactionModalOpen] = useState(false);
+  const [isDeleteWalletModalOpen, setDeleteWalletModalOpen] = useState(false);
+  const [isRestoreWalletModalOpen, setRestoreWalletModalOpen] = useState(false);
 
   useEffect(() => {
     if (userData?.wallet) getEthBalance();
@@ -52,7 +57,7 @@ function HomePageLocalWallet() {
         setWaitingServer(true);
       }
     };
-    console.log("Checking for Server Status...");
+    console.log("🔃 Checking for Server Status...");
 
     // if (localWallet?.address && setLW_HookHasRun) {
     //   if (!userData?.username || userData?.username === "") {
@@ -66,6 +71,16 @@ function HomePageLocalWallet() {
   return (
     <div className="flex flex-col">
       <TransactionModal open={isTransactionModalOpen} />
+      <RestoreWalletModal
+        open={isRestoreWalletModalOpen}
+        retrieveWallet={retrieveWallet}
+        setModalVisibility={setRestoreWalletModalOpen}
+      />
+      <DeleteWalletModal
+        open={isDeleteWalletModalOpen}
+        setModalVisibility={setDeleteWalletModalOpen}
+        deleteWallet={deleteWallet}
+      />
 
       {localWallet ? (
         <>
@@ -133,9 +148,10 @@ function HomePageLocalWallet() {
 
           <SizedBox />
           <CustomInput
-            label="Local Wallet Address"
+            label="Public Address"
             placeHolder="Your Public Address"
             value={localWallet.address}
+            copyToClipboard
           />
 
           <SizedBox />
@@ -143,6 +159,7 @@ function HomePageLocalWallet() {
             label="Private Key"
             placeHolder="Your Public Address"
             value={localWallet.privateKey}
+            copyToClipboard
           />
           {userData?.username && login !== null ? (
             <CustomButton
@@ -183,7 +200,7 @@ function HomePageLocalWallet() {
           )}
           <CustomButton
             title={"Delete Wallet"}
-            handleClick={() => deleteWallet()}
+            handleClick={() => setDeleteWalletModalOpen(true)}
             restStyles="mt-6 w-fit z-10 bg-red-700"
           />
         </>
@@ -198,6 +215,12 @@ function HomePageLocalWallet() {
             // handleClick={() => console.log("handleLocalWalletCreation()")}
             handleClick={generateWallet}
             restStyles="mt-6 w-fit z-10"
+          />
+          <CustomButton
+            title={"Restore Wallet"}
+            // handleClick={() => console.log("handleLocalWalletCreation()")}
+            handleClick={() => setRestoreWalletModalOpen(true)}
+            restStyles="mt-6 w-fit z-10 bg-blue-700 text-white"
           />
         </>
       )}

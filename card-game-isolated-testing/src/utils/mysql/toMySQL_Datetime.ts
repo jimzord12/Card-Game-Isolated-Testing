@@ -1,4 +1,4 @@
-export function toMySQL_Datetime(timestamp: string) {
+export function toMySQL_Datetime(timestamp: Date | number) {
   const date = new Date(timestamp);
 
   const pad = (num: number) => (num < 10 ? "0" + num : num);

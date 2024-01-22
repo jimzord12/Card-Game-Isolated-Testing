@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createPlayer } from "../../../../../api/apiFns/player/_createPlayer";
 import { gaslessNewPlayer } from "../../../../../api/apiFns/gasless/gaslessNewPlayer";
-import { loginWithWallet } from "../../../../../api/apiFns";
+import { loginWithWallet, updatePlayerData } from "../../../../../api/apiFns";
 import { userAuthType } from "../../../../context/AuthContext/authTypes";
 import { Dispatch, SetStateAction } from "react";
 import { handleCloseTxModal } from "./handleCloseTxModal";
+import { initNewPlayer } from "../../utils/initNewPlayer";
 
 /**
  * @description - Creates a new Player in the DB and sends him 0.5 ETH
@@ -44,7 +45,7 @@ export const handlePlayerCreate = async (
   e.preventDefault();
 
   try {
-    const { success } = await createPlayer(playerName, walletAddress); // in DB
+    const { success, userId } = await createPlayer(playerName, walletAddress); // in DB
 
     if (success) {
       resetUser(); // Cleaning the memory for security
@@ -63,6 +64,18 @@ export const handlePlayerCreate = async (
         setTransactionModalOpen(false); // Immedietly CLSOE MODAL
       } else {
         await handleCloseTxModal(tx, setTransactionModalOpen); // CLOSE MODAL AFTER 3 SECONDS
+      }
+
+      const startingStats = await initNewPlayer(userId);
+      const wasPlayerInitSuccess = await updatePlayerData(
+        userId,
+        startingStats
+      );
+
+      if (!wasPlayerInitSuccess) {
+        console.error("⛔ Custom: HandlePlayerCreate, Player Init Failed");
+        setErrMsg("An Error Occured. Please try again later.");
+        return false;
       }
 
       setUser({ ...userData });

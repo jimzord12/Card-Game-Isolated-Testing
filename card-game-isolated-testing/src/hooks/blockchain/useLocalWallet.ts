@@ -60,14 +60,13 @@ function useLocalWallet() {
     setWallet(newWallet);
   };
 
-  const retrieveWallet = (walletAddress?: string) => {
-    if (walletAddress) {
-      if (isValidWalletAddress(walletAddress)) {
-        const existingWallet = new Wallet(walletAddress);
-        setWallet(existingWallet);
-        return { walletAddress: existingWallet.address, success: true };
-      }
-      return { walletAddress: null, success: false };
+  const retrieveWallet = (privKryToRestore?: string | undefined) => {
+    // console.log("useLocalWallet: retrieveWallet: ", walletAddress);
+    if (privKryToRestore) {
+      console.log("useLocalWallet: existingWallet: ", privKryToRestore);
+      const existingWallet = new Wallet(privKryToRestore);
+      setWallet(existingWallet);
+      return { walletAddress: existingWallet.address, success: true };
     } else {
       const privateKey = localStorage.getItem("walletPrivateKey");
       if (privateKey) {
@@ -79,7 +78,6 @@ function useLocalWallet() {
       }
     }
   };
-
   const deleteWallet = () => {
     localStorage.removeItem("walletPrivateKey");
     setWallet(null);
