@@ -14,6 +14,12 @@
   /* font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif; */
 }
 
+.disabled {
+  filter: grayscale(100%);
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .glowOnHover:before {
   content: "";
   background: linear-gradient(

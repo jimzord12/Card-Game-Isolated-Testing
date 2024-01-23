@@ -2,21 +2,32 @@ import React, { useState } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DoneIcon from "@mui/icons-material/Done";
 
-interface CustomInputProps {
+export interface CustomInputProps {
   label: string;
-  placeHolder: string;
+  placeHolder?: string;
+  /** You get those from the useInput hook
+   */
   Attribs?: React.InputHTMLAttributes<HTMLInputElement>;
+  /** If you pass this prop, the input will become read-only
+   */
   value?: string | null;
   isDisabled?: boolean;
   copyToClipboard?: boolean;
 }
 
+/**
+ * USE DARK BACKGROUND FOR THIS COMPONENT
+ * It's more complex than it looks!
+ * It should be used with the useInput hook, which in turn uses the useLocalStorage hook.
+ * Additionally, if the value prop is passed, the input will become read-only.
+ * By enabling the 'copyToClipboard', a copy icon will appear next to the input, which will copy the value to the clipboard when clicked.
+ */
 function CustomInput({
   label,
-  placeHolder,
+  placeHolder = "Type here...",
   Attribs,
   value,
-  isDisabled,
+  isDisabled = false,
   copyToClipboard = false,
 }: CustomInputProps) {
   const [copySuccess, setCopySuccess] = useState<boolean>(false);
