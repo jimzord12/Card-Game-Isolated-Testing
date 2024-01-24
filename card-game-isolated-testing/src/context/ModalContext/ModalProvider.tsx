@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import BareBonesModal from "../../components/Modals/BareBonesModal/BareBonesModal";
 import { useModalStore } from "../../stores/modalStore";
 

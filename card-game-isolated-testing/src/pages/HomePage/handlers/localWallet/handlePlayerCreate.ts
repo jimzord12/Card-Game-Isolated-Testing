@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createPlayer } from "../../../../../api/apiFns/player/_createPlayer";
-import { gaslessNewPlayer } from "../../../../../api/apiFns/gasless/gaslessNewPlayer";
-import { loginWithWallet, updatePlayerData } from "../../../../../api/apiFns";
+import {
+  loginWithWallet,
+  updatePlayerData,
+  createPlayer,
+  gaslessNewPlayer,
+} from "../../../../../api/apiFns";
 import { userAuthType } from "../../../../context/AuthContext/authTypes";
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { handleCloseTxModal } from "./handleCloseTxModal";
 import { initNewPlayer } from "../../utils/initNewPlayer";
 

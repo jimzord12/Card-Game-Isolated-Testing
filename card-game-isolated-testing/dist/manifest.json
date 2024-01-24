@@ -1,37 +1,98 @@
 {
-  "_regClass_V2-d7c3c36d.js": {
-    "file": "assets/regClass_V2-d7c3c36d.js",
+  "Game.css": {
+    "file": "assets/Game-fb83dfa7.css",
+    "src": "Game.css"
+  },
+  "_CustomButton-e7bab110.js": {
+    "file": "assets/CustomButton-e7bab110.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useQuery-3b25577a.js": {
-    "file": "assets/useQuery-3b25577a.js",
+  "_Game-8c891a92.js": {
+    "css": [
+      "assets/Game-fb83dfa7.css"
+    ],
+    "dynamicImports": [
+      "src/assets/imgs_new_convention/index.ts",
+      "src/pages/Maps/TownMap/TownMap.tsx",
+      "src/pages/Maps/WorldMap/WorldMap.jsx"
+    ],
+    "file": "assets/Game-8c891a92.js",
     "imports": [
-      "index.html"
-    ]
+      "index.html",
+      "_manifest-25bc7615.js",
+      "_CustomButton-e7bab110.js"
+    ],
+    "isDynamicEntry": true
   },
-  "index.css": {
-    "file": "assets/index-8cd42fb0.css",
-    "src": "index.css"
-  },
-  "index.html": {
+  "_HomePagePOC-416fec3f.js": {
     "assets": [
       "assets/logoGenera-1474e2eb.png",
       "assets/footerImg-b974a533.jpg",
       "assets/Uniwa-Logo-11f3d0dd.png"
     ],
+    "dynamicImports": [
+      "src/pages/HomePage/HomePageMetamask.tsx",
+      "src/pages/HomePage/HomePageLocalWallet.tsx"
+    ],
+    "file": "assets/HomePagePOC-416fec3f.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true
+  },
+  "__updatePlayerData-5d12e083.js": {
+    "file": "assets/_updatePlayerData-5d12e083.js",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "_handlePlayerCreate-6935ac80.js": {
     "css": [
-      "assets/index-8cd42fb0.css"
+      "assets/handlePlayerCreate-94975743.css"
+    ],
+    "file": "assets/handlePlayerCreate-6935ac80.js",
+    "imports": [
+      "index.html",
+      "_HomePagePOC-416fec3f.js",
+      "__updatePlayerData-5d12e083.js"
+    ]
+  },
+  "_manifest-25bc7615.js": {
+    "file": "assets/manifest-25bc7615.js"
+  },
+  "_regClass_V2-b791814d.js": {
+    "file": "assets/regClass_V2-b791814d.js",
+    "imports": [
+      "_manifest-25bc7615.js"
+    ]
+  },
+  "_useQuery-b4f82590.js": {
+    "file": "assets/useQuery-b4f82590.js",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "handlePlayerCreate.css": {
+    "file": "assets/handlePlayerCreate-94975743.css",
+    "src": "handlePlayerCreate.css"
+  },
+  "index.css": {
+    "file": "assets/index-13bf8bb9.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "css": [
+      "assets/index-13bf8bb9.css"
     ],
     "dynamicImports": [
-      "src/assets/imgs_new_convention/index.ts",
-      "src/pages/Maps/TownMap/TownMap.tsx",
-      "src/pages/Maps/WorldMap/WorldMap.jsx",
+      "_HomePagePOC-416fec3f.js",
       "src/pages/Marketplace/src/Marketplace.jsx",
-      "src/pages/Leaderboard/Leaderboard.jsx"
+      "src/pages/Leaderboard/Leaderboard.jsx",
+      "_Game-8c891a92.js"
     ],
-    "file": "assets/index-1fc547e2.js",
+    "file": "assets/index-9f7e7027.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -747,6 +808,30 @@
     "file": "assets/silver-185d372a.png",
     "src": "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/silver.png"
   },
+  "src/pages/HomePage/HomePageLocalWallet.tsx": {
+    "file": "assets/HomePageLocalWallet-cbf8ab2c.js",
+    "imports": [
+      "index.html",
+      "_CustomButton-e7bab110.js",
+      "_handlePlayerCreate-6935ac80.js",
+      "_HomePagePOC-416fec3f.js",
+      "__updatePlayerData-5d12e083.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/HomePage/HomePageLocalWallet.tsx"
+  },
+  "src/pages/HomePage/HomePageMetamask.tsx": {
+    "file": "assets/HomePageMetamask-000cb270.js",
+    "imports": [
+      "index.html",
+      "_CustomButton-e7bab110.js",
+      "_handlePlayerCreate-6935ac80.js",
+      "_HomePagePOC-416fec3f.js",
+      "__updatePlayerData-5d12e083.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/HomePage/HomePageMetamask.tsx"
+  },
   "src/pages/Leaderboard/Leaderboard.css": {
     "file": "assets/Leaderboard-94366d4b.css",
     "src": "src/pages/Leaderboard/Leaderboard.css"
@@ -760,26 +845,29 @@
     "css": [
       "assets/Leaderboard-94366d4b.css"
     ],
-    "file": "assets/Leaderboard-d815a419.js",
+    "file": "assets/Leaderboard-18abc029.js",
     "imports": [
       "index.html",
-      "_useQuery-3b25577a.js"
+      "_useQuery-b4f82590.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Leaderboard/Leaderboard.jsx"
   },
   "src/pages/Maps/TownMap/TownMap.css": {
-    "file": "assets/TownMap-fac7953d.css",
+    "file": "assets/TownMap-7c216559.css",
     "src": "src/pages/Maps/TownMap/TownMap.css"
   },
   "src/pages/Maps/TownMap/TownMap.tsx": {
     "css": [
-      "assets/TownMap-fac7953d.css"
+      "assets/TownMap-7c216559.css"
     ],
-    "file": "assets/TownMap-7ca9e95d.js",
+    "file": "assets/TownMap-1b30d3da.js",
     "imports": [
       "index.html",
-      "_regClass_V2-d7c3c36d.js"
+      "_Game-8c891a92.js",
+      "_manifest-25bc7615.js",
+      "_regClass_V2-b791814d.js",
+      "_CustomButton-e7bab110.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Maps/TownMap/TownMap.tsx"
@@ -799,7 +887,7 @@
     "css": [
       "assets/WorldMap-9ac435f7.css"
     ],
-    "file": "assets/WorldMap-a6005112.js",
+    "file": "assets/WorldMap-c00971c3.js",
     "imports": [
       "index.html"
     ],
@@ -829,11 +917,13 @@
     "css": [
       "assets/Marketplace-0201c4e3.css"
     ],
-    "file": "assets/Marketplace-7e99d2fe.js",
+    "file": "assets/Marketplace-ba3afd5c.js",
     "imports": [
       "index.html",
-      "_useQuery-3b25577a.js",
-      "_regClass_V2-d7c3c36d.js"
+      "_useQuery-b4f82590.js",
+      "_regClass_V2-b791814d.js",
+      "__updatePlayerData-5d12e083.js",
+      "_manifest-25bc7615.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Marketplace/src/Marketplace.jsx"

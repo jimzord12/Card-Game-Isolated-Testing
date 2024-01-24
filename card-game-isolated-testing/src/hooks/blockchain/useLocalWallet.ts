@@ -1,10 +1,13 @@
-import { HDNodeWallet, Wallet, ethers } from "ethers";
+import { Wallet } from "ethers";
+import { JsonRpcProvider } from "ethers";
+import { formatEther } from "ethers";
+import type { HDNodeWallet } from "ethers";
 import { useEffect, useState } from "react";
 import { loginWithWallet } from "../../../api/apiFns";
 import { useAuth } from "../auth/useAuth";
 
 function useLocalWallet() {
-  const provider = new ethers.JsonRpcProvider(
+  const provider = new JsonRpcProvider(
     "https://snf-34965.ok-kno.grnetcloud.net"
   );
 
@@ -93,7 +96,7 @@ function useLocalWallet() {
     if (wallet && provider) {
       const walletAddress = await wallet.getAddress();
       const balanceWei = await provider.getBalance(walletAddress);
-      const balanceEth = ethers.formatEther(balanceWei);
+      const balanceEth = formatEther(balanceWei);
       setBalance(balanceEth);
       return balanceEth;
     }
