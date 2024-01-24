@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 
 // Wrap those Raw images with this
 import GlowImage from "../../../GlowImage/GlowImage";
@@ -49,8 +43,8 @@ const PlaceholderREG = ({
 }: propsTypes) => {
   const [animate, setAnimate] = useState(false);
   const pushModal = useModalStore((state) => state.pushModal);
-  const modalId = useModalStore((state) => state.modalData.id);
-  const provideModalData = useModalStore((state) => state.provideModalData);
+  // const modalId = useModalStore((state) => state.modalData.id);
+  // const provideModalData = useModalStore((state) => state.provideModalData);
 
   const { images } = UseGlobalContext();
 
@@ -66,20 +60,13 @@ const PlaceholderREG = ({
   }, []);
 
   const handleOpenModal = useCallback(() => {
-    provideModalData({
-      id: id,
-      modalBg: images?.modal_backgrounds.levelUpRegBG,
-      modalLevel: null,
-      modalRarityOrName: "Pick A Card",
-      modalType: "standard",
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log("UseEffect For [R_PlaceHolder], ID: ", modalId);
-    if (modalId !== id) return;
     pushModal(<CardPickerModal type="reg" spot={spot} />);
-  }, [modalId]);
+  }, [pushModal, spot]);
+
+  // useEffect(() => {
+  //   console.log("UseEffect For [R_PlaceHolder], ID: ", modalId);
+  //   if (modalId !== id) return;
+  // }, [modalId]);
 
   return (
     <>

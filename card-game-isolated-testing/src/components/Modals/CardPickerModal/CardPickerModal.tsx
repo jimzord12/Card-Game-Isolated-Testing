@@ -16,8 +16,9 @@ import {
 import { getRandomNumberInRange } from "../../../utils/general/getRandomNumberInRange";
 import TemplateCard from "../../Cards/TemplateCard/TemplateCard";
 import ModalCloseBtn from "../BaseModalParts/ModalCloseBtn/ModalCloseBtn";
-import ModalRarityIndicator from "../BaseModalParts/ModalRarityIndicator/ModalRarityIndicator";
+import ModalRarityIndicator from "../BaseModalParts/ModalCenterLabel/ModalCenterLabel";
 import styles from "./cardPickerModalStyles.module.css";
+import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 
 type Props = {
   // type: Omit<CardType, "sp">;
@@ -27,8 +28,12 @@ type Props = {
 
 const CardPickerModal = ({ type, spot }: Props) => {
   const popModal = useModalStore((state) => state.popModal);
-  const modalBg = useModalStore((state) => state.modalData.modalBg);
   const addEntity = useTownMapStore((state) => state.addEntity);
+
+  const { images } = UseGlobalContext();
+
+  if (images === undefined)
+    throw new Error("⛔ CardPicker, images is undefined!");
 
   const [isClosing, setIsClosing] = useState(false);
   // const provideModalData = useModalStore((state) => state.provideModalData);
@@ -63,7 +68,11 @@ const CardPickerModal = ({ type, spot }: Props) => {
     <div className={modalClass}>
       <div
         style={{
-          background: `url(${modalBg})`,
+          background: `url(${
+            type === "reg"
+              ? images.modal_backgrounds.levelUpRegBG
+              : images.modal_backgrounds.levelUpBuildingBG
+          })`,
           backgroundSize: "cover",
           // backgroundAttachment: "fixed",
           // backgroundPosition: "center",
@@ -132,10 +141,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
       <div className={styles.modalElements}>
         <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />
         {/* <ModalLevelIndicator isClosing={isClosing} level={townhallLevel} /> */}
-        <ModalRarityIndicator
-          isClosing={isClosing}
-          rarityOrName={"Pick A Card"}
-        />
+        <ModalRarityIndicator isClosing={isClosing} label={"Pick A Card"} />
       </div>
     </div>
   );

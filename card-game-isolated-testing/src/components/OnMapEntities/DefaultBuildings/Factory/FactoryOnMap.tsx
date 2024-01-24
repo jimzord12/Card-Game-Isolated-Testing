@@ -3,6 +3,9 @@ import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContex
 import GlowImage from "../../../GlowImage/GlowImage";
 
 import "../defaultBuildings.css";
+import StandardModal from "../../../Modals/StandardModal/StandardModal";
+import { useModalStore } from "../../../../stores/modalStore";
+import { useGameVarsStore } from "../../../../stores/gameVars";
 
 interface Props {
   highlightedImg: number | null;
@@ -19,35 +22,37 @@ const FactoryOnMap = ({
 }: Props) => {
   const { images } = UseGlobalContext();
 
-  // const pushModal = useModalStore((state) => state.pushModal);
-  // const popModal = useModalStore((state) => state.popModal);
+  if (images === undefined)
+    throw new Error("⛔ FactoryOnMap, images is undefined!");
+
+  const pushModal = useModalStore((state) => state.pushModal);
+  const factoryLevel = useGameVarsStore((state) => state.factoryLevel);
 
   // This Renders the StandardModal
-  const handleOpenTownHallModal = useCallback(() => {
-    // pushModal(
-    //   <StandardModal
-    //     message="This is Diesel Factory [DIESEL FACTORY - Modal]"
-    //     // "onConfirm" is passed to Confirmation Modal
-    //     onConfirm={() => {
-    //       popModal();
-    //     }}
-    //     // "onCancel" is passed to Confirmation Modal
-    //     onCancel={() => {
-    //       popModal();
-    //     }}
-    //   />
-    // );
+  const handleOpenFactoryModal = useCallback(() => {
+    console.log("You Clicked On The Factory!");
+    pushModal(
+      <StandardModal
+        bgImage={images.modal_backgrounds.dieselFactoryBG}
+        contentScreens={[
+          <div style={{ fontSize: 42, color: "white" }}>
+            The Main Screen!!!
+          </div>,
+          <div style={{ fontSize: 42, color: "white" }}>Level Up Screen!!</div>,
+        ]}
+        contentType="factory"
+        label="Diesel Factory"
+        level={factoryLevel}
+      />
+    );
   }, []);
-
-  if (images === undefined)
-    throw new Error("⛔ TownHallOnMap, images is undefined!");
 
   return (
     <div
       className="defaultBuildingFactory"
       onClick={() => {
         setSelectedMapEntity(0o2);
-        handleOpenTownHallModal();
+        handleOpenFactoryModal();
       }}
     >
       <GlowImage

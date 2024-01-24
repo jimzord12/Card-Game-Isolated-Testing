@@ -10,6 +10,9 @@ export type BuildingName =
   | "Hospital"
   | "RadioStation";
 
+export type ActiveBuildings = "ToolStore" | "Hopsital";
+export type PassiveBuildings = "AmusementPark" | "RadioStation";
+
 export interface BuildingCardData
   extends Omit<CardData, "spot" | "templateId"> {
   spot: BuildingSpot;

@@ -3,19 +3,19 @@ import styles from "./modalRarity.module.css";
 
 interface Props {
   isClosing: boolean;
-  rarityOrName: number | string;
+  label: number | string;
 }
 
 const rarityMapping = ["Common", "Special", "Rare", "Mythic", "Legendary"];
 const rarityColors = ["#fff", "#39fc03", "#064ed4", "#ac1dcc", "#fc8403"];
 
-const ModalRarityIndicator = ({ isClosing, rarityOrName }: Props) => {
+const ModalCenterLabel = ({ isClosing, label }: Props) => {
   const { images } = UseGlobalContext();
   let rarityText = null;
   let rarityColor = "#fff";
-  if (typeof rarityOrName === "number") {
-    rarityText = rarityOrName ? rarityMapping[rarityOrName - 1] : null;
-    rarityColor = rarityColors[rarityOrName - 1];
+  if (typeof label === "number") {
+    rarityText = label ? rarityMapping[label - 1] : null;
+    rarityColor = rarityColors[label - 1];
   }
 
   const modalRarityClass = isClosing
@@ -23,20 +23,20 @@ const ModalRarityIndicator = ({ isClosing, rarityOrName }: Props) => {
     : `${styles.modalRarityContainer} ${styles.bounceInTop}`;
 
   if (images === undefined)
-    throw new Error("⛔ ModalRarityIndicator, images is undefined!");
+    throw new Error("⛔ ModalCenterLabel, images is undefined!");
 
   return (
     <div className={modalRarityClass}>
-      {rarityOrName !== null && (
+      {label !== null && (
         <>
           <img
             className={styles.modalRarityImg}
             src={images.labels.goldenStandardLabel}
             alt="Rarity Label"
           />
-          {typeof rarityOrName === "string" ? (
+          {typeof label === "string" ? (
             <h3 className={styles.rarityText} style={{ color: rarityColor }}>
-              {rarityOrName}
+              {label}
             </h3>
           ) : (
             <h3 className={styles.rarityText} style={{ color: rarityColor }}>
@@ -49,4 +49,4 @@ const ModalRarityIndicator = ({ isClosing, rarityOrName }: Props) => {
   );
 };
 
-export default ModalRarityIndicator;
+export default ModalCenterLabel;

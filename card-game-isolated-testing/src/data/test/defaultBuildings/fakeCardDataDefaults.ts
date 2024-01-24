@@ -2,11 +2,11 @@ import { DefaultBuildings } from "../../../types";
 
 export const fakeCardDataDefaults: DefaultBuildings[] = [
   {
-    name: "TownHall",
+    name: "townhall",
     level: 2,
   },
   {
-    name: "DieselFactory",
+    name: "factory",
     level: 3,
   },
 ];
