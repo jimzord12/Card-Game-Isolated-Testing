@@ -17,7 +17,7 @@ const ActionSectionBtn = ({
       className={
         isDisabled
           ? styles.glowOnHover.concat(" ", styles.disabled)
-          : styles.glowOnHover
+          : styles.glowOnHover.concat(" ", styles.rollInRight)
       }
       type="button"
       onClick={clickHandler}

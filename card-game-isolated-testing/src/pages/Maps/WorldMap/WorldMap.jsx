@@ -233,7 +233,7 @@ function WorldMap() {
     <div className="h-screen w-screen">
       {/* <IslandModal /> */}
       <MapContainer
-        style={{ height: "100%", width: "100%" }}
+        style={{ height: "100%", width: "100%", lineHeight: 0, border: "none" }}
         center={position}
         // style={{ position: 'fixed', zIndex: 1 }}
         zoom={5}
