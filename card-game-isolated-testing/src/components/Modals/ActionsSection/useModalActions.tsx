@@ -1,9 +1,11 @@
-import BuildingCard from "../../classes/buildingClass_V2";
-import RegCard from "../../classes/regClass_V2";
+import BuildingCard from "../../../classes/buildingClass_V2";
+import RegCard from "../../../classes/regClass_V2";
+import { useModalStore } from "../../../stores/modalStore";
 import {
   ActionsSectionAction,
   ActionsSectionType,
-} from "./ActionsSectionTypes";
+} from "../../../types/ModalTypes/ActionsSectionTypes";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import { levelUpScreenIndexes, modalWithManagement } from "./constants";
 
 interface createActionsProps {
@@ -11,27 +13,37 @@ interface createActionsProps {
   card: BuildingCard | RegCard | undefined;
   townhallLevel: number;
   factoryLevel: number;
-  currentScreen: number;
-  setCurrentScreen: React.Dispatch<React.SetStateAction<number>>;
+  currentScreenIndex: number;
+  setCurrentScreenIndex: React.Dispatch<React.SetStateAction<number>>;
   deactivate: () => void;
   levelUp: () => void;
 }
 
-const createActions = ({
+const useCreateActions = ({
   contentType,
   card,
   factoryLevel,
-  currentScreen,
+  currentScreenIndex,
   townhallLevel,
-  setCurrentScreen,
+  setCurrentScreenIndex,
   deactivate,
   levelUp,
 }: createActionsProps) => {
+  const pushModal = useModalStore((state) => state.pushModal);
+
   const handleLevelUp = (lvlUpScreenIndex: number) => {
-    if (currentScreen === lvlUpScreenIndex) {
-      levelUp();
+    if (currentScreenIndex === lvlUpScreenIndex) {
+      // TODO: Needs Styling! But it works! 👌
+      pushModal(
+        <ConfirmationModal
+          title="Level Up Confirmation"
+          message="Are you sure you want to perform the level up?"
+          onConfirm={levelUp}
+        />
+      );
+      // levelUp();
     } else {
-      setCurrentScreen(lvlUpScreenIndex);
+      setCurrentScreenIndex(lvlUpScreenIndex);
     }
   };
 
@@ -42,22 +54,22 @@ const createActions = ({
 
   const manageHospital: ActionsSectionAction = {
     label: "Manage",
-    handler: () => setCurrentScreen(1),
+    handler: () => setCurrentScreenIndex(1),
   };
 
   const manageToolStore: ActionsSectionAction = {
     label: "Upgrade",
-    handler: () => setCurrentScreen(1),
+    handler: () => setCurrentScreenIndex(1),
   };
 
   const manageTownHall: ActionsSectionAction = {
     label: "Manage Workers",
-    handler: () => setCurrentScreen(1),
+    handler: () => setCurrentScreenIndex(1),
   };
 
   const goBack: ActionsSectionAction = {
     label: "Go Back",
-    handler: () => setCurrentScreen(0),
+    handler: () => setCurrentScreenIndex(0),
   };
 
   // Level Up Actions
@@ -127,13 +139,14 @@ const createActions = ({
     }
   })();
 
-  if (modalWithManagement.includes(contentType) && currentScreen > 0) {
+  if (modalWithManagement.includes(contentType) && currentScreenIndex > 0) {
     // actions.pop();
     actions[actions.length - 1] = goBack;
-  } else if (currentScreen !== 0) {
+  } else if (currentScreenIndex !== 0) {
     actions.push(goBack);
   }
 
   return actions;
 };
-export { createActions };
+
+export default useCreateActions;

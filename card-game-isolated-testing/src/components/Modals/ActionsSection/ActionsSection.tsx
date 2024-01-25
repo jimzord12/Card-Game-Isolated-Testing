@@ -13,12 +13,12 @@ import styles from "./styles.module.css";
 import type { AxiosError } from "axios";
 import { CardLevel, Level } from "../../../types";
 import { useGameVarsStore } from "../../../stores/gameVars";
-import { createActions } from "../../../types/ModalTypes/modalActions";
+import useModalActions from "./useModalActions";
 
 interface ActionsSectionProps {
   contentType: ActionsSectionType;
-  setCurrentScreen: Dispatch<SetStateAction<number>>;
-  currentScreen: number;
+  setCurrentScreenIndex: Dispatch<SetStateAction<number>>;
+  currentScreenIndex: number;
   setCardLevel: Dispatch<SetStateAction<Level | CardLevel>>;
   card?: BuildingCard | RegCard;
   handleCloseModal: () => void;
@@ -27,10 +27,10 @@ interface ActionsSectionProps {
 const ActionsSection = ({
   contentType,
   card,
-  setCurrentScreen,
-  currentScreen,
+  setCurrentScreenIndex,
+  currentScreenIndex,
   setCardLevel,
-  handleCloseModal
+  handleCloseModal,
 }: ActionsSectionProps) => {
   const removeEntityFromMap = useTownMapStore((state) => state.removeEntity);
   const addCardToInventory = useAllCardsStore(
@@ -55,7 +55,7 @@ const ActionsSection = ({
       // 4. Add Card to Inventory
       addCardToInventory(card);
       console.log("⚡+✅ - In Frontend: Card Successfully Deactivated: ", card);
-      
+
       handleCloseModal();
 
       // Regarding Server Side:
@@ -119,13 +119,13 @@ const ActionsSection = ({
     }
   }
 
-  const actions = createActions({
+  const actions = useModalActions({
     contentType,
     card,
     deactivate,
     levelUp,
-    currentScreen,
-    setCurrentScreen,
+    currentScreenIndex,
+    setCurrentScreenIndex,
     townhallLevel,
     factoryLevel,
   });

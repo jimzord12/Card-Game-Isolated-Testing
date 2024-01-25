@@ -17,9 +17,7 @@ interface propsTypes {
   highlightedImg: number | null;
   handleHover: (id: number) => void;
   handleLeave: (id: number) => void;
-  //TODO: Entity's Type goes here
   setSelectedMapEntity: Dispatch<SetStateAction<number | null>>;
-  //   imageDetails: ImageDetail[];
   id: number;
   isLocked: boolean;
   spot: RegSpot;

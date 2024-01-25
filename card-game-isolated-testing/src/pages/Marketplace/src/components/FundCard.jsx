@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useStateContext } from "../context";
-//TODO: 💥 Have to use Zustang store instead of Context API
+//TODO_DONE ✅: 💥 Have to use Zustang store instead of Context API
 import { cardInfo } from "../constants/index";
 import { CustomButton } from "../components/index";
 

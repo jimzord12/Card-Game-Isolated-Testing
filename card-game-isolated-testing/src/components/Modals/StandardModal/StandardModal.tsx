@@ -40,7 +40,7 @@ const StandardModal = ({
   const popModal = useModalStore((state) => state.popModal);
   // const modalBg = useModalStore((state) => state.modalData.modalBg);
   const [isClosing, setIsClosing] = useState(false);
-  const [currentScreen, setCurrentScreen] = useState(0);
+  const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const [cardLevel, setCardLevel] = useState<Level | CardLevel>(level); // ✨ I am using this React State to dynamically change the level of the card in the modal
 
   const handleClose = () => {
@@ -67,15 +67,15 @@ const StandardModal = ({
 
       <div className={styles.anotherContainer}>
         <div className={styles.layoutContainer}>
-          {contentScreens[currentScreen]}
+          {contentScreens[currentScreenIndex]}
         </div>
 
         <div className={styles.actionButtonsContainer}>
           <ActionsSection
             contentType={contentType}
             card={card}
-            setCurrentScreen={setCurrentScreen}
-            currentScreen={currentScreen}
+            setCurrentScreenIndex={setCurrentScreenIndex}
+            currentScreenIndex={currentScreenIndex}
             setCardLevel={setCardLevel}
             handleCloseModal={handleClose}
           />

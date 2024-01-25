@@ -1,8 +1,11 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
-import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
-import { TownMapEntitiesData } from "../../../types";
-import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
-import GlowImage from "../../GlowImage/GlowImage";
+// import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
+import { BuildingSpot, TownMapEntitiesData } from "../../../types";
+import {
+  isBuildingCard,
+  isBuildingSpot,
+} from "../../../types/TypeGuardFns/BuildingGuards";
+// import GlowImage from "../../GlowImage/GlowImage";
 import "./buildings.css";
 
 import { useModalStore } from "../../../stores/modalStore";
@@ -12,6 +15,7 @@ import BuildingCard from "../../../classes/buildingClass_V2";
 import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 import { getModalBgImage } from "../../../utils/game/getModalBgImage";
 import { isActiveBuilding } from "../../../types/TypeGuardFns/isActiveBuilding";
+import BuildingOnMap from "./BuildingOnMap";
 
 interface Props {
   highlightedImg: number | null;
@@ -94,7 +98,7 @@ const BuildingsOnMap = ({
         );
       }
     },
-    [pushModal]
+    [images?.modal_backgrounds, pushModal]
   );
   return (
     <div>
@@ -103,26 +107,40 @@ const BuildingsOnMap = ({
         card?.type === undefined ||
         card?.type !== "building" ||
         !isBuildingCard(card) ? null : (
-          // TODO: START - Make this a seperate Component, BuildingOnMap
-          <div
+          <BuildingOnMap
+            card={card}
+            handleHover={handleHover}
+            handleLeave={handleLeave}
+            highlightedImg={highlightedImg}
+            handleOpenStandardModal={handleOpenStandardModal}
+            setSelectedMapEntity={setSelectedMapEntity}
+            spot={
+              isBuildingSpot(parseInt(spot))
+                ? (parseInt(spot) as BuildingSpot)
+                : null
+            }
             key={card.id}
-            className={`buildingSpot${spot}`}
-            onClick={() => {
-              // At this point we can manage the card...
-              setSelectedMapEntity(card.id);
-              handleOpenStandardModal(card);
-            }}
-          >
-            <GlowImage
-              key={card.id}
-              src={cardUrlsWithShadow.buildings[card.name]}
-              alt={card.name}
-              isHovered={highlightedImg === card.id}
-              onHover={() => handleHover(card.id)}
-              onLeave={() => handleLeave(card.id)}
-            />
-          </div>
-          // END - Make this a seperate Component, BuildingOnMap
+          />
+          // // TODO_DONE ✅: START - Make this a seperate Component, BuildingOnMap
+          // <div
+          //   key={card.id}
+          //   className={`buildingSpot${spot}`}
+          //   onClick={() => {
+          //     // At this point we can manage the card...
+          //     setSelectedMapEntity(card.id);
+          //     handleOpenStandardModal(card);
+          //   }}
+          // >
+          //   <GlowImage
+          //     key={card.id}
+          //     src={cardUrlsWithShadow.buildings[card.name]}
+          //     alt={card.name}
+          //     isHovered={highlightedImg === card.id}
+          //     onHover={() => handleHover(card.id)}
+          //     onLeave={() => handleLeave(card.id)}
+          //   />
+          // </div>
+          // // END - Make this a seperate Component, BuildingOnMap
         )
       )}
     </div>

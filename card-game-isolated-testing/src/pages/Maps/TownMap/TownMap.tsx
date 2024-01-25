@@ -37,9 +37,7 @@ const TownMap = () => {
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ TownMap: images are undefined!");
 
-  // 🧪 For Testing
-  // useEffect(() => {
-  // }, []);
+  const OnMapEntitiesTypes = ["building", "reg", "default"] as const;
 
   useEffect(() => {
     if (selectedMapEntity === null) return;
@@ -80,17 +78,21 @@ const TownMap = () => {
           {/* >>> PLACEHOLDERS <<< */}
           <Placeholders {...templateGrpProps} townhallLevel={townHallLevel} />
 
-          {/* TODO: Make a an string Array ["building", "reg", "default"]
-          and loop through it, to DRY the code */}
+          {OnMapEntitiesTypes.map((entityType) => (
+            <EntityTemplateGroup
+              {...templateGrpProps}
+              entityType={entityType}
+            />
+          ))}
 
           {/* >>> BUILDINGS <<< */}
-          <EntityTemplateGroup {...templateGrpProps} entityType="building" />
+          {/* <EntityTemplateGroup {...templateGrpProps} entityType="building" /> */}
 
           {/* >>> REGS <<< */}
-          <EntityTemplateGroup {...templateGrpProps} entityType="reg" />
+          {/* <EntityTemplateGroup {...templateGrpProps} entityType="reg" /> */}
 
           {/* >>> DEFAULT BUILDINGS <<< */}
-          <EntityTemplateGroup {...templateGrpProps} entityType="default" />
+          {/* <EntityTemplateGroup {...templateGrpProps} entityType="default" /> */}
 
           {/* >>> TREES & BUSHES <<< */}
           <TreesOnMap images={images} />

@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
 
 import ScoreRow from "./ScoreRow.jsx";
-
-import { getAllPlayers, getPlayerByWallet } from "../../../../api/apiFns";
 
 import {
   sortedPlayers,
@@ -11,32 +8,21 @@ import {
   AlternatingBackground,
 } from "./utils.js";
 
-const ScoreRows = () => {
+const ScoreRows = ({ AllPlayersQuery, fetchedPlayerQuery }) => {
   const {
     data: players,
     isSuccess,
-    isLoading,
     isError,
+    isLoading,
     error,
-    // refetch: refectAll,
-  } = useQuery({
-    queryKey: ["players-lb"],
-    queryFn: getAllPlayers,
-  });
-
-  //TODO: 💥 Have to use Zustang store instead of Context API
-  const testingAddress = "0xe63761bfe4599aab4a7d4cfbb2229103199b3631"; // // TODO: Remove this
-
+  } = AllPlayersQuery;
   const {
     data: fetchedPlayer,
     isSuccess: fetchedPlayerSuccess,
     isLoading: fetchedPlayerIsLoading,
     isError: fetchedPlayerIsError,
     error: fetchedPlayerError,
-  } = useQuery({
-    queryKey: ["fetchPlayer-lb"],
-    queryFn: () => getPlayerByWallet(testingAddress),
-  });
+  } = fetchedPlayerQuery;
 
   useEffect(() => {
     if (isSuccess && fetchedPlayerSuccess) {

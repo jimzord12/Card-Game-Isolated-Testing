@@ -46,6 +46,8 @@ const playerMarker = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
+// TODO: 🔷 World Map Component needs Work!
+
 function WorldMap() {
   const [playerIsland /*, setPlayerIsland*/] = useState("Sardinia");
 
@@ -226,7 +228,7 @@ function WorldMap() {
   //   return null;
   // }
 
-  // TODO: Create an Island Modal Component
+  // TODO: 🔷 Create an Island Modal Component
   return (
     <div className="h-screen w-screen">
       {/* <IslandModal /> */}

@@ -21,7 +21,6 @@ function useLocalWallet() {
     async function automaticLogin() {
       try {
         const { success, walletAddress } = retrieveWallet();
-        //TODO: Use the Wallet Address to get the User Data. Use an api funtion.
         if (success) {
           console.log(
             "✅ - Local Wallet Discovery Success. Retrieving User Data..."

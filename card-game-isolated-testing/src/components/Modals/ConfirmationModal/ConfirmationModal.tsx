@@ -3,12 +3,18 @@ import { useModalStore } from "../../../stores/modalStore";
 import styles from "./confirmationModalStyles.module.css";
 
 type Props = {
-  onConfirm: () => void;
-  onCancel: () => void;
   message: string;
+  title: string;
+  onConfirm: () => void;
+  onCancel?: () => void;
 };
 
-const ConfirmationModal = ({ onConfirm, onCancel, message }: Props) => {
+const ConfirmationModal = ({
+  title,
+  message,
+  onConfirm,
+  onCancel = () => {},
+}: Props) => {
   // const [isClosing, setIsClosing] = useState(false);
   const popModal = useModalStore((state) => state.popModal);
   // const provideModalData = useModalStore((state) => state.provideModalData);
@@ -32,16 +38,18 @@ const ConfirmationModal = ({ onConfirm, onCancel, message }: Props) => {
     // provideModalData({ modalType: "standard" });
     popModal();
     // handleClose();
-  }, []);
+  }, [onCancel, popModal]);
 
   // const modalClass = isClosing
   //   ? `${styles.confirmationModal} ${styles.slideOutEllipticTopBck}`
   //   : styles.confirmationModal;
 
+  // TODO: Needs Styling! But it works! 👌
   return (
     <div className={styles.confirmationModal}>
       <div className={styles.background}>
         <div className={styles.content}>
+          <h2>{title}</h2>
           <p>{message}</p>
           <div className={styles.buttons}>
             <button onClick={confirmHandler}>Confirm</button>

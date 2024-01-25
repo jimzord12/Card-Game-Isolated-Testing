@@ -26,7 +26,7 @@ import SadIcon from "./gameIcons-sadFaceGameIcon.webp";
 
 // Score
 import RankIcon from "./gameIcons-rankGameIcon.webp";
-//TODO: Clean Env Meter!
+//TODO: ADD -> Clean Env Meter!
 
 // Spacing
 import BuildingsSpaceIcon from "./gameIcons-buildingsSpaceGameIcon.webp";
