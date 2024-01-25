@@ -1,0 +1,41 @@
+.progress-container {
+  position: relative;
+  min-width: 500px;
+  min-height: 50px;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: blue;
+  /* color: white; Text color when overlapped by the progress bar */
+  /* display: flex; */
+  /* align-items: center; Vertically center */
+  /* justify-content: center; Horizontally center */
+  transition: width 0.5s ease; /* Smooth transition for width */
+}
+
+.span-abs {
+  /* position: absolute; */
+  z-index: 1;
+  text-align: center;
+  font-size: x-large;
+  mix-blend-mode: difference; /* This makes the text change color */
+}
+
+/* Text color when not overlapped by the progress bar */
+.progress-container::before {
+  /* content: "Loading"; */
+  position: absolute;
+  left: 50%; /* Adjust as needed */
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  pointer-events: none; /* Allows clicks to pass through */
+}

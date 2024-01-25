@@ -1,13 +1,28 @@
 import styles from "./actionSectionBtnStyles.module.css";
 
-interface Props {
+export interface ActionSectionBtnProps {
   text: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   clickHandler: ((any: any) => void) | (() => void);
+  isDisabled?: boolean;
 }
 
-const ActionSectionBtn = ({ text, clickHandler }: Props) => {
+const ActionSectionBtn = ({
+  text,
+  clickHandler,
+  isDisabled = false,
+}: ActionSectionBtnProps) => {
   return (
-    <button className={styles.glowOnHover} type="button" onClick={clickHandler}>
+    <button
+      className={
+        isDisabled
+          ? styles.glowOnHover.concat(" ", styles.disabled)
+          : styles.glowOnHover.concat(" ", styles.rollInRight)
+      }
+      type="button"
+      onClick={clickHandler}
+      disabled={isDisabled}
+    >
       {text}
     </button>
   );

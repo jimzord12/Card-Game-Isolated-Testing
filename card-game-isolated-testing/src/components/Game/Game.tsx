@@ -53,6 +53,14 @@ const Game = () => {
                   handleClick={() => navigate("/marketplace/")}
                 />
               </div>
+              <div className="z-[401] absolute top-44 left-20">
+                <CustomButton
+                  title="Leaderboard"
+                  restStyles="bg-violet-500 hover:bg-violet-700"
+                  handleClick={() => navigate("/leaderboard/")}
+                />
+              </div>
+
               <ModalProvider>
                 {mapToDisplay === "town" && <TownMap />}
                 {mapToDisplay === "world" && <WorldMap />}

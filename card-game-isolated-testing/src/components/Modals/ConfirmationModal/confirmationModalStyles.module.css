@@ -1,20 +1,32 @@
 .confirmationModal {
-  color: red;
-  min-width: 220px;
-  min-height: 120px;
+  color: black;
+  font-size: larger;
+  background: #000;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px 2px #0000008d;
+  width: 400px;
+  height: 200px;
 }
 
 .background {
   display: flex;
+  border: solid 2px black;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #30e8bf, #ff8235);
+  background-color: #85ffbd;
+  background-image: linear-gradient(
+    17deg,
+    #85ffbd 0%,
+    #fffb7d 72%,
+    #14d2bb 100%
+  );
+
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0%;
   left: 0%;
-  border-radius: 4px;
+  border-radius: 15px;
 }
 
 .content {
@@ -22,13 +34,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  transform: translateY(-20%);
+  /* transform: translateY(-20%); */
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: x-large;
+  font-weight: 500;
+  margin-bottom: 16px;
+  text-decoration: underline;
+}
+
+.message {
+  font-weight: 500;
 }
 
 .buttons {
   display: flex;
+  margin-top: 42px;
   justify-content: space-between;
-  gap: 8px;
+  gap: 54px;
 }
 
 .slideOutEllipticTopBck {
@@ -45,5 +70,25 @@
     transform: translateY(-600px) rotateX(-30deg) scale(0);
     transform-origin: 50% 100%;
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .confirmationModal {
+    width: 300px;
+    height: 200px;
+  }
+
+  .title {
+    margin-bottom: 16px;
+  }
+
+  .buttons {
+    margin-top: 16px;
+  }
+
+  .message {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

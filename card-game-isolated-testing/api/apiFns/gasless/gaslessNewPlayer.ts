@@ -1,11 +1,11 @@
 import axios from "../../apiConfig";
-import { ethers } from "ethers";
+import type { TransactionResponse } from "ethers";
 
 const GIVE_ETH_NEW_PLAYER = "gasless/register";
 
 interface ResponseData {
   message: string;
-  tx: ethers.TransactionResponse;
+  tx: TransactionResponse;
 }
 
 export const gaslessNewPlayer = async (

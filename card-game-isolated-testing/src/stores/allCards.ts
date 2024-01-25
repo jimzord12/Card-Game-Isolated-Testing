@@ -13,21 +13,40 @@ type Card = BuildingCard | RegCard | SPCard;
 
 interface AllCardsState {
   cards: Card[];
+  inventory: Card[];
   addCard: (card: Card) => void;
   removeCard: (card: Card) => void;
+  addCardToInventory: (card: Card) => void;
+  removeCardFromInventory: (card: Card) => void;
 }
 
 export const useAllCardsStore = create<AllCardsState>((set) => ({
   cards: [], // ✨ The Initial State comes from the Server/DB
+  inventory: [], // ✨ The Initial State comes from the Server/DB
 
+  // ✨ By Crafting one
   addCard: (card: Card) =>
     set((state) => ({
       ...state,
       cards: [...state.cards, card],
     })),
+
+  // ✨ By Selling one
   removeCard: (card: Card) =>
     set((state) => ({
       ...state,
       cards: state.cards.filter((_card) => card.id !== _card.id),
+    })),
+
+  addCardToInventory: (card: Card) =>
+    set((state) => ({
+      ...state,
+      inventory: [...state.inventory, card],
+    })),
+
+  removeCardFromInventory: (card: Card) =>
+    set((state) => ({
+      ...state,
+      inventory: state.inventory.filter((_card) => card.id !== _card.id),
     })),
 }));

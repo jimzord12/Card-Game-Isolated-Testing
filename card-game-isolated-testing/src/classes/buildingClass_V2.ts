@@ -154,6 +154,7 @@ export default class BuildingCard {
 
   public deactivate(): void {
     this.state = false;
+    this.spot = 0;
   }
 
   public setOwner(newOwnerId: number): void {

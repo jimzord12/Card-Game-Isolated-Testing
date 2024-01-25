@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import BareBonesModal from "../../components/Modals/BareBonesModal/BareBonesModal";
+import type { ReactNode } from "react";
+import Backdrop from "../../components/Modals/Backdrop/Backdrop";
 import { useModalStore } from "../../stores/modalStore";
 
 interface Props {
@@ -13,9 +13,9 @@ const ModalProvider = ({ children }: Props) => {
     <>
       {children}
       {modals.map((Content, index) => (
-        <BareBonesModal key={index} index={index}>
+        <Backdrop key={index} index={index}>
           {Content}
-        </BareBonesModal>
+        </Backdrop>
       ))}
     </>
   );

@@ -6,9 +6,10 @@ const PUT_UPDATE_CARD_DATA_URL = "cards";
 
 interface ICardDataToUpdate {
   id: number; // Card's ID
-  state?: 0;
-  endDate?: 0;
-  level?: 0;
+  state?: number;
+  endDate?: number;
+  level?: number;
+  on_map_spot?: number | null;
 }
 export const updateCardData = async (
   cardData: ICardDataToUpdate

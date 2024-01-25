@@ -26,7 +26,7 @@ import SadIcon from "./Sad.webp";
 
 // Score
 import RankIcon from "./Rank_Icon.webp";
-//TODO: Clean Env Meter!
+//TODO: 🔷 Clean Env Meter!
 
 // Spacing
 import BuildingsSpaceIcon from "./Building_Space_Icon_TRANS.webp";

@@ -12,15 +12,12 @@ import {
 } from "../../../types";
 
 interface props {
-  // images: PlaceholderImageDetail[];
   townhallLevel: Level;
   mapEntities: TownMapEntitiesData;
   highlightedImg: number | null;
   handleHover: (id: number) => void;
   handleLeave: (id: number) => void;
-  //TODO: Entity's Type goes here
   setSelectedMapEntity: Dispatch<SetStateAction<number | null>>;
-  //   imageDetails: ImageDetail[];
 }
 
 const Placeholders = ({

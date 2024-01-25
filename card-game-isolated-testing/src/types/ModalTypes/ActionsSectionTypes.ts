@@ -1,11 +1,15 @@
 export type ActionsSectionType =
   | "building-passive"
-  | "building-active"
+  | "toolStore"
+  | "hospital"
   | "reg"
   | "townhall"
   | "factory";
 
 export type ActionsSectionAction = {
-  text: string;
+  label: string;
+  // handler: ((any: any) => void) | (() => void);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handler: ((any: any) => void) | (() => void);
+  isDisabled?: boolean;
 };

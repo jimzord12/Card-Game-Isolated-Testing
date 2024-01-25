@@ -99,7 +99,7 @@ type MenusImageGroup = {
   spsMenu: string;
 };
 
-type ModalBackgroundsImageGroup = {
+export type ModalBackgroundsImageGroup = {
   amusementParkBG: string;
   dieselFactoryBG: string;
   hospitalBG: string;

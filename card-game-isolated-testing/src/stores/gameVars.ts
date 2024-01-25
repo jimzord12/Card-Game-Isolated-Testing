@@ -5,12 +5,14 @@ import { IPlayerDB } from "../types/PlayerTypes/Player";
 type GameVarsState = {
   player: IPlayerDB | null;
   townhallLevel: Level;
+  factoryLevel: Level;
   happiness: number;
   totalPop: number;
   setPlayer: (player: IPlayerDB) => void;
   setTotalPop: (totalPop: number) => void;
   setHappiness: (fn: number | ((currentHappiness: number) => number)) => void;
   setTownhallLevel: (fn: Level | ((currentTHLevel: Level) => Level)) => void;
+  setFactoryLevel: (fn: Level | ((currentFactoryLevel: Level) => Level)) => void;
 };
 
 // This store manages the global game variables.
@@ -19,6 +21,7 @@ type GameVarsState = {
 export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   player: null,
   townhallLevel: 1,
+  factoryLevel: 1,
   happiness: 25,
   totalPop: 100,
   setPlayer: (player: IPlayerDB) => set({ player }),
@@ -31,4 +34,9 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
     set((state) => ({
       townhallLevel: typeof fn === "function" ? fn(state.townhallLevel) : fn,
     })),
+  setFactoryLevel: (fn: Level | ((currentFactoryLevel: Level) => Level)) => {
+    set((state) => ({
+      factoryLevel: typeof fn === "function" ? fn(state.factoryLevel) : fn,
+    }));
+  },
 }));

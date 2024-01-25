@@ -206,7 +206,7 @@ const CardDetails = () => {
       <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
         <div className="flex-1 flex-col">
           <img
-            // TODO: Fix for Production
+            // TODO_DONE ✅: Fix for Production
             src={import.meta.env.VITE_HOST_URL + cardDetails.image}
             // src={cardDetails.image}
             alt="campaign"

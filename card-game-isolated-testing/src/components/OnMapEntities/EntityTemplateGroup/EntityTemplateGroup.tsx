@@ -15,7 +15,9 @@ interface Props {
   mapEntities: TownMapEntitiesData;
   entityType: EntityType;
 }
-
+/**
+ * @futureImprovement_1 Create 3 EntityTemplateGroups, one for each type of Entity (Building, Reg, Default). This will make the code more readable and easier to follow.
+ */
 const EntityTemplateGroup = ({
   highlightedImg,
   handleHover,
@@ -24,37 +26,25 @@ const EntityTemplateGroup = ({
   mapEntities,
   entityType,
 }: Props) => {
+  const props = {
+    highlightedImg,
+    handleHover,
+    handleLeave,
+    setSelectedMapEntity,
+  };
+
   return (
     <div>
       {
         <>
           {entityType === "building" && (
-            <BuildingsOnMap
-              highlightedImg={highlightedImg}
-              handleHover={handleHover}
-              handleLeave={handleLeave}
-              setSelectedMapEntity={setSelectedMapEntity}
-              mapEntities={mapEntities}
-            />
+            <BuildingsOnMap {...props} mapEntities={mapEntities} />
           )}
 
           {entityType === "reg" && (
-            <RegsOnMap
-              highlightedImg={highlightedImg}
-              handleHover={handleHover}
-              handleLeave={handleLeave}
-              setSelectedMapEntity={setSelectedMapEntity}
-              mapEntities={mapEntities}
-            />
+            <RegsOnMap {...props} mapEntities={mapEntities} />
           )}
-          {entityType === "default" && (
-            <DefaultBuildingsOnMap
-              highlightedImg={highlightedImg}
-              handleHover={handleHover}
-              handleLeave={handleLeave}
-              setSelectedMapEntity={setSelectedMapEntity}
-            />
-          )}
+          {entityType === "default" && <DefaultBuildingsOnMap {...props} />}
         </>
       }
     </div>

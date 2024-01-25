@@ -5,12 +5,25 @@ import { useNavigate } from "react-router-dom";
 import ScoreRows from "../../components/_LeaderboardComps_/ScoreRows/ScoreRows";
 import "./Leaderboard.styles.css";
 
+import { useQuery } from "@tanstack/react-query";
+import { getAllPlayers, getPlayerByWallet } from "../../../api/apiFns";
+
+import { useGameVarsStore } from "../../stores/gameVars";
+
 function Leaderboard() {
   const navigate = useNavigate();
 
-  function handleRefresh() {
-    window.location.reload();
-  }
+  const playerData = useGameVarsStore((state) => state.player);
+
+  const AllPlayersQuery = useQuery({
+    queryKey: ["players-lb"],
+    queryFn: getAllPlayers,
+  });
+
+  const fetchedPlayerQuery = useQuery({
+    queryKey: ["fetchPlayer-lb"],
+    queryFn: () => getPlayerByWallet(playerData.wallet),
+  });
 
   return (
     <div className="root">
@@ -30,13 +43,16 @@ function Leaderboard() {
                 className="btn-score-submit"
                 type="button"
                 id="btn-refresh"
-                onClick={handleRefresh}
+                onClick={AllPlayersQuery.refetch}
               >
                 Refresh <i className="bi bi-arrow-repeat"></i>
               </button>
             </div>
             <div className="score-list-box">
-              <ScoreRows />
+              <ScoreRows
+                AllPlayersQuery={AllPlayersQuery}
+                fetchedPlayerQuery={fetchedPlayerQuery}
+              />
             </div>
             <p className="fetch-error"></p>
           </div>

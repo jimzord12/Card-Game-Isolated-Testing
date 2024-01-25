@@ -2,21 +2,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "../../context/AuthContext/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import HomePagePOC from "../Utility/HomePagePOC";
+// import HomePagePOC from "../Utility/HomePagePOC";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { Suspense } from "react";
-// import Leaderboard from "../../pages/Leaderboard/Leaderboard";
-// import Marketplace from "../../pages/Marketplace/src/Marketplace";
-import Game from "../Game/Game";
-// import WorldMap from "../../pages/Maps/WorldMap/WorldMap";
-// import TownMap from "../../pages/Maps/TownMap/TownMap";
 import NotFoundPage from "../../pages/NotFound/NotFound";
 
 const queryClient = new QueryClient();
 
-//TODO: Add <Suspense fallback={<LoadingPage />}> to the Routes below
-//TODO: Use dynamic imports for the Routes below. This will allow for code splitting and faster load times.
+const HomePagePOC = React.lazy(() => import("../Utility/HomePagePOC"));
 
 const Marketplace = React.lazy(
   () => import("../../pages/Marketplace/src/Marketplace")
@@ -24,7 +18,7 @@ const Marketplace = React.lazy(
 const Leaderboard = React.lazy(
   () => import("../../pages/Leaderboard/Leaderboard")
 );
-// const Game = React.lazy(() => import("../Game/Game")); ✨ Temporarily disabled ✨
+const Game = React.lazy(() => import("../Game/Game"));
 
 const EntryPoint = () => {
   return (

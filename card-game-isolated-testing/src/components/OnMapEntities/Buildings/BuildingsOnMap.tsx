@@ -1,13 +1,21 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
-import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
-import { BuildingName, TownMapEntitiesData } from "../../../types";
-import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
-import GlowImage from "../../GlowImage/GlowImage";
+// import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
+import { BuildingSpot, TownMapEntitiesData } from "../../../types";
+import {
+  isBuildingCard,
+  isBuildingSpot,
+} from "../../../types/TypeGuardFns/BuildingGuards";
+// import GlowImage from "../../GlowImage/GlowImage";
 import "./buildings.css";
 
 import { useModalStore } from "../../../stores/modalStore";
-import { ActionsSectionAction } from "../../../types/ModalTypes/ActionsSectionTypes";
 import StandardModal from "../../Modals/StandardModal/StandardModal";
+import { rarityToString } from "../../../utils/game/rarityToString";
+import BuildingCard from "../../../classes/buildingClass_V2";
+import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
+import { getModalBgImage } from "../../../utils/game/getModalBgImage";
+import { isActiveBuilding } from "../../../types/TypeGuardFns/isActiveBuilding";
+import BuildingOnMap from "./BuildingOnMap";
 
 interface Props {
   highlightedImg: number | null;
@@ -17,20 +25,6 @@ interface Props {
   mapEntities: TownMapEntitiesData;
 }
 
-const buildingActions = (cardName: BuildingName): ActionsSectionAction[] => {
-  if (cardName === "AmusementPark" || cardName === "RadioStation") {
-    return [
-      { text: "Level Up", handler: () => {} },
-      { text: "Manage Workers", handler: () => {} },
-    ];
-  } else {
-    return [
-      { text: "Level Up", handler: () => {} },
-      { text: "Manage Workers", handler: () => {} },
-    ];
-  }
-};
-
 const BuildingsOnMap = ({
   highlightedImg,
   handleHover,
@@ -39,51 +33,72 @@ const BuildingsOnMap = ({
   mapEntities,
 }: Props) => {
   const pushModal = useModalStore((state) => state.pushModal);
+  const { images } = UseGlobalContext();
+  if (images?.modal_backgrounds === undefined)
+    throw new Error("⛔ BuildingsOnMap: images are undefined!");
 
   const handleOpenStandardModal = useCallback(
-    (cardName: BuildingName /*cardId: number*/) => {
-      if (cardName === "AmusementPark" || cardName === "RadioStation") {
-        {
-          /* TODO: Make This for PASSIVE Buildings*/
-        }
+    (selectedCard: BuildingCard) => {
+      const modalsProps = {
+        label: rarityToString(selectedCard.rarity),
+        bgImage: images?.modal_backgrounds[getModalBgImage(selectedCard.name)],
+        level: selectedCard.level,
+        card: selectedCard,
+      };
 
-        pushModal(
-          <StandardModal
-            level={1}
-            rarityOrName={1}
-            actions={buildingActions(cardName)}
-            // onConfirm={() => {
-            //   console.log("✅ You pressed the Confirm Button!");
-            // }}
-            // onCancel={() => {
-            //   console.log("❌ You pressed the Cancel Button!");
-            // }}
-          >
-            <div></div>
-          </StandardModal>
-        );
-      } else {
-        {
-          /* TODO: Make This for ACTIVE Buildings*/
+      if (isActiveBuilding(selectedCard.name)) {
+        if (selectedCard.name === "ToolStore") {
+          pushModal(
+            <StandardModal
+              {...modalsProps}
+              contentType="toolStore"
+              contentScreens={[
+                <div style={{ fontSize: 42, color: "white" }}>
+                  toolStore Main Screen #1
+                </div>,
+                <div style={{ fontSize: 42, color: "white" }}>
+                  toolStore Mangement Screen #2
+                </div>,
+                <div style={{ fontSize: 42, color: "white" }}>
+                  toolStore Level Up Screen #3
+                </div>,
+              ]}
+            />
+          );
+        } else if (selectedCard.name === "Hospital") {
+          pushModal(
+            <StandardModal
+              {...modalsProps}
+              contentType="hospital"
+              contentScreens={[
+                <div style={{ fontSize: 42, color: "white" }}>
+                  Hospital Main Screen #1
+                </div>,
+                <div style={{ fontSize: 42, color: "white" }}>
+                  Hospital Management Screen #2
+                </div>,
+                <div style={{ fontSize: 42, color: "white" }}>
+                  Hospital Level Up Screen #3
+                </div>,
+              ]}
+            />
+          );
         }
+      } else {
         pushModal(
           <StandardModal
-            level={1}
-            rarityOrName={1}
-            actions={buildingActions(cardName)}
-            // onConfirm={() => {
-            //   console.log("✅ You pressed the Confirm Button!");
-            // }}
-            // onCancel={() => {
-            //   console.log("❌ You pressed the Cancel Button!");
-            // }}
-          >
-            <div></div>
-          </StandardModal>
+            {...modalsProps}
+            contentType="building-passive"
+            contentScreens={[
+              <div style={{ fontSize: 42, color: "white" }}>
+                PassiveB Screen #1
+              </div>,
+            ]}
+          />
         );
       }
     },
-    [pushModal]
+    [images?.modal_backgrounds, pushModal]
   );
   return (
     <div>
@@ -92,23 +107,40 @@ const BuildingsOnMap = ({
         card?.type === undefined ||
         card?.type !== "building" ||
         !isBuildingCard(card) ? null : (
-          <div
+          <BuildingOnMap
+            card={card}
+            handleHover={handleHover}
+            handleLeave={handleLeave}
+            highlightedImg={highlightedImg}
+            handleOpenStandardModal={handleOpenStandardModal}
+            setSelectedMapEntity={setSelectedMapEntity}
+            spot={
+              isBuildingSpot(parseInt(spot))
+                ? (parseInt(spot) as BuildingSpot)
+                : null
+            }
             key={card.id}
-            className={`buildingSpot${spot}`}
-            onClick={() => {
-              setSelectedMapEntity(card.id);
-              handleOpenStandardModal(card.name);
-            }}
-          >
-            <GlowImage
-              key={card.id}
-              src={cardUrlsWithShadow.buildings[card.name]}
-              alt={card.name}
-              isHovered={highlightedImg === card.id}
-              onHover={() => handleHover(card.id)}
-              onLeave={() => handleLeave(card.id)}
-            />
-          </div>
+          />
+          // // TODO_DONE ✅: START - Make this a seperate Component, BuildingOnMap
+          // <div
+          //   key={card.id}
+          //   className={`buildingSpot${spot}`}
+          //   onClick={() => {
+          //     // At this point we can manage the card...
+          //     setSelectedMapEntity(card.id);
+          //     handleOpenStandardModal(card);
+          //   }}
+          // >
+          //   <GlowImage
+          //     key={card.id}
+          //     src={cardUrlsWithShadow.buildings[card.name]}
+          //     alt={card.name}
+          //     isHovered={highlightedImg === card.id}
+          //     onHover={() => handleHover(card.id)}
+          //     onLeave={() => handleLeave(card.id)}
+          //   />
+          // </div>
+          // // END - Make this a seperate Component, BuildingOnMap
         )
       )}
     </div>

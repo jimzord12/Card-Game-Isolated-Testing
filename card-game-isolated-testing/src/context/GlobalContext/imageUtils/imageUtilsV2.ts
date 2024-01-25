@@ -109,8 +109,10 @@ export const buildImageGroupsV2 = (hashedImageUrls: string[]): ImageGroups => {
       if (isProduction) {
         const manifestEntry = viteManifest[convertImagePath(url)];
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (imageMap as any)[key] = manifestEntry.file;
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (imageMap as any)[key] = url;
       }
     }

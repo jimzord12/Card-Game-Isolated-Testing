@@ -102,7 +102,6 @@ const HomePageMetamask = () => {
         return {
           text: "Connect Wallet",
           handler: () => {
-            //TODO: Connect Wallet
             connectMetaMask();
           },
         };
@@ -112,7 +111,6 @@ const HomePageMetamask = () => {
         return {
           text: "Select Genera Network",
           handler: () => {
-            //TODO: Switch Network
             switchNetwork();
           },
         };
@@ -131,7 +129,6 @@ const HomePageMetamask = () => {
   };
 
   const handleLogin = async (e: React.MouseEvent) => {
-    //TODO: Login with Wallet
     const success = await signMessage();
     if (success) {
       try {

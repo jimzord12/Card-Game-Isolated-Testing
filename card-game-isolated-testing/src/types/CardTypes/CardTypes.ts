@@ -18,6 +18,12 @@ export type CardSpot =
 export type CardType = "building" | "reg" | "sp";
 export type CardLevel = OneToFive;
 export type CardRarity = OneToFive;
+export type CardRarityString =
+  | "Common"
+  | "Special"
+  | "Rare"
+  | "Mythic"
+  | "Legendary";
 export type MySQLBoolean = boolean | 0 | 1;
 export type CardRequirements = {
   gold: number;
@@ -96,6 +102,7 @@ export interface ICardDB {
   creator: string;
   endDate: null | string;
   stats?: ICardStatsDB;
+  on_map_spot?: null | number;
 }
 
 export interface ICardStatsDB {

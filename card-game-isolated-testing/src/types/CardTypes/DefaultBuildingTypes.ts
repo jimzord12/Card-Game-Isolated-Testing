@@ -1,6 +1,6 @@
 import { OneToFive } from "../index";
 
-export type DefaultBuildingName = "TownHall" | "DieselFactory";
+export type DefaultBuildingName = "townhall" | "factory";
 export type DefaultBuildingLevel = OneToFive;
 
 export interface DefaultBuildings {

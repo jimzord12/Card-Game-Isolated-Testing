@@ -9,13 +9,13 @@ import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 
 // Zustang Stores
 import { useTownMapStore } from "../../../stores/townMapEntitiesStore";
+import { useGameVarsStore } from "../../../stores/gameVars";
 
 // Types
 
 // Classes
 
 // Components
-import { useGameVarsStore } from "../../../stores/gameVars";
 import GlowOutlineFilter from "../../../components/GlowOutlineFilter";
 import EntityTemplateGroup from "../../../components/OnMapEntities/EntityTemplateGroup/EntityTemplateGroup";
 import Placeholders from "../../../components/OnMapEntities/Placeholders/Placeholders";
@@ -37,28 +37,7 @@ const TownMap = () => {
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ TownMap: images are undefined!");
 
-  // 🧪 For Testing
-  useEffect(() => {
-    // const testCardREG = RegCard.createNew(
-    //   2, // Card's Unique ID
-    //   2, // Player/Owner ID
-    //   "ssss", // Player Name
-    //   "SimpleSolarPanel", // Card's Name, is Typed
-    //   11, // Spot on Map, is Typed
-    //   true // Card's Initial State
-    // );
-    // const testCardBuilding = BuildingCard.createNew(
-    //   1, // Card's Unique ID
-    //   1, // Player/Owner ID
-    //   "Player_02", // Player Name
-    //   "AmusementPark", // Card's Name, is Typed
-    //   4, // Spot on Map, is Typed
-    //   true // Card's Initial State
-    // );
-    // addEntityOnMap(testCardREG);
-    // addEntityOnMap(testCardBuilding);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const OnMapEntitiesTypes = ["building", "reg", "default"] as const;
 
   useEffect(() => {
     if (selectedMapEntity === null) return;
@@ -73,11 +52,18 @@ const TownMap = () => {
     setHighlightedImg(null);
   }, []);
 
-  // const FAKE_PLAYER_INFO: {
-  //   townHallLevel: CardLevel;
-  //   [key: string]: any;
-  // } = { townHallLevel: townHallLevel };
+  const templateGrpProps = {
+    setSelectedMapEntity,
+    handleHover,
+    handleLeave,
+    highlightedImg,
+    mapEntities,
+  };
 
+  /**
+   * @futureImprovement_1 Rather than providing all mapEntities to each EntityTemplateGroup. filter them and provide only the ones that are needed.
+   * @futureImprovement_2 Create 3 EntityTemplateGroups, one for each type of Entity (Building, Reg, Default). This will make the code more readable and easier to follow.
+   */
   return (
     <>
       <div className={styles.imageContainer}>
@@ -90,47 +76,23 @@ const TownMap = () => {
         <>
           <GlowOutlineFilter />
           {/* >>> PLACEHOLDERS <<< */}
-          <Placeholders
-            setSelectedMapEntity={setSelectedMapEntity}
-            handleHover={handleHover}
-            handleLeave={handleLeave}
-            highlightedImg={highlightedImg}
-            townhallLevel={townHallLevel}
-            mapEntities={mapEntities}
-          />
+          <Placeholders {...templateGrpProps} townhallLevel={townHallLevel} />
 
-          {/* TODO: Make a an string Array ["building", "reg", "default"]
-          and loop through it, to DRY the code */}
+          {OnMapEntitiesTypes.map((entityType) => (
+            <EntityTemplateGroup
+              {...templateGrpProps}
+              entityType={entityType}
+            />
+          ))}
 
           {/* >>> BUILDINGS <<< */}
-          <EntityTemplateGroup
-            setSelectedMapEntity={setSelectedMapEntity}
-            handleHover={handleHover}
-            handleLeave={handleLeave}
-            highlightedImg={highlightedImg}
-            mapEntities={mapEntities}
-            entityType="building"
-          />
+          {/* <EntityTemplateGroup {...templateGrpProps} entityType="building" /> */}
 
           {/* >>> REGS <<< */}
-          <EntityTemplateGroup
-            setSelectedMapEntity={setSelectedMapEntity}
-            handleHover={handleHover}
-            handleLeave={handleLeave}
-            highlightedImg={highlightedImg}
-            mapEntities={mapEntities}
-            entityType="reg"
-          />
+          {/* <EntityTemplateGroup {...templateGrpProps} entityType="reg" /> */}
 
           {/* >>> DEFAULT BUILDINGS <<< */}
-          <EntityTemplateGroup
-            setSelectedMapEntity={setSelectedMapEntity}
-            handleHover={handleHover}
-            handleLeave={handleLeave}
-            highlightedImg={highlightedImg}
-            mapEntities={mapEntities}
-            entityType="default"
-          />
+          {/* <EntityTemplateGroup {...templateGrpProps} entityType="default" /> */}
 
           {/* >>> TREES & BUSHES <<< */}
           <TreesOnMap images={images} />
