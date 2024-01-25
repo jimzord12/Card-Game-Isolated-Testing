@@ -33,7 +33,7 @@ const ConfirmationModal = ({
     // provideModalData({ modalType: "standard" });
     popModal();
     // handleClose();
-  }, []);
+  }, [onConfirm, popModal]);
 
   const cancelHandler = useCallback(() => {
     onCancel();
