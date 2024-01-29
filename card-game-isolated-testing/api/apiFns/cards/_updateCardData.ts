@@ -6,8 +6,8 @@ const PUT_UPDATE_CARD_DATA_URL = "cards";
 
 interface ICardDataToUpdate {
   id: number; // Card's ID
-  state?: number;
-  endDate?: number;
+  state?: number | boolean;
+  endDate?: number | string;
   level?: number;
   on_map_spot?: number | null;
 }

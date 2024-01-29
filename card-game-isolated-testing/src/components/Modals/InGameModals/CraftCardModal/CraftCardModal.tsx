@@ -1,15 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CardGrid from "../CardGrid/CardGrid.jsx";
-import SimpleImgCard from "../Card/SimpleImgCard.jsx"; //TODO: Rename to Category Selection Card
-import Building from "../../myAssets/craftModalImgs/building.jpg";
-import REG from "../../myAssets/craftModalImgs/REG.png";
-import SE_Card from "../../myAssets/craftModalImgs/SE_Card.png";
+import CardCategory from "../../../Cards/CardCategory"; //TODO: Rename to Category Selection Card
+import { cardCategoryImgs } from "../../../../assets/cardCategoryImgs/index.js";
 import "./craftCardModal.css";
 import testCardTemplateData from "../../context/playerContext/testCardTemplateData.json"; // TODO: Use the NEW Template Data: src/constants/templates
 
-// TODO: Create a Class for General Cards
-import { classCard_Craft } from "../../models/Classes/index.js"; // TODO: Might import all 3 Card Classes and based on the Card Type, create the correct Card Class
+// TODO: Create a Class for General CardsDd Classes and based on the Card Type, create the correct Card Class
 
 export default function CraftCardModal({
   isCraftModalOpen,
@@ -43,7 +40,7 @@ export default function CraftCardModal({
       const cards = cardsInit(testCardTemplateData);
       console.log("Craft Modal: Suka! cards: ", cards);
 
-      setCards(cards);                                                                    
+      setCards(cards);
       setCardsInitCompleted(true);
     }
   }, []);
@@ -145,7 +142,7 @@ export default function CraftCardModal({
       return;
     }
     throw new Error(
-      "SimpleImgCard.jsx: handleSimpleCardSelection() => Invalid arg"
+      "CardCategory.jsx: handleSimpleCardSelection() => Invalid arg"
     );
   }
 
@@ -226,20 +223,20 @@ export default function CraftCardModal({
                 {typeSelection === null && (
                   <div className="modal-body unselected">
                     <div className="craft-card-typeSelection-container">
-                      <SimpleImgCard
-                        image={Building}
+                      <CardCategory
+                        image={cardCategoryImgs.buildingCategory}
                         text="Building"
                         onClick={handleSimpleCardSelection}
                       />
 
-                      <SimpleImgCard
-                        image={REG}
+                      <CardCategory
+                        image={cardCategoryImgs.REG_Category}
                         text="REG"
                         onClick={handleSimpleCardSelection}
                       />
 
-                      <SimpleImgCard
-                        image={SE_Card}
+                      <CardCategory
+                        image={cardCategoryImgs.SP_Category}
                         text="Special Effect"
                         onClick={handleSimpleCardSelection}
                       />

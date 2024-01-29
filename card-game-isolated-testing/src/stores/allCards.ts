@@ -1,10 +1,8 @@
 // src/store/index.ts
 import { create } from "zustand";
+import { CardClass } from "../types/CardTypes/CardTypes";
 import BuildingCard from "../classes/buildingClass_V2";
 import RegCard from "../classes/regClass_V2";
-import SPCard from "../classes/spClass_V2";
-
-type Card = BuildingCard | RegCard | SPCard;
 
 // This probably manages all the cards in the game, in the sense what the players owns.
 // When a Card is crafted, it is added to this store.
@@ -12,41 +10,104 @@ type Card = BuildingCard | RegCard | SPCard;
 // If a Card's state is changed, it is updated in this store.
 
 interface AllCardsState {
-  cards: Card[];
-  inventory: Card[];
-  addCard: (card: Card) => void;
-  removeCard: (card: Card) => void;
-  addCardToInventory: (card: Card) => void;
-  removeCardFromInventory: (card: Card) => void;
+  cards: CardClass[];
+  inventory: CardClass[];
+  activeCards: CardClass[];
+  activeBuildingCards: BuildingCard[];
+  activeRegCards: RegCard[];
+  addCard: (card: CardClass) => void;
+  removeCard: (card: CardClass) => void;
+  addCardToInventory: (card: CardClass) => void;
+  removeCardFromInventory: (card: CardClass) => void;
+  addCardToActiveCards: (card: CardClass) => void;
+  removeCardFromActiveCards: (card: CardClass) => void;
 }
 
 export const useAllCardsStore = create<AllCardsState>((set) => ({
   cards: [], // ✨ The Initial State comes from the Server/DB
   inventory: [], // ✨ The Initial State comes from the Server/DB
+  activeCards: [], // ✨ The Initial State comes from the Server/DB
+  activeBuildingCards: [],
+  activeRegCards: [],
 
   // ✨ By Crafting one
-  addCard: (card: Card) =>
+  addCard: (card: CardClass) =>
     set((state) => ({
       ...state,
       cards: [...state.cards, card],
     })),
 
   // ✨ By Selling one
-  removeCard: (card: Card) =>
+  removeCard: (card: CardClass) =>
     set((state) => ({
       ...state,
       cards: state.cards.filter((_card) => card.id !== _card.id),
     })),
 
-  addCardToInventory: (card: Card) =>
+  // ✨ By Crafting one, Buying one or by Deactivating one
+  addCardToInventory: (card: CardClass) =>
     set((state) => ({
       ...state,
       inventory: [...state.inventory, card],
     })),
 
-  removeCardFromInventory: (card: Card) =>
+  // ✨ By Selling one or by Activating one
+  removeCardFromInventory: (card: CardClass) =>
     set((state) => ({
       ...state,
       inventory: state.inventory.filter((_card) => card.id !== _card.id),
     })),
+
+  // ✨ By Activating one
+  addCardToActiveCards: (card: CardClass) =>
+    set((state) => {
+      if (card instanceof BuildingCard) {
+        return {
+          ...state,
+          activeCards: [...state.activeCards, card],
+          activeBuildingCards: [...state.activeBuildingCards, card],
+        };
+      } else if (card instanceof RegCard) {
+        return {
+          ...state,
+          activeCards: [...state.activeCards, card],
+          activeRegCards: [...state.activeRegCards, card],
+        };
+      } else {
+        return { ...state, activeCards: [...state.activeCards, card] };
+      }
+    }),
+
+  // ✨ By Deactivating one
+  removeCardFromActiveCards: (card: CardClass) =>
+    set((state) => {
+      if (card instanceof BuildingCard) {
+        return {
+          ...state,
+          activeCards: state.activeCards.filter(
+            (_card) => card.id !== _card.id
+          ),
+          activeBuildingCards: state.activeBuildingCards.filter(
+            (_card) => card.id !== _card.id
+          ),
+        };
+      } else if (card instanceof RegCard) {
+        return {
+          ...state,
+          activeCards: state.activeCards.filter(
+            (_card) => card.id !== _card.id
+          ),
+          activeRegCards: state.activeRegCards.filter(
+            (_card) => card.id !== _card.id
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          activeCards: state.activeCards.filter(
+            (_card) => card.id !== _card.id
+          ),
+        };
+      }
+    }),
 }));

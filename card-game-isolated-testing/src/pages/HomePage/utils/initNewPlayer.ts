@@ -2,7 +2,7 @@ import { PlayerData } from "../../../types/PlayerTypes/Player";
 import {
   startingResources,
   startingPop,
-} from "../../../constants/player/startingStats";
+} from "../../../constants/game/startingStats";
 import { toMySQL_Datetime } from "../../../utils";
 
 export function initNewPlayer(playerId: number): PlayerData {

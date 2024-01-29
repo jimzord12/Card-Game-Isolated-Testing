@@ -4,10 +4,7 @@ import {
   rarityMultiplier,
   upgradeCoef,
 } from "../constants/cards/cardStats/coefficients";
-import {
-  nameToTemplateDataBuilding,
-  templateIdToTemplateDataBuilding,
-} from "../constants/templates/buildings";
+import { templateIdToTemplateDataBuilding } from "../constants/templates/buildingsTemplates";
 import {
   BuildingCardData,
   BuildingMaintenance,
@@ -24,8 +21,14 @@ import {
 } from "../types";
 import { formatDate, roundToDecimal } from "../utils";
 
+interface NewBuildingCardArgs {
+  ownerId: number;
+  playerName: string;
+  templateId: BuildingTemplateId;
+}
+
 export default class BuildingCard {
-  readonly id: number;
+  public id: number | null;
   readonly templateId: BuildingTemplateId;
   readonly type: CardType = "building"; // ✨
   readonly img: string;
@@ -61,7 +64,7 @@ export default class BuildingCard {
     this.img = templateIdToTemplateDataBuilding[data.templateId].image;
 
     // From DB or From Frontend
-    this.id = data.id;
+    this.id = data.id ? data.id : null;
     this.state = Boolean(data.state);
     this.rarity = data.rarity;
     this.priceTag = data.priceTag;
@@ -88,29 +91,20 @@ export default class BuildingCard {
   }
 
   // Factory Methods
-  static createNew(
-    newId: number,
-    ownerId: number,
-    playerName: string,
-    cardName: BuildingName,
-    // image: string,
-    // _templateId: BuildingTemplateId,
-    _spot: BuildingSpot = 0,
-    _state: boolean = false
-  ): BuildingCard {
+  static createNew({ ownerId, playerName, templateId }: NewBuildingCardArgs) {
     const _level: OneToFive = 1;
     const defaultValues = {
-      id: newId + 1000,
+      id: null,
       rarity: this.generateRarityLevel(),
       priceTag: null,
       in_mp: false,
       creationTime: formatDate(new Date()),
       creator: playerName,
-      spot: _spot,
+      spot: 0 as BuildingSpot,
       level: _level,
-      templateId: nameToTemplateDataBuilding[cardName].id,
+      templateId,
       ownerId: ownerId,
-      state: _state,
+      state: false,
     };
     return new BuildingCard(defaultValues);
   }
@@ -148,8 +142,9 @@ export default class BuildingCard {
     return this.level;
   }
 
-  public activate(): void {
+  public activate(spot: BuildingSpot): void {
     this.state = true;
+    this.spot = spot;
   }
 
   public deactivate(): void {
@@ -237,8 +232,8 @@ export default class BuildingCard {
       concrete: -1,
       crystals: -1,
       metals: -1,
-      dieselBarrels: -1,
-      citizens: -1,
+      diesel: -1,
+      population: -1,
     };
 
     const levelMulti = levelReqMulti[Number(`${this.level}`)];

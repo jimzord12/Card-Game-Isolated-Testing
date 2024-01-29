@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import BuildingCard from "../../../classes/buildingClass_V2";
 import RegCard from "../../../classes/regClass_V2";
-import { nameToTemplateDataBuilding } from "../../../constants/templates/buildings";
-import { nameToTemplateDataREG } from "../../../constants/templates/regs";
+import { nameToTemplateDataBuilding } from "../../../constants/templates/buildingsTemplates";
+import { nameToTemplateDataREG } from "../../../constants/templates/regsTemplates";
 import { useModalStore } from "../../../stores/modalStore";
 import { useTownMapStore } from "../../../stores/townMapEntitiesStore";
 import {
@@ -10,18 +10,21 @@ import {
   BuildingSpot,
   CardSpot,
   CardType,
-  RegName,
   RegSpot,
 } from "../../../types";
-import { getRandomNumberInRange } from "../../../utils/general/getRandomNumberInRange";
-import TemplateCard from "../../Cards/TemplateCard/TemplateCard";
+import TemplateCard from "../../Cards/CardTemplates/CompleteCard/CompleteCard";
 import ModalCloseBtn from "../BaseModalParts/ModalCloseBtn/ModalCloseBtn";
 import ModalRarityIndicator from "../BaseModalParts/ModalCenterLabel/ModalCenterLabel";
 import styles from "./cardPickerModalStyles.module.css";
 import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
+import { useAllCardsStore } from "../../../stores/allCards";
+import { updateCardData } from "../../../../api/apiFns";
+import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
+import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
+import { useGameVarsStore } from "../../../stores/gameVars";
+import { useToastError } from "../../../hooks/notifications";
 
 type Props = {
-  // type: Omit<CardType, "sp">;
   type: CardType;
   spot: CardSpot;
 };
@@ -29,6 +32,21 @@ type Props = {
 const CardPickerModal = ({ type, spot }: Props) => {
   const popModal = useModalStore((state) => state.popModal);
   const addEntity = useTownMapStore((state) => state.addEntity);
+
+  const {
+    inventory: inventoryCards,
+    addCardToActiveCards,
+    removeCardFromInventory,
+  } = useAllCardsStore((state) => state);
+
+  const toastError = useToastError();
+
+  const { expences, energy, energyConsumed, energyProduced, player } =
+    useGameVarsStore((state) => state);
+
+  const buildingCards: BuildingCard[] = inventoryCards.filter(isBuildingCard);
+
+  const regCards: RegCard[] = inventoryCards.filter(isRegCard);
 
   const { images } = UseGlobalContext();
 
@@ -38,21 +56,11 @@ const CardPickerModal = ({ type, spot }: Props) => {
   const [isClosing, setIsClosing] = useState(false);
   // const provideModalData = useModalStore((state) => state.provideModalData);
 
-  const buildingCardsNames: BuildingName[] = useMemo(
-    () => ["AmusementPark", "Hospital", "RadioStation", "ToolStore"],
-    []
-  );
+  const modalClass = isClosing
+    ? `${styles.cardPickerModalContainer} ${styles.slideOutEllipticTopBck}`
+    : `${styles.cardPickerModalContainer} ${styles.enterAnimation}`;
 
-  const regCardsNames: RegName[] = useMemo(
-    () => [
-      "SimpleWindTurbine",
-      "SuperWindTurbine",
-      "SimpleSolarPanel",
-      "SuperSolarPanel",
-    ],
-    []
-  );
-
+  // 🐱‍🏍 Handlers
   const handleClose = () => {
     setIsClosing(true);
 
@@ -60,9 +68,32 @@ const CardPickerModal = ({ type, spot }: Props) => {
       popModal();
     }, 700);
   };
-  const modalClass = isClosing
-    ? `${styles.cardPickerModalContainer} ${styles.slideOutEllipticTopBck}`
-    : `${styles.cardPickerModalContainer} ${styles.enterAnimation}`;
+
+  const canBeActivated = (card: BuildingCard | RegCard): boolean => {
+    if (isBuildingCard(card)) {
+      if (energy - card.maintenance.energy < 0) {
+        toastError.showError(
+          "Insufficient Energy",
+          `You need more ⚡ Energy to activate the (${card.name}) Card!`
+        );
+        return false;
+      }
+      return true;
+    } else {
+      if (player === null || player.gold === null)
+        throw new Error(
+          "⛔ CardPickerModal: canBeActivated: Player is nulll or player.gold is null!"
+        );
+      if (player.gold - card.maintenance.gold < 0) {
+        toastError.showError(
+          "Insufficient Energy",
+          `You need more 💰 Gold to activate the (${card.name}) Card!`
+        );
+        return false;
+      }
+      return true;
+    }
+  };
 
   return (
     <div className={modalClass}>
@@ -83,57 +114,82 @@ const CardPickerModal = ({ type, spot }: Props) => {
 
       <div className={styles.templateCardsContainer}>
         {type === "building"
-          ? buildingCardsNames.map((cardName) => (
+          ? buildingCards.map((card) => (
               <TemplateCard
-                cardTemplateData={nameToTemplateDataBuilding[cardName]}
+                cardTemplateData={
+                  nameToTemplateDataBuilding[card.name as BuildingName]
+                }
                 onClick={() => {
-                  console.log("[Building] - You Clicked this Card: ", cardName);
-                  const cardId = Math.trunc(getRandomNumberInRange(1, 1000000));
-                  const ownerId = Math.trunc(
-                    getRandomNumberInRange(1, 1000000)
-                  );
-                  const newCard = BuildingCard.createNew(
-                    cardId,
-                    ownerId,
-                    "generaTester01",
-                    cardName,
-                    spot as BuildingSpot,
-                    true
-                  );
-                  console.log("JJJJJJJJ: ", spot);
-                  addEntity(newCard);
+                  // 0. Perform Nessessary Checks (Includes Toasts)
+                  if (!canBeActivated(card)) return;
+                  // 1. Activate the Card
+                  card.activate(spot as BuildingSpot);
+
+                  // 2. Add the Card to the TownMap
+                  addEntity(card);
+
+                  // 3. Add the Card to the Activated Cards
+                  addCardToActiveCards(card);
+
+                  // 4. Remove the Card from the Inventory
+                  removeCardFromInventory(card);
+
+                  // 5. Update Card's State in MySQL Database
+                  if (card.id === null)
+                    throw new Error(
+                      "⛔ CardPickerModal: Card ID is undefined!"
+                    );
+                  updateCardData({
+                    id: card.id,
+                    on_map_spot: spot,
+                    state: 1,
+                  });
                   setTimeout(() => {
                     popModal();
-                  }, 400);
+                  }, 250);
                 }}
                 // spot={spot}
                 type={type}
-                key={cardName}
+                key={`CardPickerModal-${card.name}`}
               />
             ))
-          : regCardsNames.map((cardName) => (
+          : regCards.map((card) => (
               <TemplateCard
-                cardTemplateData={nameToTemplateDataREG[cardName]}
+                cardTemplateData={nameToTemplateDataREG[card.name]}
                 onClick={() => {
-                  console.log("[REG] - You Clicked this Card: ", cardName);
-                  const cardId = getRandomNumberInRange(1, 1000000);
-                  const ownerId = getRandomNumberInRange(1, 1000000);
-                  const newCard = RegCard.createNew(
-                    cardId,
-                    ownerId,
-                    "generaTester01",
-                    cardName,
-                    spot as RegSpot,
-                    true
-                  );
-                  addEntity(newCard);
+                  console.log("[REG] - You Clicked this Card: ", card);
+                  // 0. Perform Nessessary Checks (Includes Toasts)
+                  if (!canBeActivated(card)) return;
+
+                  // 1. Activate the Card
+                  card.activate(spot as RegSpot);
+
+                  // 2. Add the Card to the TownMap
+                  addEntity(card);
+
+                  // 3. Add the Card to the Activated Cards
+                  addCardToActiveCards(card);
+
+                  // 4. Remove the Card from the Inventory
+                  removeCardFromInventory(card);
+
+                  // 5. Update Card's State in MySQL Database
+                  if (card.id === null)
+                    throw new Error(
+                      "⛔ CardPickerModal: Card ID is undefined!"
+                    );
+                  updateCardData({
+                    id: card.id,
+                    on_map_spot: spot,
+                    state: 1,
+                  });
                   setTimeout(() => {
                     popModal();
-                  }, 400);
+                  }, 250);
                 }}
                 // size={200}
                 type={type}
-                key={cardName}
+                key={`CardPickerModal-${card.name}`}
               />
             ))}
       </div>

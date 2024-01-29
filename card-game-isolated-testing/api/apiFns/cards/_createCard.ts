@@ -6,7 +6,7 @@ const CREATE_CARD_URL = "cards";
 
 interface ICardToCreate {
   templateId: number;
-  level: 1;
+  level?: number;
   ownerId: number;
   in_mp: false; // Replace 'any' with the actual type if known
   priceTag: null; // Replace 'any' with the actual type if known

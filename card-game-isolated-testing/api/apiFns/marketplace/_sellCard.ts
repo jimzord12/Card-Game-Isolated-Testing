@@ -5,7 +5,7 @@ import { MySQLOperation } from "../../../src/types/MySQLTypes/Operations";
 const PUT_SELL_CARD_URL = "cards";
 
 type CardForSale = {
-  cardId?: number;
+  cardId: number;
   priceTag: number;
   in_mp: true;
   state: false;
@@ -13,14 +13,11 @@ type CardForSale = {
 
 // The Marketplace entry ID of the card (MySQL: table: marketplace)
 
-export const sellCard = async (
-  cardId: number,
-  details: CardForSale
-): Promise<boolean> => {
+export const sellCard = async (details: CardForSale): Promise<boolean> => {
   console.log("🚀 PUT - (Sell Card to Marketplace), Sending Request...");
 
   const response: AxiosResponse<MySQLOperation> = await axios.put(
-    `${PUT_SELL_CARD_URL}/${cardId}`,
+    `${PUT_SELL_CARD_URL}/${details.cardId}`,
     details
   );
 

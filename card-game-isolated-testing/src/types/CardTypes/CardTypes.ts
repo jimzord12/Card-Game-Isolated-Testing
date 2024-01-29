@@ -1,4 +1,7 @@
 import { BuildingStats, OneToFive } from "..";
+import BuildingCard from "../../classes/buildingClass_V2";
+import RegCard from "../../classes/regClass_V2";
+import SPCard from "../../classes/spClass_V2";
 
 export type CardSpot =
   | 0
@@ -30,12 +33,14 @@ export type CardRequirements = {
   concrete: number;
   crystals: number;
   metals: number;
-  dieselBarrels: number;
-  citizens: number;
+  diesel: number;
+  population: number;
 };
 
+export type CardClass = BuildingCard | RegCard | SPCard;
+
 export interface CardData {
-  id: number;
+  id: number | null;
   templateId: number;
   spot: CardSpot;
   level: CardLevel;

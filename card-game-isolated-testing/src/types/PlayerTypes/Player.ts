@@ -14,6 +14,7 @@ export interface IPlayerDB {
   metals: number | null;
   crystals: number | null;
   population: number | null;
+  diesel: number | null;
   gold: number | null;
   alliance: number | null;
   rank: number | null;

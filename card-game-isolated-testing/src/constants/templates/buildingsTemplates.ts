@@ -1,5 +1,6 @@
 import {
   BuildingName,
+  BuildingSpot,
   BuildingTemplateId,
   TemplateDataBuilding,
 } from "../../types";
@@ -26,8 +27,8 @@ const toolStoreTemplate: TemplateDataBuilding = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseStats: {
     gold: 0,
@@ -56,8 +57,8 @@ const amusementParkTemplate: TemplateDataBuilding = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseOutput: {
     boost: 0.25,
@@ -80,8 +81,8 @@ const hopsitalTemplate: TemplateDataBuilding = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseOutput: {
     boost: 0.25,
@@ -104,8 +105,8 @@ const radioStationTemplate: TemplateDataBuilding = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseOutput: {
     boost: 0.25,
@@ -122,6 +123,15 @@ const templateIdToTemplateDataBuilding: Record<
   103: hopsitalTemplate,
   104: radioStationTemplate,
 };
+
+export const buildingSpots: BuildingSpot[] = [0, 2, 4, 5, 6, 7, 9, 12];
+export const buildingTemplateIds: number[] = [101, 102, 103, 104];
+export const buildingNames: string[] = [
+  "AmusementPark",
+  "ToolStore",
+  "Hospital",
+  "RadioStation",
+];
 
 const nameToTemplateDataBuilding: Record<BuildingName, TemplateDataBuilding> = {
   AmusementPark: amusementParkTemplate,

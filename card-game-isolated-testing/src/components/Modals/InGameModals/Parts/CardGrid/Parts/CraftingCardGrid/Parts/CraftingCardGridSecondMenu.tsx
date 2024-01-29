@@ -1,0 +1,158 @@
+import BuildingCard from "../../../../../../../../classes/buildingClass_V2";
+import RegCard from "../../../../../../../../classes/regClass_V2";
+import SPCard from "../../../../../../../../classes/spClass_V2";
+import {
+  BuildingTemplateId,
+  CardClass,
+  RegTemplateId,
+  SPTemplateId,
+} from "../../../../../../../../types";
+import { isSPCard } from "../../../../../../../../types/TypeGuardFns/SPGuards";
+import { findCardTypeFromTemplateId } from "../../../../../../../../utils/game";
+import CompleteCard from "../../../../../../../Cards/CardTemplates/CompleteCard/CompleteCard";
+import SecondsMenuSection from "./SecondMenuParts/SecondsMenuSection";
+import SecondsMenuSectionSP from "./SecondMenuParts/SecondsMenuSectionSP";
+
+interface Props {
+  selectedCardTemplateId: number;
+  cards: CardClass[];
+  setSelectedCard: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+const CraftingCardGridSecondMenu = ({
+  selectedCardTemplateId,
+}: Partial<Props>) => {
+  const cardType = findCardTypeFromTemplateId(selectedCardTemplateId!);
+  let currentlySelectedCard: CardClass;
+  switch (cardType) {
+    case "building":
+      currentlySelectedCard = BuildingCard.createNew({
+        ownerId: 0,
+        playerName: "playerName",
+        templateId: selectedCardTemplateId! as BuildingTemplateId,
+      });
+      break;
+
+    case "reg":
+      currentlySelectedCard = RegCard.createNew({
+        ownerId: 0,
+        playerName: "playerName",
+        templateId: selectedCardTemplateId! as RegTemplateId,
+      });
+      break;
+
+    case "sp":
+      currentlySelectedCard = SPCard.createNew({
+        ownerId: 0,
+        playerName: "playerName",
+        templateId: selectedCardTemplateId! as SPTemplateId,
+      });
+      break;
+
+    default:
+      throw new Error("⛔ CraftingCardGrid: SecondMenu: cardType is undefined");
+  }
+  return (
+    <div
+      key={"CardisSelected-" + selectedCardTemplateId}
+      className="single-card-container"
+    >
+      <div className="card-plus-btns">
+        <CompleteCard card={currentlySelectedCard} currentModal="Craft" />;
+        <div className="single-card-btn-container">
+          <button
+            className="single-card-btn btn-craft"
+            // I use tge closeBtn class cuz I'm bored of renaming it :P
+            style={{
+              padding: "5px 10px",
+              borderRadius: "10px",
+              boxShadow: "1px 2px 2px 0px black",
+            }}
+            onClick={() => handleCraftClick(currentlySelectedCard)}
+          >
+            Craft ⚙
+          </button>
+        </div>
+      </div>
+
+      <img
+        src={vertDivider}
+        alt="-- Vertical Divider --"
+        className="vertical-divider"
+      />
+
+      <div className="single-card-desc">
+        {/* MAINTENAMCE SECTION - START */}
+        <h3> Maintenance</h3>
+        {isSPCard(currentlySelectedCard) ? (
+          <span className="single-card-desc-span">
+            This Card does not require Maintenance
+          </span>
+        ) : (
+          <ul>
+            {!isSPCard(currentlySelectedCard) && (
+              <SecondsMenuSection
+                category="maintenance"
+                currentlySelectedCard={currentlySelectedCard}
+                context="craft"
+              />
+            )}
+          </ul>
+        )}
+        {/* MAINTENAMCE SECTION - END */}
+
+        {/* REQUIREMENTS SECTION - SP CARDS - START */}
+        <h3> Requirements </h3>
+
+        {/* SP CARDS - START */}
+        {isSPCard(currentlySelectedCard) && (
+          <SecondsMenuSectionSP
+            category="requirements"
+            currentlySelectedCard={currentlySelectedCard}
+            context="craft"
+          />
+        )}
+        {/* SP CARDS - END */}
+
+        {/* <NOT> SP CARDS - START */}
+        {!isSPCard(currentlySelectedCard) && (
+          <SecondsMenuSection
+            category="requirements"
+            currentlySelectedCard={currentlySelectedCard}
+            context="craft"
+          />
+        )}
+        {/* <NOT> SP CARDS - END */}
+        {/* REQUIREMENTS SECTION - END */}
+
+        {/* OUTPUT SECTION - START */}
+
+        <h3> Output </h3>
+
+        {/* SP CARDS - START */}
+        {isSPCard(currentlySelectedCard) && (
+          <SecondsMenuSectionSP
+            category="output"
+            currentlySelectedCard={currentlySelectedCard}
+            context="craft"
+          />
+        )}
+        {/* SP CARDS - END */}
+
+        {/* <NOT> SP CARDS - START */}
+        {!isSPCard(currentlySelectedCard) && (
+          <SecondsMenuSection
+            category="output"
+            currentlySelectedCard={currentlySelectedCard}
+            context="craft"
+          />
+        )}
+        {/* <NOT> SP CARDS - END */}
+
+        {/* OUTPUT SECTION - END */}
+      </div>
+    </div>
+  );
+};
+
+export default CraftingCardGridSecondMenu;

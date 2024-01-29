@@ -1,47 +1,93 @@
+import BuildingCard from "../../../../classes/buildingClass_V2";
+import RegCard from "../../../../classes/regClass_V2";
 import {
+  CardClass,
   TemplateDataBuilding,
   TemplateDataReg,
   TemplateDataSP,
 } from "../../../../types";
+import { isSPCard } from "../../../../types/TypeGuardFns/SPGuards";
+import ModalLevelIndicator from "../../../Modals/BaseModalParts/ModalLevelIndicator/ModalLevelIndicator";
 import styles from "./cardLayout.module.css";
 
+// 🧪 Uncomment for Storybook testing
+// import levelLabel from "../../../../assets/imgs_new_convention/labels/labels-levelLabel.webp";
+
 // const x = 32;
+type TemplateData = TemplateDataBuilding | TemplateDataReg | TemplateDataSP;
 
 interface Props {
-  cardData: TemplateDataBuilding | TemplateDataReg | TemplateDataSP;
+  cardData: TemplateData | CardClass;
   frameImg: string;
+  isForCrafting: boolean;
   //   size: number;
   // spot: CardSpot;
   onClick: () => void;
 }
 
-const CardLayout = ({ frameImg, cardData, onClick }: Props) => {
+const CardLayout = ({ frameImg, cardData, onClick, isForCrafting }: Props) => {
   console.log("frameImg :>> ", frameImg);
-  return (
-    <div
-      className={styles.outerFrame}
-      //   style={{
-      //     width: size + x,
-      //     height: size * 1.75 + x,
-      //   }}
-      onClick={onClick}
-    >
-      <div className={styles.cardFrameContainer}>
-        <img src={frameImg} alt="Frame Image" className={styles.frameImg} />
-      </div>
-      <div
-        className={styles.innerFrame}
-        // style={{
-        //   width: size,
-        //   height: size * 1.75,
-        // }}
-      >
-        <h3 className={styles.cardTitle}>{cardData.name}</h3>
-        <img src={cardData.image} alt="Card Image" className={styles.cardImg} />
+  console.log("Card Data : ", cardData);
 
-        <p className={styles.cardDesc}>{cardData.desc}</p>
-        {/* <LevelIndicator level={-1} /> */}
-      </div>
+  return (
+    <div className={styles.outerFrame} onClick={onClick}>
+      {isForCrafting ? (
+        // Section ONLY for Crafting Modal
+        <>
+          <div className={styles.cardFrameContainer}>
+            <img src={frameImg} alt="Frame Image" className={styles.frameImg} />
+          </div>
+          <div className={styles.innerFrame}>
+            <h3 className={styles.cardTitle}>
+              {(cardData as TemplateData).name}
+            </h3>
+            <img
+              src={(cardData as TemplateData).image}
+              alt="Card Image"
+              className={styles.cardImg}
+            />
+
+            <p className={styles.cardDesc}>{(cardData as TemplateData).desc}</p>
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Section ONLY for Inventory Modal */}
+          {/* // TODO: Change the BG Color based on the Rarity */}
+          {!isSPCard(cardData as CardClass) ? (
+            <div
+              about="Level Indicator Container"
+              className="absolute w-full h-full"
+            >
+              <div
+                about="Level Indicator Controller"
+                className="absolute -top-2 -right-2 w-fit"
+              >
+                <ModalLevelIndicator
+                  contentType="building-passive"
+                  level={(cardData as BuildingCard | RegCard).level}
+                  isClosing={false}
+                  withAnimation={false}
+                  // storybookTesting={levelLabel} // 🧪 Uncomment for Storybook testing
+                />
+              </div>
+            </div>
+          ) : null}
+          <div className={styles.cardFrameContainer}>
+            <img src={frameImg} alt="Frame Image" className={styles.frameImg} />
+          </div>
+          <div className={styles.innerFrame}>
+            <h3 className={styles.cardTitle}>{(cardData as CardClass).name}</h3>
+            <img
+              src={(cardData as CardClass).img}
+              alt="Card Image"
+              className={styles.cardImg}
+            />
+
+            <p className={styles.cardDesc}>{(cardData as CardClass).desc}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 };

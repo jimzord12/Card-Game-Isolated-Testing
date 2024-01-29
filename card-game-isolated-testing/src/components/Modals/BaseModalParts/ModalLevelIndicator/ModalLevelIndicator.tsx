@@ -8,12 +8,22 @@ interface Props {
   isClosing?: boolean;
   level: number | null | undefined;
   contentType: ActionsSectionType;
+  storybookTesting?: string;
+  withAnimation?: boolean;
 }
 
-const ModalLevelIndicator = ({ isClosing, level, contentType }: Props) => {
-  const { images } = UseGlobalContext();
-  if (images === undefined)
-    throw new Error("⛔ ModalLevelIndicator, images is undefined!");
+const ModalLevelIndicator = ({
+  isClosing,
+  level,
+  contentType,
+  storybookTesting,
+  withAnimation = true,
+}: Props) => {
+  if (!storybookTesting) {
+    const { images } = UseGlobalContext();
+    if (images === undefined)
+      throw new Error("⛔ ModalLevelIndicator, images is undefined!");
+  }
 
   const [levelToDisplay, setLevelToDisplay] = useState<
     number | null | undefined
@@ -33,9 +43,11 @@ const ModalLevelIndicator = ({ isClosing, level, contentType }: Props) => {
     if (contentType === "factory") setLevelToDisplay(factoryLevel);
   }, [contentType, factoryLevel, townhallLevel]);
 
-  const modalLevelIconClass = isClosing
-    ? `${styles.modalLevelIconContainer} ${styles.slideOutEllipticTopBck}`
-    : `${styles.modalLevelIconContainer} ${styles.bounceInTop}`;
+  const modalLevelIconClass = withAnimation
+    ? isClosing
+      ? `${styles.modalLevelIconContainer} ${styles.slideOutEllipticTopBck}`
+      : `${styles.modalLevelIconContainer} ${styles.bounceInTop}`
+    : `${styles.modalLevelIconContainer}`;
 
   return (
     <div className={modalLevelIconClass}>
@@ -43,7 +55,12 @@ const ModalLevelIndicator = ({ isClosing, level, contentType }: Props) => {
         <>
           <img
             className={styles.modalLevelIconImg}
-            src={images.labels.levelLabel}
+            src={
+              // images?.labels?.levelLabel
+              //   ? images?.labels.levelLabel
+              //   :
+              storybookTesting
+            }
             alt="modal Level Icon"
           />
           <h3 className={styles.levelText}>{levelToDisplay}</h3>

@@ -1,4 +1,4 @@
-import { RegName, RegTemplateId, TemplateDataReg } from "../../types";
+import { RegName, RegSpot, RegTemplateId, TemplateDataReg } from "../../types";
 import {
   devModeCardUrls,
   prodModeCardUrls,
@@ -23,8 +23,8 @@ const simpleWindTurbineTemplate: TemplateDataReg = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseOutput: {
     energy: 0.1,
@@ -47,8 +47,8 @@ const superWindTurbineTemplate: TemplateDataReg = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseOutput: {
     energy: 0.25,
@@ -71,8 +71,8 @@ const simpleSolarPaneTemplate: TemplateDataReg = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseOutput: {
     energy: 0.25,
@@ -95,14 +95,23 @@ const superSolarPanelTemplate: TemplateDataReg = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 0,
-    dieselBarrels: 0,
+    population: 0,
+    diesel: 0,
   },
   baseOutput: {
     energy: 0.25,
   },
   desc,
 };
+
+export const regSpots: RegSpot[] = [0, 1, 3, 8, 10, 11, 13];
+export const regTemplateIds: number[] = [201, 202, 203, 204];
+export const regNames: string[] = [
+  "SuperWindTurbine",
+  "SimpleWindTurbine",
+  "SimpleSolarPanel",
+  "SuperSolarPanel",
+];
 
 const templateIdToTemplateDataREG: Record<RegTemplateId, TemplateDataReg> = {
   201: simpleWindTurbineTemplate,

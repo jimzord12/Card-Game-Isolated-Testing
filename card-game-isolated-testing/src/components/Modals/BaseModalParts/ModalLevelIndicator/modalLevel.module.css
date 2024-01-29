@@ -1,12 +1,14 @@
 .modalLevelIconContainer {
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20%;
-  height: 20%;
-  top: 0%;
-  left: 5%;
+  /* width: 20%;
+  height: 20%; */
+  min-width: 46px;
+  min-height: 46px;
+  /* top: 0%; */
+  /* left: 5%; */
   z-index: 10003;
 }
 
@@ -21,8 +23,9 @@
 .levelText {
   position: absolute;
   color: black;
-  font-size: 42px;
-  transform: translate(0%, -3%);
+  font-size: 26px;
+  font-weight: 700;
+  transform: translateY(1px);
   /* top: -37.5%;
   left: 44%; */
 }
@@ -87,7 +90,8 @@
 
 @media screen and (min-width: 1500px) {
   .levelText {
-    font-size: 72px;
+    font-size: 64px;
+    transform: translateX(-1px);
   }
 
   .modalLevelIconContainer {
@@ -95,5 +99,10 @@
     height: 15%;
     top: 2.5%;
     left: 5%;
+  }
+
+  .modalLevelIconImg {
+    min-width: 92px;
+    min-height: 92px;
   }
 }

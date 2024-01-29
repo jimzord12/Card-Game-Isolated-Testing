@@ -1,11 +1,17 @@
 import {
   nameToTemplateDataBuilding,
   templateIdToTemplateDataBuilding,
-} from "./buildings";
+} from "./buildingsTemplates";
 
-import { nameToTemplateDataREG, templateIdToTemplateDataREG } from "./regs";
+import {
+  nameToTemplateDataREG,
+  templateIdToTemplateDataREG,
+} from "./regsTemplates";
 
-import { nameToTemplateDataSP, templateIdToTemplateDataSP } from "./sps";
+import {
+  nameToTemplateDataSP,
+  templateIdToTemplateDataSP,
+} from "./spsTemplates";
 
 export {
   nameToTemplateDataBuilding,

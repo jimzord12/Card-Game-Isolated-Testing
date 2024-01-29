@@ -4,10 +4,7 @@ import {
   rarityMultiplier,
   upgradeCoef,
 } from "../constants/cards/cardStats/coefficients";
-import {
-  nameToTemplateDataREG,
-  templateIdToTemplateDataREG,
-} from "../constants/templates/regs";
+import { templateIdToTemplateDataREG } from "../constants/templates/regsTemplates";
 import {
   CardLevel,
   CardRarity,
@@ -23,8 +20,14 @@ import {
 } from "../types";
 import { formatDate, roundToDecimal } from "../utils";
 
+interface NewRegCardArgs {
+  ownerId: number;
+  playerName: string;
+  templateId: RegTemplateId;
+}
+
 export default class RegCard {
-  readonly id: number;
+  public id: number | null;
   readonly templateId: RegTemplateId; // ✨
   readonly type: CardType = "reg"; // ✨
   readonly img: string;
@@ -63,7 +66,7 @@ export default class RegCard {
     this.img = templateIdToTemplateDataREG[data.templateId].image;
 
     // From DB or From Frontend
-    this.id = data.id;
+    this.id = data.id ? data.id : null;
     this.state = Boolean(data.state);
     this.rarity = data.rarity;
     this.priceTag = data.priceTag;
@@ -89,28 +92,21 @@ export default class RegCard {
     this.name = templateIdToTemplateDataREG[this.templateId].name;
   }
 
-  // Factory Methods
-  static createNew(
-    newId: number,
-    ownerId: number,
-    playerName: string,
-    cardName: RegName,
-    _spot: RegSpot = 0,
-    _state: boolean = false
-  ) {
+  // Factory Methods - Use <ONLY> when creating a New Card
+  static createNew({ ownerId, playerName, templateId }: NewRegCardArgs) {
     const _level: OneToFive = 1;
     const defaultValues = {
-      id: newId + 2000,
+      id: null,
       rarity: this.generateRarityLevel(),
       priceTag: null,
       in_mp: false,
       creationTime: formatDate(new Date()),
       creator: playerName,
-      spot: _spot,
+      spot: 0 as RegSpot,
       level: _level,
-      templateId: nameToTemplateDataREG[cardName].id,
+      templateId,
       ownerId: ownerId,
-      state: _state,
+      state: false,
     };
     return new RegCard(defaultValues);
   }
@@ -144,8 +140,9 @@ export default class RegCard {
     return this.level;
   }
 
-  public activate(): void {
+  public activate(spot: RegSpot): void {
     this.state = true;
+    this.spot = spot;
   }
 
   public deactivate(): void {
@@ -224,8 +221,8 @@ export default class RegCard {
       concrete: -1,
       crystals: -1,
       metals: -1,
-      dieselBarrels: -1,
-      citizens: -1,
+      diesel: -1,
+      population: -1,
     };
 
     const levelMulti = levelReqMulti[Number(`${this.level}`)];

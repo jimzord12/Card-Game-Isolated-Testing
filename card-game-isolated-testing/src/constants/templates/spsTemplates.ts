@@ -19,8 +19,8 @@ const goldSPTemplate: TemplateDataSP = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 10,
-    dieselBarrels: 0,
+    population: 10,
+    diesel: 0,
   },
   desc: "Enchances Gold Income",
 };
@@ -38,10 +38,10 @@ const growthSPTemplate: TemplateDataSP = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 10,
-    dieselBarrels: 0,
+    population: 10,
+    diesel: 0,
   },
-  desc: "Enchances Gold Income",
+  desc: "Enchances Population Growth",
 };
 
 const resourcesSPTemplate: TemplateDataSP = {
@@ -57,10 +57,10 @@ const resourcesSPTemplate: TemplateDataSP = {
     concrete: 650,
     metals: 780,
     crystals: 260,
-    citizens: 10,
-    dieselBarrels: 0,
+    population: 10,
+    diesel: 0,
   },
-  desc: "Enchances Gold Income",
+  desc: "Enchances Resource Gathering",
 };
 
 const templateIdToTemplateDataSP: Record<SPTemplateId, TemplateDataSP> = {
@@ -68,6 +68,9 @@ const templateIdToTemplateDataSP: Record<SPTemplateId, TemplateDataSP> = {
   302: growthSPTemplate,
   303: resourcesSPTemplate,
 };
+
+export const spTemplateIds: number[] = [301, 302, 303];
+export const spNames: string[] = ["WallStreet", "LoveApp", "SuperStrong"];
 
 const nameToTemplateDataSP: Record<SPName, TemplateDataSP> = {
   WallStreet: goldSPTemplate,

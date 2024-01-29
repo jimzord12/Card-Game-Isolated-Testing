@@ -7,6 +7,7 @@ import {
   justTheKs,
   justTheMills,
 } from "./bigNumbersManagement";
+import { findCardTypeFromTemplateId } from "./findCardTypeFromTemplateId";
 
 export {
   getModalBgImage,
@@ -16,4 +17,5 @@ export {
   countDigits,
   justTheKs,
   justTheMills,
+  findCardTypeFromTemplateId,
 };
