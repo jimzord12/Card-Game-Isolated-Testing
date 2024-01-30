@@ -1,28 +1,25 @@
+import React from "react";
 import { CardClass } from "../../../../../../../../types";
 import CompleteCard from "../../../../../../../Cards/CardTemplates/CompleteCard/CompleteCard";
 
-interface CraftingCardGridFirstMenuProps {
+interface Props {
   cards: CardClass[];
   setSelectedCard: React.Dispatch<React.SetStateAction<CardClass | null>>;
 }
-
-const CraftingCardGridFirstMenu = ({
-  cards,
-  setSelectedCard,
-}: CraftingCardGridFirstMenuProps) => {
+const InventoryCardGridFirstMenu = ({ cards, setSelectedCard }: Props) => {
   if (cards === undefined || setSelectedCard === undefined)
-    throw new Error("⛔ CraftingCardGrid: FirstMenu: cards is undefined");
+    throw new Error("⛔ InventroyCardGrid: FirstMenu: cards is undefined");
 
-  console.log("CraftingCardGridFirstMenu: Cards: ", cards);
+  console.log("InventroyCardGridFirstMenu: Cards: ", cards);
   return (
-    <div className="flex flex-row gap-6">
+    <div className="flex flex-row gap-6 md-custom:flex-wrap">
       {cards.map((card, index) => {
         return (
           <CompleteCard
             card={card}
             setSelectedCard={setSelectedCard}
             currentModal="Craft"
-            key={`CraftingCardGrid-${card.name}-${card.id}-${index}`}
+            key={`InventroyCardGrid-${card.name}-${card.id}-${index}`}
           />
         );
       })}
@@ -30,4 +27,4 @@ const CraftingCardGridFirstMenu = ({
   );
 };
 
-export default CraftingCardGridFirstMenu;
+export default InventoryCardGridFirstMenu;

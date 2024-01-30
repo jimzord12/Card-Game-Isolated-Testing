@@ -1,64 +1,46 @@
 import React from "react";
-import {
-  BuildingTemplateId,
-  CardClass,
-  RegTemplateId,
-  SPTemplateId,
-} from "../../../../../../../types";
-import CompleteCard from "../../../../../../Cards/CardTemplates/CompleteCard/CompleteCard";
-import { findCardTypeFromTemplateId } from "../../../../../../../utils/game";
-import BuildingCard from "../../../../../../../classes/buildingClass_V2";
-import RegCard from "../../../../../../../classes/regClass_V2";
-import SPCard from "../../../../../../../classes/spClass_V2";
+import { CardClass } from "../../../../../../../types";
+import CraftingCardGridSecondMenu from "./Parts/CraftingCardGridSecondMenu";
+import CraftingCardGridFirstMenu from "./Parts/CraftingCardGridFirstMenu";
 
 interface Props {
-  selectedCardTemplateId: number;
+  selectedCard: CardClass | null;
   cards: CardClass[];
-  setSelectedCard: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedCard: React.Dispatch<React.SetStateAction<CardClass | null>>;
+  handleCraftClick: (card: CardClass) => void;
 }
 
 const CraftingCardGrid = ({
-  selectedCardTemplateId,
+  selectedCard,
   cards,
   setSelectedCard,
+  handleCraftClick,
 }: Props) => {
   if (
     cards === undefined ||
     setSelectedCard === undefined ||
-    selectedCardTemplateId === undefined
+    selectedCard === undefined
   )
     throw new Error(
-      "⛔ CraftingCardGrid: cards | setSelectedCard | selectedCardTemplateId is undefined"
+      "⛔ CraftingCardGrid: cards | setSelectedCard | selectedCard is undefined"
     );
+
+  console.log(" --- CraftingCardGrid: cards: ", cards);
   return (
     <div>
-      {selectedCardTemplateId !== null ? (
-        <FirstMenu cards={cards} setSelectedCard={setSelectedCard} />
+      {selectedCard === null ? (
+        <CraftingCardGridFirstMenu
+          cards={cards}
+          setSelectedCard={setSelectedCard}
+        />
       ) : (
-        <SecondMenu selectedCardTemplateId={selectedCardTemplateId} />
+        <CraftingCardGridSecondMenu
+          selectedCard={selectedCard}
+          handleCraftClick={handleCraftClick}
+        />
       )}
     </div>
   );
 };
-
-const FirstMenu = ({ cards, setSelectedCard }: Partial<Props>) => {
-  if (cards === undefined || setSelectedCard === undefined)
-    throw new Error("⛔ CraftingCardGrid: FirstMenu: cards is undefined");
-  return (
-    <div>
-      {cards.map((card) => {
-        return (
-          <CompleteCard
-            card={card}
-            setSelectedCard={setSelectedCard}
-            currentModal="Craft"
-          />
-        );
-      })}
-    </div>
-  );
-};
-
-
 
 export default CraftingCardGrid;

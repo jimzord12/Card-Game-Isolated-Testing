@@ -8,28 +8,27 @@ import {
   SPTemplateId,
 } from "../../../../../../../../types";
 import { isSPCard } from "../../../../../../../../types/TypeGuardFns/SPGuards";
-import { findCardTypeFromTemplateId } from "../../../../../../../../utils/game";
 import CompleteCard from "../../../../../../../Cards/CardTemplates/CompleteCard/CompleteCard";
 import SecondsMenuSection from "./SecondMenuParts/SecondsMenuSection";
 import SecondsMenuSectionSP from "./SecondMenuParts/SecondsMenuSectionSP";
+import vertDivider from "../../../../../../../../assets/craftAndInvModals/cardGrid/vertical_section_divider.png";
 
 interface Props {
-  selectedCardTemplateId: number;
-  cards: CardClass[];
-  setSelectedCard: React.Dispatch<React.SetStateAction<number | null>>;
+  selectedCard: CardClass | null;
+  handleCraftClick: (card: CardClass) => void;
 }
 
 const CraftingCardGridSecondMenu = ({
-  selectedCardTemplateId,
-}: Partial<Props>) => {
-  const cardType = findCardTypeFromTemplateId(selectedCardTemplateId!);
+  selectedCard,
+  handleCraftClick,
+}: Props) => {
   let currentlySelectedCard: CardClass;
-  switch (cardType) {
+  switch (selectedCard?.type) {
     case "building":
       currentlySelectedCard = BuildingCard.createNew({
         ownerId: 0,
         playerName: "playerName",
-        templateId: selectedCardTemplateId! as BuildingTemplateId,
+        templateId: selectedCard.templateId! as BuildingTemplateId,
       });
       break;
 
@@ -37,7 +36,7 @@ const CraftingCardGridSecondMenu = ({
       currentlySelectedCard = RegCard.createNew({
         ownerId: 0,
         playerName: "playerName",
-        templateId: selectedCardTemplateId! as RegTemplateId,
+        templateId: selectedCard.templateId! as RegTemplateId,
       });
       break;
 
@@ -45,7 +44,7 @@ const CraftingCardGridSecondMenu = ({
       currentlySelectedCard = SPCard.createNew({
         ownerId: 0,
         playerName: "playerName",
-        templateId: selectedCardTemplateId! as SPTemplateId,
+        templateId: selectedCard.templateId! as SPTemplateId,
       });
       break;
 
@@ -54,11 +53,11 @@ const CraftingCardGridSecondMenu = ({
   }
   return (
     <div
-      key={"CardisSelected-" + selectedCardTemplateId}
+      key={"CardisSelected-" + selectedCard}
       className="single-card-container"
     >
       <div className="card-plus-btns">
-        <CompleteCard card={currentlySelectedCard} currentModal="Craft" />;
+        <CompleteCard card={currentlySelectedCard} currentModal="Craft" />
         <div className="single-card-btn-container">
           <button
             className="single-card-btn btn-craft"

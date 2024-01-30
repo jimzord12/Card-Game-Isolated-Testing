@@ -48,6 +48,11 @@ export default class BuildingCard {
   public ownerId: number;
   public level: CardLevel;
   readonly desc: string;
+  public in_mp?: boolean;
+  public locked?: boolean;
+  public town_id?: number;
+  public disabled?: boolean;
+  public endDate?: string;
   // private endDate?: number;
   // private usedFrom?: any; // Replace 'any' with a more specific type if possible
   public doctors?: number;

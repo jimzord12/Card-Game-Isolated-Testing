@@ -118,6 +118,7 @@ const templateIdToTemplateDataREG: Record<RegTemplateId, TemplateDataReg> = {
   202: superWindTurbineTemplate,
   203: simpleSolarPaneTemplate,
   204: superSolarPanelTemplate,
+  1: simpleWindTurbineTemplate,
 };
 
 const nameToTemplateDataREG: Record<RegName, TemplateDataReg> = {

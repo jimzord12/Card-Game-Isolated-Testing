@@ -34,6 +34,7 @@ export type PlayerData = Pick<
   | "workers_crystals"
   | "concrete"
   | "metals"
+  | "diesel"
   | "crystals"
   | "gold"
   | "population"

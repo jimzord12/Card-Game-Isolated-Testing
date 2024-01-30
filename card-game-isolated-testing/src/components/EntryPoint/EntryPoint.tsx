@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { Suspense } from "react";
 import NotFoundPage from "../../pages/NotFound/NotFound";
+import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 
 const queryClient = new QueryClient();
 
@@ -25,14 +26,11 @@ const EntryPoint = () => {
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <AuthProvider /*disableForTesting*/>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<LoadingScreen />}>
             <Routes>
               <Route path="/" element={<HomePagePOC />} />
               {/* START - The Routes below are protected by the: useRequireAuth hook */}
-              <Route path="game" element={<Game />}>
-                {/* <Route path="townMap" element={<TownMap />} />
-                <Route path="worldMap" element={<WorldMap />} /> */}
-              </Route>
+              <Route path="game" element={<Game />} />
               <Route path="marketplace/*" element={<Marketplace />} />
               <Route path="leaderboard" element={<Leaderboard />} />
               {/* END - The Routes above are protected by the: useRequireAuth hook */}

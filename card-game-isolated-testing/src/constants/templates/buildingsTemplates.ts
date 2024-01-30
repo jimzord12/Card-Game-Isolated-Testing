@@ -122,6 +122,7 @@ const templateIdToTemplateDataBuilding: Record<
   102: amusementParkTemplate,
   103: hopsitalTemplate,
   104: radioStationTemplate,
+  13: toolStoreTemplate,
 };
 
 export const buildingSpots: BuildingSpot[] = [0, 2, 4, 5, 6, 7, 9, 12];

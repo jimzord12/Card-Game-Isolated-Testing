@@ -1,20 +1,23 @@
 import { AwesomeButton } from "react-awesome-button";
 import "react-awesome-button/dist/styles.css";
 import "./gameButton.css";
+import { Dispatch, SetStateAction } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { usePlayerContext } from '../../context/playerContext/PlayerContext';
 
 interface GameButtonProps {
-  type: string;
+  btnType: string;
   text: string;
-  action: () => void;
+  // action?: Dispatch<SetStateAction<boolean>>;
+  onClick?: () => void | Dispatch<SetStateAction<boolean>>;
 }
 
 export default function GameButton({
-  type = "primary",
+  btnType = "primary",
   text,
-  action,
-}: GameButtonProps) {
+  onClick,
+}: // action,
+GameButtonProps) {
   //   const navigate = useNavigate();
   //   const {
   //     setTestingMode,
@@ -60,8 +63,8 @@ export default function GameButton({
   //   };
 
   return (
-    <AwesomeButton type={type} onPress={() => action}>
-      {text}
-    </AwesomeButton>
+    <div onClick={onClick}>
+      <AwesomeButton type={btnType}>{text}</AwesomeButton>
+    </div>
   );
 }

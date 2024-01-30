@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CardCategory from "./CardCategory";
-import { cardCategoryImgs } from "../../../assets/cardCategoryImgs";
+import { cardCategoryImgs } from "../../../assets/craftAndInvModals/cardCategoryImgs";
 import { action } from "@storybook/addon-actions";
 
 const meta: Meta<typeof CardCategory> = {

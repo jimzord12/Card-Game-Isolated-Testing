@@ -67,6 +67,7 @@ const templateIdToTemplateDataSP: Record<SPTemplateId, TemplateDataSP> = {
   301: goldSPTemplate,
   302: growthSPTemplate,
   303: resourcesSPTemplate,
+  7: resourcesSPTemplate
 };
 
 export const spTemplateIds: number[] = [301, 302, 303];

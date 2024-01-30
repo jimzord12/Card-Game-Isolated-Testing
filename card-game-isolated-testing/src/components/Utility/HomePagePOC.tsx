@@ -1,7 +1,8 @@
-import { useMediaQuery } from "@mui/material";
+// import { useMediaQuery } from "@mui/material";
 import { UniwaLogo, footerImg, logoGenera } from "../../assets/homePageImgs";
 import SwitchBtn from "../WalletRelated/SwitchBtn";
 import { Suspense, lazy, useState } from "react";
+import useViewportWidthGreaterThan320 from "./useViewportWidthGreaterThan320";
 // import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 // import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
 
@@ -16,7 +17,8 @@ const HomePageLocalWallet = lazy(
 // import { useNavigate } from 'react-router-dom';
 
 const HomePagePOC = () => {
-  const mediaMax320 = useMediaQuery("(max-width: 320px)");
+  // const mediaMax320 = useMediaQuery("(max-width: 320px)");
+  const isGreaterThan320 = useViewportWidthGreaterThan320();
   const [usingLW, setUsingLW] = useState(false);
   // const { hardcodePlayer } = useHardcoding(); // 🧪 REMOVE THIS LINE WHEN DONE TESTING 🧪
 
@@ -78,7 +80,7 @@ const HomePagePOC = () => {
               style={{
                 display: "inline-block",
                 marginRight: "10px",
-                width: mediaMax320 ? "42px" : "56px",
+                width: isGreaterThan320 ? "56px" : "42px",
                 height: "auto",
               }}
             />

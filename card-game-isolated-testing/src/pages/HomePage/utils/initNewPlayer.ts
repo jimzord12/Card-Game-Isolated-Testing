@@ -20,6 +20,7 @@ export function initNewPlayer(playerId: number): PlayerData {
     gold: startingResources.gold,
     metals: startingResources.metals,
     population: startingPop,
+    diesel: startingResources.diesel,
     rank: 0,
     timestamp: toMySQL_Datetime(Date.now()),
   };

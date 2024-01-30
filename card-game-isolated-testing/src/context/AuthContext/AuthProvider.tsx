@@ -3,6 +3,9 @@ import { AuthContextProps, AuthProviderProps, userAuthType } from "./authTypes";
 import { getPlayerByWallet, loginWithWallet } from "../../../api/apiFns";
 import { useNavigate } from "react-router-dom";
 import { useGameVarsStore } from "../../stores/gameVars";
+import { useAllCardsStore } from "../../stores/allCards";
+import { createJSCards } from "../../utils/game/createJSCards";
+import { ICardDB } from "../../types";
 
 // Create a context for authentication
 export const AuthContext = createContext<AuthContextProps>({
@@ -19,6 +22,13 @@ export default function AuthProvider({
 }: AuthProviderProps) {
   const [user, setUser] = useState<userAuthType>(null); // This should be your auth logic
   const setPlayer = useGameVarsStore((state) => state.setPlayer);
+  const addAllCards = useAllCardsStore((state) => state.addAllCards);
+  const addAllInventoryCards = useAllCardsStore(
+    (state) => state.addAllInventoryCards
+  );
+  const addAllActiveCards = useAllCardsStore(
+    (state) => state.addAllActiveCards
+  );
 
   useEffect(() => {
     if (disableForTesting) {
@@ -41,7 +51,11 @@ export default function AuthProvider({
       console.log("🧪 2.1 | - 🚀 Fetching Player In-Game Data...");
       const playerData = await getPlayerByWallet(walletAddress);
       console.log("🧪 2.2 | - ✅ Successfully GOT Player Data: ", playerData);
-      setPlayer(playerData.player);
+
+      setPlayer(playerData.player); // 🔷 Set the Player Data to Global State
+
+      cardsInit(playerData.cards); // 🔷 Initialize the Cards
+
       console.log(
         "🧪 3.0 | - ✅ Added the Player Dato to Global State: ",
         playerData
@@ -55,7 +69,26 @@ export default function AuthProvider({
       console.error("⛔ - Custom: AuthProvider: Login error: ", error);
     }
   };
+
   const logout = () => setUser(null);
+
+  const cardsInit = (cardsFromDB: ICardDB[]) => {
+    const convertedFromDB_To_JS = createJSCards(cardsFromDB); // 🔷 Convert the Cards from DB to JS
+    const inventoryCards = convertedFromDB_To_JS.filter(
+      (card) => card.state === false
+    );
+    const activeCards = convertedFromDB_To_JS.filter(
+      (card) => card.state === true
+    );
+
+    addAllCards(convertedFromDB_To_JS); // 🔷 Add the Cards to Global State
+    addAllInventoryCards(inventoryCards); // 🔷 Add the Inactive Cards to Global Inventory State
+    addAllActiveCards(activeCards); // 🔷 Add the Active Cards to Global Active State
+
+    console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
+    console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);
+    console.log("🙌 3 - All the Active JS Cards: ", activeCards);
+  };
 
   return (
     <AuthContext.Provider value={{ user, setUser, login, logout }}>

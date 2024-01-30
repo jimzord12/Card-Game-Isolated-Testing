@@ -1,18 +1,9 @@
 import { useState } from "react";
 import BuildingCard from "../../../classes/buildingClass_V2";
 import RegCard from "../../../classes/regClass_V2";
-import { nameToTemplateDataBuilding } from "../../../constants/templates/buildingsTemplates";
-import { nameToTemplateDataREG } from "../../../constants/templates/regsTemplates";
 import { useModalStore } from "../../../stores/modalStore";
 import { useTownMapStore } from "../../../stores/townMapEntitiesStore";
-import {
-  BuildingName,
-  BuildingSpot,
-  CardSpot,
-  CardType,
-  RegSpot,
-} from "../../../types";
-import TemplateCard from "../../Cards/CardTemplates/CompleteCard/CompleteCard";
+import { BuildingSpot, CardSpot, CardType, RegSpot } from "../../../types";
 import ModalCloseBtn from "../BaseModalParts/ModalCloseBtn/ModalCloseBtn";
 import ModalRarityIndicator from "../BaseModalParts/ModalCenterLabel/ModalCenterLabel";
 import styles from "./cardPickerModalStyles.module.css";
@@ -23,6 +14,7 @@ import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
 import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
 import { useGameVarsStore } from "../../../stores/gameVars";
 import { useToastError } from "../../../hooks/notifications";
+import CompleteCard from "../../Cards/CardTemplates/CompleteCard/CompleteCard";
 
 type Props = {
   type: CardType;
@@ -41,8 +33,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
 
   const toastError = useToastError();
 
-  const { expences, energy, energyConsumed, energyProduced, player } =
-    useGameVarsStore((state) => state);
+  const { energy, player } = useGameVarsStore((state) => state);
 
   const buildingCards: BuildingCard[] = inventoryCards.filter(isBuildingCard);
 
@@ -115,10 +106,8 @@ const CardPickerModal = ({ type, spot }: Props) => {
       <div className={styles.templateCardsContainer}>
         {type === "building"
           ? buildingCards.map((card) => (
-              <TemplateCard
-                cardTemplateData={
-                  nameToTemplateDataBuilding[card.name as BuildingName]
-                }
+              <CompleteCard
+                card={card}
                 onClick={() => {
                   // 0. Perform Nessessary Checks (Includes Toasts)
                   if (!canBeActivated(card)) return;
@@ -149,13 +138,12 @@ const CardPickerModal = ({ type, spot }: Props) => {
                   }, 250);
                 }}
                 // spot={spot}
-                type={type}
                 key={`CardPickerModal-${card.name}`}
               />
             ))
           : regCards.map((card) => (
-              <TemplateCard
-                cardTemplateData={nameToTemplateDataREG[card.name]}
+              <CompleteCard
+                card={card}
                 onClick={() => {
                   console.log("[REG] - You Clicked this Card: ", card);
                   // 0. Perform Nessessary Checks (Includes Toasts)
@@ -188,7 +176,6 @@ const CardPickerModal = ({ type, spot }: Props) => {
                   }, 250);
                 }}
                 // size={200}
-                type={type}
                 key={`CardPickerModal-${card.name}`}
               />
             ))}

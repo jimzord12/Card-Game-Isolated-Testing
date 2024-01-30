@@ -1,34 +1,48 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import CardGrid from "../CardGrid/CardGrid.jsx";
-import CardManager from "../CardManager/CardManager.jsx";
+import CardGrid from "../Parts/CardGrid/CardGrid";
+import CardManager from "../Parts/CardManager/CardManager";
 
 import "./inventoryModal.css";
+import { CardClass } from "../../../../types/index.js";
+import { useAllCardsStore } from "../../../../stores/allCards.js";
 
-export default function InventoryModal({ isInvModalOpen, setIsInvModalOpen }) {
+interface InventoryModalProps {
+  isInvModalOpen: boolean;
+  setIsInvModalOpen: (isOpen: boolean) => void;
+}
+
+export default function InventoryModal({
+  isInvModalOpen,
+  setIsInvModalOpen,
+}: InventoryModalProps) {
   //   const { activeCards, inventoryCards, playerContextInitialized } =
   //     usePlayerContext();
   // TODO: Use Zustang store to get the cards
 
+  const inventoryCards = useAllCardsStore((state) => state.inventory);
   const [isOpen, setIsOpen] = useState(isInvModalOpen);
-  const [filteredCardsModal, setFilteredCardsModal] = useState(inventoryCards);
-  const [selectedCardModal, setSelectedCardModal] = useState(null); // This holds the selected Card
-  const [timeoutId, setTimeoutId] = useState(null);
+  const [filteredCardsModal, setFilteredCardsModal] =
+    useState<CardClass[]>(inventoryCards);
+  const [selectedCardModal, setSelectedCardModal] = useState<CardClass | null>(
+    null
+  ); // This holds the selected Card
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   //   const modalRef = useRef();
 
-  //   useEffect(() => {
-  //     if (playerContextInitialized) setIsOpen(isInvModalOpen);
-  //     console.log("Inventory Modal, UseEffect: Current Cards: ", inventoryCards);
-  //   }, [isInvModalOpen]);
-
   useEffect(() => {
-    document.addEventListener("mousedown", handleModalClick);
+    setIsOpen(isInvModalOpen);
+    console.log("Inventory Modal, UseEffect: Current Cards: ", inventoryCards);
+  }, [isInvModalOpen]);
 
-    return () => {
-      document.removeEventListener("mousedown", handleModalClick);
-    };
-  });
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleModalClick);
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleModalClick);
+  //   };
+  // });
 
   useEffect(() => {
     return () => {
@@ -38,7 +52,7 @@ export default function InventoryModal({ isInvModalOpen, setIsInvModalOpen }) {
     };
   }, [timeoutId]);
 
-  const onFilteredCardsChange = (filteredCards) => {
+  const onFilteredCardsChange = (filteredCards: CardClass[]) => {
     setFilteredCardsModal([...filteredCards]);
   };
 
@@ -58,7 +72,7 @@ export default function InventoryModal({ isInvModalOpen, setIsInvModalOpen }) {
   };
 
   // Closes modal when user clicks outside of modal
-  const handleModalClick = (e) => {
+  const handleModalClick = () => {
     closeModal();
   };
 
@@ -69,6 +83,7 @@ export default function InventoryModal({ isInvModalOpen, setIsInvModalOpen }) {
   return (
     <>
       {/* <button onClick={openModal}>Open Modal</button> */}
+      {console.log("asdniaosd: ", isOpen)}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -86,14 +101,14 @@ export default function InventoryModal({ isInvModalOpen, setIsInvModalOpen }) {
               height: "fit-content",
               maxHeight: "85%",
               paddingBottom: "65px",
-              zIndex: 10,
+              zIndex: 501,
               padding: "20px",
               overflowY: "auto",
               borderTop: "4px solid black",
               background: "linear-gradient(to bottom, #45B649, #DCE35B)",
               borderRadius: "15px 15px 0px 0px",
             }}
-            onClick={handleModalClick}
+            // onClick={handleModalClick}
           >
             <button
               className="closeBtn"
@@ -108,17 +123,12 @@ export default function InventoryModal({ isInvModalOpen, setIsInvModalOpen }) {
                 borderRadius: "10px",
                 boxShadow: "1px 2px 2px 0px black",
               }}
-              onClick={closeModal}
+              onClick={handleModalClick}
             >
               Close
             </button>
 
             <div className="modal-content">
-              {/* <div className="modal-header">
-                The Sort / Filtering
-                <br />
-                Funcs
-              </div> */}
               {/* Start - Conditional Rendering Here, when no Card has been selected */}
               {selectedCardModal === null && (
                 <div className="modal-body">
@@ -133,7 +143,7 @@ export default function InventoryModal({ isInvModalOpen, setIsInvModalOpen }) {
                       cards={filteredCardsModal}
                       setSelectedCardModal={setSelectedCardModal}
                       selectedCardModal={selectedCardModal}
-                      handleCardClickScroll={handleCardClickScroll}
+                      // handleCardClickScroll={handleCardClickScroll}
                       currentModal="Inventory"
                       setIsOpen={setIsOpen}
                     />

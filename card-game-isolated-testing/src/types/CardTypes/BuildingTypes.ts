@@ -3,7 +3,7 @@ import { CardData, CardRequirements } from "..";
 export type BuildingSpot = 0 | 2 | 4 | 5 | 6 | 7 | 9 | 12;
 export type BuildingMaintenance = { energy: number };
 export type BuildingOutput = { boost: number };
-export type BuildingTemplateId = 101 | 102 | 103 | 104;
+export type BuildingTemplateId = 101 | 102 | 103 | 104 | 13;
 export type BuildingName =
   | "ToolStore"
   | "AmusementPark"

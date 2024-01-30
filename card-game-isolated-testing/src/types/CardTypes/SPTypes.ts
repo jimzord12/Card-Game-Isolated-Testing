@@ -1,7 +1,7 @@
 import { CardData, CardRequirements } from "..";
 
 export type SPOutput = { boost: number };
-export type SPTemplateId = 301 | 302 | 303;
+export type SPTemplateId = 301 | 302 | 303 | 7;
 export type SPName = "WallStreet" | "LoveApp" | "SuperStrong";
 
 export interface SPCardData

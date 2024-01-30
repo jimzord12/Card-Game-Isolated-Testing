@@ -10,6 +10,7 @@ const startingResources = {
   concrete: 50_000,
   metals: 30_000,
   crystals: 25_000,
+  diesel: 500,
 };
 
 const baseMultis = {

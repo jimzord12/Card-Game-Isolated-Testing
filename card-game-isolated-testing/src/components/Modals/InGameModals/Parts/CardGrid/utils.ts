@@ -31,7 +31,7 @@ export function isFloat(x: number) {
   }
 }
 
-export const rarityCoverter = (rarityNumber: number) => {
+export const rarityConverter = (rarityNumber: number) => {
   if (rarityNumber === undefined) return "Unknown";
   if (rarityNumber === 0) return "default";
   if (rarityNumber === 1) return "Common";

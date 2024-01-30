@@ -20,12 +20,19 @@ interface Props {
   cardData: TemplateData | CardClass;
   frameImg: string;
   isForCrafting: boolean;
+  currentModal?: "Inventory" | "Craft";
   //   size: number;
   // spot: CardSpot;
   onClick: () => void;
 }
 
-const CardLayout = ({ frameImg, cardData, onClick, isForCrafting }: Props) => {
+const CardLayout = ({
+  frameImg,
+  cardData,
+  onClick,
+  isForCrafting,
+  currentModal,
+}: Props) => {
   console.log("frameImg :>> ", frameImg);
   console.log("Card Data : ", cardData);
 
@@ -54,7 +61,7 @@ const CardLayout = ({ frameImg, cardData, onClick, isForCrafting }: Props) => {
         <>
           {/* Section ONLY for Inventory Modal */}
           {/* // TODO: Change the BG Color based on the Rarity */}
-          {!isSPCard(cardData as CardClass) ? (
+          {!isSPCard(cardData as CardClass) && currentModal === "Inventory" ? (
             <div
               about="Level Indicator Container"
               className="absolute w-full h-full"

@@ -6,22 +6,22 @@ import {
   classREG,
   classSP,
 } from "../../../../../classes/index.js";
-import {
-  isFloat,
-  rarityCoverter,
-  convertToMySQLDateTime,
-  convertToMySQLDate,
-} from "./utils";
+// import {
+//   isFloat,
+//   rarityCoverter,
+//   convertToMySQLDateTime,
+//   convertToMySQLDate,
+// } from "./utils";
 
-import TemplateCard from "../../../../Cards/CardTemplates/CompleteCard/CompleteCard.js";
+// import TemplateCard from "../../../../Cards/CardTemplates/CompleteCard/CompleteCard.js";
 
 import {
   useToastConfetti,
   useToastError,
 } from "../../../../../hooks/notifications";
 
-import vertDivider from "../../myAssets/vertical_section_divider.png";
-import CustomInput from "../../../../CustomInput/CustomInput";
+// import vertDivider from "../../myAssets/vertical_section_divider.png";
+// import CustomInput from "../../../../CustomInput/CustomInput";
 
 import { updateCardData } from "../../../../../../api/apiFns/index.js";
 
@@ -42,13 +42,15 @@ import { useGameVarsStore } from "../../../../../stores/gameVars.js";
 import { templateIdToTemplateDataREG } from "../../../../../constants/templates/regsTemplates.js";
 import { templateIdToTemplateDataBuilding } from "../../../../../constants/templates/buildingsTemplates.js";
 import { templateIdToTemplateDataSP } from "../../../../../constants/templates/spsTemplates.js";
-import { useTownMapStore } from "../../../../../stores/townMapEntitiesStore.js";
-import { isSPCard } from "../../../../../types/TypeGuardFns/SPGuards.js";
+// import { useTownMapStore } from "../../../../../stores/townMapEntitiesStore.js";
+// import { isSPCard } from "../../../../../types/TypeGuardFns/SPGuards.js";
+import CraftingCardGrid from "./Parts/CraftingCardGrid/CraftingCardGrid.js";
+import InventoryCardGrid from "./Parts/InventoryCardGrid/InventoryCardGrid.js";
 
 interface CardGridProps {
-  setSelectedCardModal: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
   selectedCardModal: CardClass | null;
-  handleCardClickScroll: (e: React.MouseEvent<HTMLDivElement>) => void;
+  // handleCardClickScroll: (e: React.MouseEvent<HTMLDivElement>) => void;
   currentModal: "Inventory" | "Craft";
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cards: CardClass[];
@@ -56,49 +58,42 @@ interface CardGridProps {
 
 export default function CardGrid({
   setSelectedCardModal: setSelectedCard,
-  selectedCardModal: selectedCardTemplateId,
+  selectedCardModal: selectedCard,
   // handleCardClickScroll,
   cards,
   currentModal,
   setIsOpen,
 }: CardGridProps) {
-  const {
-    // activeCards, // TODO: Use Zustang Store, All Cards: activeCards,
-    setActiveCards, // TODO: Use Zustang Store, All Cards: addCardToActiveCards #1
-    // TODO: Use Zustang Store, All Cards: removeCardFromActiveCards #2
-    // TODO: Use Zustang Store, All Cards: removeCardFromInventory #2
-    materialResourcesRef, // TODO: use player from GameVards
-    testCardTemplateData, // TODO: constants/templates
-    energyRef, // TODO: use "energy" from GameVards
-    specialEffectsRef, // TODO: 🛑 NOT yet  implemented in GameVards
-    maxLimitsRef, // TODO: use "townhallLevel" from GameVards + 🛑 a constants file
-    // fetchedPlayer, // TODO: use player from GameVards
-    awardPoints, // TODO: 🅱 🛑 Not yet implemented in Blockchain Hooks
-    createNFTCard, // TODO: 🅱 🛑 Not yet implemented in Blockchain Hooks
-  } = usePlayerContext();
+  console.log(" &&&& CardGrid: cards: ", cards);
+
+  //   specialEffectsRef, // TODO: 🛑 NOT yet  implemented in GameVards
+  //   maxLimitsRef, // TODO: use "townhallLevel" from GameVards + 🛑 a constants file
+  //   awardPoints, // TODO: 🅱 🛑 Not yet implemented in Blockchain Hooks
+  //   createNFTCard, // TODO: 🅱 🛑 Not yet implemented in Blockchain Hooks
+  // } = usePlayerContext();
 
   const {
     // cards,
     activeCards,
     inventory: inventoryCards,
-    addCard,
-    removeCard,
-    addCardToActiveCards,
-    removeCardFromActiveCards,
+    // addCard,
+    // removeCard,
+    // addCardToActiveCards,
+    // removeCardFromActiveCards,
     addCardToInventory,
     removeCardFromInventory,
   } = useAllCardsStore((state) => state);
 
   const {
     energy,
-    energyConsumed,
-    energyProduced,
-    expences,
+    // energyConsumed,
+    // energyProduced,
+    // expences,
     player,
     updatePlayerData,
   } = useGameVarsStore((state) => state);
 
-  const mapEntities = useTownMapStore((state) => state.mapEntities);
+  // const mapEntities = useTownMapStore((state) => state.mapEntities);
 
   const {
     createCard_DB,
@@ -124,7 +119,6 @@ export default function CardGrid({
     );
   }, [activeCards]);
 
-  // TODO: Refactor this. It's a mess! Insert it into
   useEffect(() => {
     if (isSuccessNewCard && newCardData?.cardId && newCard_2) {
       const newCard = newCard_2; // Just to make the code more readable
@@ -156,14 +150,11 @@ export default function CardGrid({
         "Crafted New Card",
         "Congratulations on Crafting a New Card!"
       );
+
+      setNewCard_2(null);
     }
-  }, [
-    createCardStats_DB,
-    isSuccessNewCard,
-    newCard_2,
-    toastConfetti,
-    newCardData,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccessNewCard, newCard_2, newCardData]);
 
   /**
    * @firstCheck Completed ✅
@@ -225,7 +216,6 @@ export default function CardGrid({
     // awardPoints("cardCreation"); // TODO: Implement This in Blockchain Hooks
     // createNFTCard(newCard.id, newCard.templateId); // TODO: Implement This in Blockchain Hooks
 
-    console.log("CardGrid, Create Card: ", selectedCardTemplateId);
     console.log("CardGrid, Create Card Data: ", newCard);
 
     return newCard;
@@ -247,8 +237,13 @@ export default function CardGrid({
       player.population === null ||
       player.diesel === null ||
       energy === null
-    )
-      throw new Error("⛔ CardGrid: checkAndSubtractRes: Player is null!");
+    ) {
+      console.log("player :>> ", player);
+      console.log("energy :>> ", energy);
+      throw new Error(
+        "⛔ CardGrid: checkAndSubtractRes: Player is null! | Player: "
+      );
+    }
 
     const playerResources: CardRequirements = {
       gold: player.gold,
@@ -297,9 +292,6 @@ export default function CardGrid({
           playerResources[key as keyof CardRequirements] -=
             _card.requirements[key as keyof CardRequirements];
 
-          // 🔷 Updates the State of GameVars Store
-          updatePlayerData(playerResources);
-
           console.log(
             "New [",
             key,
@@ -309,6 +301,9 @@ export default function CardGrid({
           console.log("------------------------------------");
         }
       }
+
+      // 🔷 Updates the State of GameVars Store
+      updatePlayerData(playerResources);
 
       if (type === "level" && !(_card instanceof SPCard) && _card.level >= 1) {
         _card.levelUp(); // 🔷 Level Up the Card
@@ -328,7 +323,6 @@ export default function CardGrid({
       if (type === "craft") {
         // 💥 This "newCard" does not have an ID yet!!!
         const newCard = createCard(_card.type, _card.templateId);
-        setNewCard_2(newCard); // This is done so in useEffect we have access to this Card.
 
         // 🔷 Creates the Card in MySQL Database in case it IS a Special Effect Card
         if (_card.type === "sp" && _card instanceof SPCard) {
@@ -360,6 +354,8 @@ export default function CardGrid({
             creator: player.name,
           });
         }
+
+        setNewCard_2(newCard); // This is done so in useEffect we have access to this Card.
       }
     } else {
       toastError.showError(
@@ -371,7 +367,8 @@ export default function CardGrid({
   }
 
   // Here we register the effects of SE Cards
-  // TODO: Fix When Creating Game Loop
+  // TODO: 🛑 Fix When Creating Game Loop
+  /*
   function createEffect(_templateId, boost) {
     if (specialEffectsRef.current.isEffectActive) {
       return false;
@@ -389,10 +386,12 @@ export default function CardGrid({
       };
     }
   }
+  */
 
-  // TODO: The Activation of Cards will be done by using the Map's Placeholders and the CardPicker Modal!
+  // TODO: 🛑 The Activation of Cards will be done by using the Map's Placeholders and the CardPicker Modal!
   // This will work only for SP Cards
-  // TODO: Check Again once you Implement the Special Effects
+  // TODO: 🛑 Check Again once you Implement the Special Effects
+  /* <== ✨
   const handleActivateClick = (_card: SPCard) => {
     console.log("Attempting Card Activation: ", _card);
     if (_card.type === "sp" && isSPCard(_card)) {
@@ -491,6 +490,7 @@ export default function CardGrid({
     //   return;
     // }
   };
+   ✨ ==> */
 
   /**
    * @firstCheck Completed ✅
@@ -542,9 +542,9 @@ export default function CardGrid({
 
   /**
    * @firstCheck Completed ✅
-   * @param _card
+   * @param card
    */
-  const handleCraftClick = (_card: CardClass) => {
+  const handleCraftClick = (card: CardClass) => {
     // handle craft functionality here
     // 1. Check if player has the resources to craft the Card
     // 2. If "Yes" => Next(), Else "No" Show AlertModal (Not yet created!)
@@ -555,7 +555,8 @@ export default function CardGrid({
     //    2) To Blockchain
     //    3) Local Storage
     //    4) Frontend => CardsInInventory (Context Variable
-    checkAndSubtractRes(_card, "craft");
+
+    checkAndSubtractRes(card, "craft");
 
     // 6. Unselect the Card. This also goes 1 step back in the Modal (Where all the cards are dispayed).
     setSelectedCard(null);
@@ -565,361 +566,23 @@ export default function CardGrid({
   };
 
   return (
-    <div
-      className={
-        selectedCardTemplateId === null ? "card-grid" : "single-card-grid"
-      }
-    >
-      {/* ✨ Here is the [1st Card Menu], where all the cards are displayed ✨ */}
-      {selectedCardTemplateId === null
-        ? cards.map((card, index) => (
-            <div
-              key={
-                currentModal === "Craft"
-                  ? "noCardSelected-" + "Craft-" + index
-                  : "noCardSelected-" + "Inv-" + index
-              }
-            >
-              {/* Render the card contents here */}
-              {card.templateId && (
-                <TemplateCard
-                // id={card.id} // In Craft Modal: undefined
-                // templateId={card.templateId}
-                // name={card.name}
-                // type={card.type}
-                // level={card.level} // In Craft Modal: undefined
-                // rarity={card.rarity} // In Craft Modal: undefined
-                // image={card.image}
-                // isDisabled={card.disabled}
-                // description={card.desc}
-                // setSelectedCardModal={setSelectedCard}
-                // selectedCardModal={selectedCardTemplateId}
-                // handleCardClickScroll={handleCardClickScroll}
-                // currentModal={currentModal}
-                />
-              )}
-            </div>
-          ))
-        : /* Here is the 2nd Card Menu, when we click/select a Card from the 1st Menu we arrive here  */
-          cards
-            .filter((card) => {
-              if (currentModal === "Craft")
-                return card.templateId === selectedCardTemplateId;
-              return card.id === selectedCardTemplateId;
-            })
-            .map((card) => (
-              <div
-                key={
-                  currentModal === "Craft"
-                    ? "CardisSelected-" + card.templateId
-                    : "CardisSelected-" + card.index
-                }
-                className="single-card-container"
-                // style={{ marginTop: '24px' }}
-              >
-                <div className="card-plus-btns">
-                  {console.log("asdasdasas: ", card)}
-                  <TemplateCard
-                    id={card.id}
-                    templateId={card.templateId}
-                    name={card.name}
-                    type={card.type}
-                    level={card.level}
-                    rarity={card.rarity}
-                    image={card.image}
-                    isDisabled={card.disabled}
-                    description={card.desc}
-                    setSelectedCardModal={setSelectedCard}
-                    selectedCardModal={selectedCardTemplateId}
-                    currentModal={currentModal}
-                  />
-                  {/* Single Card Menu for - Inventory - */}
-                  {currentModal === "Inventory" && (
-                    <div className="single-card-btn-container">
-                      <button
-                        className="single-card-btn btn-activate"
-                        // I use tge closeBtn class cuz I'm bored of renaming it :P
-                        style={{
-                          padding: "5px 10px",
-                          borderRadius: "10px",
-                          boxShadow: "1px 2px 2px 0px black",
-                          pointerEvents: card.disabled ? "none" : "",
-                          filter: card.disabled ? "grayscale(100%)" : "",
-                        }}
-                        onClick={() => handleActivateClick(card)}
-                      >
-                        Activate
-                      </button>
-
-                      <button
-                        className="single-card-btn btn-sell"
-                        style={{
-                          padding: "5px 10px",
-                          borderRadius: "10px",
-                          boxShadow: "1px 2px 2px 0px black",
-                        }}
-                        onClick={() => handleSellClick(card)}
-                      >
-                        Sell
-                      </button>
-
-                      {showPriceInput && (
-                        <div className="flex flex-col items-center w-full">
-                          <CustomInput
-                            label="Price Tag"
-                            placeHolder="Ex. 25000"
-                            Attribs={{
-                              type: "text",
-                              onChange: (e) => {
-                                // Use a regular expression to ensure only numbers are allowed
-                                if (
-                                  /^\d*$/.test(e.target.value) &&
-                                  e.target.value !== "."
-                                ) {
-                                  setPriceInput(e.target.value);
-                                  console.log("Price Tag: ", e.target.value);
-                                } else {
-                                  e.target.value = "0";
-                                  setPriceInput("0");
-                                }
-                              },
-                            }}
-                          />
-                        </div>
-                      )}
-
-                      {card.type !== "Special Effect" && (
-                        <button
-                          className="single-card-btn btn-levelUp"
-                          style={{
-                            marginTop: showPriceInput ? "10px" : "0px",
-                            padding: "5px 10px",
-                            borderRadius: "10px",
-                            boxShadow: "1px 2px 2px 0px black",
-                          }}
-                          onClick={() => handleLevelUpClick(card)}
-                        >
-                          Level Up
-                        </button>
-                      )}
-                    </div>
-                  )}
-                  {/* Single Card Menu for - Craft - */}
-                  {currentModal === "Craft" && (
-                    <div className="single-card-btn-container">
-                      <button
-                        className="single-card-btn btn-craft"
-                        // I use tge closeBtn class cuz I'm bored of renaming it :P
-                        style={{
-                          padding: "5px 10px",
-                          borderRadius: "10px",
-                          boxShadow: "1px 2px 2px 0px black",
-                        }}
-                        onClick={() => handleCraftClick(card)}
-                      >
-                        Craft ⚙
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <img
-                  src={vertDivider}
-                  alt="-- Vertical Divider --"
-                  // style={{ display: 'block' }}
-                  className="vertical-divider"
-                />
-
-                <div className="single-card-desc">
-                  {card.type !== "Special Effect" && (
-                    <>
-                      <h3> Maintenance</h3>
-                      {card.maintenance === false ? (
-                        <span className="single-card-desc-span">
-                          This Card does not require Maintenance
-                        </span>
-                      ) : (
-                        <ul>
-                          {card.type !== "Special Effect" &&
-                            Object.entries(card.maintenance).map(
-                              ([key, value], index) => (
-                                <li
-                                  key={`noSE-Maintaince-Prop-${index}`}
-                                  className="single-card-li"
-                                >
-                                  <span className="single-card-maintenance-prop">
-                                    {key}:{` `}
-                                  </span>
-                                  <span className="single-card-maintenance-value">
-                                    {value}
-                                  </span>
-                                </li>
-                              )
-                            )}
-                        </ul>
-                      )}
-                    </>
-                  )}
-
-                  {card.type !== "Special Effect" ? (
-                    <>
-                      <h3>
-                        {" "}
-                        {`${
-                          currentModal === "Craft" ? "Craft" : "Upgrade"
-                        } - Requirements`}{" "}
-                      </h3>
-                      {card.level >= 5 ? (
-                        <span className="single-card-desc-span">
-                          This Card can not be upgraded any further
-                        </span>
-                      ) : (
-                        <ul>
-                          {Object.entries(card.requirements).map(
-                            ([key, value], index) => (
-                              <li
-                                key={`noSE-Requirements-Prop-${index}`}
-                                className="single-card-li"
-                              >
-                                <span className="single-card-maintenance-prop">
-                                  {key}:{` `}
-                                </span>
-                                <span className="single-card-maintenance-value">
-                                  {value}
-                                </span>
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {currentModal === "Craft" ? (
-                        <>
-                          <h3>Requirements</h3>
-                          {Object.entries(card.requirements).map(
-                            ([key, value], index) => (
-                              <li
-                                key={`Craft-Requirements-Prop-${index}`}
-                                className="single-card-li"
-                              >
-                                <span className="single-card-maintenance-prop">
-                                  {key}:{` `}
-                                </span>
-                                <span className="single-card-maintenance-value">
-                                  {value}
-                                </span>
-                              </li>
-                            )
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          <h3>Rarity</h3>
-                          <span
-                            className="single-card-maintenance-prop special-card"
-                            style={{ fontSize: "26px", display: "block" }}
-                          >
-                            {rarityCoverter(card.rarity)}
-                          </span>
-                        </>
-                      )}
-                    </>
-                  )}
-
-                  <h3> Output </h3>
-                  {card.output === false ? (
-                    <span className="single-card-desc-span">
-                      This Card does not provide any output
-                    </span>
-                  ) : (
-                    <ul>
-                      {card.type === "Special Effect"
-                        ? Object.entries(card.output).map(
-                            ([key, value], index) => (
-                              <>
-                                {currentModal === "Craft" ? (
-                                  <li
-                                    key={`Craft-SE-Output-Prop-${index}`}
-                                    className="single-card-li"
-                                  >
-                                    {/* <span className="single-card-maintenance-prop">
-                                      {key}:{` `}
-                                    </span> */}
-                                    <span className="single-card-maintenance-prop">
-                                      {card.desc}
-                                    </span>
-                                  </li>
-                                ) : (
-                                  <li
-                                    key={`Inv-SE-Output-Prop-${index}`}
-                                    className="single-card-li"
-                                  >
-                                    <span className="single-card-maintenance-prop special-card">
-                                      {card.desc}
-                                    </span>
-                                    {/* <span className="single-card-maintenance-value">
-                                      {card.desc}
-                                    </span> */}
-                                  </li>
-                                )}
-                              </>
-                            )
-                          )
-                        : // For REG & Buildings 🏙 🏘
-                          Object.entries(card.output).map(
-                            ([key, value], index) => (
-                              <>
-                                {/* If the Card is: 'REG' */}
-                                {card.type === "REG" ? (
-                                  <li
-                                    key={`Inv-REG-Output-Prop-${index}`}
-                                    className="single-card-li"
-                                  >
-                                    <span className="single-card-maintenance-prop">
-                                      {key}:{` `}
-                                    </span>
-                                    {currentModal === "Craft" ? (
-                                      <span className="single-card-maintenance-value">
-                                        {"???"}
-                                      </span>
-                                    ) : (
-                                      <span className="single-card-maintenance-value">
-                                        {value}
-                                      </span>
-                                    )}
-                                  </li>
-                                ) : (
-                                  // {/* If the Card is: 'Building' */}
-                                  <li
-                                    key={`Inv-Building-Output-Prop-${index}`}
-                                    className="single-card-li"
-                                  >
-                                    <span className="single-card-maintenance-prop">
-                                      {key}:{` `}
-                                    </span>
-                                    {currentModal === "Craft" ? (
-                                      <span className="single-card-maintenance-value">
-                                        {"???"}
-                                      </span>
-                                    ) : (
-                                      <span className="single-card-maintenance-value">
-                                        {isFloat(value)
-                                          ? value * 100 + "%"
-                                          : value}
-                                      </span>
-                                    )}
-                                  </li>
-                                )}
-                              </>
-                            )
-                          )}
-                    </ul>
-                  )}
-                </div>
-                {/* ))} */}
-              </div>
-            ))}
+    <div className={selectedCard === null ? "card-grid" : "single-card-grid"}>
+      {currentModal === "Craft" ? (
+        <CraftingCardGrid
+          cards={cards}
+          handleCraftClick={handleCraftClick}
+          selectedCard={selectedCard}
+          setSelectedCard={setSelectedCard}
+        />
+      ) : (
+        <InventoryCardGrid
+          cards={cards}
+          handleLevelUp={handleLevelUpClick}
+          handleSell={handleSellClick}
+          selectedCard={selectedCard}
+          setSelectedCard={setSelectedCard}
+        />
+      )}
     </div>
   );
 }

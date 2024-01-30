@@ -13,8 +13,9 @@ import CardLayout from "../../Parts/CardLayout/CardLayout";
 
 interface Props {
   card: CardClass;
-  setSelectedCard?: React.Dispatch<React.SetStateAction<number | null>>;
-  currentModal: "Inventory" | "Craft";
+  setSelectedCard?: React.Dispatch<React.SetStateAction<CardClass | null>>;
+  currentModal?: "Inventory" | "Craft";
+  onClick?: () => void;
 }
 
 /**
@@ -22,19 +23,26 @@ interface Props {
  * @param param0
  * @returns
  */
-const CompleteCard = ({ setSelectedCard, card, currentModal }: Props) => {
+const CompleteCard = ({
+  setSelectedCard,
+  card,
+  currentModal,
+  onClick,
+}: Props) => {
   const { images } = UseGlobalContext();
 
   if (images === undefined)
     throw new Error("⛔ CompleteCard : images is undefined");
 
   const handleCardClick = () => {
-    if (setSelectedCard === undefined) {
+    if (onClick !== undefined) {
+      onClick();
+    } else if (setSelectedCard === undefined) {
       return;
     } else if (currentModal === "Craft") {
-      setSelectedCard(card.templateId);
+      setSelectedCard(card);
     } else if (currentModal === "Inventory") {
-      setSelectedCard(card.id);
+      setSelectedCard(card);
     } else {
       throw new Error("⛔ CompleteCard: currentModal is not set!");
     }
@@ -47,6 +55,7 @@ const CompleteCard = ({ setSelectedCard, card, currentModal }: Props) => {
         cardData={card as BuildingCard}
         onClick={handleCardClick}
         isForCrafting={false}
+        currentModal={currentModal}
       />
     );
   } else if (isRegCard(card)) {
@@ -56,6 +65,7 @@ const CompleteCard = ({ setSelectedCard, card, currentModal }: Props) => {
         cardData={card as RegCard}
         onClick={handleCardClick}
         isForCrafting={false}
+        currentModal={currentModal}
       />
     );
   } else {
@@ -65,6 +75,7 @@ const CompleteCard = ({ setSelectedCard, card, currentModal }: Props) => {
         cardData={card as SPCard}
         onClick={handleCardClick}
         isForCrafting={false}
+        currentModal={currentModal}
       />
     );
   }

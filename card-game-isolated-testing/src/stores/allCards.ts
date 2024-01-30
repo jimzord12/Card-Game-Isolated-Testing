@@ -16,10 +16,13 @@ interface AllCardsState {
   activeBuildingCards: BuildingCard[];
   activeRegCards: RegCard[];
   addCard: (card: CardClass) => void;
+  addAllCards: (cards: CardClass[]) => void;
   removeCard: (card: CardClass) => void;
   addCardToInventory: (card: CardClass) => void;
+  addAllInventoryCards: (cards: CardClass[]) => void;
   removeCardFromInventory: (card: CardClass) => void;
   addCardToActiveCards: (card: CardClass) => void;
+  addAllActiveCards: (cards: CardClass[]) => void;
   removeCardFromActiveCards: (card: CardClass) => void;
 }
 
@@ -36,6 +39,29 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
       ...state,
       cards: [...state.cards, card],
     })),
+
+  // ✨ When Logging in, add all cards in one go
+  addAllCards: (cards: CardClass[]) =>
+    set((state) => ({
+      ...state,
+      cards: [...state.cards, ...cards],
+    })),
+
+  // ✨ When Logging in, add all inv cards in one go
+  addAllInventoryCards(cards) {
+    set((state) => ({
+      ...state,
+      inventory: [...state.inventory, ...cards],
+    }));
+  },
+
+  // ✨ When Logging in, add all active cards in one go
+  addAllActiveCards(cards) {
+    set((state) => ({
+      ...state,
+      activeCards: [...state.activeCards, ...cards],
+    }));
+  },
 
   // ✨ By Selling one
   removeCard: (card: CardClass) =>

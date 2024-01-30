@@ -1,7 +1,7 @@
 import "./cardCategory.css";
 
 interface CardCategoryProps {
-  onClick: () => void;
+  handleSimpleCardSelection: (selection: string) => void;
   image: string;
   text: string;
 }
@@ -13,9 +13,22 @@ interface CardCategoryProps {
  * @description This Component is used to render a card that the User will click on to select for what category does he want to Craft a Card for.
  * @returns
  */
-const CardCategory = ({ image, text, onClick }: CardCategoryProps) => {
+const CardCategory = ({
+  image,
+  text,
+  handleSimpleCardSelection,
+}: CardCategoryProps) => {
   return (
-    <div className="craft-card" onClick={onClick}>
+    <div
+      className="craft-card"
+      onClick={() => {
+        if (text === "Special Effect") {
+          handleSimpleCardSelection("sp");
+        } else {
+          handleSimpleCardSelection(text);
+        }
+      }}
+    >
       <img src={image} alt={text} />
       <div className="text">{text}</div>
     </div>

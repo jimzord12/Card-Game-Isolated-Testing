@@ -6,6 +6,9 @@ import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
 import CustomButton from "../Buttons/CustomButton/CustomButton";
 import { useNavigate } from "react-router-dom";
+import GameButton from "../Buttons/GameButton/GameButton";
+import CraftCardModal from "../Modals/InGameModals/CraftCardModal/CraftCardModal";
+import InventoryModal from "../Modals/InGameModals/InventoryModal/InventoryModal";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -19,6 +22,10 @@ const Game = () => {
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
   const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("world");
+
+  const [isInvModalOpen, setIsInvModalOpen] = useState(false);
+  const [isCraftModalOpen, setIsCraftModalOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const auth = useRequireAuth();
@@ -36,6 +43,17 @@ const Game = () => {
           {!loading && (
             <>
               <RotateDevice show={shouldShow} />
+              {/* INV + CRAFT MODALS */}
+
+              <CraftCardModal
+                isCraftModalOpen={isCraftModalOpen}
+                setIsCraftModalOpen={setIsCraftModalOpen}
+              />
+              <InventoryModal
+                isInvModalOpen={isInvModalOpen}
+                setIsInvModalOpen={setIsInvModalOpen}
+              />
+
               <div className="z-[401] absolute top-4 left-20">
                 <CustomButton
                   title="Swap Map"
@@ -58,6 +76,20 @@ const Game = () => {
                   title="Leaderboard"
                   restStyles="bg-violet-500 hover:bg-violet-700"
                   handleClick={() => navigate("/leaderboard/")}
+                />
+              </div>
+              <div className="z-[401] absolute top-64 left-20">
+                <GameButton
+                  onClick={() => setIsCraftModalOpen((prev) => !prev)}
+                  text="Craft Modal"
+                  btnType="primary"
+                />
+              </div>
+              <div className="z-[401] absolute top-[336px] left-20">
+                <GameButton
+                  onClick={() => setIsInvModalOpen((prev) => !prev)}
+                  text="Inventory Modal"
+                  btnType="primary"
                 />
               </div>
 

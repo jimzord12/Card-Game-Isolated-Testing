@@ -198,7 +198,7 @@
 }
 
 .craft {
-  background-image: url('../../myAssets/cardImages/QuestionMarks_BG.png');
+  background-image: url("../../myAssets/cardImages/QuestionMarks_BG.png");
   background-size: cover;
 }
 
