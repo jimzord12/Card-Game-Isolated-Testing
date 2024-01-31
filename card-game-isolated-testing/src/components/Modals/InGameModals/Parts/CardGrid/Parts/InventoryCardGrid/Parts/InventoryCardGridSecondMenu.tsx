@@ -36,18 +36,20 @@ const InventoryCardGridSecondMenu = ({
           >
             Sell
           </button>
-          <button
-            className="single-card-btn btn-levelUp"
-            // I use tge closeBtn class cuz I'm bored of renaming it :P
-            style={{
-              padding: "5px 10px",
-              borderRadius: "10px",
-              boxShadow: "1px 2px 2px 0px black",
-            }}
-            onClick={() => handleLevelUp(selectedCard)}
-          >
-            Level Up
-          </button>
+          {isSPCard(selectedCard) ? null : (
+            <button
+              className="single-card-btn btn-levelUp"
+              // I use tge closeBtn class cuz I'm bored of renaming it :P
+              style={{
+                padding: "5px 10px",
+                borderRadius: "10px",
+                boxShadow: "1px 2px 2px 0px black",
+              }}
+              onClick={() => handleLevelUp(selectedCard)}
+            >
+              Level Up
+            </button>
+          )}
         </div>
       </div>
 
