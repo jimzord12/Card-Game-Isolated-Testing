@@ -10,7 +10,7 @@ const InventoryCardGridFirstMenu = ({ cards, setSelectedCard }: Props) => {
   if (cards === undefined || setSelectedCard === undefined)
     throw new Error("⛔ InventroyCardGrid: FirstMenu: cards is undefined");
 
-  console.log("InventroyCardGridFirstMenu: Cards: ", cards);
+  // console.log("InventroyCardGridFirstMenu: Cards: ", cards);
   return (
     <div className="flex flex-row gap-6 md-custom:flex-wrap">
       {cards.map((card, index) => {

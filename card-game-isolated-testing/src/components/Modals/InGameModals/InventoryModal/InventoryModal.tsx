@@ -33,8 +33,12 @@ export default function InventoryModal({
 
   useEffect(() => {
     setIsOpen(isInvModalOpen);
-    console.log("Inventory Modal, UseEffect: Current Cards: ", inventoryCards);
+    // console.log("Inventory Modal, UseEffect: Current Cards: ", inventoryCards);
   }, [isInvModalOpen]);
+
+  useEffect(() => {
+    setFilteredCardsModal(inventoryCards);
+  }, [inventoryCards]);
 
   // useEffect(() => {
   //   document.addEventListener("mousedown", handleModalClick);
@@ -79,7 +83,6 @@ export default function InventoryModal({
   return (
     <>
       {/* <button onClick={openModal}>Open Modal</button> */}
-      {console.log("asdniaosd: ", isOpen)}
       <AnimatePresence>
         {isOpen && (
           <motion.div

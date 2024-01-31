@@ -6,7 +6,7 @@ import { useAuth } from "./useAuth";
 const useAxiosIntercetps = () => {
   const refresh = useRefreshToken();
   const { user } = useAuth();
-  console.log("Running");
+  // console.log("Running");
 
   useEffect(() => {
     const requestIntercept = axiosCustom.interceptors.request.use(
@@ -17,10 +17,10 @@ const useAxiosIntercetps = () => {
           //   'useaxiosCustom::Request::Interceptor => Auth: ',
           //   auth.accessToken
           // );
-          console.log(
-            "The request was Intercepted | Cause: Not Auth Headers | Adding A-JWT to Auth Headers -> ",
-            user?.aT.slice(user?.aT.length - 12, user?.aT.length)
-          );
+          // console.log(
+          //   "The request was Intercepted | Cause: Not Auth Headers | Adding A-JWT to Auth Headers -> ",
+          //   user?.aT.slice(user?.aT.length - 12, user?.aT.length)
+          // );
         }
         return config;
       },
@@ -39,9 +39,9 @@ const useAxiosIntercetps = () => {
         if (error?.response?.status === 403 && !prevRequest?.sent) {
           // console.log('useaxiosCustom Hook -> Error: ', error);
           prevRequest.sent = true;
-          console.log(
-            "The Access Token Expired! Checking if Refresh Token is still valid... "
-          );
+          // console.log(
+          //   "The Access Token Expired! Checking if Refresh Token is still valid... "
+          // );
           const newAccessToken = await refresh();
           prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 

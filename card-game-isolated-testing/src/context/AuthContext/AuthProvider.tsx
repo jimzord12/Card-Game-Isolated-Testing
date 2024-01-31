@@ -36,10 +36,10 @@ export default function AuthProvider({
 
   useEffect(() => {
     if (disableForTesting) {
-      console.log(
-        "%c🛑 | 🧪 |  - Authentication is DISABLED - | 🧪 | 🛑 ",
-        "color: #ff0000; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 0px #000000;"
-      );
+      // console.log(
+      //   "%c🛑 | 🧪 |  - Authentication is DISABLED - | 🧪 | 🛑 ",
+      //   "color: #ff0000; font-size: 16px; font-weight: bold; text-shadow: 2px 2px 0px #000000;"
+      // );
       setUser({ wallet: "0x123", aT: "123", rT: "123", username: "testUser" });
     }
   }, []);
@@ -57,8 +57,9 @@ export default function AuthProvider({
       console.log("🧪 2.2 | - ✅ Successfully GOT Player Data: ", playerData);
 
       setPlayer(playerData.player); // 🔷 Set the Player Data to Global State
-
-      cardsInit(playerData.cards); // 🔷 Initialize the Cards
+      if (playerData.cards !== undefined && playerData.cards !== null) {
+        cardsInit(playerData.cards); // 🔷 Initialize the Cards
+      }
 
       console.log(
         "🧪 3.0 | - ✅ Added the Player Dato to Global State: ",

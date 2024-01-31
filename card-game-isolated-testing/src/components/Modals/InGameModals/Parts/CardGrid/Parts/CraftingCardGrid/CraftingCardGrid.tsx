@@ -25,7 +25,7 @@ const CraftingCardGrid = ({
       "⛔ CraftingCardGrid: cards | setSelectedCard | selectedCard is undefined"
     );
 
-  console.log(" --- CraftingCardGrid: cards: ", cards);
+  // console.log(" --- CraftingCardGrid: cards: ", cards);
   return (
     <div>
       {selectedCard === null ? (

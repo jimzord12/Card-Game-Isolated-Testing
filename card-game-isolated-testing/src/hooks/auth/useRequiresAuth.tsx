@@ -9,9 +9,9 @@ export function useRequireAuth() {
   useEffect(() => {
     if (!auth.user?.aT) {
       navigate("/");
-      console.log(
-        "⛔ Custom Error: User tried to go to Game while was UN-authenticated"
-      );
+      // console.log(
+      //   "⛔ Custom Error: User tried to go to Game while was UN-authenticated"
+      // );
     }
   }, [auth, navigate]);
 

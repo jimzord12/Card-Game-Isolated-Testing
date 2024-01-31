@@ -49,19 +49,19 @@ export default class RegCard {
   // private usedFrom?: any; // Replace 'any' with a more specific type if possible
 
   private constructor(data: RegCardData) {
-    console.log("======================================================");
-    console.log("| ⚡ Constructor REG Card | The provided data: ", data);
-    console.log("======================================================");
+    // console.log("======================================================");
+    // console.log("| ⚡ Constructor REG Card | The provided data: ", data);
+    // console.log("======================================================");
 
-    console.log(
-      "[1] - CLASS | REG::: Template Data: ",
-      templateIdToTemplateDataREG
-    );
-    console.log("[2] - CLASS | REG::: Template ID: ", data.templateId);
-    console.log(
-      "[3] - CLASS | REG::: Template Data based on ID: ",
-      templateIdToTemplateDataREG[data.templateId]
-    );
+    // console.log(
+    //   "[1] - CLASS | REG::: Template Data: ",
+    //   templateIdToTemplateDataREG
+    // );
+    // console.log("[2] - CLASS | REG::: Template ID: ", data.templateId);
+    // console.log(
+    //   "[3] - CLASS | REG::: Template Data based on ID: ",
+    //   templateIdToTemplateDataREG[data.templateId]
+    // );
     // From Caller
     this.img = templateIdToTemplateDataREG[data.templateId].image;
 
@@ -187,15 +187,15 @@ export default class RegCard {
   }
 
   private updateMaintenance(baseValueObject: RegMaintenance): RegMaintenance {
-    console.log("1. Base Requirements: ", baseValueObject);
+    // console.log("1. Base Requirements: ", baseValueObject);
     const updatedVersion: RegMaintenance = { gold: -1 };
 
-    console.log("2 | this.level: ", this.level);
+    // console.log("2 | this.level: ", this.level);
 
     const levelMulti = levelReqMulti[Number(`${this.level}`)];
     const _upgradeCoef = upgradeCoef[Number(`${this.level}`)];
-    console.log("3.1 | levelMulti: ", levelMulti);
-    console.log("3.1 | _upgradeCoef: ", _upgradeCoef);
+    // console.log("3.1 | levelMulti: ", levelMulti);
+    // console.log("3.1 | _upgradeCoef: ", _upgradeCoef);
 
     const multiplier = levelMulti - _upgradeCoef + 1;
 
@@ -207,7 +207,7 @@ export default class RegCard {
         );
       }
     }
-    console.log("4. Updated Requirements: ", updatedVersion);
+    // console.log("4. Updated Requirements: ", updatedVersion);
 
     return updatedVersion;
   }
@@ -215,7 +215,7 @@ export default class RegCard {
   private updateRequirements(
     baseValueObject: CardRequirements
   ): CardRequirements {
-    console.log("Base Requirements: ", baseValueObject);
+    // console.log("Base Requirements: ", baseValueObject);
     const updatedVersion: CardRequirements = {
       gold: -1,
       concrete: -1,
@@ -239,7 +239,7 @@ export default class RegCard {
         );
       }
     }
-    console.log("Updated Requirements: ", updatedVersion);
+    // console.log("Updated Requirements: ", updatedVersion);
 
     return updatedVersion;
   }

@@ -9,7 +9,7 @@ const CustomToastError = ({
   message,
   specialText,
 }: CustomToastErrorProps) => {
-  console.log("asdasdasdgfg  adsas: ", specialText);
+  // console.log("asdasdasdgfg  adsas: ", specialText);
   return (
     <div
       style={{

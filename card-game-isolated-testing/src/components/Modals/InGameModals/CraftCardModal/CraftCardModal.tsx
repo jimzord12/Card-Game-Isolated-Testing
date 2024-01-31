@@ -54,7 +54,7 @@ export default function CraftCardModal({
     // if (!hasUseEffectRun.current) {
     //   hasUseEffectRun.current = true;
     // const templateCards = cardsInit();
-    console.log("Craft Modal: Suka! cards: ", cards);
+    // console.log("Craft Modal: Suka! cards: ", cards);
 
     setCards(templateCards);
     setCardsInitCompleted(true);
@@ -64,7 +64,7 @@ export default function CraftCardModal({
   // Init State - Step #2
   useEffect(() => {
     if (cardsInitCompleted) {
-      console.log("Craft Modal: Filtered cards: ", cards);
+      // console.log("Craft Modal: Filtered cards: ", cards);
       setFilteredCardsModal(cards);
       // setInitCompleted(true);
     }
@@ -130,8 +130,8 @@ export default function CraftCardModal({
   // }
 
   function handleSimpleCardSelection(selection: string) {
-    console.log("Selection: ", selection.toLowerCase());
-    console.log("selectedCardModal: ", selectedCardModal);
+    // console.log("Selection: ", selection.toLowerCase());
+    // console.log("selectedCardModal: ", selectedCardModal);
     if (selection.toLowerCase() === "building") {
       setTypeSelection("building");
       // console.log('The', selection, 'Card Type was selected!');
@@ -156,7 +156,7 @@ export default function CraftCardModal({
       const filteredCards = filteredCardsModal.filter(
         (card) => card.type.toLowerCase() === selection.toLowerCase()
       );
-      console.log("handleSimpleCardSelection: asdasd: ", filteredCards);
+      // console.log("handleSimpleCardSelection: asdasd: ", filteredCards);
       setFilteredCardsModal(filteredCards);
       return;
     }
@@ -274,7 +274,6 @@ export default function CraftCardModal({
                 typeSelection !== null &&
                 filteredCardsModal !== null && (
                   <>
-                    {console.log("I am here!")}
                     <div
                       style={{
                         textAlign: "center",

@@ -29,7 +29,6 @@ export function cardsInit(): CardClass[] {
   for (let i = 0; i < allTemplateIds.length; i++) {
     // SPs
     if (allTemplateIds[i].toString().startsWith("3")) {
-      console.log("aaaaaaaaaaaaaaaaa: ", isSPTemplateId(allTemplateIds[i]));
 
       if (isSPTemplateId(allTemplateIds[i])) {
         cardList.push(
@@ -84,7 +83,6 @@ export function cardsInit(): CardClass[] {
       }
     }
   }
-  console.log("SKAiuadsbfads: ", cardList.length);
   return cardList;
 }
 

@@ -27,7 +27,7 @@ const InventoryCardGrid = ({
       "⛔ InventoryCardGrid: cards | setSelectedCard | selectedCard is undefined"
     );
 
-  console.log(" --- InventoryCardGrid: cards: ", cards);
+  // console.log(" --- InventoryCardGrid: cards: ", cards);
   return (
     <div>
       {selectedCard === null ? (

@@ -33,7 +33,7 @@ const ModalLevelIndicator = ({
 
   // I do not like it, but it works.
   useEffect(() => {
-    console.log("ModalLevelIndicator: Updating Internal State: ", level);
+    // console.log("ModalLevelIndicator: Updating Internal State: ", level);
     setLevelToDisplay(level);
   }, [level]);
 

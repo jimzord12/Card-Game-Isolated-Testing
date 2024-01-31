@@ -84,7 +84,7 @@ const HomePageMetamask = () => {
   }, [metamaskProvider, wallet.chainId, wallet.accounts.length]);
 
   useEffect(() => {
-    console.log("first");
+    // console.log("first");
   }, [errMsg, successMsg]);
 
   const actionBtnManger = () => {
@@ -133,7 +133,7 @@ const HomePageMetamask = () => {
     if (success) {
       try {
         const { username } = await loginWithWallet(wallet.accounts[0]);
-        console.log("Handle Login: ", success, username);
+        // console.log("Handle Login: ", success, username);
 
         if (username) {
           try {

@@ -39,9 +39,9 @@ export default class SPCard {
   // private usedFrom?: any; // Replace 'any' with a more specific type if possible
 
   private constructor(data: SPCardData) {
-    console.log("======================================================");
-    console.log("| ✨ Constructor SP Card | The provided data: ", data);
-    console.log("======================================================");
+    // console.log("======================================================");
+    // console.log("| ✨ Constructor SP Card | The provided data: ", data);
+    // console.log("======================================================");
 
     // From Caller
     this.img = templateIdToTemplateDataSP[data.templateId].image;
@@ -137,7 +137,7 @@ export default class SPCard {
   private calculateRequirements(
     baseValueObject: CardRequirements
   ): CardRequirements {
-    console.log("Base Requirements: ", baseValueObject);
+    // console.log("Base Requirements: ", baseValueObject);
     const updatedVersion: CardRequirements = {
       gold: -1,
       concrete: -1,
@@ -156,7 +156,7 @@ export default class SPCard {
         );
       }
     }
-    console.log("Updated Requirements: ", updatedVersion);
+    // console.log("Updated Requirements: ", updatedVersion);
 
     return updatedVersion;
   }

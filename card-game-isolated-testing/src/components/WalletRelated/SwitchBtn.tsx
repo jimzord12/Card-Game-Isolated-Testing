@@ -71,7 +71,7 @@ export default function SwitchBtn({ usingLW, setUsingLW }: SwitchBtnProps) {
   const handleChange = (event: any) => {
     setUsingLW(event.target.checked);
     setIsActive(!usingLW);
-    console.log("From SwithBtn - Local Wallet: ", !usingLW);
+    // console.log("From SwithBtn - Local Wallet: ", !usingLW);
   };
 
   return (

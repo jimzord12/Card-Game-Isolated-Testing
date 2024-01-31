@@ -61,9 +61,9 @@ export default class BuildingCard {
     data: BuildingCardData
     // templateData: templateIdToTemplateDataBuilding,
   ) {
-    console.log("======================================================");
-    console.log("| 🏡 Constructor Building Card | The provided data: ", data);
-    console.log("======================================================");
+    // console.log("======================================================");
+    // console.log("| 🏡 Constructor Building Card | The provided data: ", data);
+    // console.log("======================================================");
 
     // From Caller
     this.img = templateIdToTemplateDataBuilding[data.templateId].image;
@@ -203,15 +203,15 @@ export default class BuildingCard {
   private updateMaintenance(
     baseValueObject: BuildingMaintenance
   ): BuildingMaintenance {
-    console.log("1. Base Requirements: ", baseValueObject);
+    // console.log("1. Base Requirements: ", baseValueObject);
     const updatedVersion: BuildingMaintenance = { energy: -1 };
 
-    console.log("2 | this.level: ", this.level);
+    // console.log("2 | this.level: ", this.level);
 
     const levelMulti = levelReqMulti[Number(`${this.level}`)];
     const _upgradeCoef = upgradeCoef[Number(`${this.level}`)];
-    console.log("3.1 | levelMulti: ", levelMulti);
-    console.log("3.1 | _upgradeCoef: ", _upgradeCoef);
+    // console.log("3.1 | levelMulti: ", levelMulti);
+    // console.log("3.1 | _upgradeCoef: ", _upgradeCoef);
 
     const multiplier = levelMulti - _upgradeCoef + 1;
 
@@ -223,7 +223,7 @@ export default class BuildingCard {
         );
       }
     }
-    console.log("4. Updated Requirements: ", updatedVersion);
+    // console.log("4. Updated Requirements: ", updatedVersion);
 
     return updatedVersion;
   }
@@ -231,7 +231,7 @@ export default class BuildingCard {
   private updateRequirements(
     baseValueObject: CardRequirements
   ): CardRequirements {
-    console.log("Base Requirements: ", baseValueObject);
+    // console.log("Base Requirements: ", baseValueObject);
     const updatedVersion: CardRequirements = {
       gold: -1,
       concrete: -1,
@@ -255,7 +255,7 @@ export default class BuildingCard {
         );
       }
     }
-    console.log("Updated Requirements: ", updatedVersion);
+    // console.log("Updated Requirements: ", updatedVersion);
 
     return updatedVersion;
   }

@@ -21,8 +21,8 @@ interface Props {
 }
 
 const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
-  console.log("frameImg :>> ", frameImg);
-  console.log("Card Data : ", card);
+  // console.log("frameImg :>> ", frameImg);
+  // console.log("Card Data : ", card);
 
   return (
     <div className={styles.outerFrame} onClick={onClick}>
@@ -32,10 +32,6 @@ const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
           <div className={styles.cardFrameContainer}>
             <img src={frameImg} alt="Frame Image" className={styles.frameImg} />
           </div>
-          {console.log(
-            "SKATATATA__22: ",
-            rarityConverter(card.rarity)?.toLowerCase()
-          )}
           <div className={styles.innerFrame}>
             <h3 className={styles.cardTitle}>{card.name}</h3>
             <img src={card.img} alt="Card Image" className={styles.cardImg} />

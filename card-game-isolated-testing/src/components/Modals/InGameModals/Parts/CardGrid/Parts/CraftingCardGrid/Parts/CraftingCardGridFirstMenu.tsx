@@ -13,7 +13,7 @@ const CraftingCardGridFirstMenu = ({
   if (cards === undefined || setSelectedCard === undefined)
     throw new Error("⛔ CraftingCardGrid: FirstMenu: cards is undefined");
 
-  console.log("CraftingCardGridFirstMenu: Cards: ", cards);
+  // console.log("CraftingCardGridFirstMenu: Cards: ", cards);
   return (
     <div className="flex flex-row gap-6">
       {cards.map((card, index) => {

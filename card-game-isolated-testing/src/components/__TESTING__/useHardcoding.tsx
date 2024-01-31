@@ -16,13 +16,13 @@ const useHardcoding = () => {
       } catch (error) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((error as any)?.message === "Network Error") {
-          console.log("⛔ - Custom: The Error is: ", error);
+          // console.log("⛔ - Custom: The Error is: ", error);
           throw new Error("⛔ - Custom: Web Server is probably down!");
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } else if ((error as any)?.request?.status === 401) {
           throw new Error("⛔ - Custom: Player not found!");
         } else {
-          console.log("⛔ - Custom: The Error is: ", error);
+          // console.log("⛔ - Custom: The Error is: ", error);
           throw new Error("⛔ - Custom: Something went Wrong!");
         }
       }
@@ -39,10 +39,10 @@ const useHardcoding = () => {
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((error as any)?.message === "Network Error") {
-        console.log("⛔ - Custom: The Error is: ", error);
+        // console.log("⛔ - Custom: The Error is: ", error);
         throw new Error("⛔ - Custom: Web Server is probably down!");
       } else {
-        console.log("The Error is: ", error);
+        // console.log("The Error is: ", error);
         throw new Error("⛔ - Custom: Player not found!");
       }
     }

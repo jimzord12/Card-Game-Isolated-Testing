@@ -19,8 +19,8 @@ const CircularGoldenLabel = ({ happinessValue, totalPop, alt }: Props) => {
       happinessValue: number,
       totalPop: number
     ): keyof Partial<GameIconsImageGroup> => {
-      console.log("🍰 1. Happiness: ", happinessValue);
-      console.log("🍰 2. TotalPop: ", totalPop);
+      // console.log("🍰 1. Happiness: ", happinessValue);
+      // console.log("🍰 2. TotalPop: ", totalPop);
       const result = happinessValue / totalPop;
       if (result < 0.5) return "angryFaceGameIcon";
       if (result > 0.5 && result < 1) return "sadFaceGameIcon";

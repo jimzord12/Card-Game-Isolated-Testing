@@ -14,7 +14,7 @@ export const handleCloseTxModal = (
     setTimeout(async () => {
       try {
         const success = await waitForTx(provider, tx);
-        console.log(success ? "1. isajdbasibdia" : "2. isajdbasibdia");
+        // console.log(success ? "1. isajdbasibdia" : "2. isajdbasibdia");
         setTransactionModalOpen(false);
         resolve(success);
       } catch (error) {

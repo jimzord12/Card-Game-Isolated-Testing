@@ -30,7 +30,7 @@ const FactoryOnMap = ({
 
   // This Renders the StandardModal
   const handleOpenFactoryModal = useCallback(() => {
-    console.log("You Clicked On The Factory!");
+    // console.log("You Clicked On The Factory!");
     pushModal(
       <StandardModal
         bgImage={images.modal_backgrounds.dieselFactoryBG}

@@ -145,7 +145,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
               <CompleteCard
                 card={card}
                 onClick={() => {
-                  console.log("[REG] - You Clicked this Card: ", card);
+                  // console.log("[REG] - You Clicked this Card: ", card);
                   // 0. Perform Nessessary Checks (Includes Toasts)
                   if (!canBeActivated(card)) return;
 

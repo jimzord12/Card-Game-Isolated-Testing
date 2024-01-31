@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./cardGrid.css";
 
 import {
@@ -23,7 +23,12 @@ import {
 // import vertDivider from "../../myAssets/vertical_section_divider.png";
 // import CustomInput from "../../../../CustomInput/CustomInput";
 
-import { updateCardData } from "../../../../../../api/apiFns/index.js";
+import {
+  createCardStats,
+  sellCard,
+  updateCardData,
+  createCard,
+} from "../../../../../../api/apiFns/index.js";
 
 //@Note: These images imports are all over the place! When refactoring, find a way to centralize them.
 import { cardsWithStats } from "../../../../../constants/game/gameConfig";
@@ -36,7 +41,6 @@ import {
 } from "../../../../../types/index.js";
 import SPCard from "../../../../../classes/spClass_V2.js";
 
-import { useCardMutations } from "./useCardMutations.js";
 import { useAllCardsStore } from "../../../../../stores/allCards.js";
 import { useGameVarsStore } from "../../../../../stores/gameVars.js";
 import { templateIdToTemplateDataREG } from "../../../../../constants/templates/regsTemplates.js";
@@ -46,6 +50,7 @@ import { templateIdToTemplateDataSP } from "../../../../../constants/templates/s
 // import { isSPCard } from "../../../../../types/TypeGuardFns/SPGuards.js";
 import CraftingCardGrid from "./Parts/CraftingCardGrid/CraftingCardGrid.js";
 import InventoryCardGrid from "./Parts/InventoryCardGrid/InventoryCardGrid.js";
+import { useMutation } from "@tanstack/react-query";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -65,7 +70,7 @@ export default function CardGrid({
   currentModal,
   closeModal,
 }: CardGridProps) {
-  console.log(" &&&& CardGrid: cards: ", cards);
+  // console.log(" &&&& CardGrid: cards: ", cards);
 
   //   specialEffectsRef, // TODO: 🛑 NOT yet  implemented in GameVards
   //   maxLimitsRef, // TODO: use "townhallLevel" from GameVards + 🛑 a constants file
@@ -74,13 +79,8 @@ export default function CardGrid({
   // } = usePlayerContext();
 
   const {
-    // cards,
     activeCards,
     inventory: inventoryCards,
-    // addCard,
-    // removeCard,
-    // addCardToActiveCards,
-    // removeCardFromActiveCards,
     addCardToInventory,
     removeCardFromInventory,
   } = useAllCardsStore((state) => state);
@@ -96,40 +96,35 @@ export default function CardGrid({
 
   // const mapEntities = useTownMapStore((state) => state.mapEntities);
 
-  const {
-    createCard_DB,
-    isSuccessNewCard,
-    newCardData,
-    createCardStats_DB,
-    putCardForSale,
-  } = useCardMutations();
-
   const toastConfetti = useToastConfetti();
   const toastError = useToastError();
 
-  const [newCard_2, setNewCard_2] = useState<CardClass | null>(null); // Can't think another name for "newCard" 🤣
+  // const [newCard_2, setNewCard_2] = useState<CardClass | null>(null); // Can't think another name for "newCard" 🤣
   const [showPriceInput, setShowPriceInput] = useState(false);
   const [priceInput /* setPriceInput */] = useState("");
 
-  useEffect(() => {
-    console.log(
-      "CardGrid: UseEffect() Number of Activated Cards: ",
-      activeCards.length,
-      activeCards,
-      cards
-    );
-  }, [activeCards]);
+  let newCard_2: CardClass | null = null;
 
-  useEffect(() => {
-    if (isSuccessNewCard && newCardData?.cardId && newCard_2) {
+  const {
+    // data: newCardData,
+    mutate: createCard_DB,
+    // isSuccess: isSuccessNewCard,
+  } = useMutation({
+    mutationFn: createCard, // Replace with your API function
+    onError: (error) =>
+      console.error("Error while creating the new card!", error),
+    onSuccess: (newCardID) => {
+      console.log("New Card: ", newCardID);
+      console.log("1 - 😍🏝 - newCard_2: ", newCard_2);
+      if (newCard_2 === null)
+        throw new Error(
+          "⛔ CardGrid: createCard_DB Mutations: newCard_2 is null!"
+        );
+
       const newCard = newCard_2; // Just to make the code more readable
-      newCard.id = newCardData.cardId; // This "newCardData" comes from the the createCard_DB Mutation
+      newCard.id = newCardID.cardId; // This "newCardData" comes from the the createCard_DB Mutation
 
-      // TODO: Add the new Card to the Blockchain 🅱
-      // TODO: Add the new Card to the Inventory
       addCardToInventory(newCard);
-      // setInventoryCards((prev) => [...prev, newCard]); // TODO_DONE ✅: Use Zustang Store, All Cards: addCardToInventory(newCard)
-      // 🛑 Maybe call "checkAndSubtractRes" here where the card has an ID.
 
       if (cardsWithStats.includes(newCard.templateId)) {
         createCardStats_DB({
@@ -144,18 +139,22 @@ export default function CardGrid({
           expenses: 0,
         });
       }
+    },
+  });
 
-      console.log("CardGrid::UseEffect() Complete New Card: ", newCard);
+  // Mutation #2 - Create Card's Stats
+  const { mutate: createCardStats_DB } = useMutation({
+    mutationFn: createCardStats, // Replace with your API function
+    onError: () => console.error("Error while creating the new card STATS!"),
+    onSuccess: (newCardStats) => console.log("New Card STATS: ", newCardStats),
+  });
 
-      toastConfetti.show(
-        "Crafted New Card",
-        "Congratulations on Crafting a New Card!"
-      );
-
-      setNewCard_2(null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccessNewCard, newCard_2, newCardData]);
+  // Mutation #3 - Sell Card
+  const { mutate: putCardForSale } = useMutation({
+    mutationFn: sellCard, // Replace with your API function
+    onError: () => console.error("Error while selling the card!"),
+    onSuccess: (response) => console.log("Response from MP: ", response),
+  });
 
   /**
    * @firstCheck Completed ✅
@@ -163,23 +162,30 @@ export default function CardGrid({
    * @param cardTemplateId  Can be: RegTemplateId | BuildingTemplateId | SPTemplateId
    * @returns A new Card of the CardClass Type
    */
-  function createCard(
+  function createNewCard(
     type: "reg" | "building" | "sp",
     cardTemplateId: RegTemplateId | BuildingTemplateId | SPTemplateId
     // cardName: RegName | BuildingName | SPName
   ) {
-    if (player === null)
-      throw new Error("⛔ CardGrid: createCard: Player is null!");
+    if (player === null) {
+      toastError.showError("There was an Error!", "Player is null!");
+      throw new Error("⛔ CardGrid: createNewCard: Player is null!");
+    }
 
     let newCard: CardClass;
 
     switch (type) {
       case "reg":
         // 🔷 Checks if the Card Template ID is valid
-        if (!(cardTemplateId in templateIdToTemplateDataREG))
-          throw new Error(
-            "⛔ CardGrid: createCard: (REG) Invalid Template ID!"
+        if (!(cardTemplateId in templateIdToTemplateDataREG)) {
+          toastError.showError(
+            "There was an Error!",
+            "(REG) Invalid Template ID!"
           );
+          throw new Error(
+            "⛔ CardGrid: createNewCard: (REG) Invalid Template ID!"
+          );
+        }
         newCard = classREG.createNew({
           ownerId: player.id,
           templateId: cardTemplateId as RegTemplateId,
@@ -188,10 +194,16 @@ export default function CardGrid({
         break;
 
       case "building":
-        if (!(cardTemplateId in templateIdToTemplateDataBuilding))
-          throw new Error(
-            "⛔ CardGrid: createCard: (Building) Invalid Template ID!"
+        if (!(cardTemplateId in templateIdToTemplateDataBuilding)) {
+          toastError.showError(
+            "There was an Error!",
+            "(Building) Invalid Template ID!"
           );
+
+          throw new Error(
+            "⛔ CardGrid: createNewCard: (Building) Invalid Template ID!"
+          );
+        }
         newCard = classBuilding.createNew({
           ownerId: player.id,
           templateId: cardTemplateId as BuildingTemplateId,
@@ -200,8 +212,15 @@ export default function CardGrid({
         break;
 
       case "sp":
-        if (!(cardTemplateId in templateIdToTemplateDataSP))
-          throw new Error("⛔ CardGrid: createCard: (SP) Invalid Template ID!");
+        if (!(cardTemplateId in templateIdToTemplateDataSP)) {
+          toastError.showError(
+            "There was an Error!",
+            "(SP) Invalid Template ID!"
+          );
+          throw new Error(
+            "⛔ CardGrid: createNewCard: (SP) Invalid Template ID!"
+          );
+        }
         newCard = classSP.createNew({
           ownerId: player.id,
           templateId: cardTemplateId as SPTemplateId,
@@ -210,14 +229,19 @@ export default function CardGrid({
         break;
 
       default:
-        throw new Error("⛔ CardGrid: createCard: Invalid Card Type!");
+        toastError.showError(
+          "There was an Error!",
+          "createNewCard: Invalid Card Type!"
+        );
+        throw new Error("⛔ CardGrid: createNewCard: Invalid Card Type!");
     }
 
     // 🅱 Blockchain: Game Smart Contract
     // awardPoints("cardCreation"); // TODO: Implement This in Blockchain Hooks
     // createNFTCard(newCard.id, newCard.templateId); // TODO: Implement This in Blockchain Hooks
 
-    console.log("CardGrid, Create Card Data: ", newCard);
+    // console.log("CardGrid, Create Card Data: ", newCard);
+    newCard_2 = newCard; // This is done so in useEffect we have access to this Card.
 
     return newCard;
   }
@@ -239,11 +263,13 @@ export default function CardGrid({
       player.diesel === null ||
       energy === null
     ) {
-      console.log("player :>> ", player);
-      console.log("energy :>> ", energy);
-      throw new Error(
-        "⛔ CardGrid: checkAndSubtractRes: Player is null! | Player: "
+      // console.log("player :>> ", player);
+      // console.log("energy :>> ", energy);
+      toastError.showError(
+        "There was an Error!",
+        "checkAndSubtractRes: Something is null!"
       );
+      throw new Error("⛔ CardGrid: checkAndSubtractRes: Player is null!");
     }
 
     const playerResources: CardRequirements = {
@@ -282,24 +308,24 @@ export default function CardGrid({
       // 🔷 Subtracks the Resources. Also Prints the Old and New Resources
       for (const key in _card.requirements) {
         if (Object.hasOwnProperty.call(_card.requirements, key)) {
-          console.log(
-            "Old [",
-            key,
-            "] => ",
-            playerResources[key as keyof CardRequirements]
-          );
+          // console.log(
+          //   "Old [",
+          //   key,
+          //   "] => ",
+          //   playerResources[key as keyof CardRequirements]
+          // );
 
           // 🔷 Subtracts the Resources
           playerResources[key as keyof CardRequirements] -=
             _card.requirements[key as keyof CardRequirements];
 
-          console.log(
-            "New [",
-            key,
-            "] => ",
-            playerResources[key as keyof CardRequirements]
-          );
-          console.log("------------------------------------");
+          // console.log(
+          //   "New [",
+          //   key,
+          //   "] => ",
+          //   playerResources[key as keyof CardRequirements]
+          // );
+          // console.log("------------------------------------");
         }
       }
 
@@ -315,6 +341,7 @@ export default function CardGrid({
           );
 
         updateCardData({ id, level }); // 🔷 Update MySQL Database
+
         toastConfetti.show(
           "Leveled Up Card",
           "💪 Awesome! You just leveled Up your Card!"
@@ -323,7 +350,7 @@ export default function CardGrid({
 
       if (type === "craft") {
         // 💥 This "newCard" does not have an ID yet!!!
-        const newCard = createCard(_card.type, _card.templateId);
+        const newCard = createNewCard(_card.type, _card.templateId);
 
         // 🔷 Creates the Card in MySQL Database in case it IS a Special Effect Card
         if (_card.type === "sp" && _card instanceof SPCard) {
@@ -356,7 +383,10 @@ export default function CardGrid({
           });
         }
 
-        setNewCard_2(newCard); // This is done so in useEffect we have access to this Card.
+        toastConfetti.show(
+          "Crafted New Card",
+          "✨ You can check it out in your Inventory!"
+        );
       }
     } else {
       toastError.showError(

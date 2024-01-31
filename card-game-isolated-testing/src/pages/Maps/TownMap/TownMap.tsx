@@ -41,7 +41,7 @@ const TownMap = () => {
 
   useEffect(() => {
     if (selectedMapEntity === null) return;
-    console.log("The Selected Image is this: ", selectedMapEntity);
+    // console.log("The Selected Image is this: ", selectedMapEntity);
   }, [selectedMapEntity]);
 
   const handleHover = useCallback((id: number) => {

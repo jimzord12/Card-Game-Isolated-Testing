@@ -19,14 +19,14 @@ export function isFloat(x: number) {
   if (typeof x == "number" && !isNaN(x)) {
     // check if it is integer
     if (Number.isInteger(x)) {
-      console.log(`${x} is integer.`);
+      // console.log(`${x} is integer.`);
       return false;
     } else {
-      console.log(`${x} is a float value.`);
+      // console.log(`${x} is a float value.`);
       return true;
     }
   } else {
-    console.log(`${x} is not a number`);
+    // console.log(`${x} is not a number`);
     return false;
   }
 }

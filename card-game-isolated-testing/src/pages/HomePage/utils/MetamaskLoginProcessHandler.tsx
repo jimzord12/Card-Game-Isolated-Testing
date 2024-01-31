@@ -61,9 +61,9 @@ export function loginProcessHandler(
         theme: "light",
       }
     );
-    console.log(
-      "useWeb3Login: ⛔ A Crypto Wallet is required,in order to interact with the site. If just installed or activated one, please refresh the page."
-    );
+    // console.log(
+    //   "useWeb3Login: ⛔ A Crypto Wallet is required,in order to interact with the site. If just installed or activated one, please refresh the page."
+    // );
     return false;
   } else if (provider && chainId === null) {
     // if (operations(operation, 1)) return true;
@@ -84,9 +84,9 @@ export function loginProcessHandler(
         theme: "light",
       }
     );
-    console.log(
-      "useWeb3Login: ⛔ To procceed please connect your wallet to the site. There is an orange 'Connect' button for this purpose."
-    );
+    // console.log(
+    //   "useWeb3Login: ⛔ To procceed please connect your wallet to the site. There is an orange 'Connect' button for this purpose."
+    // );
     return false;
     // ✨ } else if (hasProvider && wallet.chainId !== 20231) {
   } else if (chainId !== generaChain.parsedChainId) {
@@ -106,9 +106,9 @@ export function loginProcessHandler(
         theme: "light",
       }
     );
-    console.log(
-      "useWeb3Login: ⛔ Please change your selected network to: (GENERA)"
-    );
+    // console.log(
+    //   "useWeb3Login: ⛔ Please change your selected network to: (GENERA)"
+    // );
     return false;
   }
 

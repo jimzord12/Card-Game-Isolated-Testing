@@ -30,7 +30,7 @@ const CardManager = ({ cards, onFilteredCardsChange }: Props) => {
     target: { value: React.SetStateAction<string> };
   }) => {
     setFilterType(event.target.value);
-    console.log("AAAA: ", event.target.value);
+    // console.log("AAAA: ", event.target.value);
   };
 
   useEffect(() => {
