@@ -54,6 +54,7 @@ interface CardGridProps {
   currentModal: "Inventory" | "Craft";
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cards: CardClass[];
+  closeModal: () => void;
 }
 
 export default function CardGrid({
@@ -62,7 +63,7 @@ export default function CardGrid({
   // handleCardClickScroll,
   cards,
   currentModal,
-  setIsOpen,
+  closeModal,
 }: CardGridProps) {
   console.log(" &&&& CardGrid: cards: ", cards);
 
@@ -108,7 +109,7 @@ export default function CardGrid({
 
   const [newCard_2, setNewCard_2] = useState<CardClass | null>(null); // Can't think another name for "newCard" 🤣
   const [showPriceInput, setShowPriceInput] = useState(false);
-  const [priceInput, setPriceInput] = useState("");
+  const [priceInput /* setPriceInput */] = useState("");
 
   useEffect(() => {
     console.log(
@@ -518,7 +519,7 @@ export default function CardGrid({
       });
 
       removeCardFromInventory(_card); // 🔷 Remove Card from Inventory
-      setIsOpen(false); // 🔷 Close the Modal
+      closeModal(); // 🔷 Close the Modal
       setSelectedCard(null); // 🔷 Go 1 step back in the Modal (Where all the cards are displayed)
       setShowPriceInput(false); // 🔷 Hide the Price Input
 
@@ -537,7 +538,7 @@ export default function CardGrid({
    */
   const handleLevelUpClick = (_card: CardClass) => {
     checkAndSubtractRes(_card, "level");
-    setIsOpen(false);
+    closeModal();
   };
 
   /**
@@ -562,7 +563,7 @@ export default function CardGrid({
     setSelectedCard(null);
 
     // 7. Close Gracefully the Modal
-    setIsOpen(false);
+    closeModal();
   };
 
   return (

@@ -10,20 +10,19 @@ interface Props {
   contentType: ActionsSectionType;
   storybookTesting?: string;
   withAnimation?: boolean;
+  usage: "Modal" | "Card";
 }
 
 const ModalLevelIndicator = ({
   isClosing,
   level,
   contentType,
-  storybookTesting,
   withAnimation = true,
+  usage,
 }: Props) => {
-  if (!storybookTesting) {
-    const { images } = UseGlobalContext();
-    if (images === undefined)
-      throw new Error("⛔ ModalLevelIndicator, images is undefined!");
-  }
+  const { images } = UseGlobalContext();
+  if (images === undefined)
+    throw new Error("⛔ ModalLevelIndicator, images is undefined!");
 
   const [levelToDisplay, setLevelToDisplay] = useState<
     number | null | undefined
@@ -54,16 +53,11 @@ const ModalLevelIndicator = ({
       {level !== null && (
         <>
           <img
-            className={styles.modalLevelIconImg}
-            src={
-              // images?.labels?.levelLabel
-              //   ? images?.labels.levelLabel
-              //   :
-              storybookTesting
-            }
+            className={styles[`modalLevelIconImg${usage}`]}
+            src={images?.labels?.levelLabel}
             alt="modal Level Icon"
           />
-          <h3 className={styles.levelText}>{levelToDisplay}</h3>
+          <h3 className={styles[`levelText${usage}`]}>{levelToDisplay}</h3>
         </>
       )}
     </div>

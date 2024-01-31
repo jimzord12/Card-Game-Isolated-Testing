@@ -1,5 +1,7 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import "./cardCategory.css";
-
+import React from "react";
+// import "react-lazy-load-image-component/src/effects/blur.css";
 interface CardCategoryProps {
   handleSimpleCardSelection: (selection: string) => void;
   image: string;
@@ -29,10 +31,11 @@ const CardCategory = ({
         }
       }}
     >
-      <img src={image} alt={text} />
+      <LazyLoadImage src={image} alt={text} />
+      {/* <img src={image} alt={text} /> */}
       <div className="text">{text}</div>
     </div>
   );
 };
 
-export default CardCategory;
+export default React.memo(CardCategory);

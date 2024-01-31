@@ -7,14 +7,21 @@ import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
 import CustomButton from "../Buttons/CustomButton/CustomButton";
 import { useNavigate } from "react-router-dom";
 import GameButton from "../Buttons/GameButton/GameButton";
-import CraftCardModal from "../Modals/InGameModals/CraftCardModal/CraftCardModal";
-import InventoryModal from "../Modals/InGameModals/InventoryModal/InventoryModal";
+// import CraftCardModal from "../Modals/InGameModals/CraftCardModal/CraftCardModal";
+// import InventoryModal from "../Modals/InGameModals/InventoryModal/InventoryModal";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
 );
 const TownMap = lazy(() => import("../../pages/Maps/TownMap/TownMap"));
 const WorldMap = lazy(() => import("../../pages/Maps/WorldMap/WorldMap"));
+
+const CraftCardModal = lazy(
+  () => import("../Modals/InGameModals/CraftCardModal/CraftCardModal")
+);
+const InventoryModal = lazy(
+  () => import("../Modals/InGameModals/InventoryModal/InventoryModal")
+);
 
 type MapTypes = "town" | "world";
 
@@ -80,14 +87,20 @@ const Game = () => {
               </div>
               <div className="z-[401] absolute top-64 left-20">
                 <GameButton
-                  onClick={() => setIsCraftModalOpen((prev) => !prev)}
+                  onClick={() => {
+                    setIsInvModalOpen(false);
+                    setIsCraftModalOpen((prev) => !prev);
+                  }}
                   text="Craft Modal"
                   btnType="primary"
                 />
               </div>
               <div className="z-[401] absolute top-[336px] left-20">
                 <GameButton
-                  onClick={() => setIsInvModalOpen((prev) => !prev)}
+                  onClick={() => {
+                    setIsCraftModalOpen(false);
+                    setIsInvModalOpen((prev) => !prev);
+                  }}
                   text="Inventory Modal"
                   btnType="primary"
                 />

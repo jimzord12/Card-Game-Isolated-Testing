@@ -1,4 +1,4 @@
-import { toast, cssTransition } from "react-toastify";
+import { toast } from "react-toastify";
 import CustomToastWithConfetti from "./parts/CustomToastWithConfetti";
 
 interface Props {
@@ -10,14 +10,15 @@ export const useToastConfetti = ({ autoClose = 10000 }: Props = {}) => {
     title = "Crafted New Card",
     message = "Congratulations on Crafting a New Card!"
   ) => {
-    const bounceTransition = cssTransition({
-      enter: "bounce-in",
-      exit: "bounce-out",
-    });
+    // const bounceTransition = cssTransition({
+    //   enter: "bounce-in",
+    //   exit: "bounce-out",
+    // });
 
     toast(<CustomToastWithConfetti title={title} message={message} />, {
+      // autoClose: false,
       autoClose: autoClose,
-      transition: bounceTransition,
+      // transition: bounceTransition,
     });
   };
 

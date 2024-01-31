@@ -45,7 +45,10 @@ const ActionsSection = ({
   // TODO: Make the Backend Updates first! And the Client ones after
   async function deactivate() {
     console.log("⚡ - Deactiating Card: ", card);
-    if (card instanceof BuildingCard || card instanceof RegCard) {
+    if (
+      (card instanceof BuildingCard || card instanceof RegCard) &&
+      card.id !== null
+    ) {
       // Regarding Client Side:
       // 1. Remove Card from map
       removeEntityFromMap(card);
@@ -80,7 +83,10 @@ const ActionsSection = ({
   async function levelUp() {
     console.log("⚡ - Leveling Up Card: ", card);
 
-    if (card instanceof BuildingCard || card instanceof RegCard) {
+    if (
+      (card instanceof BuildingCard || card instanceof RegCard) &&
+      card.id !== null
+    ) {
       // Regarding Client Side:
       // 1. Level up Card
       card.levelUp();

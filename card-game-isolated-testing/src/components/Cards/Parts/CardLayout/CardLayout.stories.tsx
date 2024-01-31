@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CardLayout from "./CardLayout";
-import {
-  nameToTemplateDataBuilding,
-  nameToTemplateDataREG,
-  nameToTemplateDataSP,
-} from "../../../../constants/templates";
 import { frames } from "../../../../assets/imgs_new_convention/frames";
 import { action } from "@storybook/addon-actions";
 import BuildingCard from "../../../../classes/buildingClass_V2";
@@ -25,27 +20,42 @@ type Story = StoryObj<typeof meta>;
 
 export const ForCraftingBuilding: Story = {
   args: {
-    cardData: nameToTemplateDataBuilding["AmusementPark"],
+    card: BuildingCard.createNew({
+      ownerId: 1,
+      playerName: "Player 1",
+      templateId: 101,
+    }),
     frameImg: frames.buildingCardFrame,
-    isForCrafting: true,
+    currentModal: "Craft",
+
     onClick: action("Selected [AmusementPark] for Crafting"),
   },
 };
 
 export const ForCraftingREG: Story = {
   args: {
-    cardData: nameToTemplateDataREG["SimpleSolarPanel"],
+    card: RegCard.createNew({
+      ownerId: 1,
+      playerName: "Player 2",
+      templateId: 201,
+    }),
     frameImg: frames.regCardFrame,
-    isForCrafting: true,
+    currentModal: "Craft",
+
     onClick: action("Selected [SimpleSolarPanel] for Crafting"),
   },
 };
 
 export const ForCraftingSP: Story = {
   args: {
-    cardData: nameToTemplateDataSP["LoveApp"],
+    card: SPCard.createNew({
+      ownerId: 1,
+      playerName: "Player 3",
+      templateId: 301,
+    }),
+
     frameImg: frames.spCardFrame,
-    isForCrafting: true,
+    currentModal: "Craft",
     onClick: action("Selected [LoveApp] for Crafting"),
   },
 };
@@ -54,39 +64,41 @@ export const ForCraftingSP: Story = {
 
 export const CompleteBuilding: Story = {
   args: {
-    cardData: BuildingCard.createNew({
+    card: BuildingCard.createNew({
       ownerId: 1,
       playerName: "Player 1",
       templateId: 104,
     }),
     frameImg: frames.buildingCardFrame,
-    isForCrafting: false,
+    currentModal: "Inventory",
     onClick: action("Selected [104] for Crafting"),
   },
 };
 
 export const CompleteREG: Story = {
   args: {
-    cardData: RegCard.createNew({
+    card: RegCard.createNew({
       ownerId: 1,
       playerName: "Player 2",
       templateId: 204,
     }),
     frameImg: frames.regCardFrame,
-    isForCrafting: false,
+    currentModal: "Inventory",
+
     onClick: action("Selected [204] for Crafting"),
   },
 };
 
 export const CompleteSP: Story = {
   args: {
-    cardData: SPCard.createNew({
+    card: SPCard.createNew({
       ownerId: 1,
       playerName: "Player 3",
       templateId: 301,
     }),
     frameImg: frames.spCardFrame,
-    isForCrafting: false,
+    currentModal: "Inventory",
+
     onClick: action("Selected [301] for Crafting"),
   },
 };

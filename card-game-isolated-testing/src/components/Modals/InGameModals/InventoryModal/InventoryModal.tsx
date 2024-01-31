@@ -65,15 +65,11 @@ export default function InventoryModal({
 
   const closeModal = () => {
     setIsInvModalOpen(false);
+    setIsOpen(false);
     const id = setTimeout(() => {
       setSelectedCardModal(null);
     }, 750);
     setTimeoutId(id);
-  };
-
-  // Closes modal when user clicks outside of modal
-  const handleModalClick = () => {
-    closeModal();
   };
 
   //   function handleCardClickScroll() {
@@ -113,8 +109,11 @@ export default function InventoryModal({
             <button
               className="closeBtn"
               style={{
-                position: "absolute",
-                right: "10px",
+                // position: "absolute",
+                position: "sticky",
+                zIndex: 10,
+                // right: "10px",
+                left: "97%",
                 top: "10px",
                 backgroundColor: "#4286f4",
                 color: "white",
@@ -123,7 +122,7 @@ export default function InventoryModal({
                 borderRadius: "10px",
                 boxShadow: "1px 2px 2px 0px black",
               }}
-              onClick={handleModalClick}
+              onClick={closeModal}
             >
               Close
             </button>
@@ -146,6 +145,7 @@ export default function InventoryModal({
                       // handleCardClickScroll={handleCardClickScroll}
                       currentModal="Inventory"
                       setIsOpen={setIsOpen}
+                      closeModal={closeModal}
                     />
                   </div>
                 </div>
@@ -169,6 +169,7 @@ export default function InventoryModal({
                       selectedCardModal={selectedCardModal}
                       currentModal="Inventory"
                       setIsOpen={setIsOpen}
+                      closeModal={closeModal}
                     />
                   </div>
                   <button

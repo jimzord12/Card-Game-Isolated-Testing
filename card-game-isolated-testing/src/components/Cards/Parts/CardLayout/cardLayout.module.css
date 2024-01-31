@@ -46,8 +46,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-top: 28px;
-  padding-bottom: 28px;
+  padding-top: 12px;
+  padding-bottom: 0px;
   /* TODO: Use this to change the background color of the card based on the card rarity */
   background: linear-gradient(to right, #616161, #9bc5c3);
 }
@@ -62,6 +62,7 @@
 .cardTitle {
   padding-top: 12px;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .cardDesc {
@@ -70,6 +71,84 @@
   height: 4%;
   text-align: center;
   font-size: 12px;
+  font-weight: 600;
+}
+
+.common {
+  background: linear-gradient(to right, #616161, #9bc5c3);
+}
+
+.special {
+  background: rgb(53, 195, 34);
+  background: linear-gradient(
+    149deg,
+    rgba(53, 195, 34, 1) 0%,
+    rgba(237, 45, 253, 0.9220281862745098) 100%
+  );
+}
+
+.rare {
+  background: rgb(11, 35, 214);
+  background: radial-gradient(
+    circle,
+    rgba(11, 35, 214, 0.9612438725490196) 0%,
+    rgba(24, 191, 37, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.mythic {
+  background: linear-gradient(red, transparent),
+    linear-gradient(to top left, lime, transparent),
+    linear-gradient(to top right, blue, transparent);
+  background-blend-mode: screen;
+}
+
+.legendary {
+  background: radial-gradient(
+      at bottom right,
+      dodgerblue 0,
+      dodgerblue 1em,
+      lightskyblue 1em,
+      lightskyblue 2em,
+      deepskyblue 2em,
+      deepskyblue 3em,
+      gainsboro 3em,
+      gainsboro 4em,
+      lightsteelblue 4em,
+      lightsteelblue 5em,
+      deepskyblue 5em,
+      deepskyblue 6em,
+      lightskyblue 6em,
+      lightskyblue 7em,
+      transparent 7em,
+      transparent 8em
+    ),
+    radial-gradient(
+      at top left,
+      transparent 0,
+      transparent 1em,
+      lightskyblue 1em,
+      lightskyblue 2em,
+      deepskyblue 2em,
+      deepskyblue 3em,
+      lightsteelblue 3em,
+      lightsteelblue 4em,
+      gainsboro 4em,
+      gainsboro 5em,
+      deepskyblue 5em,
+      deepskyblue 6em,
+      skyblue 6em,
+      skyblue 7em,
+      dodgerblue 7em,
+      dodgerblue 8em,
+      transparent 8em,
+      transparent 20em
+    ),
+    radial-gradient(circle at center bottom, coral, darkslateblue);
+
+  background-blend-mode: overlay;
+  background-size: 8em 8em, 8em 8em, cover;
 }
 
 @keyframes bubble-effect {
@@ -92,6 +171,11 @@
     height: var(--medium-card-frame-height);
   }
 
+  .innerFrame {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
   .cardTitle {
     font-size: 16px;
   }
@@ -105,6 +189,11 @@
   .outerFrame {
     width: var(--large-card-frame-width);
     height: var(--large-card-frame-height);
+  }
+
+  .innerFrame {
+    padding-top: 28px;
+    padding-bottom: 28px;
   }
 
   .cardTitle {

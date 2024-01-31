@@ -18,32 +18,24 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    type: "primary",
+    btnType: "primary",
     text: "Primary",
-    action: action("The Game Button was clicked!"),
+    onClick: action("The Game Button was clicked!"),
   },
 };
 
 export const Secondary: Story = {
   args: {
-    type: "secondary",
-    text: "Secondary",
-    action: action("The Game Button was clicked!"),
-  },
-};
-
-export const Anchor: Story = {
-  args: {
-    type: "anchor",
-    text: "Anchor",
-    action: action("The Game Button was clicked!"),
+    btnType: "secondary",
+    text: "Primary",
+    onClick: action("The Game Button was clicked!"),
   },
 };
 
 export const Danger: Story = {
   args: {
-    type: "danger",
-    text: "Danger",
-    action: action("The Game Button was clicked!"),
+    btnType: "danger",
+    text: "Primary",
+    onClick: action("The Game Button was clicked!"),
   },
 };

@@ -15,6 +15,7 @@ interface AllCardsState {
   activeCards: CardClass[];
   activeBuildingCards: BuildingCard[];
   activeRegCards: RegCard[];
+  templateCards: CardClass[];
   addCard: (card: CardClass) => void;
   addAllCards: (cards: CardClass[]) => void;
   removeCard: (card: CardClass) => void;
@@ -24,6 +25,7 @@ interface AllCardsState {
   addCardToActiveCards: (card: CardClass) => void;
   addAllActiveCards: (cards: CardClass[]) => void;
   removeCardFromActiveCards: (card: CardClass) => void;
+  addAllTemplateCards: (cards: CardClass[]) => void;
 }
 
 export const useAllCardsStore = create<AllCardsState>((set) => ({
@@ -32,6 +34,7 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
   activeCards: [], // ✨ The Initial State comes from the Server/DB
   activeBuildingCards: [],
   activeRegCards: [],
+  templateCards: [],
 
   // ✨ By Crafting one
   addCard: (card: CardClass) =>
@@ -136,4 +139,11 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
         };
       }
     }),
+
+  // ✨ When Logging in, add all template cards in one go
+  addAllTemplateCards: (cards) =>
+    set((state) => ({
+      ...state,
+      templateCards: [...state.templateCards, ...cards],
+    })),
 }));

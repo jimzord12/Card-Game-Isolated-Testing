@@ -50,7 +50,6 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 function WorldMap() {
   const [playerIsland /*, setPlayerIsland*/] = useState("Sardinia");
-
   // const [selectedIslandCategory, setSelectedIslandCategory] = useState(null);
   // const [isCategorySelected, setIsCategorySelected] = useState(false);
 

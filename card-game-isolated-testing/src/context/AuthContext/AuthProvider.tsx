@@ -6,6 +6,7 @@ import { useGameVarsStore } from "../../stores/gameVars";
 import { useAllCardsStore } from "../../stores/allCards";
 import { createJSCards } from "../../utils/game/createJSCards";
 import { ICardDB } from "../../types";
+import { cardsInit as templateCardsInit } from "../../components/Modals/InGameModals/CraftCardModal/utils";
 
 // Create a context for authentication
 export const AuthContext = createContext<AuthContextProps>({
@@ -28,6 +29,9 @@ export default function AuthProvider({
   );
   const addAllActiveCards = useAllCardsStore(
     (state) => state.addAllActiveCards
+  );
+  const addAllTemplateCards = useAllCardsStore(
+    (state) => state.addAllTemplateCards
   );
 
   useEffect(() => {
@@ -73,6 +77,8 @@ export default function AuthProvider({
   const logout = () => setUser(null);
 
   const cardsInit = (cardsFromDB: ICardDB[]) => {
+    console.log("🙌 0 - All the Cards from DB: ", cardsFromDB);
+
     const convertedFromDB_To_JS = createJSCards(cardsFromDB); // 🔷 Convert the Cards from DB to JS
     const inventoryCards = convertedFromDB_To_JS.filter(
       (card) => card.state === false
@@ -81,9 +87,12 @@ export default function AuthProvider({
       (card) => card.state === true
     );
 
+    const templateCards = templateCardsInit(); // 🔷 Initialize the Template Cards (Used in Craft Modal)
+
     addAllCards(convertedFromDB_To_JS); // 🔷 Add the Cards to Global State
     addAllInventoryCards(inventoryCards); // 🔷 Add the Inactive Cards to Global Inventory State
     addAllActiveCards(activeCards); // 🔷 Add the Active Cards to Global Active State
+    addAllTemplateCards(templateCards); // 🔷 Add the Template Cards to Global State
 
     console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
     console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);

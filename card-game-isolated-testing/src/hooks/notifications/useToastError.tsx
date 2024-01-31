@@ -1,5 +1,5 @@
 // useToastError.js
-import { toast, cssTransition } from "react-toastify";
+import { toast } from "react-toastify";
 import CustomToastError from "./parts/CustomToastError";
 // Correct the path to your CustomToastError component
 
@@ -13,11 +13,6 @@ export const useToastError = ({ autoClose = 10000 }: Props = {}) => {
     message = "Something went wrong!",
     specialText = "For this Reason"
   ) => {
-    const bounceTransition = cssTransition({
-      enter: "bounce-in",
-      exit: "bounce-out",
-    });
-
     toast.error(
       // Using .error to get the default error styling, you can modify further if needed
       <CustomToastError
@@ -27,7 +22,6 @@ export const useToastError = ({ autoClose = 10000 }: Props = {}) => {
       />,
       {
         autoClose: autoClose,
-        transition: bounceTransition,
       }
     );
   };

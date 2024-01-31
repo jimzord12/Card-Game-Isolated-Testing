@@ -18,7 +18,7 @@ const InventoryCardGridFirstMenu = ({ cards, setSelectedCard }: Props) => {
           <CompleteCard
             card={card}
             setSelectedCard={setSelectedCard}
-            currentModal="Craft"
+            currentModal="Inventory"
             key={`InventroyCardGrid-${card.name}-${card.id}-${index}`}
           />
         );

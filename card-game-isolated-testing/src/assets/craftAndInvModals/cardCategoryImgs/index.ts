@@ -1,4 +1,4 @@
-import buildingCategory from "./building.jpg";
+import buildingCategory from "./building.webp";
 import REG_Category from "./REG.webp";
 import SP_Category from "./SE_Card.webp";
 

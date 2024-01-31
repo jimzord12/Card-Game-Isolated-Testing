@@ -24,6 +24,9 @@ const BuildingOnMap = ({
   handleLeave,
 }: BuildingOnMapProps) => {
   if (spot === null) throw new Error("⛔ BuildingOnMap: spot is null!");
+  if (card === null) throw new Error("⛔ BuildingOnMap: card is null!");
+  if (card.id === null) throw new Error("⛔ BuildingOnMap: card's ID is null!");
+
   return (
     <div
       key={card.id}
@@ -39,8 +42,8 @@ const BuildingOnMap = ({
         src={cardUrlsWithShadow.buildings[card.name]}
         alt={card.name}
         isHovered={highlightedImg === card.id}
-        onHover={() => handleHover(card.id)}
-        onLeave={() => handleLeave(card.id)}
+        onHover={() => handleHover(card.id as number)}
+        onLeave={() => handleLeave(card.id as number)}
       />
     </div>
   );

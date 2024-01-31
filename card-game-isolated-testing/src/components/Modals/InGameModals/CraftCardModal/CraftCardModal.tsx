@@ -1,13 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CardGrid from "../Parts/CardGrid/CardGrid";
-import CardCategory from "../../../Cards/CardCategory/CardCategory"; //TODO: Rename to Category Selection Card
+import CardCategory from "../../../Cards/CardCategory/CardCategory";
 import { cardCategoryImgs } from "../../../../assets/craftAndInvModals/cardCategoryImgs/index.js";
 import "./craftCardModal.css";
-import { cardsInit, typeFinder } from "./utils.js";
+import { typeFinder } from "./utils.js";
 import { CardClass, CardType } from "../../../../types/index.js";
+import { LazyLoadComponent } from "react-lazy-load-image-component";
+import { useAllCardsStore } from "../../../../stores/allCards.js";
 
 // TODO: Create a Class for General CardsDd Classes and based on the Card Type, create the correct Card Class
+// const CardCategory = lazy(
+//   () => import("../../../Cards/CardCategory/CardCategory")
+// );
 
 interface Props {
   isCraftModalOpen: boolean;
@@ -31,6 +36,7 @@ export default function CraftCardModal({
 
   // const [initCompleted, setInitCompleted] = useState(false);
   const [cardsInitCompleted, setCardsInitCompleted] = useState(false);
+  const templateCards = useAllCardsStore((state) => state.templateCards);
   // const hasUseEffectRun = useRef(false);
 
   // const NameToImgMapping = {
@@ -47,7 +53,7 @@ export default function CraftCardModal({
   useEffect(() => {
     // if (!hasUseEffectRun.current) {
     //   hasUseEffectRun.current = true;
-    const templateCards = cardsInit();
+    // const templateCards = cardsInit();
     console.log("Craft Modal: Suka! cards: ", cards);
 
     setCards(templateCards);
@@ -113,11 +119,6 @@ export default function CraftCardModal({
     }, 750);
     setTimeoutId(id);
   };
-
-  // Closes modal when user clicks outside of modal
-  // const handleCloseModalClick = () => {
-  //   closeModal();
-  // };
 
   // Prevent click inside the modal from closing it
   const handleCloseModalContentClick = (event: React.MouseEvent) => {
@@ -234,105 +235,114 @@ export default function CraftCardModal({
             </button>
           )}
 
-          <div className="modal-content" onClick={handleCloseModalContentClick}>
-            {/* Step #1 | Select Type of Card to Craft */}
-            {typeSelection === null && (
-              <div className="modal-body unselected">
-                <div className="craft-card-typeSelection-container">
-                  <CardCategory
-                    image={cardCategoryImgs.buildingCategory}
-                    text="Building"
-                    handleSimpleCardSelection={handleSimpleCardSelection}
-                  />
-
-                  <CardCategory
-                    image={cardCategoryImgs.REG_Category}
-                    text="REG"
-                    handleSimpleCardSelection={handleSimpleCardSelection}
-                  />
-
-                  <CardCategory
-                    image={cardCategoryImgs.SP_Category}
-                    text="Special Effect"
-                    handleSimpleCardSelection={handleSimpleCardSelection}
-                  />
+          <LazyLoadComponent placeholder={<span>Loading...</span>}>
+            <div
+              className="modal-content"
+              onClick={handleCloseModalContentClick}
+            >
+              {/* Step #1 | Select Type of Card to Craft */}
+              {typeSelection === null && (
+                <div className="modal-body unselected">
+                  <div className="craft-card-typeSelection-container">
+                    <CardCategory
+                      image={cardCategoryImgs.buildingCategory}
+                      text="Building"
+                      handleSimpleCardSelection={handleSimpleCardSelection}
+                    />
+                    {/* </LazyLoadComponent> */}
+                    {/* <LazyLoadComponent placeholder={<span>Loading...</span>}> */}
+                    <CardCategory
+                      image={cardCategoryImgs.REG_Category}
+                      text="REG"
+                      handleSimpleCardSelection={handleSimpleCardSelection}
+                    />
+                    {/* </LazyLoadComponent> */}
+                    {/* <LazyLoadComponent placeholder={<span>Loading...</span>}> */}
+                    <CardCategory
+                      image={cardCategoryImgs.SP_Category}
+                      text="Special Effect"
+                      handleSimpleCardSelection={handleSimpleCardSelection}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
-
-            {/* Step #2 | Show Available Cards + Filtering Functionality */}
-
-            {/* Step #2.1 | Start - Conditional Rendering Here, when no Card has been selected */}
-            {selectedCardModal === null &&
-              typeSelection !== null &&
-              filteredCardsModal !== null && (
-                <>
-                  {console.log("I am here!")}
-                  <div
-                    style={{
-                      textAlign: "center",
-                      fontSize: "32px",
-                      fontWeight: 600,
-                      color: "white",
-                      textShadow: "2px 2px black",
-                      marginTop: "24px",
-                    }}
-                  >
-                    {typeFinder(typeSelection)}
-                  </div>
-                  <div className="modal-body">
-                    {/* Cards Display Container */}
-                    <div className="card-column">
-                      <CardGrid
-                        cards={filteredCardsModal}
-                        setSelectedCardModal={setSelectedCardModal}
-                        selectedCardModal={selectedCardModal}
-                        // handleCardClickScroll={handleCardClickScroll}
-                        currentModal="Craft"
-                        setIsOpen={setIsOpen}
-                      />
-                    </div>
-                  </div>
-                </>
               )}
-            {/* End - Conditional Rendering Here, when no Card has been selected */}
-            {/* ********************************* */}
 
-            {/* When a Card is selected/clicked... */}
-            {selectedCardModal !== null && filteredCardsModal !== null && (
-              <div className="modal-body">
-                <div className="card-column">
-                  <CardGrid
-                    cards={filteredCardsModal}
-                    setSelectedCardModal={setSelectedCardModal}
-                    selectedCardModal={selectedCardModal}
-                    currentModal="Craft"
-                    setIsOpen={setIsOpen}
-                  />
+              {/* Step #2 | Show Available Cards + Filtering Functionality */}
+
+              {/* Step #2.1 | Start - Conditional Rendering Here, when no Card has been selected */}
+              {selectedCardModal === null &&
+                typeSelection !== null &&
+                filteredCardsModal !== null && (
+                  <>
+                    {console.log("I am here!")}
+                    <div
+                      style={{
+                        textAlign: "center",
+                        fontSize: "32px",
+                        fontWeight: 600,
+                        color: "white",
+                        textShadow: "2px 2px black",
+                        marginTop: "24px",
+                      }}
+                    >
+                      {typeFinder(typeSelection)}
+                    </div>
+                    <div className="modal-body">
+                      {/* Cards Display Container */}
+                      <div className="card-column">
+                        <CardGrid
+                          cards={filteredCardsModal}
+                          setSelectedCardModal={setSelectedCardModal}
+                          selectedCardModal={selectedCardModal}
+                          closeModal={closeModal}
+                          // handleCardClickScroll={handleCardClickScroll}
+                          currentModal="Craft"
+                          setIsOpen={setIsOpen}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
+              {/* End - Conditional Rendering Here, when no Card has been selected */}
+              {/* ********************************* */}
+
+              {/* When a Card is selected/clicked... */}
+              {selectedCardModal !== null && filteredCardsModal !== null && (
+                <div className="modal-body">
+                  <div className="card-column">
+                    <CardGrid
+                      cards={filteredCardsModal}
+                      setSelectedCardModal={setSelectedCardModal}
+                      selectedCardModal={selectedCardModal}
+                      currentModal="Craft"
+                      setIsOpen={setIsOpen}
+                      closeModal={closeModal}
+                    />
+                  </div>
+                  <button
+                    className="closeBtn"
+                    style={{
+                      position: "absolute",
+                      left: "10px",
+                      top: "10px",
+                      width: "fit-content",
+                      backgroundColor: "#4286f4",
+                      color: "white",
+                      marginTop: "0px",
+                      padding: "5px 10px",
+                      borderRadius: "10px",
+                      boxShadow: "1px 2px 2px 0px black",
+                    }}
+                    onClick={() => setSelectedCardModal(null)}
+                  >
+                    Go Back
+                  </button>
                 </div>
-                <button
-                  className="closeBtn"
-                  style={{
-                    position: "absolute",
-                    left: "10px",
-                    top: "10px",
-                    width: "fit-content",
-                    backgroundColor: "#4286f4",
-                    color: "white",
-                    marginTop: "0px",
-                    padding: "5px 10px",
-                    borderRadius: "10px",
-                    boxShadow: "1px 2px 2px 0px black",
-                  }}
-                  onClick={() => setSelectedCardModal(null)}
-                >
-                  Go Back
-                </button>
-              </div>
-            )}
-            {/* End - When a Card is selected */}
-            <div className="modal-footer">{/* Render the footer here */}</div>
-          </div>
+              )}
+              {/* End - When a Card is selected */}
+              <div className="modal-footer">{/* Render the footer here */}</div>
+            </div>
+          </LazyLoadComponent>
         </motion.div>
       )}
     </AnimatePresence>

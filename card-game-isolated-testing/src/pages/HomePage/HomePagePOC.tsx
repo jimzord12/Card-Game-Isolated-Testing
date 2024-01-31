@@ -1,18 +1,14 @@
 // import { useMediaQuery } from "@mui/material";
 import { UniwaLogo, footerImg, logoGenera } from "../../assets/homePageImgs";
-import SwitchBtn from "../WalletRelated/SwitchBtn";
+import SwitchBtn from "../../components/WalletRelated/SwitchBtn";
 import { Suspense, lazy, useState } from "react";
-import useViewportWidthGreaterThan320 from "./useViewportWidthGreaterThan320";
+import useViewportWidthGreaterThan320 from "../../components/Utility/useViewportWidthGreaterThan320";
 // import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 // import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
 
-const HomePageMetamask = lazy(
-  () => import("../../pages/HomePage/HomePageMetamask")
-);
+const HomePageMetamask = lazy(() => import("./HomePageMetamask"));
 
-const HomePageLocalWallet = lazy(
-  () => import("../../pages/HomePage/HomePageLocalWallet")
-);
+const HomePageLocalWallet = lazy(() => import("./HomePageLocalWallet"));
 // import TestDashboard from "../__TESTING__/TestDashboard";
 // import { useNavigate } from 'react-router-dom';
 

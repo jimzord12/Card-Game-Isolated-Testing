@@ -83,11 +83,14 @@ const StandardModal = ({
       </div>
       <div className={styles.modalElements}>
         <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />
-        <ModalLevelIndicator
-          isClosing={isClosing}
-          level={cardLevel}
-          contentType={contentType}
-        />
+        <div className="absolute left-[10%] top-[5%]">
+          <ModalLevelIndicator
+            isClosing={isClosing}
+            level={cardLevel}
+            contentType={contentType}
+            usage="Modal"
+          />
+        </div>
         <ModalCenterLabel isClosing={isClosing} label={label} />
       </div>
     </div>

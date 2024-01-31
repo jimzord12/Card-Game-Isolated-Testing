@@ -85,6 +85,10 @@ export function useWeb3Login({
             pending: "Sign this message and await for verification...",
             success: {
               render: ({ data }) => {
+                if (data === undefined || data.verified === undefined)
+                  throw new Error(
+                    "⛔ useWeb3Login.tsx: toast.promise: data is undefined!"
+                  );
                 setIsAuthenticated(data.verified);
                 if (data.verified) {
                   return "Your signature is valid! Welcome";

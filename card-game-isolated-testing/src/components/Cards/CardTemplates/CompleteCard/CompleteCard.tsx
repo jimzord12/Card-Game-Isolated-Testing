@@ -52,9 +52,8 @@ const CompleteCard = ({
     return (
       <CardLayout
         frameImg={images.frames.buildingCardFrame}
-        cardData={card as BuildingCard}
+        card={card as BuildingCard}
         onClick={handleCardClick}
-        isForCrafting={false}
         currentModal={currentModal}
       />
     );
@@ -62,9 +61,8 @@ const CompleteCard = ({
     return (
       <CardLayout
         frameImg={images.frames.regCardFrame}
-        cardData={card as RegCard}
+        card={card as RegCard}
         onClick={handleCardClick}
-        isForCrafting={false}
         currentModal={currentModal}
       />
     );
@@ -72,9 +70,8 @@ const CompleteCard = ({
     return (
       <CardLayout
         frameImg={images.frames.spCardFrame}
-        cardData={card as SPCard}
+        card={card as SPCard}
         onClick={handleCardClick}
-        isForCrafting={false}
         currentModal={currentModal}
       />
     );

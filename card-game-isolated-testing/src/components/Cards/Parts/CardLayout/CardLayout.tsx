@@ -1,80 +1,68 @@
 import BuildingCard from "../../../../classes/buildingClass_V2";
 import RegCard from "../../../../classes/regClass_V2";
-import {
-  CardClass,
-  TemplateDataBuilding,
-  TemplateDataReg,
-  TemplateDataSP,
-} from "../../../../types";
+import { CardClass } from "../../../../types";
 import { isSPCard } from "../../../../types/TypeGuardFns/SPGuards";
 import ModalLevelIndicator from "../../../Modals/BaseModalParts/ModalLevelIndicator/ModalLevelIndicator";
+import { rarityConverter } from "../../../Modals/InGameModals/Parts/CardGrid/utils";
 import styles from "./cardLayout.module.css";
 
 // 🧪 Uncomment for Storybook testing
 // import levelLabel from "../../../../assets/imgs_new_convention/labels/labels-levelLabel.webp";
 
 // const x = 32;
-type TemplateData = TemplateDataBuilding | TemplateDataReg | TemplateDataSP;
 
 interface Props {
-  cardData: TemplateData | CardClass;
+  card: CardClass;
   frameImg: string;
-  isForCrafting: boolean;
   currentModal?: "Inventory" | "Craft";
   //   size: number;
   // spot: CardSpot;
   onClick: () => void;
 }
 
-const CardLayout = ({
-  frameImg,
-  cardData,
-  onClick,
-  isForCrafting,
-  currentModal,
-}: Props) => {
+const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
   console.log("frameImg :>> ", frameImg);
-  console.log("Card Data : ", cardData);
+  console.log("Card Data : ", card);
 
   return (
     <div className={styles.outerFrame} onClick={onClick}>
-      {isForCrafting ? (
+      {currentModal === "Craft" ? (
         // Section ONLY for Crafting Modal
         <>
           <div className={styles.cardFrameContainer}>
             <img src={frameImg} alt="Frame Image" className={styles.frameImg} />
           </div>
+          {console.log(
+            "SKATATATA__22: ",
+            rarityConverter(card.rarity)?.toLowerCase()
+          )}
           <div className={styles.innerFrame}>
-            <h3 className={styles.cardTitle}>
-              {(cardData as TemplateData).name}
-            </h3>
-            <img
-              src={(cardData as TemplateData).image}
-              alt="Card Image"
-              className={styles.cardImg}
-            />
+            <h3 className={styles.cardTitle}>{card.name}</h3>
+            <img src={card.img} alt="Card Image" className={styles.cardImg} />
 
-            <p className={styles.cardDesc}>{(cardData as TemplateData).desc}</p>
+            <p className={styles.cardDesc}>{card.desc}</p>
           </div>
         </>
       ) : (
         <>
           {/* Section ONLY for Inventory Modal */}
           {/* // TODO: Change the BG Color based on the Rarity */}
-          {!isSPCard(cardData as CardClass) && currentModal === "Inventory" ? (
+
+          {!isSPCard(card as CardClass) ? (
             <div
               about="Level Indicator Container"
               className="absolute w-full h-full"
             >
               <div
                 about="Level Indicator Controller"
-                className="absolute -top-2 -right-2 w-fit"
+                className="absolute inset-x-0 -top-3"
               >
                 <ModalLevelIndicator
                   contentType="building-passive"
-                  level={(cardData as BuildingCard | RegCard).level}
+                  level={(card as BuildingCard | RegCard).level}
                   isClosing={false}
                   withAnimation={false}
+                  usage="Card"
                   // storybookTesting={levelLabel} // 🧪 Uncomment for Storybook testing
                 />
               </div>
@@ -83,15 +71,21 @@ const CardLayout = ({
           <div className={styles.cardFrameContainer}>
             <img src={frameImg} alt="Frame Image" className={styles.frameImg} />
           </div>
-          <div className={styles.innerFrame}>
-            <h3 className={styles.cardTitle}>{(cardData as CardClass).name}</h3>
+          <div
+            className={
+              styles.innerFrame +
+              " " +
+              styles[rarityConverter(card.rarity)?.toLowerCase() ?? ""]
+            }
+          >
+            <h3 className={styles.cardTitle}>{(card as CardClass).name}</h3>
             <img
-              src={(cardData as CardClass).img}
+              src={(card as CardClass).img}
               alt="Card Image"
               className={styles.cardImg}
             />
 
-            <p className={styles.cardDesc}>{(cardData as CardClass).desc}</p>
+            <p className={styles.cardDesc}>{(card as CardClass).desc}</p>
           </div>
         </>
       )}

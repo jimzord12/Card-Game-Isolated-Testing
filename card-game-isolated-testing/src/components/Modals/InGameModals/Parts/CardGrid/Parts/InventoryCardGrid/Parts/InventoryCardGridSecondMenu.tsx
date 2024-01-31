@@ -22,7 +22,7 @@ const InventoryCardGridSecondMenu = ({
       className="single-card-container"
     >
       <div className="card-plus-btns">
-        <CompleteCard card={selectedCard} currentModal="Craft" />
+        <CompleteCard card={selectedCard} currentModal="Inventory" />
         <div className="single-card-btn-container">
           <button
             className="single-card-btn btn-sell"

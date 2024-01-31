@@ -27,7 +27,7 @@ export const createJSCards = (cardsFromDB: ICardDB[]): CardClass[] => {
   for (let i = 0; i < cardsFromDB.length; i++) {
     // SPs
     if (
-      isSPTemplateId(cardsFromDB[i].templateId) &&
+      isSPTemplateId(cardsFromDB[i].templateId) ||
       isOldSPTemplateId(cardsFromDB[i].templateId)
     ) {
       cardList.push(

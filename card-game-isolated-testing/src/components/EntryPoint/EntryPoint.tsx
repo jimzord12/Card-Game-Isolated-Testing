@@ -11,7 +11,9 @@ import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 
 const queryClient = new QueryClient();
 
-const HomePagePOC = React.lazy(() => import("../Utility/HomePagePOC"));
+const HomePagePOC = React.lazy(
+  () => import("../../pages/HomePage/HomePagePOC")
+);
 
 const Marketplace = React.lazy(
   () => import("../../pages/Marketplace/src/Marketplace")

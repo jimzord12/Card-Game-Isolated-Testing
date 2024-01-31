@@ -26,7 +26,7 @@ export const BuildingCategory = {
 export const RegCategory: Story = {
   args: {
     image: cardCategoryImgs.REG_Category,
-    onClick: action("Clicked REG Category"),
+    handleSimpleCardSelection: action("Clicked REG Category"),
     text: "REG",
   },
 };
@@ -34,7 +34,7 @@ export const RegCategory: Story = {
 export const SPCategory: Story = {
   args: {
     image: cardCategoryImgs.SP_Category,
-    onClick: action("Clicked SP Category"),
+    handleSimpleCardSelection: action("Clicked SP Category"),
     text: "Special Effect",
   },
 };

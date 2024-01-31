@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction } from "react";
 // import { usePlayerContext } from '../../context/playerContext/PlayerContext';
 
 interface GameButtonProps {
-  btnType: string;
+  btnType: "primary" | "secondary" | "danger";
   text: string;
   // action?: Dispatch<SetStateAction<boolean>>;
   onClick?: () => void | Dispatch<SetStateAction<boolean>>;

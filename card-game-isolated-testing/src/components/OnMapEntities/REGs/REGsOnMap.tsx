@@ -45,6 +45,7 @@ const RegsOnMap = ({
     <div>
       {Object.entries(mapEntities).map(([spot, card]) =>
         card === null ||
+        card?.id === null ||
         card?.type === undefined ||
         card?.type !== "reg" ||
         !isRegCard(card) ? null : (
@@ -65,8 +66,8 @@ const RegsOnMap = ({
               src={cardUrlsWithShadow.reg[card.name]}
               alt={card.name}
               isHovered={highlightedImg === card.id}
-              onHover={() => handleHover(card.id)}
-              onLeave={() => handleLeave(card.id)}
+              onHover={() => handleHover(card.id as number)}
+              onLeave={() => handleLeave(card.id as number)}
             />
           </div>
         )

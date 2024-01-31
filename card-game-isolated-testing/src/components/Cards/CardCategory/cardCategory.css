@@ -14,6 +14,7 @@
   border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease;
+  box-shadow: black 2px 2px 14px;
 }
 
 .craft-card .text {
@@ -28,10 +29,10 @@
   text-shadow: 1px 1px 1px black;
 }
 
-.craft-card:nth-child(3) {
+/* .craft-card:nth-child(3) {
   height: 300px;
   width: 200px;
-}
+} */
 
 .craft-card img {
   filter: blur(0.7px);
@@ -74,12 +75,12 @@
   .craft-card:hover {
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.7);
     transform: scale(1.05);
-    border: 2px solid black;
+    /* border: 2px solid black; */
   }
 
-  .craft-card:nth-child(2) {
+  /* .craft-card:nth-child(2) {
     border-radius: 100%;
-  }
+  } */
 }
 
 @media only screen and (min-width: 900px) {
@@ -99,8 +100,8 @@
     width: 360px;
   }
 
-  .craft-card:nth-child(3) {
+  /* .craft-card:nth-child(3) {
     height: 390px;
     width: 260px;
-  }
+  } */
 }
