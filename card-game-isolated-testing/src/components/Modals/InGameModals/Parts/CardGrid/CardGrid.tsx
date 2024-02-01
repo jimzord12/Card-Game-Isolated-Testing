@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./cardGrid.css";
 
 import {
@@ -28,6 +27,7 @@ import {
   sellCard,
   updateCardData,
   createCard,
+  updatePlayerData as updatePlayerDataSQL,
 } from "../../../../../../api/apiFns/index.js";
 
 //@Note: These images imports are all over the place! When refactoring, find a way to centralize them.
@@ -51,6 +51,11 @@ import { templateIdToTemplateDataSP } from "../../../../../constants/templates/s
 import CraftingCardGrid from "./Parts/CraftingCardGrid/CraftingCardGrid.js";
 import InventoryCardGrid from "./Parts/InventoryCardGrid/InventoryCardGrid.js";
 import { useMutation } from "@tanstack/react-query";
+import { isSPCard } from "../../../../../types/TypeGuardFns/SPGuards.js";
+import {
+  hasEnoughResources,
+  subtractResources,
+} from "../../../../../utils/game/resourcesHandlers.js";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -100,8 +105,8 @@ export default function CardGrid({
   const toastError = useToastError();
 
   // const [newCard_2, setNewCard_2] = useState<CardClass | null>(null); // Can't think another name for "newCard" 🤣
-  const [showPriceInput, setShowPriceInput] = useState(false);
-  const [priceInput /* setPriceInput */] = useState("");
+  // const [showPriceInput, setShowPriceInput] = useState(false);
+  // const [priceInput /* setPriceInput */] = useState("");
 
   let newCard_2: CardClass | null = null;
 
@@ -152,7 +157,7 @@ export default function CardGrid({
   // Mutation #3 - Sell Card
   const { mutate: putCardForSale } = useMutation({
     mutationFn: sellCard, // Replace with your API function
-    onError: () => console.error("Error while selling the card!"),
+    onError: (error) => console.error("Error while selling the card!", error),
     onSuccess: (response) => console.log("Response from MP: ", response),
   });
 
@@ -252,7 +257,10 @@ export default function CardGrid({
    * @param type Action type: "level" or "craft"
    * @description Checks if the player has the resources to level up or craft a card. If yes, it subtracts the resources from the player. If not, it shows an alert with the missing resources.
    */
-  function checkAndSubtractRes(_card: CardClass, type: "level" | "craft") {
+  async function checkAndSubtractRes(
+    _card: CardClass,
+    type: "level" | "craft"
+  ) {
     if (
       player === null ||
       player.gold === null ||
@@ -280,119 +288,113 @@ export default function CardGrid({
       population: player.population,
       diesel: player.diesel,
     };
-    const alertFlags = [];
 
-    for (const key in _card.requirements) {
-      if (Object.hasOwnProperty.call(_card.requirements, key)) {
-        // Checks if the requirements are met
-        if (
-          playerResources[key as keyof CardRequirements] <
-          _card.requirements[key as keyof CardRequirements]
-        ) {
-          // If they are NOT...
-          alertFlags.push(key);
-        }
-      }
-    }
+    const alertFlags = hasEnoughResources({
+      playerResources: playerResources,
+      requirements: _card.requirements,
+    });
 
-    // 🔷 Players has enough resources
-    if (alertFlags.length === 0) {
-      if (type === "level" && !(_card instanceof SPCard) && _card.level === 5) {
-        toastError.showError(
-          "MAX Level",
-          "😅 Your Card is at the Maximum Level! It can not be leveled Up any further"
-        );
-        return;
-      }
-
-      // 🔷 Subtracks the Resources. Also Prints the Old and New Resources
-      for (const key in _card.requirements) {
-        if (Object.hasOwnProperty.call(_card.requirements, key)) {
-          // console.log(
-          //   "Old [",
-          //   key,
-          //   "] => ",
-          //   playerResources[key as keyof CardRequirements]
-          // );
-
-          // 🔷 Subtracts the Resources
-          playerResources[key as keyof CardRequirements] -=
-            _card.requirements[key as keyof CardRequirements];
-
-          // console.log(
-          //   "New [",
-          //   key,
-          //   "] => ",
-          //   playerResources[key as keyof CardRequirements]
-          // );
-          // console.log("------------------------------------");
-        }
-      }
-
-      // 🔷 Updates the State of GameVars Store
-      updatePlayerData(playerResources);
-
-      if (type === "level" && !(_card instanceof SPCard) && _card.level >= 1) {
-        _card.levelUp(); // 🔷 Level Up the Card
-        const { level, id } = _card;
-        if (id === null)
-          throw new Error(
-            "⛔ CardGrid: checkAndSubtractRes: While trying to lvl up: Card ID is null!"
-          );
-
-        updateCardData({ id, level }); // 🔷 Update MySQL Database
-
-        toastConfetti.show(
-          "Leveled Up Card",
-          "💪 Awesome! You just leveled Up your Card!"
-        );
-      }
-
-      if (type === "craft") {
-        // 💥 This "newCard" does not have an ID yet!!!
-        const newCard = createNewCard(_card.type, _card.templateId);
-
-        // 🔷 Creates the Card in MySQL Database in case it IS a Special Effect Card
-        if (_card.type === "sp" && _card instanceof SPCard) {
-          const { templateId, rarity, creationTime } = newCard;
-          createCard_DB({
-            templateId,
-            in_mp: false,
-            priceTag: null,
-            ownerId: player.id,
-            state: false,
-            locked: false,
-            rarity,
-            creationTime: creationTime,
-            creator: player.name,
-          });
-        } else {
-          // 🔷 Creates the Card in MySQL Database in case it's NOT a Special Effect Card
-          const { templateId, rarity, creationTime } = newCard;
-          createCard_DB({
-            templateId,
-            level: 1,
-            ownerId: player.id,
-            state: false,
-            locked: false,
-            rarity,
-            in_mp: false,
-            priceTag: null,
-            creationTime: creationTime,
-            creator: player.name,
-          });
-        }
-
-        toastConfetti.show(
-          "Crafted New Card",
-          "✨ You can check it out in your Inventory!"
-        );
-      }
-    } else {
+    // 🔷 If Player does NOT has enough resources
+    if (alertFlags.length > 0) {
       toastError.showError(
         "Low on Resources",
         "😬 You are short on the following Resources: ",
         alertFlags.join(", ")
+      );
+    }
+
+    // 🔷 If Card is MAX Level
+    if (type === "level" && !(_card instanceof SPCard) && _card.level === 5) {
+      toastError.showError(
+        "MAX Level",
+        "😅 Your Card is at the Maximum Level! It can not be leveled Up any further"
+      );
+      return;
+    }
+
+    console.log("OLD Player Resources: ", playerResources);
+    // 🔷 Subtracks the Resources.
+    const newPlayerResources = subtractResources({
+      playerResources: playerResources,
+      requirements: _card.requirements,
+    });
+    console.log("NEW Player Resources: ", newPlayerResources);
+
+    // 🔷 Updates the Player Resources in DB
+    const success_playerRes = await updatePlayerDataSQL(
+      player.id,
+      newPlayerResources
+    );
+    if (success_playerRes === false) {
+      toastError.showError(
+        "There was an Error!",
+        "checkAndSubtractRes: updatePlayerDataSQL: Something went wrong!"
+      );
+      throw new Error(
+        "⛔ CardGrid: checkAndSubtractRes: updatePlayerDataSQL: Something went wrong!"
+      );
+    }
+
+    // 🔷 Updates the State of GameVars Store (Client)
+    updatePlayerData(newPlayerResources);
+
+    // 🔷 Checks if its a Level Up Call. Then levels Card Up and then updated DB
+    if (type === "level" && !(_card instanceof SPCard) && _card.level >= 1) {
+      _card.levelUp(); // 🔷 Level Up the Card
+      const { level, id } = _card;
+      if (id === null)
+        throw new Error(
+          "⛔ CardGrid: checkAndSubtractRes: While trying to lvl up: Card ID is null!"
+        );
+
+      updateCardData({ id, level }); // 🔷 Update MySQL Database
+
+      toastConfetti.show(
+        "Leveled Up Card",
+        "💪 Awesome! You just leveled Up your Card!"
+      );
+    }
+
+    // If this Call was for Crafting a Card
+    if (type === "craft") {
+      // 🔷 Creates a new Card Instance. 💥 This "newCard" does not have an ID yet!!!
+      const newCard = createNewCard(_card.type, _card.templateId);
+
+      // 🔷 If the Card is of SP type, stored Card in DB
+      if (_card.type === "sp" || _card instanceof SPCard) {
+        const { templateId, rarity, creationTime } = newCard;
+        createCard_DB({
+          templateId,
+          in_mp: false,
+          priceTag: null,
+          ownerId: player.id,
+          state: false,
+          locked: false,
+          rarity,
+          creationTime: creationTime,
+          creator: player.name,
+        });
+      } else {
+        // 🔷 If the Card is NOT SP, stored Card in DB
+        // 🔃 The difference is that SP Cards, have no level prop
+        const { templateId, rarity, creationTime } = newCard;
+        createCard_DB({
+          templateId,
+          level: 1,
+          ownerId: player.id,
+          state: false,
+          locked: false,
+          rarity,
+          in_mp: false,
+          priceTag: null,
+          creationTime: creationTime,
+          creator: player.name,
+        });
+      }
+
+      toastConfetti.show(
+        "Crafted New Card",
+        "✨ You can check it out in your Inventory!"
       );
     }
   }
@@ -422,106 +424,69 @@ export default function CardGrid({
   // TODO: 🛑 The Activation of Cards will be done by using the Map's Placeholders and the CardPicker Modal!
   // This will work only for SP Cards
   // TODO: 🛑 Check Again once you Implement the Special Effects
-  /* <== ✨
-  const handleActivateClick = (_card: SPCard) => {
-    console.log("Attempting Card Activation: ", _card);
-    if (_card.type === "sp" && isSPCard(_card)) {
-      if (_card.disabled === true) {
+
+  const handleActivateClick = (card: SPCard) => {
+    console.log("Attempting Card Activation: ", card);
+    if (isSPCard(card)) {
+      if (card.disabled === true) {
         toastError.showError(
           "MAX Special Effects Capacity",
           "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
         );
-      } else {
-        const effect = createEffect(
-          _card.templateId,
-          Number(_card.output.boost)
-        );
-        if (effect === false) {
-          // alert('Only one effect can be active at a time. 😅');
-          toastError.showError(
-            "MAX Special Effects Capacity",
-            "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
-          );
-          return;
-        } else {
-          const { id } = _card;
-          if (id === null)
-            throw new Error(
-              "⛔ Cardgrid: handleActivateClick (#1): Card ID is null!"
-            );
-
-          const mysqlDate = convertToMySQLDateTime(Date.now());
-          console.log("HandleActivateClick::MySQLDate: ", mysqlDate);
-          updateCardData({ id, state: 1, endDate: mysqlDate });
-          specialEffectsRef.current = effect; // TODO: Add a Zustand Store Property "CurrentSPEffect" in GameVars
-        }
+        return;
       }
+
+      toastError.showError(
+        "NOT Implemented Yet!",
+        "😅 But you successfully called handleActivateClick"
+      );
+      // const effect = createEffect(_card.templateId, Number(_card.output.boost)); // TODO:
+      // if (effect === false) {
+      //   // alert('Only one effect can be active at a time. 😅');
+      //   toastError.showError(
+      //     "MAX Special Effects Capacity",
+      //     "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
+      //   );
+      //   return;
+      // } else {
+      //   const { id } = _card;
+      //   if (id === null)
+      //     throw new Error(
+      //       "⛔ Cardgrid: handleActivateClick (#1): Card ID is null!"
+      //     );
+
+      //   const mysqlDate = convertToMySQLDateTime(Date.now());
+      //   console.log("HandleActivateClick::MySQLDate: ", mysqlDate);
+      //   updateCardData({ id, state: 1, endDate: mysqlDate });
+      //   specialEffectsRef.current = effect; // TODO: Add a Zustand Store Property "CurrentSPEffect" in GameVars
+      // }
     }
 
-    // 0. Change Card's State to true
-    _card.activate();
+    // // 0. Change Card's State to true
+    // _card.activate();
 
-    // 4. Update MySQL Database
-    const { state, id } = _card;
-    if (id === null)
-      throw new Error(
-        "⛔ Cardgrid: handleActivateClick (#2): Card ID is null!"
-      );
-    updateCardData({ id, state });
-
-    // 1. Add Selected Card => Activated Cards
-    // setActiveCards((prev) => [...prev, _card]); // TODO: Use Zustang Store, All Cards:
-    addCardToActiveCards(_card);
-
-    // 2. Remove Selected Card from the Inventory
-    // setInventoryCards([...removeObjectWithId(inventoryCards, _card.id)]); // TODO_DONE ✅: Use Zustang Store, All Cards: removeCardFromInventory(_card)
-    removeCardFromInventory(_card);
-
-    // 5. Unselect the Card. This also goes 1 step back in the Modal (Where all the cards are dispayed).
-    setSelectedCard(null);
-
-    // 6. Close the Modal
-    setIsOpen(false);
-
-    // (For REGs) Check if there is enough Gold to activate
-    // if (_card.type.toLowerCase() === "reg") {
-    //   const regCards = activeCards.filter(
-    //     (card: CardClass) => card.type.toLowerCase() === "reg"
+    // // 4. Update MySQL Database
+    // const { state, id } = _card;
+    // if (id === null)
+    //   throw new Error(
+    //     "⛔ Cardgrid: handleActivateClick (#2): Card ID is null!"
     //   );
-    //   const playerGold = materialResourcesRef.current.gold; //TODO: Use Global Variable from GameVars
-    //   // TODO: Add a Zustand Store Property "maintenanceExpenses" in GameVars
-    //   const totalMaintenanceGold = regCards.reduce((acc, card) => {
-    //     return acc + card.maintenance.gold;
-    //   }, 0);
-    //   console.log("1 SUKA SUKA! ", playerGold);
-    //   console.log("2 SUKA SUKA! ", totalMaintenanceGold);
-    //   if (totalMaintenanceGold + _card.maintenance.gold > playerGold) {
-    //     // alert(
-    //     //   `😱 Your current Gold is not enough to pay for the maintenance of your Generators! Therefore, you can not activate any more generators.`
-    //     // );
-    //     toastError.showError(
-    //       "Low on Gold",
-    //       "😱 Your current Gold is not enough to pay for the maintenance of your Generators! Therefore, you can not activate any more generators."
-    //     );
-    //     return;
-    //   }
-    // }
+    // updateCardData({ id, state });
 
-    // -1. (For Buildings) Check if there is enough Energy to activate
-    // TODO: Add a Zustand Store Properties "energyDelta" in GameVars
-    // if (
-    //   _card.maintenance?.energy !== undefined &&
-    //   energyRef.current.delta - _card.maintenance.energy < 0
-    // ) {
-    //   // alert(`You need more ⚡ Energy to activate the (${_card.name}) Card!`);
-    //   toastError.showError(
-    //     "Insufficient Energy",
-    //     `You need more ⚡ Energy to activate the (${_card.name}) Card!`
-    //   );
-    //   return;
-    // }
+    // // 1. Add Selected Card => Activated Cards
+    // // setActiveCards((prev) => [...prev, _card]); // TODO: Use Zustang Store, All Cards:
+    // addCardToActiveCards(_card);
+
+    // // 2. Remove Selected Card from the Inventory
+    // // setInventoryCards([...removeObjectWithId(inventoryCards, _card.id)]); // TODO_DONE ✅: Use Zustang Store, All Cards: removeCardFromInventory(_card)
+    // removeCardFromInventory(_card);
+
+    // // 5. Unselect the Card. This also goes 1 step back in the Modal (Where all the cards are dispayed).
+    // setSelectedCard(null);
+
+    // // 6. Close the Modal
+    // setIsOpen(false);
   };
-   ✨ ==> */
 
   /**
    * @firstCheck Completed ✅
@@ -529,37 +494,37 @@ export default function CardGrid({
    * @returns
    */
   const handleSellClick = (_card: CardClass) => {
+    console.log("Selling this Card: ", _card);
     // handle sell functionality here
-    // setForceRerender((prev) => !prev);
-    if (showPriceInput) {
-      if (parseInt(priceInput) === 0 || priceInput === "") {
-        setShowPriceInput(false);
-        return;
-      }
+    // if (showPriceInput) {
+    //   if (parseInt(priceInput) === 0 || priceInput === "") {
+    //     setShowPriceInput(false);
+    //     return;
+    //   }
 
-      if (_card === null || _card.id === null)
-        throw new Error(
-          "⛔ CardGrid: handleSellClick: Card is null or Card ID is null!"
-        );
-      putCardForSale({
-        cardId: _card.id,
-        in_mp: true,
-        priceTag: Number(priceInput),
-        state: false,
-      });
+    if (_card === null || _card.id === null)
+      throw new Error(
+        "⛔ CardGrid: handleSellClick: Card is null or Card ID is null!"
+      );
+    putCardForSale({
+      id: _card.id,
+      in_mp: true,
+      priceTag: Number(_card.priceTag),
+      state: false,
+    });
 
-      removeCardFromInventory(_card); // 🔷 Remove Card from Inventory
-      closeModal(); // 🔷 Close the Modal
-      setSelectedCard(null); // 🔷 Go 1 step back in the Modal (Where all the cards are displayed)
-      setShowPriceInput(false); // 🔷 Hide the Price Input
+    removeCardFromInventory(_card); // 🔷 Remove Card from Inventory
+    closeModal(); // 🔷 Close the Modal
+    setSelectedCard(null); // 🔷 Go 1 step back in the Modal (Where all the cards are displayed)
+    // setShowPriceInput(false); // 🔷 Hide the Price Input
 
-      console.log("Sell Button was clicked!");
-      console.log("Active Card: ", activeCards);
-      console.log("Inventory: ", inventoryCards);
-      return;
-    } else {
-      setShowPriceInput(true);
-    }
+    console.log("Sell Button was clicked!");
+    console.log("Active Card: ", activeCards);
+    console.log("Inventory: ", inventoryCards);
+    return;
+    // } else {
+    //   setShowPriceInput(true);
+    // }
   };
 
   /**
@@ -612,6 +577,7 @@ export default function CardGrid({
           handleSell={handleSellClick}
           selectedCard={selectedCard}
           setSelectedCard={setSelectedCard}
+          handleActivate={handleActivateClick}
         />
       )}
     </div>

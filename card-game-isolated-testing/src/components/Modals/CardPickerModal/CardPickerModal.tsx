@@ -22,36 +22,35 @@ type Props = {
 };
 
 const CardPickerModal = ({ type, spot }: Props) => {
+  // State
+  const [isClosing, setIsClosing] = useState(false);
+
+  // Zustang Stores
   const popModal = useModalStore((state) => state.popModal);
   const addEntity = useTownMapStore((state) => state.addEntity);
-
   const {
     inventory: inventoryCards,
     addCardToActiveCards,
     removeCardFromInventory,
   } = useAllCardsStore((state) => state);
-
-  const toastError = useToastError();
-
   const { energy, player } = useGameVarsStore((state) => state);
 
-  const buildingCards: BuildingCard[] = inventoryCards.filter(isBuildingCard);
-
-  const regCards: RegCard[] = inventoryCards.filter(isRegCard);
-
+  // Hooks
+  const toastError = useToastError();
   const { images } = UseGlobalContext();
-
   if (images === undefined)
     throw new Error("⛔ CardPicker, images is undefined!");
 
-  const [isClosing, setIsClosing] = useState(false);
-  // const provideModalData = useModalStore((state) => state.provideModalData);
+  // Local Vars
+  const buildingCards: BuildingCard[] = inventoryCards.filter(isBuildingCard);
+  const regCards: RegCard[] = inventoryCards.filter(isRegCard);
 
+  // Animation Classes
   const modalClass = isClosing
     ? `${styles.cardPickerModalContainer} ${styles.slideOutEllipticTopBck}`
     : `${styles.cardPickerModalContainer} ${styles.enterAnimation}`;
 
-  // 🐱‍🏍 Handlers
+  // Handlers
   const handleClose = () => {
     setIsClosing(true);
 
@@ -60,6 +59,50 @@ const CardPickerModal = ({ type, spot }: Props) => {
     }, 700);
   };
 
+  const handleActivate = (card: BuildingCard | RegCard) => {
+    // 0. Perform Nessessary Checks (Includes Toasts)
+    if (card.id === null)
+      throw new Error("⛔ CardPickerModal: Card ID is undefined!");
+    if (!canBeActivated(card))
+      throw new Error("⛔ CardPickerModal: Card can NOT be Activated!");
+
+    // 1. Activate the Card
+    if (isBuildingCard(card)) card.activate(spot as BuildingSpot);
+    if (isRegCard(card)) card.activate(spot as RegSpot);
+    if (!isBuildingCard(card) && !isRegCard(card)) {
+      toastError.showError(
+        "Invalid Card Type",
+        "CardPicker: Card is neither a BuildingCard or a RegCard!"
+      );
+      throw new Error(
+        "⛔ CardPickerModal: handleActivate: Card is neither a BuildingCard or a RegCard!"
+      );
+    }
+
+    // 2. Add the Card to the TownMap
+    addEntity(card);
+
+    // 3. Add the Card to the Activated Cards
+    addCardToActiveCards(card);
+
+    // 4. Remove the Card from the Inventory
+    removeCardFromInventory(card);
+
+    // 5. Update Card's State in MySQL Database
+
+    updateCardData({
+      id: card.id,
+      on_map_spot: spot,
+      state: 1,
+    });
+
+    // console.log("✅ SUCCESSFUL ACTIVATION ✅");
+    setTimeout(() => {
+      popModal();
+    }, 250);
+  };
+
+  // Utility Functions
   const canBeActivated = (card: BuildingCard | RegCard): boolean => {
     if (isBuildingCard(card)) {
       if (energy - card.maintenance.energy < 0) {
@@ -108,74 +151,14 @@ const CardPickerModal = ({ type, spot }: Props) => {
           ? buildingCards.map((card) => (
               <CompleteCard
                 card={card}
-                onClick={() => {
-                  // 0. Perform Nessessary Checks (Includes Toasts)
-                  if (!canBeActivated(card)) return;
-                  // 1. Activate the Card
-                  card.activate(spot as BuildingSpot);
-
-                  // 2. Add the Card to the TownMap
-                  addEntity(card);
-
-                  // 3. Add the Card to the Activated Cards
-                  addCardToActiveCards(card);
-
-                  // 4. Remove the Card from the Inventory
-                  removeCardFromInventory(card);
-
-                  // 5. Update Card's State in MySQL Database
-                  if (card.id === null)
-                    throw new Error(
-                      "⛔ CardPickerModal: Card ID is undefined!"
-                    );
-                  updateCardData({
-                    id: card.id,
-                    on_map_spot: spot,
-                    state: 1,
-                  });
-                  setTimeout(() => {
-                    popModal();
-                  }, 250);
-                }}
-                // spot={spot}
+                onClick={() => handleActivate(card)}
                 key={`CardPickerModal-${card.name}`}
               />
             ))
           : regCards.map((card) => (
               <CompleteCard
                 card={card}
-                onClick={() => {
-                  // console.log("[REG] - You Clicked this Card: ", card);
-                  // 0. Perform Nessessary Checks (Includes Toasts)
-                  if (!canBeActivated(card)) return;
-
-                  // 1. Activate the Card
-                  card.activate(spot as RegSpot);
-
-                  // 2. Add the Card to the TownMap
-                  addEntity(card);
-
-                  // 3. Add the Card to the Activated Cards
-                  addCardToActiveCards(card);
-
-                  // 4. Remove the Card from the Inventory
-                  removeCardFromInventory(card);
-
-                  // 5. Update Card's State in MySQL Database
-                  if (card.id === null)
-                    throw new Error(
-                      "⛔ CardPickerModal: Card ID is undefined!"
-                    );
-                  updateCardData({
-                    id: card.id,
-                    on_map_spot: spot,
-                    state: 1,
-                  });
-                  setTimeout(() => {
-                    popModal();
-                  }, 250);
-                }}
-                // size={200}
+                onClick={() => handleActivate(card)}
                 key={`CardPickerModal-${card.name}`}
               />
             ))}

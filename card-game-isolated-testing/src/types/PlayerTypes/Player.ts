@@ -4,6 +4,7 @@ export interface IPlayerDB {
   wallet: string;
   password: string;
   townhall_lvl: number;
+  factory_lvl: number;
   island_id: number | null;
   workers_concrete: number | null;
   workers_metals: number | null;
@@ -29,6 +30,7 @@ export type PlayerData = Pick<
   | "id"
   | "island_id"
   | "townhall_lvl"
+  | "factory_lvl"
   | "workers_concrete"
   | "workers_metals"
   | "workers_crystals"

@@ -5,8 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useGameVarsStore } from "../../stores/gameVars";
 import { useAllCardsStore } from "../../stores/allCards";
 import { createJSCards } from "../../utils/game/createJSCards";
-import { ICardDB } from "../../types";
+import { ICardDB, Level } from "../../types";
 import { cardsInit as templateCardsInit } from "../../components/Modals/InGameModals/CraftCardModal/utils";
+import { IPlayerDB } from "../../types/PlayerTypes/Player";
+import { useTownMapStore } from "../../stores/townMapEntitiesStore";
+import { isSPCard } from "../../types/TypeGuardFns/SPGuards";
 
 // Create a context for authentication
 export const AuthContext = createContext<AuthContextProps>({
@@ -22,7 +25,12 @@ export default function AuthProvider({
   disableForTesting = false,
 }: AuthProviderProps) {
   const [user, setUser] = useState<userAuthType>(null); // This should be your auth logic
-  const setPlayer = useGameVarsStore((state) => state.setPlayer);
+  const { setPlayer, setTownhallLevel, setFactoryLevel } = useGameVarsStore(
+    (state) => state
+  );
+
+  const addEntity = useTownMapStore((state) => state.addEntity);
+
   const addAllCards = useAllCardsStore((state) => state.addAllCards);
   const addAllInventoryCards = useAllCardsStore(
     (state) => state.addAllInventoryCards
@@ -56,9 +64,12 @@ export default function AuthProvider({
       const playerData = await getPlayerByWallet(walletAddress);
       console.log("🧪 2.2 | - ✅ Successfully GOT Player Data: ", playerData);
 
-      setPlayer(playerData.player); // 🔷 Set the Player Data to Global State
+      // 🔷 1. Initialize the Cards
+      playerInit(playerData.player);
+
+      // 🔷 2. Initialize the Cards, if there are any
       if (playerData.cards !== undefined && playerData.cards !== null) {
-        cardsInit(playerData.cards); // 🔷 Initialize the Cards
+        cardsInit(playerData.cards);
       }
 
       console.log(
@@ -82,10 +93,10 @@ export default function AuthProvider({
 
     const convertedFromDB_To_JS = createJSCards(cardsFromDB); // 🔷 Convert the Cards from DB to JS
     const inventoryCards = convertedFromDB_To_JS.filter(
-      (card) => card.state === false
+      (card) => card.state === false && card.forSale === false
     );
     const activeCards = convertedFromDB_To_JS.filter(
-      (card) => card.state === true
+      (card) => card.state === true && card.forSale === false
     );
 
     const templateCards = templateCardsInit(); // 🔷 Initialize the Template Cards (Used in Craft Modal)
@@ -98,6 +109,17 @@ export default function AuthProvider({
     console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
     console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);
     console.log("🙌 3 - All the Active JS Cards: ", activeCards);
+
+    for (const card of activeCards) {
+      if (isSPCard(card)) continue;
+      addEntity(card);
+    }
+  };
+
+  const playerInit = (data: IPlayerDB) => {
+    setPlayer(data); // 🔷 Set the Player Data to Global State
+    setTownhallLevel(data.townhall_lvl as Level);
+    setFactoryLevel(data.factory_lvl as Level);
   };
 
   return (

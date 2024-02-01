@@ -182,10 +182,10 @@
   } */
 
   .single-card-desc {
-    border-radius: 25px;
-    border: 3px solid whitesmoke;
+    border-radius: 16px;
+    border: 5px solid rgba(245, 245, 245, 0.842);
     padding: 20px;
-    box-shadow: 1px 2px 3px black;
+    box-shadow: 2px 2px 3px black;
     background: #22c1c3;
     background: -webkit-radial-gradient(#fdbb2d, #22c1c3);
     background: radial-gradient(#fdbb2d, #22c1c3);
@@ -211,7 +211,7 @@
 
   .single-card-btn-container {
     /* margin: top right bottom left */
-    margin: 12px 36px 10px 8px;
+    margin: 0px 36px 10px 8px;
     justify-content: space-around;
     align-self: stretch;
     background-color: #22c1c3;
@@ -249,7 +249,7 @@
 
   .single-card-desc {
     align-self: stretch;
-    margin-top: 20px;
+    margin-top: 0px;
   }
 
   .single-card-desc > h3 {

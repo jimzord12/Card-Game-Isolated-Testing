@@ -81,6 +81,7 @@ const TownMap = () => {
           {OnMapEntitiesTypes.map((entityType) => (
             <EntityTemplateGroup
               {...templateGrpProps}
+              key={`Townhall-${entityType}`}
               entityType={entityType}
             />
           ))}

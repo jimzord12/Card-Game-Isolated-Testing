@@ -4,18 +4,43 @@ import CompleteCard from "../../../../../../../Cards/CardTemplates/CompleteCard/
 import InvSecondMenuSection from "./SecondMenuParts/InvSecondMenuSection";
 import InvSecondMenuSectionSP from "./SecondMenuParts/InvSecondMenuSectionSP";
 import vertDivider from "../../../../../../../../assets/craftAndInvModals/cardGrid/vertical_section_divider.png";
+import SPCard from "../../../../../../../../classes/spClass_V2";
+import useInput from "../../../../../../../../hooks/useInput";
+import CustomInput from "../../../../../../../CustomInput/CustomInput";
+import useConfirmationModal from "../../../../../../../../hooks/modals/useConfirmationModal";
+import { useState } from "react";
 
 interface Props {
   selectedCard: CardClass;
   handleSell: (card: CardClass) => void;
   handleLevelUp: (card: CardClass) => void;
+  handleActivate: (card: SPCard) => void;
 }
 
 const InventoryCardGridSecondMenu = ({
   selectedCard,
   handleSell,
   handleLevelUp,
+  handleActivate,
 }: Props) => {
+  // const [priceTagInput, setPriceTagInput] = useState<number | null>(null);
+  const [isSellClickedTimes, setIsSellClickedTimes] = useState(0);
+  const [sellPrice, resetSellInput, attributeObj] = useInput(
+    "priceTagInput",
+    ""
+  );
+
+  const { openConfirmationModal } = useConfirmationModal({
+    title: "Sell Card Confirmation",
+    message: "Are you sure you want to sell this card?",
+    onConfirm: () => {
+      selectedCard.priceTag = parseInt(sellPrice);
+      handleSell(selectedCard);
+      resetSellInput();
+      setIsSellClickedTimes(0);
+    },
+  });
+
   return (
     <div
       key={"CardisSelected-" + selectedCard}
@@ -32,11 +57,42 @@ const InventoryCardGridSecondMenu = ({
               borderRadius: "10px",
               boxShadow: "1px 2px 2px 0px black",
             }}
-            onClick={() => handleSell(selectedCard)}
+            onClick={() => {
+              if (isSellClickedTimes === 0) {
+                setIsSellClickedTimes(1);
+                return;
+              }
+
+              if (isSellClickedTimes === 1) {
+                openConfirmationModal();
+              }
+            }}
           >
-            Sell
+            {isSellClickedTimes === 0 ? "Sell" : "Confirm"}
           </button>
-          {isSPCard(selectedCard) ? null : (
+          {isSellClickedTimes === 1 && (
+            <div className="px-4">
+              <CustomInput
+                label=""
+                placeHolder="Enter Price..."
+                Attribs={{ ...attributeObj, type: "number" }}
+              />
+            </div>
+          )}
+          {isSPCard(selectedCard) ? (
+            <button
+              className="single-card-btn btn-activate"
+              // I use tge closeBtn class cuz I'm bored of renaming it :P
+              style={{
+                padding: "5px 10px",
+                borderRadius: "10px",
+                boxShadow: "1px 2px 2px 0px black",
+              }}
+              onClick={() => handleActivate(selectedCard)}
+            >
+              Activate
+            </button>
+          ) : (
             <button
               className="single-card-btn btn-levelUp"
               // I use tge closeBtn class cuz I'm bored of renaming it :P

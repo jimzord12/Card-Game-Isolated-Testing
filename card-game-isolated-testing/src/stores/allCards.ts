@@ -15,6 +15,7 @@ interface AllCardsState {
   activeCards: CardClass[];
   activeBuildingCards: BuildingCard[];
   activeRegCards: RegCard[];
+  // TODO: Active Effect
   templateCards: CardClass[];
   addCard: (card: CardClass) => void;
   addAllCards: (cards: CardClass[]) => void;

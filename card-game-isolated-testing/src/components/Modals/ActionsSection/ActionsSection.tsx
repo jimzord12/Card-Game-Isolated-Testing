@@ -10,10 +10,12 @@ import {
 } from "../../../types/ModalTypes/ActionsSectionTypes";
 import ActionSectionBtn from "../../Buttons/ActionSectionBtn/ActionSectionBtn";
 import styles from "./styles.module.css";
-import type { AxiosError } from "axios";
-import { CardLevel, Level } from "../../../types";
+import { CardLevel, CardRequirements, Level } from "../../../types";
 import { useGameVarsStore } from "../../../stores/gameVars";
 import useModalActions from "./useModalActions";
+import { useToastError } from "../../../hooks/notifications";
+import useCardLevelUp from "./useCardLevelUp";
+import useDefaultBuildingLevelUp from "./useDefaultBuildingLevelUp";
 
 interface ActionsSectionProps {
   contentType: ActionsSectionType;
@@ -36,11 +38,19 @@ const ActionsSection = ({
   const addCardToInventory = useAllCardsStore(
     (state) => state.addCardToInventory
   );
+
+  const player = useGameVarsStore((state) => state.player);
+
   const townhallLevel = useGameVarsStore((state) => state.townhallLevel);
-  const setTownhallLevel = useGameVarsStore((state) => state.setTownhallLevel);
 
   const factoryLevel = useGameVarsStore((state) => state.factoryLevel);
-  const setFactoryLevel = useGameVarsStore((state) => state.setFactoryLevel);
+
+  const toastError = useToastError();
+
+  const { levelUpCard } = useCardLevelUp({
+    setCardLevel,
+  });
+  const { levelUpDefaultBuilding } = useDefaultBuildingLevelUp();
 
   // TODO: Make the Backend Updates first! And the Client ones after
   async function deactivate() {
@@ -81,47 +91,53 @@ const ActionsSection = ({
   }
 
   async function levelUp() {
-    console.log("⚡ - Leveling Up Card: ", card);
-
+    console.log("⚡ - (Action Section) - Leveling Up Card: ", card);
     if (
-      (card instanceof BuildingCard || card instanceof RegCard) &&
-      card.id !== null
+      player === null ||
+      player.gold === null ||
+      player.concrete === null ||
+      player.metals === null ||
+      player.crystals === null ||
+      player.population === null ||
+      player.diesel === null
     ) {
-      // Regarding Client Side:
-      // 1. Level up Card
-      card.levelUp();
-      setCardLevel(card.level);
-      console.log("⚡+✅ - In Frontend: Card Successfully Leveled Up: ", card);
-      // Regarding Server Side:
-      // 1. Update Card's Level in DB
-      try {
-        const success = await updateCardData({
-          id: card.id,
-          level: card.level,
-        });
-        if (!success)
-          throw new Error(
-            "⛔ ActionsSection: levelUp: Card was not updated in DB! Probably it does not exists"
-          );
-        console.log("⚡+✅ - In Backend: Card Successfully Leveled Up: ", card);
-      } catch (error) {
-        throw new Error(
-          "⛔ ActionsSection: levelUp: Card was not updated in DB!",
-          error as AxiosError
-        );
-      }
-    } else if (card === undefined && contentType === "townhall") {
-      if (townhallLevel === 5) return;
-      setTownhallLevel((townhallLevel + 1) as Level);
-      console.log("✅ Townhall Leveled Up: ", townhallLevel);
-      //TODO: Update Townhall Level in DB
-    } else if (card === undefined && contentType === "factory") {
-      if (factoryLevel === 5) return;
-      setFactoryLevel((factoryLevel + 1) as Level);
-      console.log("✅ Factory Leveled Up: ", factoryLevel);
+      toastError.showError(
+        "There was an Error!",
+        "ActionsSection: LevelUp: Something is null!"
+      );
+      throw new Error("⛔ ActionsSection: LevelUp: Player is null!");
+    }
+    const playerResources: CardRequirements = {
+      gold: player.gold,
+      concrete: player.concrete,
+      metals: player.metals,
+      crystals: player.crystals,
+      population: player.population,
+      diesel: player.diesel,
+    };
 
-      //TODO: Update factoryLevel in DB
-      //TODO: Create a factoryLevel Column in the DB
+    // In Case of [Townhall] or [Factory]
+    if (contentType === "townhall" || contentType === "factory") {
+      levelUpDefaultBuilding({
+        playerResources,
+        playerId: player.id,
+        contentType,
+      });
+    } else if (card) {
+      // 💥 In Case of [Card]
+      levelUpCard({
+        card,
+        playerResources,
+        playerId: player.id,
+      });
+    } else {
+      toastError.showError(
+        "There was an Error!",
+        "ActionsSection: LevelUp: Card is null, or contentType is not 'townhall' or 'factory'!"
+      );
+      throw new Error(
+        "⛔ ActionsSection: LevelUp: Card is null! or contentType is not 'townhall' or 'factory'!"
+      );
     }
   }
 

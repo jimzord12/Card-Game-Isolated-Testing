@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
 import { TownMapEntitiesData } from "../../../types";
 import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
@@ -6,6 +6,11 @@ import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
 import GlowImage from "../../GlowImage/GlowImage";
 import "./solar.css";
 import "./wind.css";
+import StandardModal from "../../Modals/StandardModal/StandardModal";
+import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
+import { useModalStore } from "../../../stores/modalStore";
+import RegCard from "../../../classes/regClass_V2";
+import { rarityConverter } from "../../Modals/InGameModals/Parts/CardGrid/utils";
 
 interface Props {
   highlightedImg: number | null;
@@ -23,24 +28,43 @@ const RegsOnMap = ({
   mapEntities,
 }: Props) => {
   // const pushModal = useModalStore((state) => state.pushModal);
+  const { images } = UseGlobalContext();
+  const pushModal = useModalStore((state) => state.pushModal);
 
-  const handleOpenStandardModal = useCallback(
-    // (cardName: RegName, cardId: number) => {
-    //   pushModal(
-    //     <StandardModal
-    //       message={`This is the Standard Modal For a [REG] OnMap-Entity, Name: [${cardName}], ID: [${cardId}]`}
-    //       onConfirm={() => {
-    //         console.log("✅ You pressed the Confirm Button!");
-    //       }}
-    //       onCancel={() => {
-    //         console.log("❌ You pressed the Cancel Button!");
-    //       }}
-    //     />
-    //   );
-    // },
-    () => {},
-    []
-  );
+  if (images === undefined)
+    throw new Error("⛔ TownHallOnMap, images is undefined!");
+
+  const handleOpenStandardModal = (card: RegCard) => {
+    if (
+      card === undefined ||
+      card.rarity === undefined ||
+      card.level === undefined
+    )
+      throw new Error("⛔ handleOpenStandardModal: card is undefined!");
+
+    const background = card.name.includes("Wind")
+      ? images.modal_backgrounds.windTurbineBG
+      : images.modal_backgrounds.solarPanelBG;
+
+    pushModal(
+      <StandardModal
+        bgImage={background}
+        contentScreens={[
+          <div style={{ fontSize: 42, color: "white" }}>
+            REG MAIN SCREEN!!!
+          </div>,
+          <div style={{ fontSize: 42, color: "white" }}>
+            REG - Level Up Screen!!
+          </div>,
+        ]}
+        contentType="reg"
+        label={rarityConverter(card.rarity) as string}
+        level={card.level}
+        card={card}
+      />
+    );
+  };
+
   return (
     <div>
       {Object.entries(mapEntities).map(([spot, card]) =>
@@ -58,7 +82,7 @@ const RegsOnMap = ({
             }
             onClick={() => {
               setSelectedMapEntity(card.id);
-              handleOpenStandardModal(/*card.name, card.id*/);
+              handleOpenStandardModal(card);
             }}
           >
             <GlowImage

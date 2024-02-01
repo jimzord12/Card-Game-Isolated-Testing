@@ -7,7 +7,7 @@ type GameVarsState = {
   townhallLevel: Level;
   factoryLevel: Level;
   happiness: number;
-  totalPop: number;
+  // totalPop: number;
   energyProduced: number;
   energyConsumed: number;
   energy: number;
@@ -17,7 +17,7 @@ type GameVarsState = {
   // TODO: Create Game Initialiazation. This will be called when the Game Compoenent is mounted.
   setPlayer: (player: IPlayerDB) => void;
   updatePlayerData: (playerData: Partial<IPlayerDB>) => void;
-  setTotalPop: (totalPop: number) => void;
+  // setTotalPop: (totalPop: number) => void;
   setHappiness: (fn: number | ((currentHappiness: number) => number)) => void;
   setTownhallLevel: (fn: Level | ((currentTHLevel: Level) => Level)) => void;
   setFactoryLevel: (
@@ -33,7 +33,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   townhallLevel: 1,
   factoryLevel: 1,
   happiness: 25,
-  totalPop: 100,
+  // totalPop: 100,
   energyProduced: 0,
   energyConsumed: 0,
   energy: 0,
@@ -43,7 +43,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
     set((state) => ({
       player: state.player ? { ...state.player, ...playerData } : null,
     })),
-  setTotalPop: (totalPop: number) => set({ totalPop }),
+  // setTotalPop: (totalPop: number) => set({ totalPop }),
   setEnergyProduced: (energyProduced: number) =>
     set((state) => ({
       energyProduced: energyProduced,

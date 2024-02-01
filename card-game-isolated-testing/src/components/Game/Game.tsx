@@ -7,6 +7,7 @@ import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
 import CustomButton from "../Buttons/CustomButton/CustomButton";
 import { useNavigate } from "react-router-dom";
 import GameButton from "../Buttons/GameButton/GameButton";
+import StatsBars from "../StatsBars/StatsBars";
 // import CraftCardModal from "../Modals/InGameModals/CraftCardModal/CraftCardModal";
 // import InventoryModal from "../Modals/InGameModals/InventoryModal/InventoryModal";
 
@@ -60,10 +61,23 @@ const Game = () => {
                 isInvModalOpen={isInvModalOpen}
                 setIsInvModalOpen={setIsInvModalOpen}
               />
+              <div className="z-[401] absolute">
+                <StatsBars />
+              </div>
 
               <div className="z-[401] absolute top-4 left-20">
                 <CustomButton
                   title="Swap Map"
+                  handleClick={() =>
+                    setMapToDisplay((prev) =>
+                      prev === "world" ? "town" : "world"
+                    )
+                  }
+                />
+              </div>
+              <div className="z-[401] absolute top-4 left-[280px]">
+                <CustomButton
+                  title="Player Stats"
                   handleClick={() =>
                     setMapToDisplay((prev) =>
                       prev === "world" ? "town" : "world"

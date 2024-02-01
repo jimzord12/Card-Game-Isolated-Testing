@@ -20,6 +20,8 @@ interface Props {
   onClick: () => void;
 }
 
+
+
 const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
   // console.log("frameImg :>> ", frameImg);
   // console.log("Card Data : ", card);

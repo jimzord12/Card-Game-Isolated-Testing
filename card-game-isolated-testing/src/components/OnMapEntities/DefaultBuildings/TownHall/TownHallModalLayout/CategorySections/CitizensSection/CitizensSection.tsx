@@ -8,10 +8,13 @@ const CitizensSection = () => {
   const { images } = UseGlobalContext();
 
   const happiness = useGameVarsStore((state) => state.happiness);
-  const totalPop = useGameVarsStore((state) => state.totalPop);
+  const totalPop = useGameVarsStore((state) => state.player?.population);
 
   if (images === undefined)
     throw new Error("⛔ CitizensSection, images is undefined!");
+
+  if (totalPop === undefined || totalPop === null)
+    throw new Error("⛔ CitizensSection, totalPop is undefined or null!");
 
   return (
     <>

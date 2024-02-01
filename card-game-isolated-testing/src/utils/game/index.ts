@@ -8,6 +8,7 @@ import {
   justTheMills,
 } from "./bigNumbersManagement";
 import { findCardTypeFromTemplateId } from "./findCardTypeFromTemplateId";
+import { hasEnoughResources, subtractResources } from "./resourcesHandlers";
 
 export {
   getModalBgImage,
@@ -18,4 +19,6 @@ export {
   justTheKs,
   justTheMills,
   findCardTypeFromTemplateId,
+  hasEnoughResources,
+  subtractResources,
 };

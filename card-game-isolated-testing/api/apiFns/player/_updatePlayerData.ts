@@ -9,7 +9,7 @@ const PUT_PLAYER_STATS_URL = "players";
 
 export const updatePlayerData = async (
   playerId: number,
-  playerData: PlayerData
+  playerData: Partial<PlayerData>
 ): Promise<boolean> => {
   console.log("🚀 PUT - (Updating Player Stats), Sending Request...");
 

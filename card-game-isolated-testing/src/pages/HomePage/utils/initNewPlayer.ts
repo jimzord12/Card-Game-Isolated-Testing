@@ -12,6 +12,7 @@ export function initNewPlayer(playerId: number): PlayerData {
     id: playerId,
     island_id: randomIslandId,
     townhall_lvl: 1,
+    factory_lvl: 1,
     workers_concrete: 0,
     workers_metals: 0,
     workers_crystals: 0,

@@ -8,6 +8,8 @@ import Typography from "@mui/material/Typography/Typography";
 import Paper from "@mui/material/Paper/Paper";
 import { CSSObject } from "@mui/material";
 import "./statsBars.css";
+import { useGameVarsStore } from "../../stores/gameVars";
+import { useToastError } from "../../hooks/notifications";
 
 type TopBarStats = {
   gold: number;
@@ -24,12 +26,49 @@ type ButtomBarStats = {
 };
 
 interface ResourceBarProps {
-  statsToDisplay: TopBarStats;
-  resourcesToDisplay: ButtomBarStats;
+  statsToDisplay?: TopBarStats;
+  resourcesToDisplay?: ButtomBarStats;
 }
 
 const StatsBar = ({ statsToDisplay, resourcesToDisplay }: ResourceBarProps) => {
   const [showOtherBar, setShowOtherBar] = useState(true);
+  const toastError = useToastError();
+
+  const { energy, player } = useGameVarsStore((state) => state);
+
+  if (
+    player === null ||
+    player.gold === null ||
+    player.concrete === null ||
+    player.metals === null ||
+    player.crystals === null ||
+    player.population === null ||
+    player.diesel === null ||
+    player.rank === null ||
+    energy === null
+  ) {
+    // console.log("player :>> ", player);
+    // console.log("energy :>> ", energy);
+    toastError.showError(
+      "There was an Error!",
+      "checkAndSubtractRes: Something is null!"
+    );
+    throw new Error("⛔ CardGrid: checkAndSubtractRes: Player is null!");
+  }
+
+  const statsToDisplay_internal: TopBarStats = {
+    gold: player.gold,
+    population: player.population,
+    energy: energy,
+    rank: player.rank,
+  };
+
+  const resourcesToDisplay_internal: ButtomBarStats = {
+    concrete: player.concrete,
+    metals: player.metals,
+    crystals: player.crystals,
+    diesel: player.diesel,
+  };
 
   // This approach was chosen because it was the fastest way to migrate the old code here.
   const { iconFinder, getstylesEI, shortenLongNum /*visibilityA*/ } =
@@ -43,57 +82,58 @@ const StatsBar = ({ statsToDisplay, resourcesToDisplay }: ResourceBarProps) => {
   const mediaQuery1200 = useMediaQuery("(min-width:1200px)");
 
   return (
-    <div className="flex z-10 fixed">
-      {statsToDisplay && (
-        <Box
-          // sx={{ position: mediaQuery480 ? 'absolute' : 'static', left: '8px' }}
-          sx={{
-            position: "fixed",
-            top: "0px",
-            left: "6px",
-            zIndex: 410,
-            width: mediaQuery1200
-              ? "650px"
-              : mediaQuery900
-              ? "55%"
-              : mediaQuery760
-              ? "60%"
-              : mediaQuery600
-              ? "75%"
-              : mediaQuery480
-              ? "80%"
-              : mediaQuery360
-              ? "100%"
-              : "100%",
-          }}
+    <div className="flex fixed w-fit h-fit">
+      {/* {statsToDisplay && ( */}
+      <Box
+        // sx={{ position: mediaQuery480 ? 'absolute' : 'static', left: '8px' }}
+        sx={{
+          position: "fixed",
+          top: "0px", // ✨ To change Y Position
+          right: "-20px", // ✨ To change X Position
+          zIndex: 410,
+          width: mediaQuery1200
+            ? "650px"
+            : mediaQuery900
+            ? "55%"
+            : mediaQuery760
+            ? "60%"
+            : mediaQuery600
+            ? "75%"
+            : mediaQuery480
+            ? "80%"
+            : mediaQuery360
+            ? "100%"
+            : "100%",
+        }}
+      >
+        <Container
+          onClick={() => setShowOtherBar(!showOtherBar)}
+          disableGutters
         >
-          <Container
-            onClick={() => setShowOtherBar(!showOtherBar)}
-            disableGutters
-          >
-            {/* ----- STATS ----- */}
-            {showOtherBar && (
-              <Grid
-                container
-                spacing={2}
-                // border={2}
-                sx={{
-                  // background: "#c21500",
-                  // background:
-                  //   "-webkit-linear-gradient(to right, #FC354C, #0ABFBC)",
-                  background: "linear-gradient(to right, #FC354C, #0ABFBC)",
-                  width: "95%",
-                  height: "100%",
-                  margin: "0px",
-                  marginBottom: "6px",
-                  marginTop: "6px",
-                  borderRadius: "5px",
-                  boxShadow: "4px 7px black",
-                  // visibility: !showOtherBar ? 'visible' : 'hidden',
-                  // visibility: visibilityA(showOtherBar, "stats"),
-                }}
-              >
-                {Object.entries(statsToDisplay).map(([stat, value], index) => (
+          {/* ----- STATS ----- */}
+          {showOtherBar && (
+            <Grid
+              container
+              spacing={2}
+              // border={2}
+              sx={{
+                // background: "#c21500",
+                // background:
+                //   "-webkit-linear-gradient(to right, #FC354C, #0ABFBC)",
+                background: "linear-gradient(to right, #FC354C, #0ABFBC)",
+                width: "95%",
+                height: "100%",
+                margin: "0px",
+                marginBottom: "6px",
+                marginTop: "6px",
+                borderRadius: "5px",
+                boxShadow: "4px 7px black",
+                // visibility: !showOtherBar ? 'visible' : 'hidden',
+                // visibility: visibilityA(showOtherBar, "stats"),
+              }}
+            >
+              {Object.entries(statsToDisplay ?? statsToDisplay_internal).map(
+                ([stat, value], index) => (
                   <Grid
                     key={stat + index}
                     xs={3}
@@ -130,84 +170,85 @@ const StatsBar = ({ statsToDisplay, resourcesToDisplay }: ResourceBarProps) => {
                       </Typography>
                     </Paper>
                   </Grid>
-                ))}
-              </Grid>
-            )}
+                )
+              )}
+            </Grid>
+          )}
 
-            {!showOtherBar && (
-              <Grid
-                container
-                spacing={2}
-                // xs={3}
-                // sm={6}
-                sx={{
-                  // background: "#c21500",
-                  // background:
-                  //   "-webkit-linear-gradient(to right, #71B280, #F3A183)",
-                  background: "linear-gradient(to right, #71B280, #F3A183)",
-                  width: "95%",
-                  height: "100%",
-                  margin: "0px",
-                  marginBottom: "6px",
-                  marginTop: "6px",
-                  borderRadius: "5px",
-                  boxShadow: "4px 7px black",
-                }}
-              >
-                {/* ----- RESOURCES ----- */}
-                {Object.entries(resourcesToDisplay).map(
-                  ([resource, value], index) => (
-                    <Grid
-                      key={resource + index}
-                      xs={3}
-                      sm={6}
-                      sx={{
-                        display: "flex",
-                        padding: 1,
+          {!showOtherBar && (
+            <Grid
+              container
+              spacing={2}
+              // xs={3}
+              // sm={6}
+              sx={{
+                // background: "#c21500",
+                // background:
+                //   "-webkit-linear-gradient(to right, #71B280, #F3A183)",
+                background: "linear-gradient(to right, #71B280, #F3A183)",
+                width: "95%",
+                height: "100%",
+                margin: "0px",
+                marginBottom: "6px",
+                marginTop: "6px",
+                borderRadius: "5px",
+                boxShadow: "4px 7px black",
+              }}
+            >
+              {/* ----- RESOURCES ----- */}
+              {Object.entries(
+                resourcesToDisplay ?? resourcesToDisplay_internal
+              ).map(([resource, value], index) => (
+                <Grid
+                  key={resource + index}
+                  xs={3}
+                  sm={6}
+                  sx={{
+                    display: "flex",
+                    padding: 1,
+                  }}
+                >
+                  <Paper
+                    elevation={8}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                      padding: "2px 6px",
+                      width: "100%",
+                    }}
+                  >
+                    <span
+                      style={{
+                        transform:
+                          resource === "diesel" && mediaQuery600
+                            ? "translateX(-8px)"
+                            : "",
                       }}
                     >
-                      <Paper
-                        elevation={8}
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-evenly",
-                          alignItems: "center",
-                          padding: "2px 6px",
-                          width: "100%",
-                        }}
-                      >
-                        <span
-                          style={{
-                            transform:
-                              resource === "diesel" && mediaQuery600
-                                ? "translateX(-8px)"
-                                : "",
-                          }}
-                        >
-                          {iconFinder(resource)}
-                        </span>
-                        <Typography
-                          variant={
-                            mediaQuery360
-                              ? mediaQuery900
-                                ? "h6"
-                                : "body1"
-                              : "body2"
-                          }
-                          sx={{ fontWeight: "600" }}
-                        >
-                          {/* {desiredDigits(4, value)} */}
-                          {shortenLongNum(value)}
-                        </Typography>
-                      </Paper>
-                    </Grid>
-                  )
-                )}
-              </Grid>
-            )}
-          </Container>
-        </Box>
-      )}
+                      {iconFinder(resource)}
+                    </span>
+                    <Typography
+                      variant={
+                        mediaQuery360
+                          ? mediaQuery900
+                            ? "h6"
+                            : "body1"
+                          : "body2"
+                      }
+                      sx={{ fontWeight: "600" }}
+                    >
+                      {/* {desiredDigits(4, value)} */}
+                      {shortenLongNum(value)}
+                    </Typography>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Container>
+      </Box>
+      {/* )} */}
       <Box sx={getstylesEI() as CSSObject}>
         {/* //TODO: ‼ Add effect indicator */}
         {/* {isEffectActive && (

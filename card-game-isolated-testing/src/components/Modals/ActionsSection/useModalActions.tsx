@@ -37,7 +37,6 @@ const useCreateActions = ({
       pushModal(
         <ConfirmationModal title="Level Up Confirmation" onConfirm={levelUp} />
       );
-      // levelUp();
     } else {
       setCurrentScreenIndex(lvlUpScreenIndex);
     }
