@@ -1,5 +1,7 @@
 import { rarityMultiplier } from "../constants/cards/cardStats/coefficients";
+import { effectDuration } from "../constants/game/gameConfig";
 import { templateIdToTemplateDataSP } from "../constants/templates/spsTemplates";
+import { mysqlDatetimeToUnixTimestamp } from "../gameLoop/utils";
 import {
   CardRarity,
   CardRequirements,
@@ -35,7 +37,7 @@ export default class SPCard {
   public ownerId: number;
   public disabled: boolean = false;
   readonly desc: string;
-  // private endDate?: number;
+  public expiresAtUnix: number | null;
   // private usedFrom?: any; // Replace 'any' with a more specific type if possible
 
   private constructor(data: SPCardData) {
@@ -56,6 +58,9 @@ export default class SPCard {
     this.creator = data.creator;
     this.ownerId = data.ownerId;
     this.disabled = Boolean(data.disabled);
+    this.expiresAtUnix = data.endDate
+      ? mysqlDatetimeToUnixTimestamp(data.endDate)
+      : null;
 
     // From Templates
     this.templateId = data.templateId;
@@ -93,6 +98,7 @@ export default class SPCard {
 
   public activate(): void {
     this.state = true;
+    this.expiresAtUnix = Date.now() + effectDuration;
   }
 
   public disable(): void {

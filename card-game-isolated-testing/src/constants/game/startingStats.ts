@@ -1,8 +1,6 @@
 // Game's Constants - Starting Values
 const livingStandardsBase = 200; // 200% || 2.0 new Ctizens per hour
 const startingHousingSpace = 60; // Max Population Limit
-const startingBuildingsSpace = 4; // Max Buildings Limit
-const startingGeneratorsSpace = 2; // Max Generators Limit
 
 const startingPop = 30;
 const startingResources = {
@@ -23,8 +21,6 @@ const baseMultis = {
 export {
   livingStandardsBase,
   startingHousingSpace,
-  startingBuildingsSpace,
-  startingGeneratorsSpace,
   startingPop,
   startingResources,
   baseMultis,

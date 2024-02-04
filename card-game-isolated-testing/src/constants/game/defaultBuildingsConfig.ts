@@ -15,7 +15,7 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     metals: 300,
     crystals: 250,
     diesel: 50,
-    population: 5,
+    population: 0,
   },
   3: {
     gold: 5000,
@@ -23,7 +23,7 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     metals: 600,
     crystals: 500,
     diesel: 100,
-    population: 10,
+    population: 0,
   },
   4: {
     gold: 10_000,
@@ -31,7 +31,7 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     metals: 1200,
     crystals: 1000,
     diesel: 200,
-    population: 20,
+    population: 0,
   },
   5: {
     gold: 20_000,
@@ -39,8 +39,16 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     metals: 2400,
     crystals: 2000,
     diesel: 400,
-    population: 40,
+    population: 0,
   },
+};
+
+export const townhallHousingLimitPerLevel = {
+  1: 60,
+  2: 120,
+  3: 180,
+  4: 240,
+  5: 300,
 };
 
 export const factoryRequirements: Record<Level, CardRequirements> = {
@@ -58,7 +66,7 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     metals: 300,
     crystals: 250,
     diesel: 50,
-    population: 5,
+    population: 0,
   },
   3: {
     gold: 5000,
@@ -66,7 +74,7 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     metals: 600,
     crystals: 500,
     diesel: 100,
-    population: 10,
+    population: 0,
   },
   4: {
     gold: 10_000,
@@ -74,7 +82,7 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     metals: 1200,
     crystals: 1000,
     diesel: 200,
-    population: 20,
+    population: 0,
   },
   5: {
     gold: 20_000,
@@ -82,6 +90,6 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     metals: 2400,
     crystals: 2000,
     diesel: 400,
-    population: 40,
+    population: 0,
   },
 };

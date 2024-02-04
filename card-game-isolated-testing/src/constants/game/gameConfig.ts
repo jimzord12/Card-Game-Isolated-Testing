@@ -9,6 +9,7 @@ const cardsWithStats = [13, 101]; // Template ID. 13 is for old DB records
 const hour = 60 * 60 * 1000;
 const minute = 60 * 1000;
 
+// Game Loop
 const gamePace = 5; // Game Loop's Timer in Seconds
 const catchUpLoopDuration = 10 * minute; // 10 minutes
 const effectDuration = 12 * hour; //

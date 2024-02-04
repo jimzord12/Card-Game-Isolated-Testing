@@ -34,7 +34,7 @@ const StatsBar = ({ statsToDisplay, resourcesToDisplay }: ResourceBarProps) => {
   const [showOtherBar, setShowOtherBar] = useState(true);
   const toastError = useToastError();
 
-  const { energy, player } = useGameVarsStore((state) => state);
+  const { energyProduced, player } = useGameVarsStore((state) => state);
 
   if (
     player === null ||
@@ -45,7 +45,7 @@ const StatsBar = ({ statsToDisplay, resourcesToDisplay }: ResourceBarProps) => {
     player.population === null ||
     player.diesel === null ||
     player.rank === null ||
-    energy === null
+    energyProduced === null
   ) {
     // console.log("player :>> ", player);
     // console.log("energy :>> ", energy);
@@ -59,7 +59,7 @@ const StatsBar = ({ statsToDisplay, resourcesToDisplay }: ResourceBarProps) => {
   const statsToDisplay_internal: TopBarStats = {
     gold: player.gold,
     population: player.population,
-    energy: energy,
+    energy: energyProduced,
     rank: player.rank,
   };
 

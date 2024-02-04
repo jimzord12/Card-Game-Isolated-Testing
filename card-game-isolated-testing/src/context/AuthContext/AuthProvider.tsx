@@ -2,14 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import { AuthContextProps, AuthProviderProps, userAuthType } from "./authTypes";
 import { getPlayerByWallet, loginWithWallet } from "../../../api/apiFns";
 import { useNavigate } from "react-router-dom";
-import { useGameVarsStore } from "../../stores/gameVars";
-import { useAllCardsStore } from "../../stores/allCards";
-import { createJSCards } from "../../utils/game/createJSCards";
-import { ICardDB, Level } from "../../types";
-import { cardsInit as templateCardsInit } from "../../components/Modals/InGameModals/CraftCardModal/utils";
-import { IPlayerDB } from "../../types/PlayerTypes/Player";
-import { useTownMapStore } from "../../stores/townMapEntitiesStore";
-import { isSPCard } from "../../types/TypeGuardFns/SPGuards";
+import usePlayerInit from "../../hooks/initialization/usePlayerInit";
+import useCardsInit from "../../hooks/initialization/useCardsInit";
 
 // Create a context for authentication
 export const AuthContext = createContext<AuthContextProps>({
@@ -25,22 +19,25 @@ export default function AuthProvider({
   disableForTesting = false,
 }: AuthProviderProps) {
   const [user, setUser] = useState<userAuthType>(null); // This should be your auth logic
-  const { setPlayer, setTownhallLevel, setFactoryLevel } = useGameVarsStore(
-    (state) => state
-  );
+  // const { setPlayer, setTownhallLevel, setFactoryLevel } = useGameVarsStore(
+  //   (state) => state
+  // );
 
-  const addEntity = useTownMapStore((state) => state.addEntity);
+  // const addEntity = useTownMapStore((state) => state.addEntity);
 
-  const addAllCards = useAllCardsStore((state) => state.addAllCards);
-  const addAllInventoryCards = useAllCardsStore(
-    (state) => state.addAllInventoryCards
-  );
-  const addAllActiveCards = useAllCardsStore(
-    (state) => state.addAllActiveCards
-  );
-  const addAllTemplateCards = useAllCardsStore(
-    (state) => state.addAllTemplateCards
-  );
+  // const addAllCards = useAllCardsStore((state) => state.addAllCards);
+  // const addAllInventoryCards = useAllCardsStore(
+  //   (state) => state.addAllInventoryCards
+  // );
+  // const addAllActiveCards = useAllCardsStore(
+  //   (state) => state.addAllActiveCards
+  // );
+  // const addAllTemplateCards = useAllCardsStore(
+  //   (state) => state.addAllTemplateCards
+  // );
+  // const addAllSPCards = useAllCardsStore((state) => state.addAllSPCards);
+  const { playerInit } = usePlayerInit();
+  const { cardsInit } = useCardsInit();
 
   useEffect(() => {
     if (disableForTesting) {
@@ -88,39 +85,43 @@ export default function AuthProvider({
 
   const logout = () => setUser(null);
 
-  const cardsInit = (cardsFromDB: ICardDB[]) => {
-    console.log("🙌 0 - All the Cards from DB: ", cardsFromDB);
+  // const cardsInit = (cardsFromDB: ICardDB[]) => {
+  //   console.log("🙌 0 - All the Cards from DB: ", cardsFromDB);
 
-    const convertedFromDB_To_JS = createJSCards(cardsFromDB); // 🔷 Convert the Cards from DB to JS
-    const inventoryCards = convertedFromDB_To_JS.filter(
-      (card) => card.state === false && card.forSale === false
-    );
-    const activeCards = convertedFromDB_To_JS.filter(
-      (card) => card.state === true && card.forSale === false
-    );
+  //   const convertedFromDB_To_JS = createJSCards(cardsFromDB); // 🔷 Convert the Cards from DB to JS
+  //   const inventoryCards = convertedFromDB_To_JS.filter(
+  //     (card) => card.state === false && card.forSale === false
+  //   );
+  //   const activeCards = convertedFromDB_To_JS.filter(
+  //     (card) => card.state === true && card.forSale === false
+  //   );
+  //   const spCards = convertedFromDB_To_JS.filter((card) =>
+  //     isSPCard(card)
+  //   ) as SPCard[];
 
-    const templateCards = templateCardsInit(); // 🔷 Initialize the Template Cards (Used in Craft Modal)
+  //   const templateCards = templateCardsInit(); // 🔷 Initialize the Template Cards (Used in Craft Modal)
 
-    addAllCards(convertedFromDB_To_JS); // 🔷 Add the Cards to Global State
-    addAllInventoryCards(inventoryCards); // 🔷 Add the Inactive Cards to Global Inventory State
-    addAllActiveCards(activeCards); // 🔷 Add the Active Cards to Global Active State
-    addAllTemplateCards(templateCards); // 🔷 Add the Template Cards to Global State
+  //   addAllCards(convertedFromDB_To_JS); // 🔷 Add the Cards to Global State
+  //   addAllInventoryCards(inventoryCards); // 🔷 Add the Inactive Cards to Global Inventory State
+  //   addAllActiveCards(activeCards); // 🔷 Add the Active Cards to Global Active State
+  //   addAllTemplateCards(templateCards); // 🔷 Add the Template Cards to Global State
+  //   addAllSPCards(spCards); // 🔷 Add the SP Cards to Global State
 
-    console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
-    console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);
-    console.log("🙌 3 - All the Active JS Cards: ", activeCards);
+  //   console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
+  //   console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);
+  //   console.log("🙌 3 - All the Active JS Cards: ", activeCards);
 
-    for (const card of activeCards) {
-      if (isSPCard(card)) continue;
-      addEntity(card);
-    }
-  };
+  //   for (const card of activeCards) {
+  //     if (isSPCard(card)) continue;
+  //     addEntity(card);
+  //   }
+  // };
 
-  const playerInit = (data: IPlayerDB) => {
-    setPlayer(data); // 🔷 Set the Player Data to Global State
-    setTownhallLevel(data.townhall_lvl as Level);
-    setFactoryLevel(data.factory_lvl as Level);
-  };
+  // const playerInit = (data: IPlayerDB) => {
+  //   setPlayer(data); // 🔷 Set the Player Data to Global State
+  //   setTownhallLevel(data.townhall_lvl as Level);
+  //   setFactoryLevel(data.factory_lvl as Level);
+  // };
 
   return (
     <AuthContext.Provider value={{ user, setUser, login, logout }}>

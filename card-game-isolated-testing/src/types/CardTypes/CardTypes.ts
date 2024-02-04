@@ -1,4 +1,10 @@
-import { BuildingStats, OneToFive } from "..";
+import {
+  BuildingStats,
+  BuildingTemplateId,
+  OneToFive,
+  RegTemplateId,
+  SPTemplateId,
+} from "..";
 import BuildingCard from "../../classes/buildingClass_V2";
 import RegCard from "../../classes/regClass_V2";
 import SPCard from "../../classes/spClass_V2";
@@ -38,6 +44,8 @@ export type CardRequirements = {
 };
 
 export type CardClass = BuildingCard | RegCard | SPCard;
+
+export type CardTemplateId = BuildingTemplateId | RegTemplateId | SPTemplateId;
 
 export interface CardData {
   id: number | null;

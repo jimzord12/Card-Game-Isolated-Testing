@@ -25,6 +25,7 @@ export type BuildingStats = {
   concrete: number;
   crystals: number;
   metals: number;
+  // diesel: number;
 };
 
 export interface TemplateDataBuilding {

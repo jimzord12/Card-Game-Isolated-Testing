@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { CardClass } from "../types/CardTypes/CardTypes";
 import BuildingCard from "../classes/buildingClass_V2";
 import RegCard from "../classes/regClass_V2";
+import SPCard from "../classes/spClass_V2";
 
 // This probably manages all the cards in the game, in the sense what the players owns.
 // When a Card is crafted, it is added to this store.
@@ -15,6 +16,7 @@ interface AllCardsState {
   activeCards: CardClass[];
   activeBuildingCards: BuildingCard[];
   activeRegCards: RegCard[];
+  spCards: SPCard[];
   // TODO: Active Effect
   templateCards: CardClass[];
   addCard: (card: CardClass) => void;
@@ -27,6 +29,7 @@ interface AllCardsState {
   addAllActiveCards: (cards: CardClass[]) => void;
   removeCardFromActiveCards: (card: CardClass) => void;
   addAllTemplateCards: (cards: CardClass[]) => void;
+  addAllSPCards: (cards: SPCard[]) => void;
 }
 
 export const useAllCardsStore = create<AllCardsState>((set) => ({
@@ -36,6 +39,8 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
   activeBuildingCards: [],
   activeRegCards: [],
   templateCards: [],
+  spCards: [],
+  activeEffect: null,
 
   // ✨ By Crafting one
   addCard: (card: CardClass) =>
@@ -146,5 +151,11 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
     set((state) => ({
       ...state,
       templateCards: [...state.templateCards, ...cards],
+    })),
+
+  addAllSPCards: (cards) =>
+    set((state) => ({
+      ...state,
+      spCards: [...state.spCards, ...cards],
     })),
 }));
