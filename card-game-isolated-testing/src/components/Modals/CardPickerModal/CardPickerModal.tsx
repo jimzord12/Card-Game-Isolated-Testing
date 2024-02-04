@@ -33,7 +33,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
     addCardToActiveCards,
     removeCardFromInventory,
   } = useAllCardsStore((state) => state);
-  const { energy, player } = useGameVarsStore((state) => state);
+  const { energyRemaining, player } = useGameVarsStore((state) => state);
 
   // Hooks
   const toastError = useToastError();
@@ -105,7 +105,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
   // Utility Functions
   const canBeActivated = (card: BuildingCard | RegCard): boolean => {
     if (isBuildingCard(card)) {
-      if (energy - card.maintenance.energy < 0) {
+      if (energyRemaining - card.maintenance.energy < 0) {
         toastError.showError(
           "Insufficient Energy",
           `You need more ⚡ Energy to activate the (${card.name}) Card!`

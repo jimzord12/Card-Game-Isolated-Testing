@@ -39,7 +39,8 @@ const EntryPoint = () => {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
-          <ToastContainer />
+          <ToastContainer style={{ zIndex: 10001 }} />{" "}
+          {/* Modals have zIndex: 10000 */}
         </AuthProvider>
       </QueryClientProvider>
     </BrowserRouter>

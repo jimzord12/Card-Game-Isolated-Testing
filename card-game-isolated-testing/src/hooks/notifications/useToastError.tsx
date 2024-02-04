@@ -22,6 +22,7 @@ export const useToastError = ({ autoClose = 10000 }: Props = {}) => {
       />,
       {
         autoClose: autoClose,
+        // autoClose: false,
       }
     );
   };

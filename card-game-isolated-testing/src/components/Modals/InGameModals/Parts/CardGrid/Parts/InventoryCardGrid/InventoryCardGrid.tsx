@@ -10,7 +10,7 @@ interface Props {
   setSelectedCard: React.Dispatch<React.SetStateAction<CardClass | null>>;
   handleSell: (card: CardClass) => void;
   handleLevelUp: (card: CardClass) => void;
-  handleActivate: (card: SPCard) => void;
+  handleActivateSPCard: (card: SPCard) => void;
 }
 
 const InventoryCardGrid = ({
@@ -19,7 +19,7 @@ const InventoryCardGrid = ({
   handleLevelUp,
   selectedCard,
   setSelectedCard,
-  handleActivate,
+  handleActivateSPCard,
 }: Props) => {
   if (
     cards === undefined ||
@@ -43,7 +43,7 @@ const InventoryCardGrid = ({
           selectedCard={selectedCard}
           handleSell={handleSell}
           handleLevelUp={handleLevelUp}
-          handleActivate={handleActivate}
+          handleActivateSPCard={handleActivateSPCard}
         />
       )}
     </div>

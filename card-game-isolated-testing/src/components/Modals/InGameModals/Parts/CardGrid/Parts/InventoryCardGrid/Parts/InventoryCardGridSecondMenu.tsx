@@ -14,14 +14,14 @@ interface Props {
   selectedCard: CardClass;
   handleSell: (card: CardClass) => void;
   handleLevelUp: (card: CardClass) => void;
-  handleActivate: (card: SPCard) => void;
+  handleActivateSPCard: (card: SPCard) => void;
 }
 
 const InventoryCardGridSecondMenu = ({
   selectedCard,
   handleSell,
   handleLevelUp,
-  handleActivate,
+  handleActivateSPCard,
 }: Props) => {
   // const [priceTagInput, setPriceTagInput] = useState<number | null>(null);
   const [isSellClickedTimes, setIsSellClickedTimes] = useState(0);
@@ -88,7 +88,7 @@ const InventoryCardGridSecondMenu = ({
                 borderRadius: "10px",
                 boxShadow: "1px 2px 2px 0px black",
               }}
-              onClick={() => handleActivate(selectedCard)}
+              onClick={() => handleActivateSPCard(selectedCard)}
             >
               Activate
             </button>

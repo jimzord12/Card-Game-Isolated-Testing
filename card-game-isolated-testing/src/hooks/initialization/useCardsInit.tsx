@@ -66,15 +66,17 @@ const useCardsInit = () => {
   };
 
   const spCardsInit = (spCards: SPCard[]) => {
-    const activeSpCards = spCards.filter((card) => card.state === true);
-    if (activeSpCards.length > 1)
+    const activeSPCards = spCards.filter((card) => card.state === true);
+    if (activeSPCards.length > 1)
       throw new Error("⛔ - Custom: More than 1 Active Effect Card Detected!");
-    if (activeSpCards.length === 1) {
-      const spCard = activeSpCards[0];
+    if (activeSPCards.length === 1) {
+      const spCard = activeSPCards[0];
+      
       if (spCard.expiresAtUnix === null)
         throw new Error(
           "⛔ - Custom: Active Effect Card has no expiration date!"
         );
+
       const activeEffect = new EffectClass(spCard, spCard.expiresAtUnix);
       setActiveEffect(activeEffect);
       console.log("🙌 4 - The Active Effect: ", activeEffect);

@@ -1,5 +1,4 @@
 import { rarityMultiplier } from "../constants/cards/cardStats/coefficients";
-import { effectDuration } from "../constants/game/gameConfig";
 import { templateIdToTemplateDataSP } from "../constants/templates/spsTemplates";
 import { mysqlDatetimeToUnixTimestamp } from "../gameLoop/utils";
 import {
@@ -96,9 +95,9 @@ export default class SPCard {
     return new SPCard(dataFromDB);
   }
 
-  public activate(): void {
+  public activate(expiresAtUnix: number): void {
     this.state = true;
-    this.expiresAtUnix = Date.now() + effectDuration;
+    this.expiresAtUnix = expiresAtUnix;
   }
 
   public disable(): void {

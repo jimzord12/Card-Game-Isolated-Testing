@@ -31,7 +31,10 @@ import {
 } from "../../../../../../api/apiFns/index.js";
 
 //@Note: These images imports are all over the place! When refactoring, find a way to centralize them.
-import { cardsWithStats } from "../../../../../constants/game/gameConfig";
+import {
+  cardsWithStats,
+  effectDuration,
+} from "../../../../../constants/game/gameConfig";
 import {
   BuildingTemplateId,
   CardClass,
@@ -51,16 +54,16 @@ import { templateIdToTemplateDataSP } from "../../../../../constants/templates/s
 import CraftingCardGrid from "./Parts/CraftingCardGrid/CraftingCardGrid.js";
 import InventoryCardGrid from "./Parts/InventoryCardGrid/InventoryCardGrid.js";
 import { useMutation } from "@tanstack/react-query";
-import { isSPCard } from "../../../../../types/TypeGuardFns/SPGuards.js";
 import {
   hasEnoughResources,
   subtractResources,
 } from "../../../../../utils/game/resourcesHandlers.js";
+import EffectClass from "../../../../../classes/effectClass.js";
+import { convertToMySQLDateTime } from "./utils.js";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
   selectedCardModal: CardClass | null;
-  // handleCardClickScroll: (e: React.MouseEvent<HTMLDivElement>) => void;
   currentModal: "Inventory" | "Craft";
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cards: CardClass[];
@@ -75,8 +78,6 @@ export default function CardGrid({
   currentModal,
   closeModal,
 }: CardGridProps) {
-  // console.log(" &&&& CardGrid: cards: ", cards);
-
   //   specialEffectsRef, // TODO: 🛑 NOT yet  implemented in GameVards
   //   maxLimitsRef, // TODO: use "townhallLevel" from GameVards + 🛑 a constants file
   //   awardPoints, // TODO: 🅱 🛑 Not yet implemented in Blockchain Hooks
@@ -91,30 +92,19 @@ export default function CardGrid({
   } = useAllCardsStore((state) => state);
 
   const {
-    energy,
-    // energyConsumed,
-    // energyProduced,
-    // expences,
+    energyProduced,
     player,
     updatePlayerData,
+    activeEffect,
+    setActiveEffect,
   } = useGameVarsStore((state) => state);
-
-  // const mapEntities = useTownMapStore((state) => state.mapEntities);
 
   const toastConfetti = useToastConfetti();
   const toastError = useToastError();
 
-  // const [newCard_2, setNewCard_2] = useState<CardClass | null>(null); // Can't think another name for "newCard" 🤣
-  // const [showPriceInput, setShowPriceInput] = useState(false);
-  // const [priceInput /* setPriceInput */] = useState("");
-
   let newCard_2: CardClass | null = null;
 
-  const {
-    // data: newCardData,
-    mutate: createCard_DB,
-    // isSuccess: isSuccessNewCard,
-  } = useMutation({
+  const { mutate: createCard_DB } = useMutation({
     mutationFn: createCard, // Replace with your API function
     onError: (error) =>
       console.error("Error while creating the new card!", error),
@@ -269,7 +259,7 @@ export default function CardGrid({
       player.crystals === null ||
       player.population === null ||
       player.diesel === null ||
-      energy === null
+      energyProduced === null
     ) {
       // console.log("player :>> ", player);
       // console.log("energy :>> ", energy);
@@ -401,91 +391,67 @@ export default function CardGrid({
 
   // Here we register the effects of SE Cards
   // TODO: 🛑 Fix When Creating Game Loop
-  /*
-  function createEffect(_templateId, boost) {
-    if (specialEffectsRef.current.isEffectActive) {
+
+  function createEffect(SPcard: SPCard) {
+    if (activeEffect !== null) {
+      toastError.showError(
+        "MAX Special Effects Capacity",
+        "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
+      );
       return false;
     }
-    if (testCardTemplateData[_templateId].name === "Workaholism") {
-      return {
-        isEffectActive: true,
-        // endDate: 1679833229000, // @Important!: Very bad naming! StartDate is the correct one!!!
-        endDate: Date.now(),
-        goldGathRate: 1,
-        popGrowthRate: 1,
-        concreteGathRate: boost,
-        metalsGathRate: boost,
-        crystalsGathRate: boost,
-      };
-    }
+    return new EffectClass(SPcard, Date.now() + effectDuration);
   }
-  */
 
   // TODO: 🛑 The Activation of Cards will be done by using the Map's Placeholders and the CardPicker Modal!
   // This will work only for SP Cards
   // TODO: 🛑 Check Again once you Implement the Special Effects
 
-  const handleActivateClick = (card: SPCard) => {
+  const handleActivateSPCard = (card: SPCard) => {
     console.log("Attempting Card Activation: ", card);
-    if (isSPCard(card)) {
-      if (card.disabled === true) {
-        toastError.showError(
-          "MAX Special Effects Capacity",
-          "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
-        );
-        return;
-      }
 
+    if (card.disabled === true) {
       toastError.showError(
-        "NOT Implemented Yet!",
-        "😅 But you successfully called handleActivateClick"
+        "Special Effect Card is Disabled",
+        "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
       );
-      // const effect = createEffect(_card.templateId, Number(_card.output.boost)); // TODO:
-      // if (effect === false) {
-      //   // alert('Only one effect can be active at a time. 😅');
-      //   toastError.showError(
-      //     "MAX Special Effects Capacity",
-      //     "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
-      //   );
-      //   return;
-      // } else {
-      //   const { id } = _card;
-      //   if (id === null)
-      //     throw new Error(
-      //       "⛔ Cardgrid: handleActivateClick (#1): Card ID is null!"
-      //     );
-
-      //   const mysqlDate = convertToMySQLDateTime(Date.now());
-      //   console.log("HandleActivateClick::MySQLDate: ", mysqlDate);
-      //   updateCardData({ id, state: 1, endDate: mysqlDate });
-      //   specialEffectsRef.current = effect; // TODO: Add a Zustand Store Property "CurrentSPEffect" in GameVars
-      // }
+      return;
     }
 
-    // // 0. Change Card's State to true
-    // _card.activate();
+    const newEffect = createEffect(card); // 🔷 1. Creating the New Effect Instance
+    // If there is already an active effect...
+    if (newEffect === false) {
+      toastError.showError(
+        "MAX Special Effects Capacity",
+        "😅 Special Effect Cards can be used only Once per Player. You have already used this one!"
+      );
+      return;
+    }
 
-    // // 4. Update MySQL Database
-    // const { state, id } = _card;
-    // if (id === null)
-    //   throw new Error(
-    //     "⛔ Cardgrid: handleActivateClick (#2): Card ID is null!"
-    //   );
-    // updateCardData({ id, state });
+    const { id } = card;
+    if (id === null)
+      throw new Error(
+        "⛔ Cardgrid: handleActivateClick (#1): Card ID is null!"
+      );
 
-    // // 1. Add Selected Card => Activated Cards
-    // // setActiveCards((prev) => [...prev, _card]); // TODO: Use Zustang Store, All Cards:
-    // addCardToActiveCards(_card);
+    const mysqlDate = convertToMySQLDateTime(newEffect.expiresAtUnix);
+    console.log("HandleActivateClick::MySQLDate: ", mysqlDate);
+    updateCardData({ id, state: 1, endDate: mysqlDate }); // 🔷 2. Update the Card's Data in the DB
+    setActiveEffect(newEffect); // 🔷 3. Set the New Effect as the Active Effect in Global State
 
-    // // 2. Remove Selected Card from the Inventory
-    // // setInventoryCards([...removeObjectWithId(inventoryCards, _card.id)]); // TODO_DONE ✅: Use Zustang Store, All Cards: removeCardFromInventory(_card)
-    // removeCardFromInventory(_card);
+    // 0. Change SPCard's State to true
+    card.activate(newEffect.expiresAtUnix); // 🔷 4. Activate the Card
 
-    // // 5. Unselect the Card. This also goes 1 step back in the Modal (Where all the cards are dispayed).
-    // setSelectedCard(null);
+    // 2. Remove Selected Card from the Inventory
+    // setInventoryCards([...removeObjectWithId(inventoryCards, _card.id)]); // TODO_DONE ✅: Use Zustang Store, All Cards: removeCardFromInventory(_card)
+    removeCardFromInventory(card);
 
-    // // 6. Close the Modal
-    // setIsOpen(false);
+    // 5. Unselect the Card. This also goes 1 step back in the Modal (Where all the cards are dispayed).
+    setSelectedCard(null);
+
+    // 6. Close the Modal
+    closeModal();
+    console.log("✨ The New Effect: ", newEffect);
   };
 
   /**
@@ -495,12 +461,6 @@ export default function CardGrid({
    */
   const handleSellClick = (_card: CardClass) => {
     console.log("Selling this Card: ", _card);
-    // handle sell functionality here
-    // if (showPriceInput) {
-    //   if (parseInt(priceInput) === 0 || priceInput === "") {
-    //     setShowPriceInput(false);
-    //     return;
-    //   }
 
     if (_card === null || _card.id === null)
       throw new Error(
@@ -577,7 +537,7 @@ export default function CardGrid({
           handleSell={handleSellClick}
           selectedCard={selectedCard}
           setSelectedCard={setSelectedCard}
-          handleActivate={handleActivateClick}
+          handleActivateSPCard={handleActivateSPCard}
         />
       )}
     </div>
