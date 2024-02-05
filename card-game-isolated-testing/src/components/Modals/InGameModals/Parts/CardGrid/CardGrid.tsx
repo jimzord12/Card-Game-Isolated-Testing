@@ -31,10 +31,7 @@ import {
 } from "../../../../../../api/apiFns/index.js";
 
 //@Note: These images imports are all over the place! When refactoring, find a way to centralize them.
-import {
-  cardsWithStats,
-  effectDuration,
-} from "../../../../../constants/game/gameConfig";
+import { effectDuration } from "../../../../../constants/game/gameConfig";
 import {
   BuildingTemplateId,
   CardClass,
@@ -60,6 +57,8 @@ import {
 } from "../../../../../utils/game/resourcesHandlers.js";
 import EffectClass from "../../../../../classes/effectClass.js";
 import { convertToMySQLDateTime } from "./utils.js";
+import { isBuildingCard } from "../../../../../types/TypeGuardFns/BuildingGuards.js";
+import { isToolStore } from "../../../../../types/TypeGuardFns/isToolStore.js";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -121,13 +120,14 @@ export default function CardGrid({
 
       addCardToInventory(newCard);
 
-      if (cardsWithStats.includes(newCard.templateId)) {
+      if (isBuildingCard(newCard) && isToolStore(newCard)) {
+        const { id, stats } = newCard;
         createCardStats_DB({
-          cardId: newCard.id,
-          gold: 0,
-          concrete: 0,
-          metals: 0,
-          crystals: 0,
+          cardId: id,
+          gold: stats.gold,
+          concrete: stats.concrete,
+          metals: stats.metals,
+          crystals: stats.crystals,
           population: 0,
           energy: 0,
           rank: 0,

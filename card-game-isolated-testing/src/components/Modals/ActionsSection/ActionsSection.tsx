@@ -38,6 +38,9 @@ const ActionsSection = ({
   const addCardToInventory = useAllCardsStore(
     (state) => state.addCardToInventory
   );
+  const removeCardFromActiveCards = useAllCardsStore(
+    (state) => state.removeCardFromActiveCards
+  );
 
   const player = useGameVarsStore((state) => state.player);
 
@@ -65,8 +68,13 @@ const ActionsSection = ({
       // 2. Make Card state false (inactive)
       // 3. Set Card's spot to 0
       card.deactivate(); //This does both 1 and 2
-      // 4. Add Card to Inventory
+
+      // 4. Remove Card from Active Cards
+      removeCardFromActiveCards(card);
+
+      // 5. Add Card to Inventory
       addCardToInventory(card);
+
       console.log("⚡+✅ - In Frontend: Card Successfully Deactivated: ", card);
 
       handleCloseModal();

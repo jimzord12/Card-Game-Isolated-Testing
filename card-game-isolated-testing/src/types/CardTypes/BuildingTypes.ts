@@ -1,4 +1,5 @@
 import { CardData, CardRequirements } from "..";
+import BuildingCard from "../../classes/buildingClass_V2";
 
 export type BuildingSpot = 0 | 2 | 4 | 5 | 6 | 7 | 9 | 12;
 export type BuildingMaintenance = { energy: number };
@@ -27,6 +28,10 @@ export type BuildingStats = {
   metals: number;
   // diesel: number;
 };
+
+export interface ToolStoreType extends BuildingCard {
+  stats: BuildingStats;
+}
 
 export interface TemplateDataBuilding {
   id: BuildingTemplateId;

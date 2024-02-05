@@ -19,14 +19,24 @@ export interface valueCheckerReturnType {
   population: number;
   activeCards: CardClass[];
   // Effect
-  workers: {
-    privateSector: number;
-    concreteWorkers: number;
-    metalsWorkers: number;
-    crystalsWorkers: number;
-  };
+  workers: Workers;
   popGrowthRate: number;
-
 }
 
-export type alertFlagsTypes = "Insufficient Energy" | "Effect Expired"
+export interface Workers {
+  privateSector: number;
+  concreteWorkers: number;
+  metalsWorkers: number;
+  crystalsWorkers: number;
+  dieselWorkers: number;
+  hospitalWorkers: number;
+}
+
+export interface Multipliers {
+  goldMultiplier: number;
+  concreteMultiplier: number;
+  metalsMultiplier: number;
+  crystalsMultiplier: number;
+}
+
+export type alertFlagsTypes = "Insufficient Energy" | "Effect Expired";

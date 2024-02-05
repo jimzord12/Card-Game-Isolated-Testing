@@ -6,14 +6,14 @@ const CREATE_CARD_STATS_URL = "card-stats";
 
 interface ICardStatsToCreate {
   cardId: number;
-  gold: 0;
-  concrete: 0;
-  metals: 0;
-  crystals: 0;
-  population: 0;
-  energy: 0;
-  rank: 0;
-  expenses: 0;
+  gold: number;
+  concrete: number;
+  metals: number;
+  crystals: number;
+  population: number;
+  energy: number;
+  rank: number;
+  expenses: number;
 }
 
 interface ResponseData {

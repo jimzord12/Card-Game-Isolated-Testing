@@ -238,6 +238,7 @@ function cardsStateManager(
         card.spot !== undefined
       ) {
         card.activate(cardSpot);
+        
       }
     } else if (action === "deactivate") {
       if (isSPCard(card)) {

@@ -4,7 +4,10 @@ import {
   rarityMultiplier,
   upgradeCoef,
 } from "../constants/cards/cardStats/coefficients";
-import { templateIdToTemplateDataBuilding } from "../constants/templates/buildingsTemplates";
+import {
+  nameToTemplateDataBuilding,
+  templateIdToTemplateDataBuilding,
+} from "../constants/templates/buildingsTemplates";
 import {
   BuildingCardData,
   BuildingMaintenance,
@@ -93,6 +96,13 @@ export default class BuildingCard {
     )!;
     this.desc = templateIdToTemplateDataBuilding[this.templateId].desc;
     this.name = templateIdToTemplateDataBuilding[this.templateId].name;
+
+    // ToolsStore
+    if (data.templateId === nameToTemplateDataBuilding.ToolStore.id) {
+      this.stats = data.stats
+        ? data.stats
+        : { gold: 1, concrete: 1, crystals: 1, metals: 1 };
+    }
   }
 
   // Factory Methods

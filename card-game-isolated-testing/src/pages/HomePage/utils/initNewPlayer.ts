@@ -16,6 +16,8 @@ export function initNewPlayer(playerId: number): PlayerData {
     workers_concrete: 0,
     workers_metals: 0,
     workers_crystals: 0,
+    workers_diesel: 0,
+    workers_hospital: 0,
     concrete: startingResources.concrete,
     crystals: startingResources.crystals,
     gold: startingResources.gold,

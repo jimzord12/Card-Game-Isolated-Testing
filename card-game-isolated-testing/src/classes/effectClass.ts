@@ -4,17 +4,17 @@ import { EffectOutput, SPName } from "../types";
 import SPCard from "./spClass_V2";
 
 class EffectClass {
-  readonly name: SPName;
-  readonly originatesFrom: SPCard;
-  readonly boost: number;
+  public name: SPName;
+  public originatesFrom: SPCard;
+  public boost: number;
   public output: EffectOutput;
-  readonly expiresAtUnix: number;
+  public expiresAtUnix: number;
 
-  constructor(data: SPCard, expiresAtUnix: number) {
+  constructor(data: SPCard, expiresAtUnix: number, boostFromBuilding?: number) {
     // TODO: Add constructor logic here
     this.name = data.name;
     this.originatesFrom = data;
-    this.boost = data.output.boost;
+    this.boost = data.output.boost + (boostFromBuilding ?? 0);
     this.expiresAtUnix = expiresAtUnix;
     this.output = this.getOutput();
   }

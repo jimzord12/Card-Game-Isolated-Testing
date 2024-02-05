@@ -29,6 +29,7 @@ import { createCard } from "./cards/_createCard";
 import { createCardStats } from "./cards/_createCardStats";
 import { updateCardData } from "./cards/_updateCardData";
 import { updateCardStats } from "./cards/_updateCardStats";
+import { getCardStatsById } from "./cards/_getCardStatsById";
 
 export {
   getPlayerByWallet,
@@ -53,4 +54,5 @@ export {
   createCardStats,
   updateCardData,
   updateCardStats,
+  getCardStatsById,
 };
