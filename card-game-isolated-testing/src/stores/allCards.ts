@@ -6,9 +6,12 @@ import RegCard from "../classes/regClass_V2";
 import SPCard from "../classes/spClass_V2";
 
 import { useGameVarsStore } from "./gameVars"; // Adjust the path accordingly
-import { getCardsOutput } from "./utils/cardOutputReducer";
-import { updateBuildingRelatedGameVars } from "./utils/updateBuildingRelatedGameVars";
-import { nameToTemplateDataBuilding } from "../constants/templates";
+import {
+  updateBuildingRelatedGameVars,
+  updateREG_RelatedGameVars,
+  update_B_GameVars_Removal,
+  update_R_GameVars_Removal,
+} from "./utils";
 
 // This probably manages all the cards in the game, in the sense what the players owns.
 // When a Card is crafted, it is added to this store.
@@ -73,12 +76,35 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
   },
 
   // ✨ When Logging in, add all active cards in one go
+  // ✨ Also update the GameVars based on the output of the activated cards
   addAllActiveCards(cards) {
+    set((state) => {
+      cards.forEach((card) => {
+        if (card instanceof BuildingCard) {
+          updateBuildingRelatedGameVars(card, useGameVarsStore.getState());
+        } else if (card instanceof RegCard) {
+          updateREG_RelatedGameVars(card, useGameVarsStore.getState());
+        }
+      });
+      return {
+        ...state,
+        activeCards: [...state.activeCards, ...cards],
+      };
+    });
+  },
+
+  // ✨ When Logging in, add all template cards in one go
+  addAllTemplateCards: (cards) =>
     set((state) => ({
       ...state,
-      activeCards: [...state.activeCards, ...cards],
-    }));
-  },
+      templateCards: [...state.templateCards, ...cards],
+    })),
+
+  addAllSPCards: (cards) =>
+    set((state) => ({
+      ...state,
+      spCards: [...state.spCards, ...cards],
+    })),
 
   // ✨ By Selling one
   removeCard: (card: CardClass) =>
@@ -106,7 +132,7 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
   addCardToActiveCards: (card: CardClass) =>
     set((state) => {
       if (card instanceof BuildingCard) {
-        // 🔷 ✨ When a Card is Activated, its effects are actiavted in the fn below 
+        // 🔷 ✨ When a Building Card is Activated, its side-effects are handled in the fn below
         updateBuildingRelatedGameVars(card, useGameVarsStore.getState());
 
         return {
@@ -115,12 +141,8 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
           activeBuildingCards: [...state.activeBuildingCards, card],
         };
       } else if (card instanceof RegCard) {
-        const newEnergyProd = getCardsOutput(
-          [...state.activeRegCards, card],
-          "reg"
-        );
-        // 🔷 Updates the Produced Energy when a REG Card is activated
-        useGameVarsStore.getState().setEnergyProduced(newEnergyProd);
+        // 🔷 ✨ When a REG Card is Activated, its side-effects are handled in the fn below
+        updateREG_RelatedGameVars(card, useGameVarsStore.getState());
 
         return {
           ...state,
@@ -137,35 +159,37 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
     set((state) => {
       if (card instanceof BuildingCard) {
         // 🔷 Remove Card Effects for: "RadioStation"
-        if (card.name === nameToTemplateDataBuilding.RadioStation.name) {
-          useGameVarsStore.getState().removeEffectBoost();
-        }
-        // 🔷 Remove Card Effects for: "AmusementPark"
-        if (card.name === nameToTemplateDataBuilding.AmusementPark.name) {
-          useGameVarsStore
-            .getState()
-            .setHappiness(
-              useGameVarsStore.getState().happiness - card.output.boost
-            );
-        }
-        // 🔷 Remove Card Effects for: "Hospital"
-        if (card.name === nameToTemplateDataBuilding.Hospital.name) {
-          useGameVarsStore.getState().setAllWorkers({
-            ...useGameVarsStore.getState().allWorkers,
-            hospitalWorkers: 0,
-          });
-        }
-        // 🔷 Remove Card Effects for: "ToolStore"
-        if (card.name === nameToTemplateDataBuilding.ToolStore.name) {
-          
-          useGameVarsStore.getState().setMultipliers({
-            ...useGameVarsStore.getState().multipliers,
-            goldMultiplier: useGameVarsStore.getState().multipliers.goldMultiplier - (card.stats!.gold! * card.output.boost + 1),
-            concreteMultiplier: 0,
-            metalsMultiplier: 0,
-            crystalsMultiplier: 0,
-          });
-        }
+        // if (card.name === nameToTemplateDataBuilding.RadioStation.name) {
+        //   useGameVarsStore.getState().removeEffectBoost();
+        // }
+        // // 🔷 Remove Card Effects for: "AmusementPark"
+        // if (card.name === nameToTemplateDataBuilding.AmusementPark.name) {
+        //   useGameVarsStore
+        //     .getState()
+        //     .setHappiness(
+        //       useGameVarsStore.getState().happiness - card.output.boost
+        //     );
+        // }
+        // // 🔷 Remove Card Effects for: "Hospital"
+        // if (card.name === nameToTemplateDataBuilding.Hospital.name) {
+        //   useGameVarsStore.getState().setAllWorkers({
+        //     ...useGameVarsStore.getState().allWorkers,
+        //     hospitalWorkers: 0,
+        //   });
+        // }
+        // // 🔷 Remove Card Effects for: "ToolStore"
+        // if (card.name === nameToTemplateDataBuilding.ToolStore.name) {
+        //   useGameVarsStore.getState().setMultipliers({
+        //     ...useGameVarsStore.getState().multipliers,
+        //     goldMultiplier:
+        //       useGameVarsStore.getState().multipliers.goldMultiplier -
+        //       (card.stats!.gold! * card.output.boost + 1),
+        //     concreteMultiplier: 0,
+        //     metalsMultiplier: 0,
+        //     crystalsMultiplier: 0,
+        //   });
+        // }
+        update_B_GameVars_Removal(card, useGameVarsStore.getState());
 
         return {
           ...state,
@@ -180,6 +204,8 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
           ),
         };
       } else if (card instanceof RegCard) {
+        update_R_GameVars_Removal(card, useGameVarsStore.getState());
+
         return {
           ...state,
           activeCards: state.activeCards.filter(
@@ -198,19 +224,6 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
         };
       }
     }),
-
-  // ✨ When Logging in, add all template cards in one go
-  addAllTemplateCards: (cards) =>
-    set((state) => ({
-      ...state,
-      templateCards: [...state.templateCards, ...cards],
-    })),
-
-  addAllSPCards: (cards) =>
-    set((state) => ({
-      ...state,
-      spCards: [...state.spCards, ...cards],
-    })),
 
   setToolStoreCards: (cards) =>
     set((state) => ({

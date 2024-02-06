@@ -1,6 +1,6 @@
 import { rarityMultiplier } from "../constants/cards/cardStats/coefficients";
 import { templateIdToTemplateDataSP } from "../constants/templates/spsTemplates";
-import { mysqlDatetimeToUnixTimestamp } from "../gameLoop/utils";
+import { mysqlDatetimeToUnixTimestamp } from "../hooks/game/gameLoop/utils";
 import {
   CardRarity,
   CardRequirements,

@@ -1,4 +1,4 @@
-import BuildingCard from "../classes/buildingClass_V2";
+import BuildingCard from "../../../classes/buildingClass_V2";
 import {
   BuildingStats,
   CardClass,
@@ -6,13 +6,13 @@ import {
   CardTemplateId,
   CardType,
   Level,
-} from "../types";
+} from "../../../types";
 import {
   isBuildingCard,
   isBuildingSpot,
-} from "../types/TypeGuardFns/BuildingGuards";
-import { isRegCard, isRegSpot } from "../types/TypeGuardFns/RegGuards";
-import { isSPCard } from "../types/TypeGuardFns/SPGuards";
+} from "../../../types/TypeGuardFns/BuildingGuards";
+import { isRegCard, isRegSpot } from "../../../types/TypeGuardFns/RegGuards";
+import { isSPCard } from "../../../types/TypeGuardFns/SPGuards";
 
 // Game Mechanics - Calculators
 function calcLivingStandards(
@@ -238,7 +238,6 @@ function cardsStateManager(
         card.spot !== undefined
       ) {
         card.activate(cardSpot);
-        
       }
     } else if (action === "deactivate") {
       if (isSPCard(card)) {

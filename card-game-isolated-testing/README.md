@@ -25,3 +25,28 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Important Locations
+
+### Old Player - Data Initialization
+
+- [AuthProvider.tsx](./src/context/AuthContext/AuthProvider.tsx)
+
+  - [usePlayerInit.tsx](./src/hooks/initialization/usePlayerInit.tsx) | This initializes the following Data from DB into App's Global State (Zustang Stores):
+
+    - Player's Resources
+    - Player's Townhall Level
+    - Player's Factory Level
+    - Player's Workers
+
+  - [useCardsInit.tsx](./src/hooks/initialization/useCardsInit.tsx) | This initializes Card Related Data from DB into App's Global State (Zustang Stores)::
+    - Turns DB Card Data into JS Objects
+    - Filters the Cards into:
+      - Inventory Cards
+      - Active Cards
+      - SP Cards
+      - Tool Store Cards
+    - Activates the Special Effect, if it is active
+    - Calculates the Multipliers, they come from Tool Store Cards
+    - 
+

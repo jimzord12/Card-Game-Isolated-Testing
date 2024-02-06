@@ -7,7 +7,7 @@ import styles from "./citizensSectionStyles.module.css";
 const CitizensSection = () => {
   const { images } = UseGlobalContext();
 
-  const happiness = useGameVarsStore((state) => state.happiness);
+  const happiness = useGameVarsStore((state) => state.popGrowthRate);
   const totalPop = useGameVarsStore((state) => state.player?.population);
 
   if (images === undefined)

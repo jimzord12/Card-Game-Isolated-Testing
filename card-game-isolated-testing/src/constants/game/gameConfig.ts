@@ -14,4 +14,6 @@ const gamePace = 5; // Game Loop's Timer in Seconds
 const catchUpLoopDuration = 10 * minute; // 10 minutes
 const effectDuration = 12 * hour; //
 
-export { effectDuration, catchUpLoopDuration, gamePace, cardsWithStats };
+const happinessCoefficient = 0.3;
+
+export { effectDuration, catchUpLoopDuration, gamePace, cardsWithStats, happinessCoefficient };
