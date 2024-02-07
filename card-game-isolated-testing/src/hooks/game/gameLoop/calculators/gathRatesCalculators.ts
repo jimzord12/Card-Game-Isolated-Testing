@@ -12,7 +12,8 @@ export const calcPopGrowthRate = (
     (startingStats.livingStandardsBase / population) *
       gameConfig.happinessCoefficient
   );
-
+  console.log("baseHappiness: ", baseHappiness);
+  console.log("happinessProvidedByBuildings: ", happinessProvidedByBuildings);
   return baseHappiness + happinessProvidedByBuildings;
 };
 

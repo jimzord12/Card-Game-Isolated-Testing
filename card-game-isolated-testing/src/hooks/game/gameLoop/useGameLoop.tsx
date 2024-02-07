@@ -9,6 +9,10 @@ import {
 } from "./calculators";
 import useValuesChecker from "./useValuesChecker";
 import { useRef } from "react";
+import {
+  IGameLoopWorkerInput,
+  NewGameState,
+} from "../../../types/GameLoopTypes/GameLoopTypes";
 
 const useGameLoop = () => {
   const gameVars = useGameVarsStore();
@@ -184,7 +188,74 @@ const useGameLoop = () => {
     };
   };
 
-  return { processGameLoop };
+  const setNewGameState = ({
+    newPopulation,
+    newPopGrowthRate,
+    newGold,
+    newConcrete,
+    newMetals,
+    newCrystals,
+    newDiesel,
+  }: NewGameState) => {
+    gameVars.updatePlayerData({
+      population: newPopulation,
+      gold: newGold,
+      concrete: newConcrete,
+      metals: newMetals,
+      crystals: newCrystals,
+      diesel: newDiesel,
+    });
+
+    gameVars.setPopGrowthRate(newPopGrowthRate);
+  };
+
+  const getGameState = (): IGameLoopWorkerInput => {
+    const currentPopulation = isNotNullOrUndefined<number>(
+      gameVars.player?.population,
+      "population"
+    );
+
+    const currentPopGrowthRate = isNotNullOrUndefined<number>(
+      gameVars.popGrowthRate,
+      "popGrowthRate"
+    );
+
+    const currentGold = isNotNullOrUndefined<number>(
+      gameVars.player?.gold,
+      "gold"
+    );
+    const currentConcrete = isNotNullOrUndefined<number>(
+      gameVars.player?.concrete,
+      "concrete"
+    );
+    const currentMetals = isNotNullOrUndefined<number>(
+      gameVars.player?.metals,
+      "metals"
+    );
+    const currentCrystals = isNotNullOrUndefined<number>(
+      gameVars.player?.crystals,
+      "crystals"
+    );
+    const currentDiesel = isNotNullOrUndefined<number>(
+      gameVars.player?.diesel,
+      "diesel"
+    );
+    return {
+      activeEffect: gameVars.activeEffect,
+      allWorkers: gameVars.allWorkers,
+      multipliers: gameVars.multipliers,
+      needsCatchUp: gameVars.needsCatchUp,
+      currentGold,
+      currentConcrete,
+      currentMetals,
+      currentCrystals,
+      currentDiesel,
+      currentPopulation,
+      currentPopGrowthRate,
+    };
+  };
+
+  return { processGameLoop, setNewGameState, getGameState };
 };
 
 export default useGameLoop;

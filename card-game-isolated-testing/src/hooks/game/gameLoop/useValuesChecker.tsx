@@ -22,12 +22,10 @@ const useValuesChecker = () => {
       isRegCard(card)
     ) as RegCard[];
 
-    console.log("🏭💸 [OLD] Expenses (/hour): ", gameVars.expences);
-
     // If there are not any REG Cards don't waste processing power
     if (regCards.length === 0) {
       gameVars.setExpences(0);
-      return;
+      return true;
     }
 
     const playerGold = isNotNullOrUndefined<number>(
@@ -55,9 +53,9 @@ const useValuesChecker = () => {
         "Low on Gold",
         "😱 Your current Gold is not enough to pay for the maintenance of your Generators! Therefore, your Generators will be deactivated."
       );
+      return false;
     } else {
-      console.log("======== Maintenance ========");
-      console.log("🏭💸 Generators: ", regCards);
+      console.log("======== REG Expenses ========");
       console.log("🏭💸 Total Costs (/hour): ", newExpenses);
       console.log(
         "🏭💸 Total Costs (/5sec): ",
@@ -73,11 +71,9 @@ const useValuesChecker = () => {
       gameVars.updatePlayerData({
         gold: playerGold - newExpense_GameLoopTickAmount,
       });
-      console.log(
-        "🏭💸 New Balance: ",
-        playerGold - newExpense_GameLoopTickAmount
-      );
+
       console.log("======== ======== ========");
+      return true;
     }
   }
 
@@ -86,12 +82,10 @@ const useValuesChecker = () => {
       isBuildingCard(card)
     ) as BuildingCard[];
 
-    console.log("🏭💸 [OLD] Expenses (/hour): ", gameVars.expences);
-
     // If there are not any REG Cards don't waste processing power
     if (buildingCards.length === 0) {
       gameVars.setEnergyConsumed(0);
-      return;
+      return true;
     }
 
     const energyProduced = gameVars.energyProduced;
@@ -116,21 +110,20 @@ const useValuesChecker = () => {
         "Low on Energy",
         "😱 Your current Energy is not enough to pay for the maintenance of your Buildings! Therefore, your Buildings will be deactivated."
       );
+
+      return false;
     } else {
-      console.log("======== Maintenance ========");
-      console.log("🏭💸 Buildings: ", buildingCards);
-      console.log("🏭💸 Total Costs (/hour): ", newEnergyConsumed);
+      console.log("======== Building Energy ========");
+      console.log("🏭💸 Total Energy Consumed (/hour): ", newEnergyConsumed);
       console.log(
-        "🏭💸 Total Costs (/5sec): ",
+        "🏭💸 Total Energy Consumed (/5sec): ",
         hoursToSecRates(newEnergyConsumed, gameConfig.gamePace)
       );
 
       gameVars.setEnergyRemaining(energyProduced - newEnergyConsumed);
-      console.log(
-        "🏭💸 New Energy Remaining: ",
-        energyProduced - newEnergyConsumed
-      );
+
       console.log("======== ======== ========");
+      return true;
     }
   }
   return { maintenanceSubtracker, energyChecker };

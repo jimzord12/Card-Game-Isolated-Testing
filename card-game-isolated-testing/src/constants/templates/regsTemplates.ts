@@ -27,7 +27,7 @@ const simpleWindTurbineTemplate: TemplateDataReg = {
     diesel: 0,
   },
   baseOutput: {
-    energy: 0.1,
+    energy: 400,
   },
   desc,
 };
@@ -51,7 +51,7 @@ const superWindTurbineTemplate: TemplateDataReg = {
     diesel: 0,
   },
   baseOutput: {
-    energy: 0.25,
+    energy: 600,
   },
   desc,
 };
@@ -75,7 +75,7 @@ const simpleSolarPaneTemplate: TemplateDataReg = {
     diesel: 0,
   },
   baseOutput: {
-    energy: 0.25,
+    energy: 500,
   },
   desc,
 };
@@ -99,7 +99,7 @@ const superSolarPanelTemplate: TemplateDataReg = {
     diesel: 0,
   },
   baseOutput: {
-    energy: 0.25,
+    energy: 700,
   },
   desc,
 };

@@ -152,14 +152,14 @@ const CardPickerModal = ({ type, spot }: Props) => {
               <CompleteCard
                 card={card}
                 onClick={() => handleActivate(card)}
-                key={`CardPickerModal-${card.name}`}
+                key={`CardPickerModal-${card.name}-${card.id}`}
               />
             ))
           : regCards.map((card) => (
               <CompleteCard
                 card={card}
                 onClick={() => handleActivate(card)}
-                key={`CardPickerModal-${card.name}`}
+                key={`CardPickerModal-${card.name}-${card.id}`}
               />
             ))}
       </div>

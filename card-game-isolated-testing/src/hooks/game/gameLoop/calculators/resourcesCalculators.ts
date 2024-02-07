@@ -10,7 +10,7 @@ export const goldResourceCalc = (
   gamePace: number,
   needsCatchUp: boolean
 ) => {
-  roundToDecimal(
+  return roundToDecimal(
     calcUpdatedGathValue(
       currentGold,
       hoursToSecRates(goldGathRate, gamePace, needsCatchUp)
@@ -25,7 +25,7 @@ export const concreteResourceCalc = (
   gamePace: number,
   needsCatchUp: boolean
 ) => {
-  roundToDecimal(
+  return roundToDecimal(
     calcUpdatedGathValue(
       currentConcrete,
       hoursToSecRates(concreteGathRate, gamePace, needsCatchUp)
@@ -40,7 +40,7 @@ export const metalsResourceCalc = (
   gamePace: number,
   needsCatchUp: boolean
 ) => {
-  roundToDecimal(
+  return roundToDecimal(
     calcUpdatedGathValue(
       currentMetals,
       hoursToSecRates(metalsGathRate, gamePace, needsCatchUp)
@@ -55,7 +55,7 @@ export const crystalsResourceCalc = (
   gamePace: number,
   needsCatchUp: boolean
 ) => {
-  roundToDecimal(
+  return roundToDecimal(
     calcUpdatedGathValue(
       currentCrystals,
       hoursToSecRates(crystalsGathRate, gamePace, needsCatchUp)
@@ -70,7 +70,7 @@ export const dieselResourceCalc = (
   gamePace: number,
   needsCatchUp: boolean
 ) => {
-  roundToDecimal(
+  return roundToDecimal(
     calcUpdatedGathValue(
       currentDiesel,
       hoursToSecRates(dieselGathRate, gamePace, needsCatchUp)

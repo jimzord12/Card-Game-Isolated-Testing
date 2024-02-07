@@ -234,6 +234,10 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
       };
     }),
 
-  setAllWorkers: (workers: Workers) => set({ allWorkers: workers }),
+  setAllWorkers: (workers: Workers) =>
+    set((state) => ({
+      // ...state,
+      allWorkers: { ...state.allWorkers, ...workers },
+    })),
   setMultipliers: (multipliers: Multipliers) => set({ multipliers }),
 }));
