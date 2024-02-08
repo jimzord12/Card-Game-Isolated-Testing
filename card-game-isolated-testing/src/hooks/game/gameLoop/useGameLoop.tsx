@@ -1,7 +1,14 @@
-import { calcUpdatedGathValue, hoursToSecRates, roundToDecimal } from "./utils";
+import {
+  calcRank,
+  calcUpdatedGathValue,
+  convertToMySQLDatetime,
+  hoursToSecRates,
+  mysqlDatetimeToUnixTimestamp,
+  roundToDecimal,
+} from "./utils";
 import { useGameVarsStore } from "../../../stores/gameVars";
 import { isNotNullOrUndefined } from "../../../types/TypeGuardFns/isNullorUndefined";
-import { gameConfig } from "../../../constants/game";
+import { defaultBuildingsConfig, gameConfig } from "../../../constants/game";
 import {
   gathRatesCalculators,
   generalCalculators,
@@ -13,10 +20,14 @@ import {
   IGameLoopWorkerInput,
   NewGameState,
 } from "../../../types/GameLoopTypes/GameLoopTypes";
+import { useToastError } from "../../notifications";
+import { updatePlayerData } from "../../../../api/apiFns";
 
 const useGameLoop = () => {
   const gameVars = useGameVarsStore();
   const { energyChecker, maintenanceSubtracker } = useValuesChecker();
+
+  const toastError = useToastError();
 
   const loopCounter = useRef(0);
 
@@ -206,13 +217,41 @@ const useGameLoop = () => {
       diesel: newDiesel,
     });
 
+    const newRank = calcRank(newPopulation, gameVars.energyProduced);
+    const newTimestamp = convertToMySQLDatetime(Date.now());
+
     gameVars.setPopGrowthRate(newPopGrowthRate);
+    gameVars.updatePlayerData({
+      rank: newRank,
+      timestamp: newTimestamp,
+    });
+
+    // 🔷 Updating DB Data
+    const playerId = isNotNullOrUndefined<number>(gameVars.player?.id, "id");
+
+    // TODO: 🅱 Here you much awards the MGS tokens
+
+    updatePlayerData(playerId, {
+      population: newPopulation,
+      gold: newGold,
+      concrete: newConcrete,
+      metals: newMetals,
+      crystals: newCrystals,
+      diesel: newDiesel,
+      timestamp: newTimestamp,
+      rank: newRank,
+    });
   };
 
-  const getGameState = (): IGameLoopWorkerInput => {
+  const getGameState = (loopsToRun: number): IGameLoopWorkerInput => {
     const currentPopulation = isNotNullOrUndefined<number>(
       gameVars.player?.population,
       "population"
+    );
+
+    const happinessProvidedByBuildings = isNotNullOrUndefined<number>(
+      gameVars.happinessFromBuildings,
+      "happinessFromBuildings"
     );
 
     const currentPopGrowthRate = isNotNullOrUndefined<number>(
@@ -240,6 +279,21 @@ const useGameLoop = () => {
       gameVars.player?.diesel,
       "diesel"
     );
+
+    const lastLoginDate = isNotNullOrUndefined<string>(
+      gameVars.player?.timestamp,
+      "lastLoginDate"
+    );
+
+    const townhallLevel = isNotNullOrUndefined<number>(
+      gameVars.player?.townhall_lvl,
+      "townhallLevel"
+    );
+
+    const maxAllowedPopulation =
+      defaultBuildingsConfig.townhallHousingLimitPerLevel[
+        townhallLevel as keyof typeof defaultBuildingsConfig.townhallHousingLimitPerLevel
+      ];
     return {
       activeEffect: gameVars.activeEffect,
       allWorkers: gameVars.allWorkers,
@@ -252,10 +306,67 @@ const useGameLoop = () => {
       currentDiesel,
       currentPopulation,
       currentPopGrowthRate,
+      happinessProvidedByBuildings,
+      loopsToRun,
+      lastLoginDate,
+      maxAllowedPopulation,
     };
   };
 
-  return { processGameLoop, setNewGameState, getGameState };
+  function needsCatchUp() {
+    const currentDate = Date.now();
+    const lastLoginDate = isNotNullOrUndefined<string>(
+      gameVars.player?.timestamp,
+      "lastLoginDate"
+    );
+    // If New Player, no need to catch up
+    // if (lastLoginDate === null || lastLoginDate === 0) return false;
+
+    const convertedPrevDate =
+      mysqlDatetimeToUnixTimestamp(lastLoginDate) / 1000;
+    const diff = Math.abs(currentDate - convertedPrevDate);
+    console.log("Player Last Known Login Timestamp: ", convertedPrevDate);
+    console.log("Current Date (Now): ", currentDate);
+    console.log("Their Difference: ", diff);
+
+    if (diff > 15 * gameConfig.minute) {
+      // 15 mins
+      console.log("Catch Up is required!");
+      return true;
+    }
+    console.log("There is no need to catch up the progress of your account");
+    return false;
+  }
+
+  const calcTimeUnits = () => {
+    const currentDate = Date.now();
+    const lastLoginDate = isNotNullOrUndefined<string>(
+      gameVars.player?.timestamp,
+      "lastLoginDate"
+    );
+
+    const convertedPrevDate =
+      mysqlDatetimeToUnixTimestamp(lastLoginDate) / 1000;
+    const diff = Math.abs(currentDate - convertedPrevDate);
+    const sevenDays = 7 * gameConfig.day;
+
+    if (diff > sevenDays) {
+      toastError.showError(
+        "Absent for too long",
+        "😔 We are very sorry to inform you that because you were absent more than 7 Days, your account was disabled and your progress was lost!"
+      );
+      return Math.trunc(sevenDays / gameConfig.catchUpLoopDuration);
+    }
+    return Math.trunc(diff / gameConfig.catchUpLoopDuration);
+  };
+
+  return {
+    processGameLoop,
+    setNewGameState,
+    getGameState,
+    needsCatchUp,
+    calcTimeUnits,
+  };
 };
 
 export default useGameLoop;

@@ -10,11 +10,11 @@ class EffectClass {
   public output: EffectOutput;
   public expiresAtUnix: number;
 
-  constructor(data: SPCard, expiresAtUnix: number, boostFromBuilding?: number) {
+  constructor(data: SPCard, expiresAtUnix: number, radioStationBoost?: number) {
     // TODO: Add constructor logic here
     this.name = data.name;
     this.originatesFrom = data;
-    this.boost = data.output.boost + (boostFromBuilding ?? 0);
+    this.boost = data.output.boost + (radioStationBoost ?? 0);
     this.expiresAtUnix = expiresAtUnix;
     this.output = this.getOutput();
   }
@@ -35,16 +35,16 @@ class EffectClass {
     };
 
     if (this.name === "WallStreet") {
-      return { ...base, goldGathRate: this.boost };
+      return { ...base, goldGathRate: base.goldGathRate + this.boost };
     } else if (this.name === "LoveApp") {
       return { ...base, popGrowthRate: this.boost };
     } else if (this.name === "SuperStrong") {
       return {
         ...base,
-        concreteGathRate: this.boost,
-        metalsGathRate: this.boost,
-        crystalsGathRate: this.boost,
-        dieselGathRate: this.boost,
+        concreteGathRate: base.goldGathRate + this.boost,
+        metalsGathRate: base.goldGathRate + this.boost,
+        crystalsGathRate: base.goldGathRate + this.boost,
+        dieselGathRate: base.goldGathRate + this.boost,
       };
     } else {
       return base;

@@ -9,15 +9,9 @@ import { useNavigate } from "react-router-dom";
 import GameButton from "../Buttons/GameButton/GameButton";
 import StatsBars from "../StatsBars/StatsBars";
 import GameWorker from "../../webWorkers/gameLoopWorker.worker?worker";
-import {
-  IGameLoopWorkerInput,
-  gameLoopWorkerReturnType,
-} from "../../types/GameLoopTypes/GameLoopTypes";
+import { gameLoopWorkerReturnType } from "../../types/GameLoopTypes/GameLoopTypes";
 import useGameLoop from "../../hooks/game/gameLoop/useGameLoop";
 import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
-import { gamePace } from "../../constants/game/gameConfig";
-// import CraftCardModal from "../Modals/InGameModals/CraftCardModal/CraftCardModal";
-// import InventoryModal from "../Modals/InGameModals/InventoryModal/InventoryModal";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -37,7 +31,7 @@ type MapTypes = "town" | "world";
 const Game = () => {
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
-  const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("world");
+  const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("town");
 
   const [isInvModalOpen, setIsInvModalOpen] = useState(false);
   const [isCraftModalOpen, setIsCraftModalOpen] = useState(false);
@@ -49,12 +43,16 @@ const Game = () => {
 
   const auth = useRequireAuth();
 
-  const { setNewGameState, getGameState } = useGameLoop();
-  const { energyChecker, maintenanceSubtracker } = useValuesChecker();
+  const { setNewGameState, getGameState, needsCatchUp, calcTimeUnits } =
+    useGameLoop();
+  const { energyChecker, maintenanceSubtracker, hasEffectExpired } =
+    useValuesChecker();
 
   // If not authenticated, nothing will be rendered and user will be redirected
-  function gameLoopRunner(/* currentGameState: IGameLoopWorkerInput */) {
-    const currentGameState = getGameState();
+  function gameLoopRunner(
+    /* currentGameState: IGameLoopWorkerInput */ catchUpLoops?: number
+  ) {
+    const currentGameState = getGameState(catchUpLoops ? catchUpLoops : 1);
     console.log("🎮 [Game.tsx] OLD - GameState: ", currentGameState);
     gameWorker.current?.postMessage(currentGameState);
   }
@@ -62,11 +60,20 @@ const Game = () => {
   useEffect(() => {
     // Initialize the worker
     gameWorker.current = new GameWorker();
+    const requiresCatchUp = needsCatchUp();
+
+    if (requiresCatchUp) {
+      hasEffectExpired();
+      const catchUpLoops = calcTimeUnits();
+      console.log("🎮 [Game.tsx] Needs Catch Up: ", needsCatchUp());
+      gameLoopRunner(catchUpLoops);
+    }
 
     gameWorker.current.onmessage = (
       event: MessageEvent<gameLoopWorkerReturnType>
     ) => {
       const { wasSuccess, newState } = event.data;
+      console.log("UseEffect: GameWorker.onmessage: ", event.data);
 
       if (wasSuccess) {
         energyChecker();
@@ -89,7 +96,7 @@ const Game = () => {
     //
 
     //   gameLoopRunner(currentGameState);
-    // }, gamePace * 1000 * 2); // 10 sec
+    // }, gamePace * 1000); // 5 sec
 
     return () => {
       // Terminate the worker when the component unmounts
@@ -98,6 +105,22 @@ const Game = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameLoopTick.current]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: { returnValue: string }) => {
+      alert("If you refresh this page, the game will crash.");
+      const message = "If you refresh this page, the game will crash.";
+      event.returnValue = message;
+      return message;
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   if (!auth.user) return null;
 
@@ -136,7 +159,16 @@ const Game = () => {
                 />
               </div>
               <div className="z-[401] absolute top-4 left-[280px]">
-                <CustomButton title="Run Loop" handleClick={gameLoopRunner} />
+                <CustomButton
+                  title="Run Loop"
+                  handleClick={() => gameLoopRunner()}
+                />
+              </div>
+              <div className="z-[401] absolute top-24 left-[280px]">
+                <CustomButton
+                  title="Run 500x Loops"
+                  handleClick={() => gameLoopRunner(500)}
+                />
               </div>
               <div className="z-[401] absolute top-24 left-20">
                 <CustomButton

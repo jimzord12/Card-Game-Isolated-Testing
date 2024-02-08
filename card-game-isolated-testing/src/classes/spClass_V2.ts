@@ -102,6 +102,7 @@ export default class SPCard {
 
   public disable(): void {
     this.disabled = true;
+    this.state = false;
   }
 
   public setOwner(newOwnerId: number): void {

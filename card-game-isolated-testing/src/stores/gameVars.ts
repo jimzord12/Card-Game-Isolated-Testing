@@ -8,7 +8,7 @@ export type GameVarsState = {
   player: IPlayerDB | null;
   townhallLevel: Level;
   factoryLevel: Level;
-  // happiness: number;
+  happinessFromBuildings: number;
   expences: number; // In Old Code is Maintanance
   needsCatchUp: boolean;
 
@@ -41,7 +41,7 @@ export type GameVarsState = {
   setPlayer: (player: IPlayerDB) => void;
   updatePlayerData: (playerData: Partial<IPlayerDB>) => void;
   // setTotalPop: (totalPop: number) => void;
-  // setHappiness: (fn: number | ((currentHappiness: number) => number)) => void;
+  setHappinessFromBuildings: (currentHappiness: number) => void;
   setPopGrowthRate: (rate: number) => void;
   setNeedsCatchUp: (needsCatchUp: boolean) => void;
 
@@ -66,7 +66,7 @@ export type GameVarsState = {
   setEnergyRemaining: (energy: number) => void;
 
   // Effects
-  setActiveEffect: (effect: effectClass) => void;
+  setActiveEffect: (effect: effectClass | null) => void;
   setRadioStationEffectBoost: (boost: number) => void;
   removeRadioStationEffectBoost: () => void;
 };
@@ -78,7 +78,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   player: null,
   townhallLevel: 1,
   factoryLevel: 1,
-  // happiness: 0,
+  happinessFromBuildings: 0,
   expences: 0,
   needsCatchUp: false,
 
@@ -125,10 +125,8 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
     })),
   setExpences: (expences: number) => set({ expences }),
   setNeedsCatchUp: (needsCatchUp: boolean) => set({ needsCatchUp }),
-  // setHappiness: (fn: number | ((currentHappiness: number) => number)) =>
-  //   set((state) => ({
-  //     happiness: typeof fn === "function" ? fn(state.happiness) : fn,
-  //   })),
+  setHappinessFromBuildings: (currentHappiness: number) =>
+    set({ happinessFromBuildings: currentHappiness }),
   setTownhallLevel: (fn: Level | ((currentTHLevel: Level) => Level)) =>
     set((state) => ({
       townhallLevel: typeof fn === "function" ? fn(state.townhallLevel) : fn,
@@ -161,10 +159,10 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
 
   // Effects
   // setActiveEffect: (effect: effectClass) => set({ activeEffect: effect }),
-  setActiveEffect: (effect: effectClass) => {
+  setActiveEffect: (effect: effectClass | null) => {
     set((state) => {
       // Check if effectBoost is not null and apply it to the new effect
-      if (state.radioStationEffectBoost !== null) {
+      if (state.radioStationEffectBoost !== null && effect !== null) {
         // Assuming effectClass can take a third parameter for the boost
         const updatedEffect = new effectClass(
           effect.originatesFrom,

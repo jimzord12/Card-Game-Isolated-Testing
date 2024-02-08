@@ -1,6 +1,6 @@
 import { updateCardData } from "../../../../api/apiFns";
 import RegCard from "../../../classes/regClass_V2";
-import { cardsStateManager, hoursToSecRates } from "./utils";
+import { cardsStateManager, datesDelta, hoursToSecRates } from "./utils";
 import { useAllCardsStore } from "../../../stores/allCards";
 import { useGameVarsStore } from "../../../stores/gameVars";
 import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
@@ -126,7 +126,36 @@ const useValuesChecker = () => {
       return true;
     }
   }
-  return { maintenanceSubtracker, energyChecker };
+
+  function hasEffectExpired() {
+    const activeEffect = gameVars.activeEffect;
+    if (activeEffect === null) {
+      return;
+    }
+
+    const hasExpired = datesDelta(activeEffect.expiresAtUnix);
+    if (hasExpired) {
+      gameVars.setActiveEffect(null);
+      toastError.showError(
+        "Effect Expired",
+        "😱 The Special Effect has expired!"
+      );
+
+      const spOriginCard = activeEffect.originatesFrom;
+      spOriginCard.disable(); // it Also deactivates the card (state === false)
+
+      const spCardID = isNotNullOrUndefined<number>(spOriginCard?.id, "id");
+
+      allCardsState.removeCardFromActiveCards(spOriginCard);
+      allCardsState.addCardToInventory(spOriginCard);
+      updateCardData({
+        id: spCardID,
+        disabled: spOriginCard.disabled,
+        state: spOriginCard.state,
+      });
+    }
+  }
+  return { maintenanceSubtracker, energyChecker, hasEffectExpired };
 };
 
 export default useValuesChecker;

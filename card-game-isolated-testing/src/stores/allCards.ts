@@ -158,37 +158,6 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
   removeCardFromActiveCards: (card: CardClass) =>
     set((state) => {
       if (card instanceof BuildingCard) {
-        // 🔷 Remove Card Effects for: "RadioStation"
-        // if (card.name === nameToTemplateDataBuilding.RadioStation.name) {
-        //   useGameVarsStore.getState().removeEffectBoost();
-        // }
-        // // 🔷 Remove Card Effects for: "AmusementPark"
-        // if (card.name === nameToTemplateDataBuilding.AmusementPark.name) {
-        //   useGameVarsStore
-        //     .getState()
-        //     .setHappiness(
-        //       useGameVarsStore.getState().happiness - card.output.boost
-        //     );
-        // }
-        // // 🔷 Remove Card Effects for: "Hospital"
-        // if (card.name === nameToTemplateDataBuilding.Hospital.name) {
-        //   useGameVarsStore.getState().setAllWorkers({
-        //     ...useGameVarsStore.getState().allWorkers,
-        //     hospitalWorkers: 0,
-        //   });
-        // }
-        // // 🔷 Remove Card Effects for: "ToolStore"
-        // if (card.name === nameToTemplateDataBuilding.ToolStore.name) {
-        //   useGameVarsStore.getState().setMultipliers({
-        //     ...useGameVarsStore.getState().multipliers,
-        //     goldMultiplier:
-        //       useGameVarsStore.getState().multipliers.goldMultiplier -
-        //       (card.stats!.gold! * card.output.boost + 1),
-        //     concreteMultiplier: 0,
-        //     metalsMultiplier: 0,
-        //     crystalsMultiplier: 0,
-        //   });
-        // }
         update_B_GameVars_Removal(card, useGameVarsStore.getState());
 
         return {

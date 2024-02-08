@@ -13,9 +13,9 @@ export const updateBuildingRelatedGameVars = (
   // ✨ AmusementPark
   if (card.name === nameToTemplateDataBuilding.AmusementPark.name) {
     const currentEnergyConsumed = gameVars.energyConsumed;
-    const currentPopGrowthRate = gameVars.popGrowthRate;
+    const currentHappinessFromBuildings = gameVars.popGrowthRate;
 
-    gameVars.setPopGrowthRate(currentPopGrowthRate + output.boost);
+    gameVars.setHappinessFromBuildings(currentHappinessFromBuildings + output.boost);
     gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
     return;
   }

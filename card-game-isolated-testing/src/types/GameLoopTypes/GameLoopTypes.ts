@@ -68,7 +68,7 @@ export interface NewGameState {
 export interface IGameLoopWorkerInput {
   currentPopulation: number;
   currentPopGrowthRate: number;
-  // happinessProvidedByBuildings: number;
+  happinessProvidedByBuildings: number;
   allWorkers: Workers;
   multipliers: Multipliers;
   currentGold: number;
@@ -78,6 +78,9 @@ export interface IGameLoopWorkerInput {
   currentDiesel: number;
   needsCatchUp: boolean;
   activeEffect: effectClass | null;
+  loopsToRun: number;
+  lastLoginDate: string;
+  maxAllowedPopulation: number;
 }
 
 // export interface OldGameState {

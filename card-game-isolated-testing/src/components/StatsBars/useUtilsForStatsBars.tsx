@@ -84,10 +84,9 @@ export const useUtilsForStatsBars = () => {
     return { position: "fixed", left: "5px", top: "100px" };
   };
 
-  const shortenLongNum = (number: number) => {
-    // console.log('Number: ', number);
+  const shortenLongNum = (numberInit: number) => {
+    const number = Math.round(numberInit);
     const digits = countDigits(number);
-    // console.log('Digits Count: ', digits);
 
     // -- Screen: 280px - 359px --
     if (!mediaQuery360 && digits > 10) {

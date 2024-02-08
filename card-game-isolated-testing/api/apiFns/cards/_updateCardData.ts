@@ -6,6 +6,7 @@ const PUT_UPDATE_CARD_DATA_URL = "cards";
 
 interface ICardDataToUpdate {
   id: number; // Card's ID
+  disabled?: boolean;
   state?: number | boolean;
   endDate?: number | string;
   level?: number;

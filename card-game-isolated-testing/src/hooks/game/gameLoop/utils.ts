@@ -294,16 +294,16 @@ function cardsStateManager(
 //   return Math.floor(Math.random() * 3000) + 2;
 // }
 
-export function removeObjectWithId(cardsArr: CardClass[], id: number) {
+function removeObjectWithId(cardsArr: CardClass[], id: number) {
   return cardsArr.filter((card) => card.id !== id);
 }
 
-export function roundToDecimal(number: number, decimalPlaces: number) {
+function roundToDecimal(number: number, decimalPlaces: number) {
   const factor = Math.pow(10, decimalPlaces);
   return Math.round(number * factor) / factor;
 }
 
-export function hoursToSecRates(
+function hoursToSecRates(
   gatheringRate: number,
   secondsTick: number,
   needCatchUp = false
@@ -322,7 +322,8 @@ export function hoursToSecRates(
   return roundToDecimal(mathCalc, 4);
 }
 
-export function datesDelta(activationDate: number, currentDate: number) {
+function datesDelta(activationDate: number) {
+  const currentDate = Date.now();
   // Subtract the time values of the two dates to get the difference in milliseconds
   const diff = activationDate - currentDate;
   console.log("activationDate: ", activationDate);
@@ -338,7 +339,7 @@ export function datesDelta(activationDate: number, currentDate: number) {
 }
 
 //@Important: "precision" must be in milliseconds!
-export function calcTimeUnits(
+function calcTimeUnits(
   previousDate: string,
   currentDate: number,
   precision: number
@@ -357,7 +358,7 @@ export function calcTimeUnits(
   return Math.trunc(diff / precision);
 }
 
-export function convertToMySQLDatetime(timestamp: number) {
+function convertToMySQLDatetime(timestamp: number) {
   const date = new Date(timestamp);
 
   const pad = (num: number) => (num < 10 ? "0" + num : num);
@@ -372,7 +373,7 @@ export function convertToMySQLDatetime(timestamp: number) {
   return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
 }
 
-export function mysqlDatetimeToUnixTimestamp(mysqlDatetime: string) {
+function mysqlDatetimeToUnixTimestamp(mysqlDatetime: string) {
   console.log("mysqlDatetimeToUnixTimestamp::Input => ", mysqlDatetime);
   const localDatetime = mysqlDatetime.slice(0, 19);
   const date = new Date(localDatetime);
@@ -380,7 +381,7 @@ export function mysqlDatetimeToUnixTimestamp(mysqlDatetime: string) {
   return date.getTime() * 1000;
 }
 
-export function needCatchUp(previousDate: string | null, currentDate: number) {
+function needCatchUp(previousDate: string | null, currentDate: number) {
   // If New Player, no need to catch up
   if (previousDate === null) return false;
 
@@ -414,4 +415,12 @@ export {
   findCardById,
   calcUpdatedGathValue,
   cardsStateManager,
+  removeObjectWithId,
+  roundToDecimal,
+  hoursToSecRates,
+  datesDelta,
+  calcTimeUnits,
+  convertToMySQLDatetime,
+  mysqlDatetimeToUnixTimestamp,
+  needCatchUp,
 };
