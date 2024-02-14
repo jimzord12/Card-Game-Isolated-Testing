@@ -11,9 +11,9 @@ interface CustomSliderProps {
   step?: number;
   max: number;
   size?: Size;
-  // initValue?: number;
+  initValue?: number;
   onChange: (newValue: number) => void;
-  changeInitValue?: () => number;
+  // changeInitValue?: () => number;
 }
 
 // For ChatGPT Reference
@@ -34,9 +34,8 @@ const CustomSlider = ({
   step = 1,
   max,
   size = "medium",
-  // initValue,
+  initValue,
   onChange,
-  changeInitValue,
 }: CustomSliderProps) => {
   const sliderRef = useRef<HTMLImageElement>(null);
 
@@ -46,9 +45,19 @@ const CustomSlider = ({
   const usableWidth = sliderBarSize.width * 0.845;
 
   const [value, setValue] = useState(
-    changeInitValue !== undefined ? changeInitValue!() : 1
+    // changeInitValue !== undefined ? changeInitValue!() : 1
+    initValue !== undefined ? initValue : 1
   );
-  let currentValue = changeInitValue !== undefined ? changeInitValue!() : 1;
+  // const [internalInitState, setinternalInitState] = useState(second)
+
+  // useEffect(() => {
+  //   console.log(initValue, "Initial");
+  //   // console.log(currentValue, "CurrentValue");
+  //   console.log(value, "Value");
+  //   onChange(value);
+  // }, [initValue, value]);
+
+  let currentValue = initValue || 0;
 
   if (step <= 0 || step > max / 2)
     throw new Error(
@@ -100,15 +109,17 @@ const CustomSlider = ({
     let newValue = Math.round(rawValue / step) * step;
 
     // Ensure newValue is within the slider's range
-    newValue = Math.max(1, Math.min(newValue, max));
+    newValue = Math.max(0, Math.min(newValue, max));
 
     currentValue = newValue;
+
     setValue(newValue);
   };
 
   const stopDragging = () => {
     console.log("TEST: Slider Value: ", currentValue);
     onChange(currentValue);
+
     document.removeEventListener("mousemove", onDrag);
     document.removeEventListener("mouseup", stopDragging);
     document.removeEventListener("touchmove", onDrag);

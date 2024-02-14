@@ -1,4 +1,8 @@
 const containerSizes = {
+  extraSmall: {
+    widthPx: 90,
+    heightPx: 34,
+  },
   small: {
     widthPx: 180,
     heightPx: 67,
@@ -14,6 +18,7 @@ const containerSizes = {
 };
 
 const textSizes = {
+  extraSmall: "1rem",
   small: "1.5rem",
   medium: "2rem",
   large: "4rem",

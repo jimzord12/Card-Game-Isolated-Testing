@@ -90,6 +90,7 @@ const processGameLoopWorker = (
   let newPopGrowthRate = 0;
   // 🔷 1. Population (🧪 Requires Testing)
   if (currentPopulation < maxAllowedPopulation) {
+    console.log("dddddddddddddddddddddddddssssssss");
     newPopulation = roundToDecimal(
       calcUpdatedGathValue(
         currentPopulation,
@@ -104,6 +105,8 @@ const processGameLoopWorker = (
       happinessProvidedByBuildings
     );
   }
+  console.log("New Population: ", newPopulation);
+  console.log("New Population Growth Rate: ", newPopGrowthRate);
 
   // console.log(
   //   "✌️ [gameLoopWorker] newPopulation: ",

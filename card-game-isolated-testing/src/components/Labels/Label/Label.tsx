@@ -1,3 +1,4 @@
+import { LabelsImageGroup } from "../../../types";
 import LabelValue from "./Parts/LabelValue/LabelValue";
 import SimpleLabel from "./Parts/SimpleLabel/SimpleLabel";
 import { styles } from "./labelConstants";
@@ -19,16 +20,18 @@ type labelImages = {
 interface LabelProps {
   type: labelType;
   value: number | string;
-  labelImages: labelImages;
+  labelImages: labelImages | LabelsImageGroup;
   valueType?: {
     type: "/h" | "%" | "maxLimit";
     limit?: number;
   };
-  size?: "small" | "medium" | "large";
+  size?: "extraSmall" | "small" | "medium" | "large";
   desc?: {
     text: string;
     position?: "top" | "bottom";
+    style?: "white" | "black";
   };
+  isStoryBook?: boolean;
 }
 
 interface modifiedLabels {
@@ -45,28 +48,41 @@ const Label = ({
   valueType,
   size = "medium",
   desc,
+  isStoryBook = false,
 }: LabelProps) => {
-  const modifiedLabels: modifiedLabels = {
-    golden: labelImages.golden.standard,
-    green: labelImages.otherLabels.greenEnergy,
-    rusty: labelImages.otherLabels.rusty,
-    special: labelImages.golden.special,
-  };
-  //   const positionStyles =
+  let modifiedLabels: modifiedLabels;
+
+  if (isStoryBook) {
+    modifiedLabels = {
+      golden: (labelImages as labelImages).golden.standard,
+      green: (labelImages as labelImages).otherLabels.greenEnergy,
+      rusty: (labelImages as labelImages).otherLabels.rusty,
+      special: (labelImages as labelImages).golden.special,
+    };
+  } else {
+    modifiedLabels = {
+      golden: (labelImages as LabelsImageGroup).goldenStandardLabel,
+      green: (labelImages as LabelsImageGroup).greenEnergyLabel,
+      rusty: (labelImages as LabelsImageGroup).rustyLabel,
+      special: (labelImages as LabelsImageGroup).goldenSpecialLabel,
+    };
+  }
 
   const textStyles =
     type === "rusty" ? styles.textStyles.contrast : styles.textStyles.standard;
   return (
     <div>
       {type === "simple" ? (
-        <>
-          <SimpleLabel value={"Testing"} size={size} />
+        <div className={`relative flex flex-col w-fit`}>
+          <SimpleLabel value={value} size={size} />
           {desc !== undefined && (
-            <p className={`text-center mt-4 ${styles.descSizes[size]}`}>
+            <p
+              className={`text-center mt-2 font-bold ${styles.descSizes[size]}`}
+            >
               {desc?.text}
             </p>
           )}
-        </>
+        </div>
       ) : (
         <div
           className={`relative flex flex-col ${styles.containerSizes[type][size]}`}
@@ -77,7 +93,7 @@ const Label = ({
             className="object-contain"
           />
           <LabelValue
-            className={`${styles.centerize} ${textStyles} ${styles.sizes[size].text}`}
+            className={`${styles.containerSizes[type][size]} ${styles.centerize} ${textStyles} ${styles.sizes[size].text}`}
             value={value}
             valueType={
               valueType
@@ -90,7 +106,9 @@ const Label = ({
           />
           {desc !== undefined && (
             <p
-              className={`text-center mt-2 font-bold ${styles.descSizes[size]}`}
+              className={`${
+                desc.style === "white" ? "text-white" : ""
+              } text-center mt-2 font-bold ${styles.descSizes[size]}`}
             >
               {desc?.text}
             </p>

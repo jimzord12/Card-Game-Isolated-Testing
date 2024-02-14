@@ -1,6 +1,7 @@
 import {
   calcRank,
   calcUpdatedGathValue,
+  convertTimestamp,
   convertToMySQLDatetime,
   hoursToSecRates,
   mysqlDatetimeToUnixTimestamp,
@@ -219,6 +220,7 @@ const useGameLoop = () => {
 
     const newRank = calcRank(newPopulation, gameVars.energyProduced);
     const newTimestamp = convertToMySQLDatetime(Date.now());
+    console.log("NEW TIMESTAMP: ", newTimestamp);
 
     gameVars.setPopGrowthRate(newPopGrowthRate);
     gameVars.updatePlayerData({
@@ -314,7 +316,7 @@ const useGameLoop = () => {
   };
 
   function needsCatchUp() {
-    const currentDate = Date.now();
+    const currentDate = Date.now() / 1000; //secondss
     const lastLoginDate = isNotNullOrUndefined<string>(
       gameVars.player?.timestamp,
       "lastLoginDate"
@@ -322,15 +324,18 @@ const useGameLoop = () => {
     // If New Player, no need to catch up
     // if (lastLoginDate === null || lastLoginDate === 0) return false;
 
-    const convertedPrevDate =
-      mysqlDatetimeToUnixTimestamp(lastLoginDate) / 1000;
+    const convertedPrevDate = mysqlDatetimeToUnixTimestamp(lastLoginDate); // secondss
     const diff = Math.abs(currentDate - convertedPrevDate);
-    console.log("Player Last Known Login Timestamp: ", convertedPrevDate);
-    console.log("Current Date (Now): ", currentDate);
-    console.log("Their Difference: ", diff);
+    console.log(
+      "Player Last Known Login Timestamp: ",
+      convertTimestamp(convertedPrevDate)
+    );
+    console.log("Current Date (Now): ", convertTimestamp(currentDate));
+    console.log("#1 - Their Difference: ", convertTimestamp(diff));
+    console.log("#2 - Their Difference: ", diff);
 
-    if (diff > 15 * gameConfig.minute) {
-      // 15 mins
+    if (diff > 1800 * 8) {
+      // 4 hours
       console.log("Catch Up is required!");
       return true;
     }
@@ -339,16 +344,15 @@ const useGameLoop = () => {
   }
 
   const calcTimeUnits = () => {
-    const currentDate = Date.now();
+    const currentDate = Date.now() / 1000;
     const lastLoginDate = isNotNullOrUndefined<string>(
       gameVars.player?.timestamp,
       "lastLoginDate"
     );
 
-    const convertedPrevDate =
-      mysqlDatetimeToUnixTimestamp(lastLoginDate) / 1000;
+    const convertedPrevDate = mysqlDatetimeToUnixTimestamp(lastLoginDate);
     const diff = Math.abs(currentDate - convertedPrevDate);
-    const sevenDays = 7 * gameConfig.day;
+    const sevenDays = 7 * (gameConfig.day / 1000);
 
     if (diff > sevenDays) {
       toastError.showError(

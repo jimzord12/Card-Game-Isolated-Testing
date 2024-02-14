@@ -36,9 +36,7 @@ export const Default: Story = {
 export const InitialValue: Story = {
   args: {
     ...DefaultProps,
-    changeInitValue() {
-      return 50;
-    },
+    initValue: 50,
   },
 };
 

@@ -1,9 +1,8 @@
-import { LabelsImageGroup } from "../../../types";
-import LabelLeftIcon from "./Parts/LabelLeftIcon";
-import LabelTopIcon from "./Parts/LabelTopIcon";
+import { LabelsImageGroup } from "../../../../types";
+import Label from "../../Label/Label";
+import { styles } from "./labelWithIconConstants";
 
 type labelImages = {
-  // [key in labelType]: string;
   golden: {
     standard: string;
     special: string;
@@ -14,7 +13,7 @@ type labelImages = {
   };
 };
 
-interface LabelWithIconProps {
+interface LabelTopIconProps {
   size: "extraSmall" | "small" | "medium" | "large";
   value: number | string;
   labelImages: labelImages | LabelsImageGroup;
@@ -28,11 +27,10 @@ interface LabelWithIconProps {
     style?: "white" | "black";
   };
   image: string;
-  position?: "top" | "left";
   isStoryBook?: boolean;
 }
 
-const LabelWithIcon = ({
+const LabelTopIcon = ({
   size,
   image,
   value,
@@ -40,36 +38,26 @@ const LabelWithIcon = ({
   valueType,
   desc,
   labelImages,
-  position,
   isStoryBook,
-}: LabelWithIconProps) => {
+}: LabelTopIconProps) => {
   return (
-    <>
-      {position === "top" ? (
-        <LabelTopIcon
-          size={size}
-          image={image}
+    <div className="relative flex flex-col items-center w-fit h-fit">
+      <div className={`flex justify-center ${styles.topIconSize[size]} z-10 `}>
+        <img src={image} alt="An image" className="object-contain" />
+      </div>
+      <div className={`${styles.topIconPositionY[size]}`}>
+        <Label
+          type={labelType}
           value={value}
-          labelType={labelType}
           valueType={valueType}
           desc={desc}
+          size={size}
           labelImages={labelImages}
           isStoryBook={isStoryBook}
         />
-      ) : (
-        <LabelLeftIcon
-          size={size}
-          image={image}
-          value={value}
-          labelType={labelType}
-          valueType={valueType}
-          desc={desc}
-          labelImages={labelImages}
-          isStoryBook={isStoryBook}
-        />
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 
-export default LabelWithIcon;
+export default LabelTopIcon;

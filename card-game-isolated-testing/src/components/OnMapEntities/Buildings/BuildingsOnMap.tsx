@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useRef } from "react";
+import { Dispatch, SetStateAction, useCallback } from "react";
 // import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
 import { BuildingSpot, TownMapEntitiesData } from "../../../types";
 import {
@@ -16,8 +16,8 @@ import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 import { getModalBgImage } from "../../../utils/game/getModalBgImage";
 import { isActiveBuilding } from "../../../types/TypeGuardFns/isActiveBuilding";
 import BuildingOnMap from "./BuildingOnMap";
-import CustomSlider from "../../CustomSlider/CustomSlider";
-import { useGameVarsStore } from "../../../stores/gameVars";
+// import { useGameVarsStore } from "../../../stores/gameVars";
+import HospitalLayoutManage from "./Layouts/HospitalLayoutManage";
 
 interface Props {
   highlightedImg: number | null;
@@ -35,9 +35,8 @@ const BuildingsOnMap = ({
   mapEntities,
 }: Props) => {
   const pushModal = useModalStore((state) => state.pushModal);
-  const gameVars = useGameVarsStore();
-  const previousDoctors = gameVars.allWorkers.hospitalWorkers;
-  const doctorsRef = useRef<number>(0);
+  // const gameVars = useGameVarsStore();
+  // const previousDoctors = gameVars.allWorkers.hospitalWorkers;
 
   const { images } = UseGlobalContext();
   if (images?.modal_backgrounds === undefined)
@@ -79,30 +78,25 @@ const BuildingsOnMap = ({
               <div style={{ fontSize: 42, color: "white" }}>
                 <h2>Hospital Main Screen #1</h2>
               </div>,
-              <div style={{ fontSize: 42, color: "white" }}>
-                Hospital Management Screen #2
-                <CustomSlider
-                  key={doctorsRef.current}
-                  max={100}
-                  changeInitValue={() => doctorsRef.current}
-                  onChange={(newValue) => {
-                    doctorsRef.current = newValue;
-                    console.log("doctorsRef.current: ", doctorsRef.current);
-                  }}
-                />
-              </div>,
+              <HospitalLayoutManage
+              // changeInitValue={() => currentDoctors}
+              />,
               <div style={{ fontSize: 42, color: "white" }}>
                 Hospital Level Up Screen #3
               </div>,
             ]}
-            onClose={() => {
-              if (previousDoctors === doctorsRef.current) return;
-              gameVars.setAllWorkers({
-                ...gameVars.allWorkers,
-                hospitalWorkers: doctorsRef.current,
-              });
-              console.log("🐱‍🏍 Hopsital: Updated Doctors");
-            }}
+            // onClose={() => {
+            //   console.log("Hopsital Modal: Closing...");
+            //   console.log("Hopsital Modal: currentDoctors: ", currentDoctors);
+            //   console.log("Hopsital Modal: previousDoctors: ", previousDoctors);
+
+            //   if (previousDoctors === currentDoctors) return;
+            //   gameVars.setAllWorkers({
+            //     ...gameVars.allWorkers,
+            //     hospitalWorkers: currentDoctors,
+            //   });
+            //   console.log("🐱‍🏍 Hopsital: Updated Doctors");
+            // }}
           />
         );
       }

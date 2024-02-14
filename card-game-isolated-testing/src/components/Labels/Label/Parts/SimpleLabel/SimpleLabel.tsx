@@ -2,7 +2,7 @@ import { styles } from "./simpleLabelConstants";
 
 interface SimpleLabelProps {
   value: number | string;
-  size: "small" | "medium" | "large";
+  size: "extraSmall" | "small" | "medium" | "large";
   bgColorHex?: string;
   borderColorHex?: string;
   borderWidthPx?: number;

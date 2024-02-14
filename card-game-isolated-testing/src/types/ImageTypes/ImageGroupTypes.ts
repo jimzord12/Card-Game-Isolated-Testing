@@ -75,7 +75,7 @@ export type GameIconsImageGroup = {
   woodenCloseModalGameIcon: string;
 };
 
-type LabelsImageGroup = {
+export type LabelsImageGroup = {
   colorfulLabel: string;
   goldenSpecialLabel: string;
   goldenStandardLabel: string;

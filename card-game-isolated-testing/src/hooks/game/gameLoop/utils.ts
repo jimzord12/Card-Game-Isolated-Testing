@@ -363,41 +363,56 @@ function convertToMySQLDatetime(timestamp: number) {
 
   const pad = (num: number) => (num < 10 ? "0" + num : num);
 
-  const yyyy = date.getFullYear();
-  const mm = pad(date.getMonth() + 1); // Months are zero-based
-  const dd = pad(date.getDate());
-  const hh = pad(date.getHours());
-  const mi = pad(date.getMinutes());
-  const ss = pad(date.getSeconds());
+  const yyyy = date.getUTCFullYear();
+  const mm = pad(date.getUTCMonth() + 1); // Months are zero-based
+  const dd = pad(date.getUTCDate());
+  const hh = pad(date.getUTCHours());
+  const mi = pad(date.getUTCMinutes());
+  const ss = pad(date.getUTCSeconds());
 
   return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
 }
 
 function mysqlDatetimeToUnixTimestamp(mysqlDatetime: string) {
   console.log("mysqlDatetimeToUnixTimestamp::Input => ", mysqlDatetime);
-  const localDatetime = mysqlDatetime.slice(0, 19);
-  const date = new Date(localDatetime);
-  console.log("jhiunnnnnvgbgv: ", date.getTime());
-  return date.getTime() * 1000;
+  // const localDatetime = mysqlDatetime.slice(0, 19);
+  // const date = new Date(localDatetime + "Z"); // Ensure UTC by appending 'Z'
+  const date = new Date(mysqlDatetime);
+  // console.log("MySQL Date String => Timestamp: ", date.getTime() / 1000);
+  return date.getTime() / 1000; // Corrected to divide by 1000
 }
 
-function needCatchUp(previousDate: string | null, currentDate: number) {
-  // If New Player, no need to catch up
-  if (previousDate === null) return false;
+// function needCatchUp(previousDate: string | null, currentDate: number) {
+//   // If New Player, no need to catch up
+//   if (previousDate === null) return false;
 
-  const convertedPrevDate = mysqlDatetimeToUnixTimestamp(previousDate) / 1000;
-  const diff = Math.abs(currentDate - convertedPrevDate);
-  console.log("Player Last Known Login Timestamp: ", convertedPrevDate);
-  console.log("Current Date (Now): ", currentDate);
-  console.log("Their Difference: ", diff);
+//   const convertedPrevDate = mysqlDatetimeToUnixTimestamp(previousDate);
+//   const diff = Math.abs(currentDate - convertedPrevDate);
+//   console.log("Player Last Known Login Timestamp: ", convertedPrevDate);
+//   console.log("Current Date (Now): ", currentDate);
+//   console.log("Their Difference: ", diff);
 
-  if (diff > 900000) {
-    // 15 mins
-    console.log("Catch Up is required!");
-    return true;
-  }
-  console.log("There is no need to catch up the progress of your account");
-  return false;
+//   if (diff > 900000) {
+//     // 15 mins
+//     console.log("Catch Up is required!");
+//     return true;
+//   }
+//   console.log("There is no need to catch up the progress of your account");
+//   return false;
+// }
+
+function convertTimestamp(timestamp: number) {
+  const seconds = Math.floor(timestamp);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  return {
+    days: days,
+    hours: hours % 24,
+    minutes: minutes % 60,
+    seconds: seconds % 60,
+  };
 }
 
 export {
@@ -422,5 +437,6 @@ export {
   calcTimeUnits,
   convertToMySQLDatetime,
   mysqlDatetimeToUnixTimestamp,
-  needCatchUp,
+  convertTimestamp,
+  // needCatchUp,
 };

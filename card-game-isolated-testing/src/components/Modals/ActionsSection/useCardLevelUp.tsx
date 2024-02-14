@@ -11,6 +11,10 @@ import SPCard from "../../../classes/spClass_V2";
 import { hasEnoughResources, subtractResources } from "../../../utils/game";
 import { useToastConfetti, useToastError } from "../../../hooks/notifications";
 import { useGameVarsStore } from "../../../stores/gameVars";
+import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
+import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
+import { update_LVL_REG_RelatedGameVars } from "../../../stores/utils/cardLevelUp/update_LVL_REG_RelatedGameVars";
+import { update_LVL_BuildingRelatedGameVars } from "../../../stores/utils/cardLevelUp/update_LVL_BuildingRelatedGameVars";
 
 interface levelUpCardArgs {
   card: BuildingCard | RegCard | undefined;
@@ -27,6 +31,7 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
 
   const toastConfetti = useToastConfetti();
   const toastError = useToastError();
+  const gameVars = useGameVarsStore((state) => state);
 
   const levelUpCard = async ({
     card,
@@ -37,6 +42,8 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
       (card instanceof BuildingCard || card instanceof RegCard) &&
       card.id !== null
     ) {
+      const oldCard = { output: card.output, maintenance: card.maintenance };
+
       // 🔷 Checking If Player has enough resources
       const alertFlags = hasEnoughResources({
         playerResources: playerResources,
@@ -61,6 +68,8 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
         return;
       }
 
+      card.levelUp(); // 🔷 2. Update Card Internally
+
       // 🔷 If All are good...
       try {
         const success_card = await updateCardData({
@@ -71,8 +80,6 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
           throw new Error(
             "⛔ ActionsSection: levelUp: Card was not updated in DB! Probably it does not exists"
           );
-
-        card.levelUp(); // 🔷 2. Update Card Internally
 
         setCardLevel(card.level); // 🔷 3. Update Parent State to trigger Re-render
 
@@ -86,7 +93,7 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
 
         console.log("2 - NEW RESOURECES: ", newPlayerResources);
 
-        // 🔷 5. Updates the State of GameVars Store
+        // 🔷 5. Updates the Resources of GameVars Store
         updatePlayerData(newPlayerResources);
 
         // 6. Update MySQL Player Data
@@ -103,6 +110,22 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
           "Leveled Up Card",
           `💪 Awesome! You just leveled Up your ${card.name}!`
         );
+
+        // 🔷 8. Update the Stats of GameVars Store
+        if (isRegCard(card)) {
+          update_LVL_REG_RelatedGameVars(
+            oldCard as Partial<RegCard>,
+            card,
+            gameVars
+          );
+        }
+        if (isBuildingCard(card)) {
+          update_LVL_BuildingRelatedGameVars(
+            oldCard as Partial<BuildingCard>,
+            card,
+            gameVars
+          );
+        }
 
         console.log("⚡+✅ - In Backend: Card Successfully Leveled Up: ", card);
       } catch (error) {
