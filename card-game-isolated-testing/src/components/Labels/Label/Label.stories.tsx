@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Label from "./Label";
+import labels from "../../../assets/imgs_new_convention/labels";
 
 const meta: Meta<typeof Label> = {
   title: "Genera/Labels/Label",
@@ -19,7 +20,8 @@ export const Default: Story = {
     value: "Testing",
     size: "large",
     desc: {
-      text: "This is a test",
+      text: "This is a test desc",
     },
+    labelImages: labels,
   },
 };

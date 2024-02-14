@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction, useCallback, useRef } from "react";
 // import { cardUrlsWithShadow } from "../../../constants/cards/cardImageUrls/withShadow";
 import { BuildingSpot, TownMapEntitiesData } from "../../../types";
 import {
@@ -16,6 +16,8 @@ import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 import { getModalBgImage } from "../../../utils/game/getModalBgImage";
 import { isActiveBuilding } from "../../../types/TypeGuardFns/isActiveBuilding";
 import BuildingOnMap from "./BuildingOnMap";
+import CustomSlider from "../../CustomSlider/CustomSlider";
+import { useGameVarsStore } from "../../../stores/gameVars";
 
 interface Props {
   highlightedImg: number | null;
@@ -33,73 +35,92 @@ const BuildingsOnMap = ({
   mapEntities,
 }: Props) => {
   const pushModal = useModalStore((state) => state.pushModal);
+  const gameVars = useGameVarsStore();
+  const previousDoctors = gameVars.allWorkers.hospitalWorkers;
+  const doctorsRef = useRef<number>(0);
+
   const { images } = UseGlobalContext();
   if (images?.modal_backgrounds === undefined)
     throw new Error("⛔ BuildingsOnMap: images are undefined!");
 
-  const handleOpenStandardModal = useCallback(
-    (selectedCard: BuildingCard) => {
-      const modalsProps = {
-        label: rarityToString(selectedCard.rarity),
-        bgImage: images?.modal_backgrounds[getModalBgImage(selectedCard.name)],
-        level: selectedCard.level,
-        card: selectedCard,
-      };
+  const handleOpenStandardModal = useCallback((selectedCard: BuildingCard) => {
+    const modalsProps = {
+      label: rarityToString(selectedCard.rarity),
+      bgImage: images?.modal_backgrounds[getModalBgImage(selectedCard.name)],
+      level: selectedCard.level,
+      card: selectedCard,
+    };
 
-      if (isActiveBuilding(selectedCard.name)) {
-        if (selectedCard.name === "ToolStore") {
-          pushModal(
-            <StandardModal
-              {...modalsProps}
-              contentType="toolStore"
-              contentScreens={[
-                <div style={{ fontSize: 42, color: "white" }}>
-                  toolStore Main Screen #1
-                </div>,
-                <div style={{ fontSize: 42, color: "white" }}>
-                  toolStore Mangement Screen #2
-                </div>,
-                <div style={{ fontSize: 42, color: "white" }}>
-                  toolStore Level Up Screen #3
-                </div>,
-              ]}
-            />
-          );
-        } else if (selectedCard.name === "Hospital") {
-          pushModal(
-            <StandardModal
-              {...modalsProps}
-              contentType="hospital"
-              contentScreens={[
-                <div style={{ fontSize: 42, color: "white" }}>
-                  Hospital Main Screen #1
-                </div>,
-                <div style={{ fontSize: 42, color: "white" }}>
-                  Hospital Management Screen #2
-                </div>,
-                <div style={{ fontSize: 42, color: "white" }}>
-                  Hospital Level Up Screen #3
-                </div>,
-              ]}
-            />
-          );
-        }
-      } else {
+    if (isActiveBuilding(selectedCard.name)) {
+      if (selectedCard.name === "ToolStore") {
         pushModal(
           <StandardModal
             {...modalsProps}
-            contentType="building-passive"
+            contentType="toolStore"
             contentScreens={[
               <div style={{ fontSize: 42, color: "white" }}>
-                PassiveB Screen #1
+                toolStore Main Screen #1
+              </div>,
+              <div style={{ fontSize: 42, color: "white" }}>
+                toolStore Mangement Screen #2
+              </div>,
+              <div style={{ fontSize: 42, color: "white" }}>
+                toolStore Level Up Screen #3
               </div>,
             ]}
           />
         );
+      } else if (selectedCard.name === "Hospital") {
+        pushModal(
+          <StandardModal
+            {...modalsProps}
+            contentType="hospital"
+            contentScreens={[
+              <div style={{ fontSize: 42, color: "white" }}>
+                <h2>Hospital Main Screen #1</h2>
+              </div>,
+              <div style={{ fontSize: 42, color: "white" }}>
+                Hospital Management Screen #2
+                <CustomSlider
+                  key={doctorsRef.current}
+                  max={100}
+                  changeInitValue={() => doctorsRef.current}
+                  onChange={(newValue) => {
+                    doctorsRef.current = newValue;
+                    console.log("doctorsRef.current: ", doctorsRef.current);
+                  }}
+                />
+              </div>,
+              <div style={{ fontSize: 42, color: "white" }}>
+                Hospital Level Up Screen #3
+              </div>,
+            ]}
+            onClose={() => {
+              if (previousDoctors === doctorsRef.current) return;
+              gameVars.setAllWorkers({
+                ...gameVars.allWorkers,
+                hospitalWorkers: doctorsRef.current,
+              });
+              console.log("🐱‍🏍 Hopsital: Updated Doctors");
+            }}
+          />
+        );
       }
-    },
-    [images?.modal_backgrounds, pushModal]
-  );
+    } else {
+      pushModal(
+        <StandardModal
+          {...modalsProps}
+          contentType="building-passive"
+          contentScreens={[
+            <div style={{ fontSize: 42, color: "white" }}>
+              PassiveB Screen #1
+            </div>,
+          ]}
+        />
+      );
+    }
+  }, []);
+
   return (
     <div>
       {Object.entries(mapEntities).map(([spot, card]) =>

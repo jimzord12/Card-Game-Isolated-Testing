@@ -76,8 +76,8 @@ const Game = () => {
       console.log("UseEffect: GameWorker.onmessage: ", event.data);
 
       if (wasSuccess) {
-        energyChecker();
-        maintenanceSubtracker();
+        energyChecker(); 
+        maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
         // Update your game state or Zustand store here based on `newState`
         console.log("🎮 [Game.tsx] New - State: ", newState);
         console.log(" ---------------------------------------");

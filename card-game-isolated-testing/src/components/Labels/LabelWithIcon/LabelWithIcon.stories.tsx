@@ -26,6 +26,16 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: "small",
+    labelImages: labels,
+    labelType: "golden",
+    image: workers.resourceWorkers.crystals,
+    value: 200,
+    valueType: {
+      type: "/h",
+    },
+    desc: {
+      text: "Crystal Workers",
+    },
   },
 };
 

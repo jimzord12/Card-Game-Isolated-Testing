@@ -18,6 +18,7 @@ type Props = {
   level: Level | CardLevel;
   contentType: ActionsSectionType;
   card?: RegCard | BuildingCard;
+  onClose?: () => void;
 };
 
 /**
@@ -36,6 +37,7 @@ const StandardModal = ({
   bgImage,
   card,
   level,
+  onClose,
 }: Props) => {
   const popModal = useModalStore((state) => state.popModal);
   // const modalBg = useModalStore((state) => state.modalData.modalBg);
@@ -45,6 +47,7 @@ const StandardModal = ({
 
   const handleClose = () => {
     setIsClosing(true);
+    onClose && onClose();
     setTimeout(() => {
       popModal();
     }, 700); // Set timeout to match animation duration

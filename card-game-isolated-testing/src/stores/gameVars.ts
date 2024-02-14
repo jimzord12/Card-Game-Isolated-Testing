@@ -232,7 +232,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
       };
     }),
 
-  setAllWorkers: (workers: Workers) =>
+  setAllWorkers: (workers: Partial<Workers>) =>
     set((state) => ({
       // ...state,
       allWorkers: { ...state.allWorkers, ...workers },
