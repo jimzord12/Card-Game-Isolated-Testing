@@ -13,10 +13,19 @@ export const updateBuildingRelatedGameVars = (
   // ✨ AmusementPark
   if (card.name === nameToTemplateDataBuilding.AmusementPark.name) {
     const currentEnergyConsumed = gameVars.energyConsumed;
-    const currentHappinessFromBuildings = gameVars.popGrowthRate;
+    const currentHappinessFromBuildings = gameVars.happinessFromBuildings;
+    const currentPopGrowthRate = gameVars.popGrowthRate;
 
-    gameVars.setHappinessFromBuildings(currentHappinessFromBuildings + output.boost);
+    gameVars.setHappinessFromBuildings(
+      currentHappinessFromBuildings + output.boost
+    );
+    gameVars.setPopGrowthRate(currentPopGrowthRate + output.boost);
     gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
+
+    console.log(
+      "Activating AmusementPark | HFB: ",
+      currentHappinessFromBuildings + output.boost
+    );
     return;
   }
 
@@ -54,5 +63,11 @@ export const updateBuildingRelatedGameVars = (
     return;
   }
 
-  // ✨ Hospital simply increase Happiness based on: hospital's workers * hospital output
+  // ✨ Hospital
+  if (card.name === nameToTemplateDataBuilding.Hospital.name) {
+    const currentEnergyConsumed = gameVars.energyConsumed;
+
+    gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
+    return;
+  }
 };

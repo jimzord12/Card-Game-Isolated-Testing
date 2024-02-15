@@ -11,6 +11,7 @@ import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
 import { useModalStore } from "../../../stores/modalStore";
 import RegCard from "../../../classes/regClass_V2";
 import { rarityConverter } from "../../Modals/InGameModals/Parts/CardGrid/utils";
+import { useGameVarsStore } from "../../../stores/gameVars";
 
 interface Props {
   highlightedImg: number | null;
@@ -30,6 +31,7 @@ const RegsOnMap = ({
   // const pushModal = useModalStore((state) => state.pushModal);
   const { images } = UseGlobalContext();
   const pushModal = useModalStore((state) => state.pushModal);
+  const gameVars = useGameVarsStore((state) => state);
 
   if (images === undefined)
     throw new Error("⛔ TownHallOnMap, images is undefined!");
@@ -83,6 +85,9 @@ const RegsOnMap = ({
             onClick={() => {
               setSelectedMapEntity(card.id);
               handleOpenStandardModal(card);
+              console.log("Energy Prod: ", gameVars.energyProduced);
+              console.log("Energy Cons: ", gameVars.energyConsumed);
+              console.log("Energy Rem: ", gameVars.energyRemaining);
             }}
           >
             <GlowImage

@@ -17,7 +17,9 @@ import { getModalBgImage } from "../../../utils/game/getModalBgImage";
 import { isActiveBuilding } from "../../../types/TypeGuardFns/isActiveBuilding";
 import BuildingOnMap from "./BuildingOnMap";
 // import { useGameVarsStore } from "../../../stores/gameVars";
-import HospitalLayoutManage from "./Layouts/HospitalLayoutManage";
+import HospitalLayoutManage from "./ModalLayouts/HopsitalLayouts/HospitalLayoutManage";
+import AmusementParkMain from "./ModalLayouts/AmusementParkLayouts/AmusementParkMain";
+import AmusementParkLvlUp from "./ModalLayouts/AmusementParkLayouts/AmusementParkLvlUp";
 
 interface Props {
   highlightedImg: number | null;
@@ -79,39 +81,44 @@ const BuildingsOnMap = ({
                 <h2>Hospital Main Screen #1</h2>
               </div>,
               <HospitalLayoutManage
-              // changeInitValue={() => currentDoctors}
+                card={selectedCard}
+                // changeInitValue={() => currentDoctors}
               />,
               <div style={{ fontSize: 42, color: "white" }}>
                 Hospital Level Up Screen #3
               </div>,
             ]}
-            // onClose={() => {
-            //   console.log("Hopsital Modal: Closing...");
-            //   console.log("Hopsital Modal: currentDoctors: ", currentDoctors);
-            //   console.log("Hopsital Modal: previousDoctors: ", previousDoctors);
-
-            //   if (previousDoctors === currentDoctors) return;
-            //   gameVars.setAllWorkers({
-            //     ...gameVars.allWorkers,
-            //     hospitalWorkers: currentDoctors,
-            //   });
-            //   console.log("🐱‍🏍 Hopsital: Updated Doctors");
-            // }}
+            onClose={() => {
+              console.log("🐱‍🏍 Leaving Hopsital...");
+            }}
           />
         );
       }
     } else {
-      pushModal(
-        <StandardModal
-          {...modalsProps}
-          contentType="building-passive"
-          contentScreens={[
-            <div style={{ fontSize: 42, color: "white" }}>
-              PassiveB Screen #1
-            </div>,
-          ]}
-        />
-      );
+      if (selectedCard.name === "AmusementPark") {
+        pushModal(
+          <StandardModal
+            {...modalsProps}
+            contentType="building-passive"
+            contentScreens={[
+              <AmusementParkMain card={selectedCard} />,
+              <AmusementParkLvlUp card={selectedCard} />,
+            ]}
+          />
+        );
+      } else if (selectedCard.name === "RadioStation") {
+        pushModal(
+          <StandardModal
+            {...modalsProps}
+            contentType="building-passive"
+            contentScreens={[
+              <div style={{ fontSize: 42, color: "white" }}>
+                PassiveB Screen #1
+              </div>,
+            ]}
+          />
+        );
+      }
     }
   }, []);
 

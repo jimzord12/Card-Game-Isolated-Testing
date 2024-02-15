@@ -2,22 +2,28 @@ import { ToolStoreType } from "../../../types";
 import { Multipliers } from "../../../types/GameLoopTypes/GameLoopTypes";
 import { calcMulti } from "./calcMulti";
 
-export const multipliersInit = (toolStoreCards: ToolStoreType[]) => {
-  const multipliers: Multipliers = {
-    concreteMultiplier: 1,
-    metalsMultiplier: 1,
-    crystalsMultiplier: 1,
-    goldMultiplier: 1,
-  };
+export const multipliersInit = (
+  startingMultipliers: Multipliers,
+  toolStoreCards: ToolStoreType[]
+) => {
+  if (toolStoreCards.length === 0) return startingMultipliers;
+  // const multipliers: Multipliers = {
+  //   concreteMultiplier: 1,
+  //   metalsMultiplier: 1,
+  //   crystalsMultiplier: 1,
+  //   goldMultiplier: 1,
+  // };
+  console.log("🔷 Multipliers Init: ", startingMultipliers);
 
   toolStoreCards.forEach((card) => {
     const singleCardMultipliers = calcMulti(card);
+    console.log("🔷 2- Multipliers Init: ", card);
 
-    multipliers.concreteMultiplier += singleCardMultipliers.concrete;
-    multipliers.metalsMultiplier += singleCardMultipliers.metals;
-    multipliers.crystalsMultiplier += singleCardMultipliers.crystals;
-    multipliers.goldMultiplier += singleCardMultipliers.gold;
+    startingMultipliers.concreteMultiplier += singleCardMultipliers.concrete;
+    startingMultipliers.metalsMultiplier += singleCardMultipliers.metals;
+    startingMultipliers.crystalsMultiplier += singleCardMultipliers.crystals;
+    startingMultipliers.goldMultiplier += singleCardMultipliers.gold;
   });
 
-  return multipliers;
+  return startingMultipliers;
 };

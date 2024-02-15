@@ -88,9 +88,19 @@ const processGameLoopWorker = (
   let wasSuccess = false;
   let newPopulation = maxAllowedPopulation;
   let newPopGrowthRate = 0;
+  console.log("🚀✨ - currentPopulation: ", currentPopulation);
+  console.log("🚀✨ - currentPopGrowthRate: ", currentPopGrowthRate);
+  console.log("🚀✨ - maxAllowedPopulation: ", maxAllowedPopulation);
+  console.log(
+    "🚀✨ - happinessProvidedByBuildings: ",
+    happinessProvidedByBuildings
+  );
+  console.log("🚀✨ - allWorkers: ", allWorkers);
+  console.log("🚀✨ - multipliers: ", multipliers);
+
   // 🔷 1. Population (🧪 Requires Testing)
   if (currentPopulation < maxAllowedPopulation) {
-    console.log("dddddddddddddddddddddddddssssssss");
+    console.log("🚀✨ - New TotalPop + PopG is being Calced... ");
     newPopulation = roundToDecimal(
       calcUpdatedGathValue(
         currentPopulation,

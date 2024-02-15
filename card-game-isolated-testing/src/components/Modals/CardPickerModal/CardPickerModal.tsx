@@ -108,7 +108,8 @@ const CardPickerModal = ({ type, spot }: Props) => {
       if (energyRemaining - card.maintenance.energy < 0) {
         toastError.showError(
           "Insufficient Energy",
-          `You need more ⚡ Energy to activate the (${card.name}) Card!`
+          `You need more ⚡ Energy to activate the (${card.name}) Card!`,
+          `Required: ${card.maintenance.energy} | Remaining: ${energyRemaining}`
         );
         return false;
       }

@@ -1,5 +1,12 @@
+import {
+  townhallAvailSpacePerLevel,
+  townhallHousingLimitPerLevel,
+} from "../../../../../../../constants/game/defaultBuildingsConfig";
 import { UseGlobalContext } from "../../../../../../../context/GlobalContext/GlobalContext";
+import { calcIncome } from "../../../../../../../hooks/game/gameLoop/utils";
+import { useAllCardsStore } from "../../../../../../../stores/allCards";
 import { useGameVarsStore } from "../../../../../../../stores/gameVars";
+import { round2Decimal } from "../../../../../../../utils/game/roundToDecimal";
 import CircularGoldenLabel from "../../../../../../GameAssets/Labels/CircularGoldenLabel/CircularGoldenLabel";
 import StandardLabel from "../../../../../../GameAssets/Labels/StandardLabel/StandardLabel";
 import styles from "./citizensSectionStyles.module.css";
@@ -7,8 +14,25 @@ import styles from "./citizensSectionStyles.module.css";
 const CitizensSection = () => {
   const { images } = UseGlobalContext();
 
-  const happiness = useGameVarsStore((state) => state.popGrowthRate);
+  const popGrowthRate = useGameVarsStore((state) => state.popGrowthRate);
   const totalPop = useGameVarsStore((state) => state.player?.population);
+  const playerGold = useGameVarsStore((state) => state.player?.gold);
+  const goldMultiplier = useGameVarsStore(
+    (state) => state.multipliers.goldMultiplier
+  );
+  const privateSector = useGameVarsStore(
+    (state) => state.allWorkers.privateSector
+  );
+  const income = calcIncome(privateSector, goldMultiplier);
+  const expenses = useGameVarsStore((state) => state.expences);
+  // const expenses = maintenanceSubtracker();
+
+  const allActiveRegCards = useAllCardsStore((state) => state.activeRegCards);
+  const allActiveBuildingCards = useAllCardsStore(
+    (state) => state.activeBuildingCards
+  );
+
+  const townHallLevel = useGameVarsStore((state) => state.townhallLevel);
 
   if (images === undefined)
     throw new Error("⛔ CitizensSection, images is undefined!");
@@ -17,22 +41,27 @@ const CitizensSection = () => {
     throw new Error("⛔ CitizensSection, totalPop is undefined or null!");
 
   return (
+    // IMPORTANT: StandardLabel and other Labels from GameAssets are NOT the official ones.
+    // They were created for the first presensation of the game's new Graphics.
+    // But, as they work fine, they will NOT be replaced by the official ones (in /components/Labels).
     <>
       {/* >>> TOWN-SPACE SECTION <<< */}
       <section className={styles.spaceSection}>
         <StandardLabel
           gameIcon={images?.gameIcons.citizensSpaceGameIcon}
-          valueToDisplay={"45/60"}
+          valueToDisplay={`${Math.trunc(totalPop)}/${
+            townhallHousingLimitPerLevel[townHallLevel]
+          }`}
           alt="CitizensSpace"
         />
         <StandardLabel
           gameIcon={images?.gameIcons.regSpaceGameIcon}
-          valueToDisplay={"1/3"}
+          valueToDisplay={`${allActiveRegCards.length}/${townhallAvailSpacePerLevel[townHallLevel].regs}`}
           alt="REGsSpace"
         />
         <StandardLabel
           gameIcon={images?.gameIcons.buildingsSpaceGameIcon}
-          valueToDisplay={"2/4"}
+          valueToDisplay={`${allActiveBuildingCards.length}/${townhallAvailSpacePerLevel[townHallLevel].buildings}`}
           alt="BuildingsSpace"
         />
       </section>
@@ -41,17 +70,17 @@ const CitizensSection = () => {
       <section className={styles.economySection}>
         <StandardLabel
           gameIcon={images?.gameIcons.totalGoldGameIcon}
-          valueToDisplay={"52.345"}
+          valueToDisplay={`${playerGold}`}
           alt="CitizensSpace"
         />
         <StandardLabel
           gameIcon={images?.gameIcons.incomeGameIcon}
-          valueToDisplay={"230 /h"}
+          valueToDisplay={`${income} /h`}
           alt="REGsSpace"
         />
         <StandardLabel
           gameIcon={images?.gameIcons.expensesGameIcon}
-          valueToDisplay={"142.8 /h"}
+          valueToDisplay={`${expenses} /h`}
           alt="BuildingsSpace"
         />
       </section>
@@ -60,15 +89,14 @@ const CitizensSection = () => {
       <section className={styles.citizenStatsSection}>
         <div className={styles.citizenHappiness}>
           <CircularGoldenLabel
-            totalPop={totalPop}
-            happinessValue={happiness}
+            popGrowthRate={popGrowthRate}
             alt="CitizensSpace"
           />
         </div>
         <div className={styles.citizenGrowth}>
           <StandardLabel
             gameIcon={images?.gameIcons.growthGameIcon}
-            valueToDisplay={"1.13 /h"}
+            valueToDisplay={`${round2Decimal(popGrowthRate)} /h`}
             alt="REGsSpace"
           />
         </div>

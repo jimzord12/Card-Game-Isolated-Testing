@@ -261,6 +261,8 @@ const useGameLoop = () => {
       "popGrowthRate"
     );
 
+    console.log("Get Game State: PopG: ", currentPopGrowthRate);
+
     const currentGold = isNotNullOrUndefined<number>(
       gameVars.player?.gold,
       "gold"
@@ -288,7 +290,7 @@ const useGameLoop = () => {
     );
 
     const townhallLevel = isNotNullOrUndefined<number>(
-      gameVars.player?.townhall_lvl,
+      gameVars.townhallLevel,
       "townhallLevel"
     );
 

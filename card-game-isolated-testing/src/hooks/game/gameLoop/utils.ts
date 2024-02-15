@@ -33,6 +33,12 @@ function calcLivingStandards(
 }
 
 function calcIncome(_availWorkers: number, multiplier: number) {
+  console.log(
+    "calcIncome: ",
+    _availWorkers,
+    multiplier,
+    _availWorkers * multiplier
+  );
   return _availWorkers * multiplier;
 }
 

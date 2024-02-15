@@ -13,11 +13,13 @@ export const update_B_GameVars_Removal = (
   // ✨ AmusementPark
   if (card.name === nameToTemplateDataBuilding.AmusementPark.name) {
     const currentEnergyConsumed = gameVars.energyConsumed;
-    const currentHappinessFromBuildings = gameVars.popGrowthRate;
+    const currentHappinessFromBuildings = gameVars.happinessFromBuildings;
+    const currentPopGrowthRate = gameVars.popGrowthRate;
 
     gameVars.setHappinessFromBuildings(
       currentHappinessFromBuildings - output.boost
     );
+    gameVars.setPopGrowthRate(currentPopGrowthRate - output.boost);
     gameVars.setEnergyConsumed(currentEnergyConsumed - maintenance.energy);
     return;
   }
@@ -33,12 +35,14 @@ export const update_B_GameVars_Removal = (
 
   // ✨ ToolStore
   if (card.name === nameToTemplateDataBuilding.ToolStore.name) {
+    const currentEnergyConsumed = gameVars.energyConsumed;
     if (!isToolStore(card))
       throw new Error("⛔ updateBuildingRelatedGameVars: Not a ToolStore card");
 
     const currentMultipliers = gameVars.multipliers;
     const CardMultipliers = calcMulti(card);
 
+    gameVars.setEnergyConsumed(currentEnergyConsumed - maintenance.energy);
     gameVars.setMultipliers({
       ...gameVars.multipliers,
       goldMultiplier: currentMultipliers.goldMultiplier - CardMultipliers.gold,
@@ -52,5 +56,29 @@ export const update_B_GameVars_Removal = (
     return;
   }
 
-  // ✨ For Hopsital and ToolStore, check the
+  // ✨ Hospital
+  if (card.name === nameToTemplateDataBuilding.Hospital.name) {
+    const currentEnergyConsumed = gameVars.energyConsumed;
+    const currentHappinessFromBuildings = gameVars.happinessFromBuildings;
+    const currentPopGrowthRate = gameVars.popGrowthRate;
+
+    // if (card.doctors === undefined)
+    //   throw new Error(
+    //     "⛔ update_B_GameVars_Removal: Hospital: doctors undefined"
+    //   );
+
+    const outputEffect = (card.doctors ?? 0) * output.boost;
+
+    gameVars.setHappinessFromBuildings(
+      currentHappinessFromBuildings - outputEffect
+    );
+    gameVars.setPopGrowthRate(currentPopGrowthRate - outputEffect);
+    gameVars.setEnergyConsumed(currentEnergyConsumed - maintenance.energy);
+    gameVars.setAllWorkers({
+      ...gameVars.allWorkers,
+      hospitalWorkers:
+        gameVars.allWorkers.hospitalWorkers - (card.doctors ?? 0),
+    });
+    return;
+  }
 };

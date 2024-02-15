@@ -25,7 +25,7 @@ const useValuesChecker = () => {
     // If there are not any REG Cards don't waste processing power
     if (regCards.length === 0) {
       gameVars.setExpences(0);
-      return true;
+      return { expense: 0, success: true };
     }
 
     const playerGold = isNotNullOrUndefined<number>(
@@ -53,7 +53,7 @@ const useValuesChecker = () => {
         "Low on Gold",
         "😱 Your current Gold is not enough to pay for the maintenance of your Generators! Therefore, your Generators will be deactivated."
       );
-      return false;
+      return { expense: 0, success: false };
     } else {
       console.log("======== REG Expenses ========");
       console.log("🏭💸 Total Costs (/hour): ", newExpenses);
@@ -67,13 +67,21 @@ const useValuesChecker = () => {
         gameConfig.gamePace,
         gameVars.needsCatchUp
       );
+      console.log("Prev - Player gold: ", playerGold);
+
       //@Important: This Line subtracts gold from the resources
       gameVars.updatePlayerData({
         gold: playerGold - newExpense_GameLoopTickAmount,
       });
 
+      console.log(
+        "New - Player gold: ",
+        playerGold - newExpense_GameLoopTickAmount
+      );
+      gameVars.setExpences(newExpenses);
+
       console.log("======== ======== ========");
-      return true;
+      return { expense: newExpense_GameLoopTickAmount, success: true };
     }
   }
 

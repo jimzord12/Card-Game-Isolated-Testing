@@ -20,8 +20,9 @@ interface LabelWithIconProps {
   labelImages: labelImages | LabelsImageGroup;
   labelType: "golden" | "green" | "rusty" | "special" | "simple";
   valueType?: {
-    type: "/h" | "%" | "maxLimit";
+    type?: "/h" | "%" | "maxLimit";
     limit?: number;
+    color?: "white" | "black";
   };
   desc?: {
     text: string;

@@ -79,16 +79,26 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
   // ✨ Also update the GameVars based on the output of the activated cards
   addAllActiveCards(cards) {
     set((state) => {
+      const newBuildingCards: BuildingCard[] = [];
+
+      const newRegCards: RegCard[] = [];
       cards.forEach((card) => {
         if (card instanceof BuildingCard) {
           updateBuildingRelatedGameVars(card, useGameVarsStore.getState());
+          newBuildingCards.push(card);
         } else if (card instanceof RegCard) {
           updateREG_RelatedGameVars(card, useGameVarsStore.getState());
+          newRegCards.push(card);
         }
       });
       return {
         ...state,
         activeCards: [...state.activeCards, ...cards],
+        activeBuildingCards: [
+          ...state.activeBuildingCards,
+          ...newBuildingCards,
+        ],
+        activeRegCards: [...state.activeRegCards, ...newRegCards],
       };
     });
   },

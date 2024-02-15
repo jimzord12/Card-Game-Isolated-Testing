@@ -23,6 +23,7 @@ import {
   OneToFive,
 } from "../types";
 import { formatDate, roundToDecimal } from "../utils";
+import { formatDateString } from "../utils/dateRelated/dateRelated";
 
 interface NewBuildingCardArgs {
   ownerId: number;
@@ -155,6 +156,10 @@ export default class BuildingCard {
     );
 
     return this.level;
+  }
+
+  public getCreationTime(): string {
+    return formatDateString(this.creationTime);
   }
 
   public activate(spot: BuildingSpot): void {

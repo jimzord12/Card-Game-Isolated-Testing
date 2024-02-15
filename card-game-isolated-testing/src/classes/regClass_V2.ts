@@ -19,6 +19,7 @@ import {
   RegTemplateId,
 } from "../types";
 import { formatDate, roundToDecimal } from "../utils";
+import { formatDateString } from "../utils/dateRelated/dateRelated";
 
 interface NewRegCardArgs {
   ownerId: number;
@@ -138,6 +139,10 @@ export default class RegCard {
     );
 
     return this.level;
+  }
+
+  public getCreationTime(): string {
+    return formatDateString(this.creationTime);
   }
 
   public activate(spot: RegSpot): void {

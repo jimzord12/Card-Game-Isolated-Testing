@@ -43,6 +43,29 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
   },
 };
 
+export const townhallAvailSpacePerLevel = {
+  1: {
+    buildings: 2,
+    regs: 0,
+  },
+  2: {
+    buildings: 4,
+    regs: 1,
+  },
+  3: {
+    buildings: 5,
+    regs: 3,
+  },
+  4: {
+    buildings: 6,
+    regs: 4,
+  },
+  5: {
+    buildings: 7,
+    regs: 6,
+  },
+};
+
 export const townhallHousingLimitPerLevel = {
   1: 60,
   2: 120,

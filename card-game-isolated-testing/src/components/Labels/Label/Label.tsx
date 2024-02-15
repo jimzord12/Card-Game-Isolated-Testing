@@ -1,4 +1,6 @@
 import { LabelsImageGroup } from "../../../types";
+import { isNumber } from "../../../types/TypeGuardFns/isNumber";
+import { round2Decimal } from "../../../utils/game/roundToDecimal";
 import LabelValue from "./Parts/LabelValue/LabelValue";
 import SimpleLabel from "./Parts/SimpleLabel/SimpleLabel";
 import { styles } from "./labelConstants";
@@ -22,8 +24,9 @@ interface LabelProps {
   value: number | string;
   labelImages: labelImages | LabelsImageGroup;
   valueType?: {
-    type: "/h" | "%" | "maxLimit";
+    type?: "/h" | "%" | "maxLimit";
     limit?: number;
+    color?: "white" | "black";
   };
   size?: "extraSmall" | "small" | "medium" | "large";
   desc?: {
@@ -70,14 +73,23 @@ const Label = ({
 
   const textStyles =
     type === "rusty" ? styles.textStyles.contrast : styles.textStyles.standard;
+
+  const finalValue = isNumber(value) ? round2Decimal(value) : value;
+
   return (
     <div>
       {type === "simple" ? (
         <div className={`relative flex flex-col w-fit`}>
-          <SimpleLabel value={value} size={size} />
+          <SimpleLabel
+            value={finalValue}
+            size={size}
+            color={valueType?.color ?? "white"}
+          />
           {desc !== undefined && (
             <p
-              className={`text-center mt-2 font-bold ${styles.descSizes[size]}`}
+              className={`${
+                desc.style === "white" ? "text-white" : ""
+              } text-center mt-2 font-bold ${styles.descSizes[size]}`}
             >
               {desc?.text}
             </p>
@@ -93,13 +105,18 @@ const Label = ({
             className="object-contain"
           />
           <LabelValue
-            className={`${styles.containerSizes[type][size]} ${styles.centerize} ${textStyles} ${styles.sizes[size].text}`}
-            value={value}
+            className={`${styles.containerSizes[type][size]} ${
+              styles.centerize
+            } ${textStyles} ${styles.sizes[size].text} ${
+              styles.valueTextColors[valueType?.color ?? "white"]
+            } text-center leading-none`}
+            value={finalValue}
             valueType={
               valueType
                 ? {
                     type: valueType.type,
                     limit: valueType.limit,
+                    color: valueType.color ?? "white",
                   }
                 : undefined
             }

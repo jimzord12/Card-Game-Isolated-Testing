@@ -56,6 +56,7 @@ export type GameVarsState = {
 
   // Workers
   setAllWorkers: (workers: Workers) => void;
+  setHospitalWorkers: (hospitalWorkers: number, isHospital: boolean) => void;
 
   // Multipliers
   setMultipliers: (multipliers: Multipliers) => void;
@@ -102,9 +103,9 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
 
   // Multipliers
   multipliers: {
-    goldMultiplier: 1,
-    concreteMultiplier: 1,
-    metalsMultiplier: 1,
+    goldMultiplier: 2,
+    concreteMultiplier: 1.5,
+    metalsMultiplier: 1.25,
     crystalsMultiplier: 1,
   },
 
@@ -146,15 +147,22 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
 
   // Energy
   setEnergyProduced: (energyProduced: number) =>
-    set((state) => ({
-      energyProduced: energyProduced,
-      energyRemaining: state.energyProduced - state.energyConsumed,
-    })),
+    set((state) => {
+      state.setEnergyRemaining(energyProduced - state.energyConsumed);
+      return {
+        energyProduced: energyProduced,
+        // energyRemaining: state.energyProduced - state.energyConsumed,
+      };
+    }),
   setEnergyConsumed: (energyConsumed: number) =>
-    set((state) => ({
-      energyConsumed: energyConsumed,
-      energyRemaining: state.energyProduced - state.energyConsumed,
-    })),
+    set((state) => {
+      state.setEnergyRemaining(state.energyProduced - energyConsumed);
+
+      return {
+        energyConsumed: energyConsumed,
+        // energyRemaining: state.energyProduced - state.energyConsumed,
+      };
+    }),
   setEnergyRemaining: (energy: number) => set({ energyRemaining: energy }),
 
   // Effects
@@ -237,5 +245,36 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
       // ...state,
       allWorkers: { ...state.allWorkers, ...workers },
     })),
+
+  setHospitalWorkers: (hospitalWorkers: number, isHospital: boolean) =>
+    set((state) => {
+      if (!isHospital)
+        return {
+          allWorkers: { ...state.allWorkers },
+        };
+
+      // const prevBoost =
+      //   state.allWorkers.hospitalWorkers *
+      //   hospitalConstants.doctorsBoostToGrowthRate;
+      // const newBoost =
+      //   hospitalWorkers * hospitalConstants.doctorsBoostToGrowthRate;
+      // const diff = newBoost - prevBoost;
+      // console.log("🐱‍👤 Hopsital: diff: ", diff);
+      // console.log("🐱‍👤 Hopsital: prevBoost: ", prevBoost);
+      // console.log("🐱‍👤 Hopsital: newBoost: ", newBoost);
+
+      // state.setHappinessFromBuildings(
+      //   state.happinessFromBuildings +
+      //     hospitalWorkers * hospitalConstants.doctorsBoostToGrowthRate
+      // );
+
+      // state.setPopGrowthRate(
+      //   state.popGrowthRate +
+      //     hospitalWorkers * hospitalConstants.doctorsBoostToGrowthRate
+      // );
+      return {
+        allWorkers: { ...state.allWorkers, hospitalWorkers },
+      };
+    }),
   setMultipliers: (multipliers: Multipliers) => set({ multipliers }),
 }));

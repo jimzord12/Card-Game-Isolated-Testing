@@ -1,12 +1,30 @@
-import CustomSlider from "../../../CustomSlider/CustomSlider";
-import { useGameVarsStore } from "../../../../stores/gameVars";
-import LabelWithIcon from "../../../Labels/LabelWithIcon/LabelWithIcon";
-import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContext";
-import { useState } from "react";
+import CustomSlider from "../../../../CustomSlider/CustomSlider";
+import { useGameVarsStore } from "../../../../../stores/gameVars";
+import LabelWithIcon from "../../../../Labels/LabelWithIcon/LabelWithIcon";
+import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
+import { useRef, useState } from "react";
+import { hospitalConstants } from "../../../../../constants/game/buildingsConfig";
+import BuildingCard from "../../../../../classes/buildingClass_V2";
+import { round4Decimal } from "../../../../../utils/game/roundToDecimal";
 
-const HospitalLayoutManage = () => {
+interface Props {
+  card: BuildingCard;
+}
+
+const HospitalLayoutManage = ({ card }: Props) => {
   const allWorkers = useGameVarsStore((state) => state.allWorkers);
   const setAllWorkers = useGameVarsStore((state) => state.setAllWorkers);
+  const setHospitalWorkers = useGameVarsStore(
+    (state) => state.setHospitalWorkers
+  );
+  const setPopGrowthRate = useGameVarsStore((state) => state.setPopGrowthRate);
+
+  const setHappinessFromBuildings = useGameVarsStore(
+    (state) => state.setHappinessFromBuildings
+  );
+  const happinessFromBuildings = useGameVarsStore(
+    (state) => state.happinessFromBuildings
+  );
   const popGrowthRate = useGameVarsStore((state) => state.popGrowthRate);
 
   const { images } = UseGlobalContext();
@@ -15,35 +33,55 @@ const HospitalLayoutManage = () => {
     throw new Error("⛔ HopsitalLayoutManage.tsx: images are undefined!");
 
   // The conversion rate from citizens to doctors.
-  const citizenToDocsConvertionRate = 4;
-  let localPopGrowthRate = popGrowthRate;
 
   //   const totalWorkers = allWorkers.privateSector + allWorkers.hospitalWorkers;
 
   // The maximum number of doctors based on the available citizens.
-  const maxDoctors = Math.floor(
-    allWorkers.privateSector / citizenToDocsConvertionRate
+  const maxDoctors = useRef(
+    Math.floor(
+      allWorkers.privateSector / hospitalConstants.doctorsToCitizensRatio
+    ) + allWorkers.hospitalWorkers
   );
 
   const [sliderValue, setSliderValue] = useState(allWorkers.hospitalWorkers);
+  const [happinessFromHospital, setHappinessFromHospital] =
+    useState(popGrowthRate);
 
   const handleSliderChange = (newValue: number) => {
     // Calculate the difference in the number of doctors.
     const differenceInDoctors = newValue - sliderValue;
     // Calculate the equivalent number of citizens based on the difference in doctors.
     const differenceInCitizens =
-      differenceInDoctors * citizenToDocsConvertionRate;
+      differenceInDoctors * hospitalConstants.doctorsToCitizensRatio;
+
+    const differenceInHappiness = differenceInDoctors * card.output.boost;
     // Update the state
     setAllWorkers({
       ...allWorkers,
-      hospitalWorkers: newValue,
       privateSector: allWorkers.privateSector - differenceInCitizens,
     });
 
-    localPopGrowthRate += newValue * 0.1;
+    setHospitalWorkers(newValue, true);
+    setHappinessFromHospital(
+      round4Decimal(happinessFromHospital + differenceInHappiness)
+    );
+    setPopGrowthRate(
+      round4Decimal(happinessFromHospital + differenceInHappiness)
+    );
+    setHappinessFromBuildings(
+      round4Decimal(happinessFromBuildings + differenceInHappiness)
+    );
+
+    card.doctors = newValue; // IMPORTANT: For when deactivating the card.
+
     // Update the slider value
     setSliderValue(newValue);
   };
+
+  const maxAvailDoctors = Math.min(
+    maxDoctors.current,
+    hospitalConstants.maxDoctors[card.level]
+  );
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-full ">
@@ -57,9 +95,10 @@ const HospitalLayoutManage = () => {
           labelImages={images.labels}
           labelType="special"
           size="small"
-          value={localPopGrowthRate}
+          value={happinessFromHospital}
           valueType={{
             type: "/h",
+            color: "black",
           }}
           position="top"
           desc={{
@@ -74,6 +113,9 @@ const HospitalLayoutManage = () => {
             labelType="special"
             size="small"
             value={allWorkers.privateSector}
+            valueType={{
+              color: "black",
+            }}
             position="top"
             desc={{
               text: "Available Citizens",
@@ -81,7 +123,7 @@ const HospitalLayoutManage = () => {
             }}
           />
           <CustomSlider
-            max={maxDoctors}
+            max={maxAvailDoctors}
             initValue={allWorkers.hospitalWorkers}
             onChange={handleSliderChange}
           />
@@ -93,7 +135,8 @@ const HospitalLayoutManage = () => {
             value={allWorkers.hospitalWorkers}
             valueType={{
               type: "maxLimit",
-              limit: maxDoctors,
+              limit: maxAvailDoctors,
+              color: "black",
             }}
             position="top"
             desc={{

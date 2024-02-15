@@ -76,13 +76,17 @@ const Game = () => {
       console.log("UseEffect: GameWorker.onmessage: ", event.data);
 
       if (wasSuccess) {
-        energyChecker(); 
-        maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
+        energyChecker();
+        const { expense } = maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
+        const stateAfterExpenses = {
+          ...newState,
+          newGold: newState.newGold - expense,
+        };
         // Update your game state or Zustand store here based on `newState`
-        console.log("🎮 [Game.tsx] New - State: ", newState);
+        console.log("🎮 [Game.tsx] New - State: ", stateAfterExpenses);
         console.log(" ---------------------------------------");
 
-        setNewGameState({ ...newState });
+        setNewGameState({ ...stateAfterExpenses });
         // gameLoopTick.current += 1; // ✨ Uncomment after testing
       } else {
         throw new Error(

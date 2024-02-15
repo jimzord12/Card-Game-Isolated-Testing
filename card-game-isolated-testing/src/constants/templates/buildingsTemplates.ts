@@ -86,7 +86,7 @@ const hopsitalTemplate: TemplateDataBuilding = {
     diesel: 0,
   },
   baseOutput: {
-    boost: 0.25,
+    boost: 0.15,
   },
   desc: "Enchances Growth",
 };

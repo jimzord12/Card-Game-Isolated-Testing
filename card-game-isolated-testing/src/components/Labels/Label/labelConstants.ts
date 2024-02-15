@@ -23,6 +23,11 @@ const textStyles = {
   contrast: "text-[#fab88e] font-bold",
 };
 
+const valueTextColors = {
+  white: "text-white",
+  black: "text-black",
+};
+
 const containerSizes = {
   golden: {
     extraSmall: "w-[90px] h-[34px]",
@@ -64,4 +69,5 @@ export const styles = {
   textStyles,
   containerSizes,
   descSizes,
+  valueTextColors,
 };

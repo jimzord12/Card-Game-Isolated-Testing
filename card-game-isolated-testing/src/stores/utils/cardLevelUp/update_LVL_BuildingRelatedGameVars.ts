@@ -47,10 +47,14 @@ export const update_LVL_BuildingRelatedGameVars = (
   if (card.name === nameToTemplateDataBuilding.ToolStore.name) {
     if (!isToolStore(card))
       throw new Error("⛔ updateBuildingRelatedGameVars: Not a ToolStore card");
+    const currentEnergyConsumed = gameVars.energyConsumed;
 
     const currentMultipliers = gameVars.multipliers;
     const CardMultipliers = calcMulti(card);
 
+    const maintenanceDiff = maintenance.energy - oldMaintenance!.energy;
+
+    gameVars.setEnergyConsumed(currentEnergyConsumed + maintenanceDiff);
     gameVars.setMultipliers({
       ...gameVars.multipliers,
       goldMultiplier: currentMultipliers.goldMultiplier + CardMultipliers.gold,

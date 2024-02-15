@@ -51,10 +51,9 @@ export default function AuthProvider({
       if (playerData.cards !== undefined && playerData.cards !== null) {
         cardsInit(playerData.cards);
       }
-      
+
       // 🔷 2. Initialize the Cards
       playerInit(playerData.player);
-
 
       if (playerData.player.gold === null)
         throw new Error("⛔ - Custom: Player is not initialized (has No Gold)");

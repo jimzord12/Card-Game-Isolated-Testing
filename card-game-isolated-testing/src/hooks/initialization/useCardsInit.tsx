@@ -33,9 +33,11 @@ const useCardsInit = () => {
   } = useAllCardsStore();
 
   // Game Vars Store
-  const { setActiveEffect, setMultipliers } = useGameVarsStore(
-    (state) => state
-  );
+  const {
+    setActiveEffect,
+    setMultipliers,
+    multipliers: startingMultipliers,
+  } = useGameVarsStore((state) => state);
 
   const cardsInit = (cardsFromDB: ICardDB[]) => {
     console.log("🙌 0 - All the Cards from DB: ", cardsFromDB);
@@ -54,11 +56,18 @@ const useCardsInit = () => {
       (card) => isBuildingCard(card) && isToolStore(card)
     ) as ToolStoreType[];
 
+    const activeToolStoreCards = toolStoreCards.filter(
+      (card) => card.state === true
+    );
+
     // Special Effect Init
     const activeEffect = specialEffectInit(spCards); // 🔷 If there is an Active SP Card, creates the Effect.
 
     // Multipliers Init
-    const multipliers = multipliersInit(toolStoreCards); // 🔷 If there are Multipliers, adds them to the Global State
+    const multipliers = multipliersInit(
+      startingMultipliers,
+      activeToolStoreCards
+    ); // 🔷 If there are Multipliers, adds them to the Global State
 
     // Template Cards for Craft Modal
     const templateCards = templateCardsInit(); // 🔷 Initialize the Template Cards (Used in Craft Modal)
