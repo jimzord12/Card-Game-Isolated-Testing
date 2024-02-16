@@ -9,7 +9,6 @@ import { round2Decimal } from "../../../utils/game/roundToDecimal";
 import LabelValue from "./Parts/LabelValue/LabelValue";
 import SimpleLabel from "./Parts/SimpleLabel/SimpleLabel";
 import { styles } from "./labelConstants";
-import { useMediaQuery } from "usehooks-ts";
 
 interface LabelProps {
   type: labelType;
@@ -41,19 +40,11 @@ const Label = ({
   value,
   labelImages,
   valueType,
-  // size = "medium",
+  size = "extraSmall",
   desc,
   isStoryBook = false,
 }: LabelProps) => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
-  const isTablet = useMediaQuery("(min-width: 768px)");
-
-  let finalSize: LabelSize;
   let modifiedLabels: modifiedLabels;
-
-  if (isMobile) finalSize = "extraSmall";
-  else if (isTablet) finalSize = "small";
-  else finalSize = "large";
 
   if (isStoryBook) {
     modifiedLabels = {
@@ -84,14 +75,14 @@ const Label = ({
         >
           <SimpleLabel
             value={finalValue}
-            size={finalSize}
+            size={size}
             color={valueType?.color ?? "white"}
           />
           {desc !== undefined && (
             <p
               className={`${
                 desc.style === "white" ? "text-white" : ""
-              } text-center mt-2 font-bold ${styles.descSizes[finalSize]}`}
+              } text-center mt-2 font-bold ${styles.descSizes[size]}`}
             >
               {desc?.text}
             </p>
@@ -99,7 +90,7 @@ const Label = ({
         </div>
       ) : (
         <div
-          className={`relative flex flex-col ${styles.containerSizes[type][finalSize]}`}
+          className={`relative flex flex-col ${styles.containerSizes[type][size]}`}
         >
           <img
             src={modifiedLabels[type as Exclude<labelType, "simple">]}
@@ -107,9 +98,9 @@ const Label = ({
             className="object-contain"
           />
           <LabelValue
-            className={`${styles.containerSizes[type][finalSize]} ${
+            className={`${styles.containerSizes[type][size]} ${
               styles.centerize
-            } ${textStyles} ${styles.sizes[finalSize].text} ${
+            } ${textStyles} ${styles.sizes[size].text} ${
               styles.valueTextColors[valueType?.color ?? "white"]
             } text-center leading-none`}
             value={finalValue}
@@ -127,7 +118,7 @@ const Label = ({
             <p
               className={`${
                 desc.style === "white" ? "text-white" : ""
-              } text-center mt-2 font-bold ${styles.descSizes[finalSize]}`}
+              } text-center mt-2 font-bold ${styles.descSizes[size]}`}
             >
               {desc?.text}
             </p>

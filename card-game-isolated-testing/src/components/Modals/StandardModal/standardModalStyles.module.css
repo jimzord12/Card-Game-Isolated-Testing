@@ -43,6 +43,7 @@
   height: 90%;
   position: relative;
   z-index: 2;
+  overflow: auto;
 }
 
 .actionButtonsContainer {

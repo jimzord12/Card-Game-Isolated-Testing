@@ -142,34 +142,35 @@ const CardPickerModal = ({ type, spot }: Props) => {
               : images.modal_backgrounds.levelUpBuildingBG
           })`,
           backgroundSize: "cover",
-          // backgroundAttachment: "fixed",
-          // backgroundPosition: "center",
         }}
         className={styles.backgroundImage}
       />
       <div className={styles.backgroundFilter} />
 
       <div className={styles.templateCardsContainer}>
-        {type === "building"
-          ? buildingCards.map((card) => (
-              <CompleteCard
-                card={card}
-                onClick={() => handleActivate(card)}
-                key={`CardPickerModal-${card.name}-${card.id}`}
-              />
-            ))
-          : regCards.map((card) => (
-              <CompleteCard
-                card={card}
-                onClick={() => handleActivate(card)}
-                key={`CardPickerModal-${card.name}-${card.id}`}
-              />
-            ))}
+        {type === "building" && buildingCards.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full">
+            <h1>No Available Cards for Activation.</h1>
+            <p>Try Crafting Card, using the Craft Button</p>
+          </div>
+        ) : type === "reg" && regCards.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full">
+            <h1>No Available Cards for Activation.</h1>
+            <p>Try Crafting Card, using the Craft Button</p>
+          </div>
+        ) : (
+          (type === "building" ? buildingCards : regCards).map((card) => (
+            <CompleteCard
+              card={card}
+              onClick={() => handleActivate(card)}
+              key={`CardPickerModal-${card.name}-${card.id}`}
+            />
+          ))
+        )}
       </div>
 
       <div className={styles.modalElements}>
         <ModalCloseBtn onCloseHandler={handleClose} isClosing={isClosing} />
-        {/* <ModalLevelIndicator isClosing={isClosing} level={townhallLevel} /> */}
         <ModalRarityIndicator isClosing={isClosing} label={"Pick A Card"} />
       </div>
     </div>

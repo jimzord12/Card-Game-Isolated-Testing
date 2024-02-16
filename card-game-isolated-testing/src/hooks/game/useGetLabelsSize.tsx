@@ -2,8 +2,8 @@ import { useMediaQuery } from "usehooks-ts";
 import { LabelSize } from "../../types";
 
 const useGetLabelsSize = (): LabelSize => {
-  const isMobile = useMediaQuery("(max-width: 767px)");
-  const isTablet = useMediaQuery("(min-width: 768px)");
+  const isMobile = useMediaQuery("(max-height: 735px)");
+  const isTablet = useMediaQuery("(min-height: 736px)");
 
   console.log("isMobile: ", isMobile);
   console.log("isTablet: ", isTablet);
@@ -12,7 +12,7 @@ const useGetLabelsSize = (): LabelSize => {
   else if (isTablet) return "small";
   else {
     console.error("⛔ useResponsive.tsx: Problem with useMediaQuery Hook!");
-    return "large";
+    return "small";
   }
 };
 

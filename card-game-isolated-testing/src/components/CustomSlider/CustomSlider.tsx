@@ -5,7 +5,7 @@ import sliderThumbImage from "../../assets/imgs_new_convention/gameIcons/gameIco
 import { sliderSizes } from "./sliderConstants";
 import React from "react";
 
-type Size = "small" | "medium" | "large";
+type Size = "extraSmall" | "small" | "medium" | "large";
 
 interface CustomSliderProps {
   step?: number;

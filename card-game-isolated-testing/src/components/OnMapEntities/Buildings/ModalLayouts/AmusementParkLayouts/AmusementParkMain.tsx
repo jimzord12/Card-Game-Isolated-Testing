@@ -4,13 +4,15 @@ import BuildingCard from "../../../../../classes/buildingClass_V2";
 import Label from "../../../../Labels/Label/Label";
 import { useGameVarsStore } from "../../../../../stores/gameVars";
 import { round2Decimal } from "../../../../../utils/game/roundToDecimal";
-import useGetLabelsSize from "../../../../../hooks/game/useRuseGetLabelsSize";
+import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
 // import { useMediaQuery } from "usehooks-ts";
 
 interface Props {
   card: BuildingCard;
 }
 
+// ✨ This is Version 2, trying to make content responsive through overflow
+// TODO: Create Custom TailwindCSS Breakpoints for mobile and tablet
 const AmusementParkMain = ({ card }: Props) => {
   const { images } = UseGlobalContext();
   const popGrowthRate = useGameVarsStore((state) => state.popGrowthRate);
@@ -26,13 +28,13 @@ const AmusementParkMain = ({ card }: Props) => {
       {/* <h2 className="text-white font-extrabold text-4xl">
         AmusementPark Main Screen
       </h2> */}
-      <div className="flex w-full h-full">
+      <div className="flex flex-col tablet:flex-row w-full h-full gap-4">
         {/* Card's Details Section */}
         <section
           about={`Card-Details-[${card.id}]`}
-          className="flex flex-col justify-center items-center w-full md:p-8"
+          className="flex flex-col justify-center items-center w-full tablet:p-8"
         >
-          <div className="flex flex-col p-2 pb-6 md:p-8 lg:p-16 w-fit bg-emerald-700/[.6] rounded-2xl gap-8 lg:gap-16">
+          <div className="flex flex-col p-2 pb-6 tablet:p-8 lg:p-16 w-fit bg-emerald-700/[.6] rounded-2xl gap-8 lg:gap-16">
             {/* First 2 Labels */}
             <div className="flex">
               <LabelWithIcon
@@ -123,19 +125,19 @@ const AmusementParkMain = ({ card }: Props) => {
         {/* Card's Provided Effects Section */}
         <section
           about={`Card-Output-[${card.id}]`}
-          className="relative flex flex-col justify-center w-full h-full "
+          className="relative flex flex-col justify-center items-center w-full h-full "
         >
           <img
-            className="absolute bg-emerald-700/[.6] rounded-2xl"
+            className="absolute max-w-1/2 max-h-full tablet:w-full tablet:h-full largeScreen:h-fit bg-emerald-700/[.6] rounded-2xl"
             src={images.frames.metalFrame}
             alt="Metal Frame"
           />
-          <div className="flex justify-around items-center p-16 h-2/3 ">
-            <img
-              className="hidden lg:block sm:min-w-1/3 h-1/2 object-contain z-10"
+          <div className="flex justify-around items-center p-16 h-2/3">
+            {/* <img
+              className="hidden tablet:block sm:min-w-1/3 h-1/2 object-contain z-10"
               src={images.cards.amusementParkCard}
               alt="Amusement Park"
-            />
+            /> */}
             <div className="flex flex-col items-center gap-12">
               <Label
                 labelImages={images.labels}

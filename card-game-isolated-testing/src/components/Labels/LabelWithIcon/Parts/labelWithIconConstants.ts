@@ -1,7 +1,7 @@
 // TOP ICON STYLES
 const topIconSize = {
   extraSmall: "w-[53px] h-[60px]",
-  small: "w-[160px] h-[180px]",
+  small: "w-[110px] h-[124px]",
   medium: "w-[240px] h-[290px]",
   large: "w-[430px] h-[490px]",
 };
