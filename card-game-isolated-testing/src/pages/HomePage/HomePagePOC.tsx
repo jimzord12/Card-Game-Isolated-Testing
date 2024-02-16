@@ -30,7 +30,7 @@ const HomePagePOC = () => {
           />
 
           <div className="flex-1 flex justify-center flex-col xl:mt-16 my-16">
-            <div className="flex flex-row w-full">
+            <div className="font-['Acme'] flex flex-row w-full">
               <h1 className="flex flex-col font-rajdhani font-bold text-white sm:text-6xl text-4xl head-text">
                 <>
                   <div className="inline">
@@ -48,9 +48,7 @@ const HomePagePOC = () => {
                 </>
               </h1>
             </div>
-            <p
-              className={`font-rajdhani font-normal text-[24px] text-siteWhite my-10`}
-            >
+            <p className="font-normal text-[24px] text-siteWhite my-10">
               <>
                 This is a Web3 Application. <br />
                 {`Complete the steps below to gain access`} <br />

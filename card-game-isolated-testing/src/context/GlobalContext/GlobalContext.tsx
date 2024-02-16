@@ -51,8 +51,6 @@ const ImageProviderV5: React.FC<ImageProviderProps> = ({
   useEffect(() => {
     if (areImagesReady) return;
 
-    // setLoading(true);
-
     const loadAssets = async () => {
       try {
         const allImages: string[] = await getImagesFromModule();

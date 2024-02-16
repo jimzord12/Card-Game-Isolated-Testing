@@ -145,3 +145,11 @@
     border: 2px solid whitesmoke;
   }
 }
+
+@media screen and (min-height: 560px) {
+  .glowOnHover {
+    width: 180px;
+    height: 55px;
+    font-size: 26px;
+  }
+}

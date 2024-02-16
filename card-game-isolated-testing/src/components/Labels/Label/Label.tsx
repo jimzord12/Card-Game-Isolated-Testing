@@ -1,23 +1,15 @@
-import { LabelsImageGroup } from "../../../types";
+import {
+  LabelSize,
+  LabelsImageGroup,
+  labelImages,
+  labelType,
+} from "../../../types";
 import { isNumber } from "../../../types/TypeGuardFns/isNumber";
 import { round2Decimal } from "../../../utils/game/roundToDecimal";
 import LabelValue from "./Parts/LabelValue/LabelValue";
 import SimpleLabel from "./Parts/SimpleLabel/SimpleLabel";
 import { styles } from "./labelConstants";
-
-type labelType = "golden" | "green" | "rusty" | "special" | "simple";
-
-type labelImages = {
-  // [key in labelType]: string;
-  golden: {
-    standard: string;
-    special: string;
-  };
-  otherLabels: {
-    greenEnergy: string;
-    rusty: string;
-  };
-};
+import { useMediaQuery } from "usehooks-ts";
 
 interface LabelProps {
   type: labelType;
@@ -28,7 +20,7 @@ interface LabelProps {
     limit?: number;
     color?: "white" | "black";
   };
-  size?: "extraSmall" | "small" | "medium" | "large";
+  size?: LabelSize;
   desc?: {
     text: string;
     position?: "top" | "bottom";
@@ -49,11 +41,19 @@ const Label = ({
   value,
   labelImages,
   valueType,
-  size = "medium",
+  // size = "medium",
   desc,
   isStoryBook = false,
 }: LabelProps) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isTablet = useMediaQuery("(min-width: 768px)");
+
+  let finalSize: LabelSize;
   let modifiedLabels: modifiedLabels;
+
+  if (isMobile) finalSize = "extraSmall";
+  else if (isTablet) finalSize = "small";
+  else finalSize = "large";
 
   if (isStoryBook) {
     modifiedLabels = {
@@ -79,17 +79,19 @@ const Label = ({
   return (
     <div>
       {type === "simple" ? (
-        <div className={`relative flex flex-col w-fit`}>
+        <div
+          className={`relative flex flex-col justify-center items-center w-fit`}
+        >
           <SimpleLabel
             value={finalValue}
-            size={size}
+            size={finalSize}
             color={valueType?.color ?? "white"}
           />
           {desc !== undefined && (
             <p
               className={`${
                 desc.style === "white" ? "text-white" : ""
-              } text-center mt-2 font-bold ${styles.descSizes[size]}`}
+              } text-center mt-2 font-bold ${styles.descSizes[finalSize]}`}
             >
               {desc?.text}
             </p>
@@ -97,7 +99,7 @@ const Label = ({
         </div>
       ) : (
         <div
-          className={`relative flex flex-col ${styles.containerSizes[type][size]}`}
+          className={`relative flex flex-col ${styles.containerSizes[type][finalSize]}`}
         >
           <img
             src={modifiedLabels[type as Exclude<labelType, "simple">]}
@@ -105,9 +107,9 @@ const Label = ({
             className="object-contain"
           />
           <LabelValue
-            className={`${styles.containerSizes[type][size]} ${
+            className={`${styles.containerSizes[type][finalSize]} ${
               styles.centerize
-            } ${textStyles} ${styles.sizes[size].text} ${
+            } ${textStyles} ${styles.sizes[finalSize].text} ${
               styles.valueTextColors[valueType?.color ?? "white"]
             } text-center leading-none`}
             value={finalValue}
@@ -125,7 +127,7 @@ const Label = ({
             <p
               className={`${
                 desc.style === "white" ? "text-white" : ""
-              } text-center mt-2 font-bold ${styles.descSizes[size]}`}
+              } text-center mt-2 font-bold ${styles.descSizes[finalSize]}`}
             >
               {desc?.text}
             </p>

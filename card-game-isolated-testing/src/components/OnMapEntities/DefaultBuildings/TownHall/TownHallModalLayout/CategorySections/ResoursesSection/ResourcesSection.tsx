@@ -13,12 +13,12 @@ const ResourcesSection = () => {
       <section className={styles.concreteMetalsSection}>
         <RustyLabel
           gameIcon={images?.gameIcons.concreteGameIcon}
-          valueToDisplay={"250 /h"}
+          valueToDisplay={"???? /h"}
           alt="CitizensSpace"
         />
         <RustyLabel
           gameIcon={images?.gameIcons.metalsGameIcon}
-          valueToDisplay={"175 /h"}
+          valueToDisplay={"???? /h"}
           alt="REGsSpace"
         />
       </section>
@@ -27,12 +27,12 @@ const ResourcesSection = () => {
       <section className={styles.crystalsDieselSection}>
         <RustyLabel
           gameIcon={images?.gameIcons.crystalsGameIcon}
-          valueToDisplay={"50 /h"}
+          valueToDisplay={"???? /h"}
           alt="CitizensSpace"
         />
         <RustyLabel
           gameIcon={images?.gameIcons.dieselBarrelGameIcon}
-          valueToDisplay={"30 /h"}
+          valueToDisplay={"???? /h"}
           alt="REGsSpace"
         />
       </section>

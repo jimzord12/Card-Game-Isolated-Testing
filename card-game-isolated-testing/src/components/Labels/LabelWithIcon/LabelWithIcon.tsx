@@ -1,18 +1,6 @@
-import { LabelsImageGroup } from "../../../types";
+import { LabelsImageGroup, labelImages } from "../../../types";
 import LabelLeftIcon from "./Parts/LabelLeftIcon";
 import LabelTopIcon from "./Parts/LabelTopIcon";
-
-type labelImages = {
-  // [key in labelType]: string;
-  golden: {
-    standard: string;
-    special: string;
-  };
-  otherLabels: {
-    greenEnergy: string;
-    rusty: string;
-  };
-};
 
 interface LabelWithIconProps {
   size: "extraSmall" | "small" | "medium" | "large";

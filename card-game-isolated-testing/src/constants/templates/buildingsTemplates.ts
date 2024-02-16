@@ -20,7 +20,7 @@ const toolStoreTemplate: TemplateDataBuilding = {
     ? prodModeCardUrls.buildings.ToolStore
     : devModeCardUrls.buildings.ToolStore,
   baseMaintenance: {
-    energy: 30,
+    energy: 500,
   },
   baseRequirements: {
     gold: 500,
@@ -51,7 +51,7 @@ const amusementParkTemplate: TemplateDataBuilding = {
     ? prodModeCardUrls.buildings.AmusementPark
     : devModeCardUrls.buildings.AmusementPark,
   baseMaintenance: {
-    energy: 300,
+    energy: 400,
   },
   baseRequirements: {
     gold: 500,
@@ -75,7 +75,7 @@ const hopsitalTemplate: TemplateDataBuilding = {
     ? prodModeCardUrls.buildings.Hospital
     : devModeCardUrls.buildings.Hospital,
   baseMaintenance: {
-    energy: 800,
+    energy: 600,
   },
   baseRequirements: {
     gold: 500,
@@ -99,7 +99,7 @@ const radioStationTemplate: TemplateDataBuilding = {
     ? prodModeCardUrls.buildings.RadioStation
     : devModeCardUrls.buildings.RadioStation,
   baseMaintenance: {
-    energy: 800,
+    energy: 300,
   },
   baseRequirements: {
     gold: 500,

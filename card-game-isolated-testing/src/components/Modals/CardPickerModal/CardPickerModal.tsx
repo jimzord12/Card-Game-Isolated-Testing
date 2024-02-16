@@ -79,6 +79,8 @@ const CardPickerModal = ({ type, spot }: Props) => {
       );
     }
 
+    console.log("🤞👌:CardPickerModal: Card: ", card);
+
     // 2. Add the Card to the TownMap
     addEntity(card);
 

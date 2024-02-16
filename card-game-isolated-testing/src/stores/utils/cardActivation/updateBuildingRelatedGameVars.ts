@@ -49,7 +49,9 @@ export const updateBuildingRelatedGameVars = (
 
     const currentMultipliers = gameVars.multipliers;
     const CardMultipliers = calcMulti(card);
+    const currentEnergyConsumed = gameVars.energyConsumed;
 
+    gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
     gameVars.setMultipliers({
       ...gameVars.multipliers,
       goldMultiplier: currentMultipliers.goldMultiplier + CardMultipliers.gold,

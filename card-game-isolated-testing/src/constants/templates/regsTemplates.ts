@@ -40,7 +40,7 @@ const superWindTurbineTemplate: TemplateDataReg = {
     ? prodModeCardUrls.reg.SuperWindTurbine
     : devModeCardUrls.reg.SuperWindTurbine,
   baseMaintenance: {
-    gold: 300,
+    gold: 60,
   },
   baseRequirements: {
     gold: 500,
@@ -64,7 +64,7 @@ const simpleSolarPaneTemplate: TemplateDataReg = {
     ? prodModeCardUrls.reg.SimpleSolarPanel
     : devModeCardUrls.reg.SimpleSolarPanel,
   baseMaintenance: {
-    gold: 800,
+    gold: 20,
   },
   baseRequirements: {
     gold: 500,
@@ -88,7 +88,7 @@ const superSolarPanelTemplate: TemplateDataReg = {
     ? prodModeCardUrls.reg.SuperSolarPanel
     : devModeCardUrls.reg.SuperSolarPanel,
   baseMaintenance: {
-    gold: 800,
+    gold: 50,
   },
   baseRequirements: {
     gold: 500,

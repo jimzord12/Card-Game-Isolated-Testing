@@ -19,6 +19,9 @@ const ActionSectionBtn = ({
           ? styles.glowOnHover.concat(" ", styles.disabled)
           : styles.glowOnHover.concat(" ", styles.rollInRight)
       }
+      style={{
+        fontFamily: "Protest Riot",
+      }}
       type="button"
       onClick={clickHandler}
       disabled={isDisabled}

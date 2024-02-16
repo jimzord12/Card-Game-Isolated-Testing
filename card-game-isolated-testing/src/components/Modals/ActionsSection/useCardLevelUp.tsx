@@ -59,7 +59,7 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
         );
       }
 
-      // 🔷 If Card's Level is MAX
+      // 🔷 If Card is NOT a SP && Level is NOT MAX
       if (!(card instanceof SPCard) && card.level === 5) {
         toastError.showError(
           "MAX Level",

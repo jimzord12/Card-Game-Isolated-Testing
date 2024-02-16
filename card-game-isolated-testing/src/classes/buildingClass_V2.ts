@@ -22,6 +22,7 @@ import {
   CardType,
   OneToFive,
 } from "../types";
+import { isToolStore } from "../types/TypeGuardFns/isToolStore";
 import { formatDate, roundToDecimal } from "../utils";
 import { formatDateString } from "../utils/dateRelated/dateRelated";
 
@@ -30,6 +31,8 @@ interface NewBuildingCardArgs {
   playerName: string;
   templateId: BuildingTemplateId;
 }
+
+type toolType = keyof BuildingStats;
 
 export default class BuildingCard {
   public id: number | null;
@@ -98,11 +101,16 @@ export default class BuildingCard {
     this.desc = templateIdToTemplateDataBuilding[this.templateId].desc;
     this.name = templateIdToTemplateDataBuilding[this.templateId].name;
 
-    // ToolsStore
+    // ✨ ToolsStore - ONLY ✨
+    // IMPORTANT:
+    // 1. Only ToolStore cards have a stats property
+    // 2. The stats property indicates the level of the card's Tool levels
+    // 3. These Tool Levels are used to calculate the multipliers
+    // for boosting the game's resource gathering rates.
     if (data.templateId === nameToTemplateDataBuilding.ToolStore.id) {
       this.stats = data.stats
         ? data.stats
-        : { gold: 1, concrete: 1, crystals: 1, metals: 1 };
+        : { gold: 0, concrete: 0, crystals: 0, metals: 0 };
     }
   }
 
@@ -134,6 +142,8 @@ export default class BuildingCard {
   }
 
   /////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////       METHODS       /////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
   public levelUp(): CardLevel {
     if (this.level === 5) return 5 as CardLevel;
     const newLevel = (this.level + 1) as CardLevel;
@@ -156,6 +166,20 @@ export default class BuildingCard {
     );
 
     return this.level;
+  }
+
+  public levelUpTool(tool: toolType) {
+    if (!this.stats || !isToolStore(this)) {
+      console.error("⛔ BuildingCard Class: levelUpTool: Not a ToolStore card");
+      return;
+    }
+    if (this.stats[tool] > this.level)
+      throw new Error(
+        "⛔ Tool Level can not br greater than the Card's Level!"
+      );
+    if (this.stats[tool] >= 5) return;
+    this.stats[tool] += 1;
+    console.log("✅ Tool Level Up: ", tool, this.stats[tool]);
   }
 
   public getCreationTime(): string {
