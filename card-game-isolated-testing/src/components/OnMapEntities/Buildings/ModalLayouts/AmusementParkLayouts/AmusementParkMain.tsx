@@ -1,7 +1,6 @@
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
 import LabelWithIcon from "../../../../Labels/LabelWithIcon/LabelWithIcon";
 import BuildingCard from "../../../../../classes/buildingClass_V2";
-import Label from "../../../../Labels/Label/Label";
 import { useGameVarsStore } from "../../../../../stores/gameVars";
 import { round2Decimal } from "../../../../../utils/game/roundToDecimal";
 import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
@@ -139,9 +138,10 @@ const AmusementParkMain = ({ card }: Props) => {
               alt="Amusement Park"
             /> */}
             <div className="flex flex-col items-center gap-12">
-              <Label
+              <LabelWithIcon
                 labelImages={images.labels}
-                type="simple"
+                image={images.gameIcons.growthGameIcon}
+                labelType="simple"
                 value={`${round2Decimal(popGrowthRate - card.output.boost)} /h`}
                 desc={{
                   text: "Citizen Growth Before",
@@ -154,9 +154,10 @@ const AmusementParkMain = ({ card }: Props) => {
                   } as const
                 }
               />
-              <Label
+              <LabelWithIcon
                 labelImages={images.labels}
-                type="simple"
+                image={images.gameIcons.growthGameIcon}
+                labelType="simple"
                 value={`${round2Decimal(popGrowthRate)} /h`}
                 desc={{
                   text: "Citizen Growth After",

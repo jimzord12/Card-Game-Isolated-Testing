@@ -141,6 +141,29 @@ export default class RegCard {
     return this.level;
   }
 
+  public getNewStats(): {
+    newOutput: RegOutput;
+    newMaintenance: RegMaintenance;
+  } {
+    const newLevel = (this.level + 1) as CardLevel;
+    if (newLevel >= 1 && newLevel <= 5) this.level = newLevel as CardLevel;
+
+    const newOutput = this.updateOutput(
+      templateIdToTemplateDataREG[this.templateId].baseOutput
+    );
+
+    const newMaintenance = this.updateMaintenance(
+      templateIdToTemplateDataREG[this.templateId].baseMaintenance
+    );
+
+    this.level = (newLevel - 1) as CardLevel;
+
+    return {
+      newOutput: newOutput ?? this.output,
+      newMaintenance: newMaintenance ?? this.maintenance,
+    };
+  }
+
   public getCreationTime(): string {
     return formatDateString(this.creationTime);
   }

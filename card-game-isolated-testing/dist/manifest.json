@@ -11,35 +11,35 @@
     "file": "assets/Game-c16d84c8.css",
     "src": "Game.css"
   },
-  "_CardGrid-4f18de58.js": {
+  "_CardGrid-4f79ae3d.js": {
     "assets": [
       "assets/vertical_section_divider-74473b0f.png"
     ],
     "css": [
       "assets/CardGrid-3fb117ec.css"
     ],
-    "file": "assets/CardGrid-4f18de58.js",
+    "file": "assets/CardGrid-4f79ae3d.js",
     "imports": [
       "index.html",
-      "_CompleteCard-e6d91d8b.js",
-      "_Game-357e1724.js",
-      "__updatePlayerData-87be009e.js",
-      "_useInput-8132993f.js",
-      "_useMutation-54801e68.js"
+      "_CompleteCard-2d1d13d0.js",
+      "_Game-4f36ca83.js",
+      "__updatePlayerData-44814cb1.js",
+      "_useInput-e07327da.js",
+      "_useMutation-d2b5f331.js"
     ]
   },
-  "_CompleteCard-e6d91d8b.js": {
+  "_CompleteCard-2d1d13d0.js": {
     "css": [
       "assets/CompleteCard-1816d5ed.css"
     ],
-    "file": "assets/CompleteCard-e6d91d8b.js",
+    "file": "assets/CompleteCard-2d1d13d0.js",
     "imports": [
       "index.html",
-      "_Game-357e1724.js",
-      "_createSvgIcon-dda11122.js"
+      "_Game-4f36ca83.js",
+      "_createSvgIcon-99d4361a.js"
     ]
   },
-  "_Game-357e1724.js": {
+  "_Game-4f36ca83.js": {
     "assets": [
       "assets/concrete-icon-84e30827.svg",
       "assets/crystal-icon-7fd1b450.svg",
@@ -55,17 +55,17 @@
       "src/components/Modals/InGameModals/CraftCardModal/CraftCardModal.tsx",
       "src/components/Modals/InGameModals/InventoryModal/InventoryModal.tsx"
     ],
-    "file": "assets/Game-357e1724.js",
+    "file": "assets/Game-4f36ca83.js",
     "imports": [
       "index.html",
-      "_createSvgIcon-dda11122.js",
-      "_inheritsLoose-ce28b89d.js",
+      "_createSvgIcon-99d4361a.js",
+      "_inheritsLoose-a9fcb8d1.js",
       "_index-387d7a00.js",
-      "__updatePlayerData-87be009e.js"
+      "__updatePlayerData-44814cb1.js"
     ],
     "isDynamicEntry": true
   },
-  "_HomePagePOC-3174696d.js": {
+  "_HomePagePOC-cce6e1cd.js": {
     "assets": [
       "assets/logoGenera-1474e2eb.png",
       "assets/footerImg-b974a533.jpg",
@@ -75,24 +75,24 @@
       "src/pages/HomePage/HomePageMetamask.tsx",
       "src/pages/HomePage/HomePageLocalWallet.tsx"
     ],
-    "file": "assets/HomePagePOC-3174696d.js",
+    "file": "assets/HomePagePOC-cce6e1cd.js",
     "imports": [
       "index.html",
-      "_inheritsLoose-ce28b89d.js"
+      "_inheritsLoose-a9fcb8d1.js"
     ],
     "isDynamicEntry": true
   },
-  "__updatePlayerData-87be009e.js": {
-    "file": "assets/_updatePlayerData-87be009e.js",
+  "__updatePlayerData-44814cb1.js": {
+    "file": "assets/_updatePlayerData-44814cb1.js",
     "imports": [
       "index.html"
     ]
   },
-  "_createSvgIcon-dda11122.js": {
-    "file": "assets/createSvgIcon-dda11122.js",
+  "_createSvgIcon-99d4361a.js": {
+    "file": "assets/createSvgIcon-99d4361a.js",
     "imports": [
       "index.html",
-      "_inheritsLoose-ce28b89d.js"
+      "_inheritsLoose-a9fcb8d1.js"
     ]
   },
   "_gameIcons-sliderDotGameIcon-5d954986.js": {
@@ -102,44 +102,44 @@
     ],
     "file": "assets/gameIcons-sliderDotGameIcon-5d954986.js"
   },
-  "_handlePlayerCreate-911cf842.js": {
+  "_handlePlayerCreate-2ee322cb.js": {
     "css": [
       "assets/handlePlayerCreate-94975743.css"
     ],
-    "file": "assets/handlePlayerCreate-911cf842.js",
+    "file": "assets/handlePlayerCreate-2ee322cb.js",
     "imports": [
       "index.html",
-      "_createSvgIcon-dda11122.js",
-      "_inheritsLoose-ce28b89d.js",
-      "_HomePagePOC-3174696d.js",
-      "__updatePlayerData-87be009e.js"
+      "_createSvgIcon-99d4361a.js",
+      "_inheritsLoose-a9fcb8d1.js",
+      "_HomePagePOC-cce6e1cd.js",
+      "__updatePlayerData-44814cb1.js"
     ]
   },
   "_index-387d7a00.js": {
     "file": "assets/index-387d7a00.js"
   },
-  "_inheritsLoose-ce28b89d.js": {
-    "file": "assets/inheritsLoose-ce28b89d.js",
+  "_inheritsLoose-a9fcb8d1.js": {
+    "file": "assets/inheritsLoose-a9fcb8d1.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useInput-8132993f.js": {
-    "file": "assets/useInput-8132993f.js",
+  "_useInput-e07327da.js": {
+    "file": "assets/useInput-e07327da.js",
     "imports": [
       "index.html",
-      "_createSvgIcon-dda11122.js"
+      "_createSvgIcon-99d4361a.js"
     ]
   },
-  "_useMutation-54801e68.js": {
-    "file": "assets/useMutation-54801e68.js",
+  "_useMutation-d2b5f331.js": {
+    "file": "assets/useMutation-d2b5f331.js",
     "imports": [
       "index.html",
       "_utils-73056672.js"
     ]
   },
-  "_useQuery-02eca4c9.js": {
-    "file": "assets/useQuery-02eca4c9.js",
+  "_useQuery-797b3726.js": {
+    "file": "assets/useQuery-797b3726.js",
     "imports": [
       "index.html",
       "_utils-73056672.js"
@@ -153,20 +153,20 @@
     "src": "handlePlayerCreate.css"
   },
   "index.css": {
-    "file": "assets/index-c69f4507.css",
+    "file": "assets/index-b4d1891d.css",
     "src": "index.css"
   },
   "index.html": {
     "css": [
-      "assets/index-c69f4507.css"
+      "assets/index-b4d1891d.css"
     ],
     "dynamicImports": [
-      "_HomePagePOC-3174696d.js",
+      "_HomePagePOC-cce6e1cd.js",
       "src/pages/Marketplace/src/Marketplace.jsx",
       "src/pages/Leaderboard/Leaderboard.jsx",
-      "_Game-357e1724.js"
+      "_Game-4f36ca83.js"
     ],
-    "file": "assets/index-ab22f17e.js",
+    "file": "assets/index-3e67e4e8.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -912,18 +912,18 @@
     "css": [
       "assets/CraftCardModal-0e79a218.css"
     ],
-    "file": "assets/CraftCardModal-4c231156.js",
+    "file": "assets/CraftCardModal-d293c5e0.js",
     "imports": [
       "index.html",
-      "_CardGrid-4f18de58.js",
-      "_CompleteCard-e6d91d8b.js",
-      "_Game-357e1724.js",
-      "_createSvgIcon-dda11122.js",
-      "_inheritsLoose-ce28b89d.js",
+      "_CardGrid-4f79ae3d.js",
+      "_CompleteCard-2d1d13d0.js",
+      "_Game-4f36ca83.js",
+      "_createSvgIcon-99d4361a.js",
+      "_inheritsLoose-a9fcb8d1.js",
       "_index-387d7a00.js",
-      "__updatePlayerData-87be009e.js",
-      "_useInput-8132993f.js",
-      "_useMutation-54801e68.js",
+      "__updatePlayerData-44814cb1.js",
+      "_useInput-e07327da.js",
+      "_useMutation-d2b5f331.js",
       "_utils-73056672.js"
     ],
     "isDynamicEntry": true,
@@ -937,18 +937,18 @@
     "css": [
       "assets/InventoryModal-b6cfed24.css"
     ],
-    "file": "assets/InventoryModal-78c57c7e.js",
+    "file": "assets/InventoryModal-0ffad2eb.js",
     "imports": [
       "index.html",
-      "_CardGrid-4f18de58.js",
-      "_CompleteCard-e6d91d8b.js",
-      "_Game-357e1724.js",
-      "_createSvgIcon-dda11122.js",
-      "_inheritsLoose-ce28b89d.js",
+      "_CardGrid-4f79ae3d.js",
+      "_CompleteCard-2d1d13d0.js",
+      "_Game-4f36ca83.js",
+      "_createSvgIcon-99d4361a.js",
+      "_inheritsLoose-a9fcb8d1.js",
       "_index-387d7a00.js",
-      "__updatePlayerData-87be009e.js",
-      "_useInput-8132993f.js",
-      "_useMutation-54801e68.js",
+      "__updatePlayerData-44814cb1.js",
+      "_useInput-e07327da.js",
+      "_useMutation-d2b5f331.js",
       "_utils-73056672.js"
     ],
     "isDynamicEntry": true,
@@ -967,29 +967,29 @@
     "src": "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/silver.png"
   },
   "src/pages/HomePage/HomePageLocalWallet.tsx": {
-    "file": "assets/HomePageLocalWallet-f6caa431.js",
+    "file": "assets/HomePageLocalWallet-3f2e98ec.js",
     "imports": [
       "index.html",
-      "_createSvgIcon-dda11122.js",
-      "_useInput-8132993f.js",
-      "_handlePlayerCreate-911cf842.js",
-      "_inheritsLoose-ce28b89d.js",
-      "_HomePagePOC-3174696d.js",
-      "__updatePlayerData-87be009e.js"
+      "_createSvgIcon-99d4361a.js",
+      "_useInput-e07327da.js",
+      "_handlePlayerCreate-2ee322cb.js",
+      "_inheritsLoose-a9fcb8d1.js",
+      "_HomePagePOC-cce6e1cd.js",
+      "__updatePlayerData-44814cb1.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/HomePage/HomePageLocalWallet.tsx"
   },
   "src/pages/HomePage/HomePageMetamask.tsx": {
-    "file": "assets/HomePageMetamask-78081c17.js",
+    "file": "assets/HomePageMetamask-0b2248b9.js",
     "imports": [
       "index.html",
-      "_createSvgIcon-dda11122.js",
-      "_handlePlayerCreate-911cf842.js",
-      "_inheritsLoose-ce28b89d.js",
-      "_useInput-8132993f.js",
-      "_HomePagePOC-3174696d.js",
-      "__updatePlayerData-87be009e.js"
+      "_createSvgIcon-99d4361a.js",
+      "_handlePlayerCreate-2ee322cb.js",
+      "_inheritsLoose-a9fcb8d1.js",
+      "_useInput-e07327da.js",
+      "_HomePagePOC-cce6e1cd.js",
+      "__updatePlayerData-44814cb1.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/HomePage/HomePageMetamask.tsx"
@@ -1007,10 +1007,10 @@
     "css": [
       "assets/Leaderboard-94366d4b.css"
     ],
-    "file": "assets/Leaderboard-863aeb3c.js",
+    "file": "assets/Leaderboard-8b1ef3d4.js",
     "imports": [
       "index.html",
-      "_useQuery-02eca4c9.js",
+      "_useQuery-797b3726.js",
       "_utils-73056672.js"
     ],
     "isDynamicEntry": true,
@@ -1024,15 +1024,15 @@
     "css": [
       "assets/TownMap-2d7b01cd.css"
     ],
-    "file": "assets/TownMap-9dfed145.js",
+    "file": "assets/TownMap-d6abbe67.js",
     "imports": [
       "index.html",
-      "_Game-357e1724.js",
-      "_CompleteCard-e6d91d8b.js",
-      "__updatePlayerData-87be009e.js",
+      "_Game-4f36ca83.js",
+      "_CompleteCard-2d1d13d0.js",
+      "__updatePlayerData-44814cb1.js",
       "_gameIcons-sliderDotGameIcon-5d954986.js",
-      "_createSvgIcon-dda11122.js",
-      "_inheritsLoose-ce28b89d.js",
+      "_createSvgIcon-99d4361a.js",
+      "_inheritsLoose-a9fcb8d1.js",
       "_index-387d7a00.js"
     ],
     "isDynamicEntry": true,
@@ -1053,7 +1053,7 @@
     "css": [
       "assets/WorldMap-05ac4e41.css"
     ],
-    "file": "assets/WorldMap-bd66a494.js",
+    "file": "assets/WorldMap-5b883339.js",
     "imports": [
       "index.html"
     ],
@@ -1083,13 +1083,13 @@
     "css": [
       "assets/Marketplace-0201c4e3.css"
     ],
-    "file": "assets/Marketplace-7e161f26.js",
+    "file": "assets/Marketplace-be4d6006.js",
     "imports": [
       "index.html",
-      "_useQuery-02eca4c9.js",
-      "_useMutation-54801e68.js",
+      "_useQuery-797b3726.js",
+      "_useMutation-d2b5f331.js",
       "_index-387d7a00.js",
-      "__updatePlayerData-87be009e.js",
+      "__updatePlayerData-44814cb1.js",
       "_utils-73056672.js"
     ],
     "isDynamicEntry": true,

@@ -1,6 +1,7 @@
 import BuildingCard from "../../../../../classes/buildingClass_V2";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
-import LabelWithIcon from "../../../../Labels/LabelWithIcon/LabelWithIcon";
+import NewStats from "../../../../Layouts/LevelUpLayout/Parts/NewStats/NewStats";
+import RequiredResources from "../../../../Layouts/LevelUpLayout/Parts/RequiredResources/RequiredResources";
 
 interface Props {
   card: BuildingCard;
@@ -13,18 +14,23 @@ const AmusementParkLvlUp = ({ card }: Props) => {
     throw new Error("⛔ HopsitalLayoutManage.tsx: images are undefined!");
 
   return (
-    <div className="flex w-full h-full justify-center items-center">
-      <h2 className="text-white font-extrabold text-4xl">
-        AmusementPark Level Up Screen
+    <div
+      className="flex flex-col w-full h-fit justify-center items-center"
+      about="AmusementP-LVL-UP"
+    >
+      {/* <h2 className="text-white font-extrabold text-4xl">
+        AmusementPark Main Screen
+      </h2> */}
+      <h2 className="text-white text-xl largeScreen:text-3xl mb-6 bg-emerald-800/[.7] p-4 rounded-2xl border-4">
+        Required Resources & New Stats
       </h2>
-      <LabelWithIcon
-        image={images.gameIcons.energyProductionGameIcon}
-        labelImages={images.labels}
-        labelType="simple"
-        size="medium"
-        value={card.maintenance.energy}
-        position="left"
-      />
+      <div className="flex flex-col tablet:flex-col w-full h-fit gap-4 justify-center items-center">
+        {/* Card's Details Section */}
+        <RequiredResources card={card} />
+
+        {/* Card's Provided Effects Section */}
+        <NewStats card={card} />
+      </div>
     </div>
   );
 };

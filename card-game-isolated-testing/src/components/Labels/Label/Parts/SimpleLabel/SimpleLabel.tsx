@@ -3,7 +3,7 @@ import { styles } from "./simpleLabelConstants";
 interface SimpleLabelProps {
   value: number | string;
   size: "extraSmall" | "small" | "medium" | "large";
-  color: "white" | "black";
+  color: "white" | "black" | "rusty";
   bgColorHex?: string;
   borderColorHex?: string;
   borderWidthPx?: number;
@@ -22,7 +22,7 @@ const SimpleLabel = ({
       style={{
         width: `${styles.containerSizes[size].widthPx}px`,
         height: `${styles.containerSizes[size].heightPx}px`,
-        color: color,
+        color: color === "rusty" ? "#ffd2b8" : color,
         backgroundColor: bgColorHex,
         borderColor: borderColorHex,
         borderWidth: `${borderWidthPx}px`,

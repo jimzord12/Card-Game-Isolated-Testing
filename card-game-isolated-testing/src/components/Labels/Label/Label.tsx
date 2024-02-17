@@ -17,13 +17,14 @@ interface LabelProps {
   valueType?: {
     type?: "/h" | "%" | "maxLimit";
     limit?: number;
-    color?: "white" | "black";
+    color?: "white" | "black" | "rusty";
+    addGrayScale?: "yes" | "no";
   };
   size?: LabelSize;
   desc?: {
     text: string;
     position?: "top" | "bottom";
-    style?: "white" | "black";
+    style?: "white" | "black" | "rusty";
   };
   isStoryBook?: boolean;
 }
@@ -39,7 +40,10 @@ const Label = ({
   type,
   value,
   labelImages,
-  valueType,
+  valueType = {
+    color: "white",
+    addGrayScale: "no",
+  },
   size = "extraSmall",
   desc,
   isStoryBook = false,
@@ -95,7 +99,9 @@ const Label = ({
           <img
             src={modifiedLabels[type as Exclude<labelType, "simple">]}
             alt={`A Label of type: ${type}`}
-            className="object-contain"
+            className={`object-contain ${
+              styles.grayScale[valueType?.addGrayScale ?? "no"]
+            }`}
           />
           <LabelValue
             className={`${styles.containerSizes[type][size]} ${

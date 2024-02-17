@@ -26,6 +26,7 @@ const textStyles = {
 const valueTextColors = {
   white: "text-white",
   black: "text-black",
+  rusty: "text-[#ffd2b8]",
 };
 
 const containerSizes = {
@@ -63,6 +64,11 @@ const descSizes = {
   large: "text-[2.75rem]",
 };
 
+const grayScale = {
+  yes: "grayscale",
+  no: "grayscale-0",
+};
+
 export const styles = {
   centerize,
   sizes,
@@ -70,4 +76,5 @@ export const styles = {
   containerSizes,
   descSizes,
   valueTextColors,
+  grayScale,
 };

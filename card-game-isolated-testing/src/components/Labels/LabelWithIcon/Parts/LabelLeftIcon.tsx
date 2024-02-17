@@ -21,6 +21,8 @@ interface LabelLeftIconProps {
   valueType?: {
     type?: "/h" | "%" | "maxLimit";
     limit?: number;
+    color?: "white" | "black" | "rusty";
+    addGrayScale?: "yes" | "no";
   };
   desc?: {
     text: string;
@@ -43,7 +45,13 @@ const LabelLeftIcon = ({
   return (
     <div className="relative flex items-center w-fit h-fit">
       <div className={`flex justify-center ${styles.leftIconSize[size]} z-10 `}>
-        <img src={image} alt="An image" className="object-contain" />
+        <img
+          src={image}
+          alt="An image"
+          className={`object-contain ${
+            valueType?.addGrayScale === "yes" ? "grayscale" : ""
+          }`}
+        />
       </div>
       <div className={`${styles.leftIconXPosition[size]}`}>
         <Label

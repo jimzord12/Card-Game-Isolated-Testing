@@ -10,7 +10,8 @@ interface LabelWithIconProps {
   valueType?: {
     type?: "/h" | "%" | "maxLimit";
     limit?: number;
-    color?: "white" | "black";
+    color?: "white" | "black" | "rusty";
+    addGrayScale?: "yes" | "no";
   };
   desc?: {
     text: string;

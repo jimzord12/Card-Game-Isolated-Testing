@@ -21,6 +21,8 @@ interface LabelTopIconProps {
   valueType?: {
     type?: "/h" | "%" | "maxLimit";
     limit?: number;
+    color?: "white" | "black" | "rusty";
+    addGrayScale?: "yes" | "no";
   };
   desc?: {
     text: string;
@@ -43,7 +45,13 @@ const LabelTopIcon = ({
   return (
     <div className="relative flex flex-col items-center w-fit h-fit">
       <div className={`flex justify-center ${styles.topIconSize[size]} z-10 `}>
-        <img src={image} alt="An image" className="object-contain" />
+        <img
+          src={image}
+          alt="An image"
+          className={`object-contain ${
+            valueType?.addGrayScale === "yes" ? "grayscale" : ""
+          }`}
+        />
       </div>
       <div className={`${styles.topIconPositionY[size]}`}>
         <Label

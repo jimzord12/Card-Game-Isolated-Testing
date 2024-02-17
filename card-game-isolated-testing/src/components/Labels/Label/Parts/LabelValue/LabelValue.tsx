@@ -3,7 +3,7 @@ interface LabelValueProps {
   valueType?: {
     type?: "/h" | "%" | "maxLimit";
     limit?: number;
-    color?: "white" | "black";
+    color?: "white" | "black" | "rusty";
   };
   className?: string;
 }
@@ -29,7 +29,14 @@ const LabelValue = ({ value, valueType, className }: LabelValueProps) => {
     finalValue = finalValue.slice(0, 20) + "...";
   }
 
-  return <h2 className={className}>{finalValue}</h2>;
+  return (
+    <h2
+      className={className}
+      style={{ color: valueType?.color === "rusty" ? "#ffd2b8" : "" }}
+    >
+      {finalValue}
+    </h2>
+  );
 };
 
 export default LabelValue;

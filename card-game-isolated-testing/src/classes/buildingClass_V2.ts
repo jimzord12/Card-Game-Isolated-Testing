@@ -168,6 +168,26 @@ export default class BuildingCard {
     return this.level;
   }
 
+  public getNewStats() {
+    const newLevel = (this.level + 1) as CardLevel;
+    if (newLevel >= 1 && newLevel <= 5) this.level = newLevel as CardLevel;
+
+    const newOutput = this.updateOutput(
+      templateIdToTemplateDataBuilding[this.templateId].baseOutput
+    );
+
+    const newMaintenance = this.updateMaintenance(
+      templateIdToTemplateDataBuilding[this.templateId].baseMaintenance
+    );
+
+    this.level = (newLevel - 1) as CardLevel;
+
+    return {
+      newOutput: newOutput ?? this.output,
+      newMaintenance: newMaintenance ?? this.maintenance,
+    };
+  }
+
   public levelUpTool(tool: toolType) {
     if (!this.stats || !isToolStore(this)) {
       console.error("⛔ BuildingCard Class: levelUpTool: Not a ToolStore card");
