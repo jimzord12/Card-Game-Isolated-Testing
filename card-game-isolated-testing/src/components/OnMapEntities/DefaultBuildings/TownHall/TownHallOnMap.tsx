@@ -9,6 +9,7 @@ import GlowImage from "../../../GlowImage/GlowImage";
 import StandardModal from "../../../Modals/StandardModal/StandardModal";
 import "../defaultBuildings.css";
 import TownHallModalMainScreen from "./TownHallModalLayout/Screens/TownHallModalMainScreen";
+import DefaultBuildingsLvlUpScreen from "../../../Layouts/LevelUpLayout/defaultBuildings/DefaultBuildingsLvlUpScreen";
 
 interface Props {
   highlightedImg: number | null;
@@ -45,7 +46,7 @@ const TownHallOnMap = ({
         contentScreens={[
           <TownHallModalMainScreen />,
           <div style={{ fontSize: 42, color: "white" }}>Workers Screen!!!</div>,
-          <div style={{ fontSize: 42, color: "white" }}>Level Up Screen!!</div>,
+          <DefaultBuildingsLvlUpScreen type="townhall" />,
         ]}
         contentType="townhall"
         label="Town Hall"

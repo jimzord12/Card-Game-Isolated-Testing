@@ -2,14 +2,6 @@ import { CardRequirements, Level } from "../../types";
 
 export const townhallRequirements: Record<Level, CardRequirements> = {
   1: {
-    gold: 0,
-    concrete: 0,
-    metals: 0,
-    crystals: 0,
-    diesel: 0,
-    population: 0,
-  },
-  2: {
     gold: 2500,
     concrete: 500,
     metals: 300,
@@ -17,7 +9,7 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     diesel: 50,
     population: 0,
   },
-  3: {
+  2: {
     gold: 5000,
     concrete: 1000,
     metals: 600,
@@ -25,7 +17,7 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     diesel: 100,
     population: 0,
   },
-  4: {
+  3: {
     gold: 10_000,
     concrete: 2000,
     metals: 1200,
@@ -33,13 +25,21 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     diesel: 200,
     population: 0,
   },
-  5: {
+  4: {
     gold: 20_000,
     concrete: 4000,
     metals: 2400,
     crystals: 2000,
     diesel: 400,
     population: 0,
+  },
+  5: {
+    gold: 1_000_000,
+    concrete: 1_000_000,
+    metals: 1_000_000,
+    crystals: 1_000_000,
+    diesel: 1_000_000,
+    population: 1_000_000,
   },
 };
 
@@ -49,7 +49,7 @@ export const townhallAvailSpacePerLevel = {
     regs: 0,
   },
   2: {
-    buildings: 4,
+    buildings: 3,
     regs: 1,
   },
   3: {
@@ -76,14 +76,6 @@ export const townhallHousingLimitPerLevel = {
 
 export const factoryRequirements: Record<Level, CardRequirements> = {
   1: {
-    gold: 0,
-    concrete: 0,
-    metals: 0,
-    crystals: 0,
-    diesel: 0,
-    population: 0,
-  },
-  2: {
     gold: 2500,
     concrete: 500,
     metals: 300,
@@ -91,7 +83,7 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     diesel: 50,
     population: 0,
   },
-  3: {
+  2: {
     gold: 5000,
     concrete: 1000,
     metals: 600,
@@ -99,7 +91,7 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     diesel: 100,
     population: 0,
   },
-  4: {
+  3: {
     gold: 10_000,
     concrete: 2000,
     metals: 1200,
@@ -107,12 +99,20 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     diesel: 200,
     population: 0,
   },
-  5: {
+  4: {
     gold: 20_000,
     concrete: 4000,
     metals: 2400,
     crystals: 2000,
     diesel: 400,
     population: 0,
+  },
+  5: {
+    gold: 1_000_000,
+    concrete: 1_000_000,
+    metals: 1_000_000,
+    crystals: 1_000_000,
+    diesel: 1_000_000,
+    population: 1_000_000,
   },
 };

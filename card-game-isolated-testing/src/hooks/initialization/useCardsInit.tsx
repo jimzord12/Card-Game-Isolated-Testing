@@ -17,6 +17,7 @@ import { specialEffectInit } from "./utils/specialEffectInit";
 // 3. Template Cards for Craft Modal
 // 4. Active Effect Card
 // 5. We also add them to the Town Map if there are activated
+// 6. Pop Growth Rate with Building Boosts
 
 const useCardsInit = () => {
   // Town Map Store
@@ -37,9 +38,10 @@ const useCardsInit = () => {
     setActiveEffect,
     setMultipliers,
     multipliers: startingMultipliers,
+    setPopGrowthRate,
   } = useGameVarsStore((state) => state);
 
-  const cardsInit = (cardsFromDB: ICardDB[]) => {
+  const cardsInit = (cardsFromDB: ICardDB[], popGrowRate: number) => {
     console.log("🙌 0 - All the Cards from DB: ", cardsFromDB);
 
     const convertedFromDB_To_JS = createJSCards(cardsFromDB); // 🔷 Convert the Cards from DB to JS
@@ -79,6 +81,16 @@ const useCardsInit = () => {
     addAllSPCards(spCards); // 🔷 Add the SP Cards to Global State
     setToolStoreCards(toolStoreCards); // 🔷 Add the Tool Store Cards to Global State
     setMultipliers(multipliers); // 🔷 Add the Multipliers to Global State
+
+    // Calculate Final Pop Growth Rate
+    const happinessFromBuildings =
+      useGameVarsStore.getState().happinessFromBuildings;
+    console.log(
+      "usePlayerInit::happinessFromBuildings: ",
+      happinessFromBuildings
+    );
+
+    setPopGrowthRate(popGrowRate + happinessFromBuildings);
 
     if (activeEffect !== null) setActiveEffect(activeEffect); // 🔷 If there is an Active SP Card, adds the Effect to Global State
 

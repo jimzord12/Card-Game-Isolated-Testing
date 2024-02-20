@@ -17,9 +17,14 @@ import { getModalBgImage } from "../../../utils/game/getModalBgImage";
 import { isActiveBuilding } from "../../../types/TypeGuardFns/isActiveBuilding";
 import BuildingOnMap from "./BuildingOnMap";
 // import { useGameVarsStore } from "../../../stores/gameVars";
-import HospitalLayoutManage from "./ModalLayouts/HopsitalLayouts/HospitalLayoutManage";
-import AmusementParkMain from "./ModalLayouts/AmusementParkLayouts/AmusementParkMain";
-import AmusementParkLvlUp from "./ModalLayouts/AmusementParkLayouts/AmusementParkLvlUp";
+import LevelUpLayout from "../../Layouts/LevelUpLayout/LevelUpLayout";
+import AmusementParkMainScreen from "../../Layouts/MainScreenLayout/BuildingsLayouts/MainScreens/AmusementParkMainScreen";
+import HospitalLayoutMainScreen from "../../Layouts/MainScreenLayout/BuildingsLayouts/MainScreens/HospitalLayoutMainScreen";
+import RadioStationMainScreen from "../../Layouts/MainScreenLayout/BuildingsLayouts/MainScreens/RadioStationMainScreen";
+import ToolStoreMainScreen from "../../Layouts/MainScreenLayout/BuildingsLayouts/MainScreens/ToolStoreMainScreen";
+import HospitalManageScreen from "../../Layouts/ManageLayout/HospitalManageScreen";
+import { updatePlayerData } from "../../../../api/apiFns";
+import { useGameVarsStore } from "../../../stores/gameVars";
 
 interface Props {
   highlightedImg: number | null;
@@ -37,8 +42,11 @@ const BuildingsOnMap = ({
   mapEntities,
 }: Props) => {
   const pushModal = useModalStore((state) => state.pushModal);
-  // const gameVars = useGameVarsStore();
-  // const previousDoctors = gameVars.allWorkers.hospitalWorkers;
+  const gameVars = useGameVarsStore;
+  const prevDoctors = useGameVarsStore(
+    (state) => state.allWorkers.hospitalWorkers
+  );
+  const playerData = useGameVarsStore((state) => state.player);
 
   const { images } = UseGlobalContext();
   if (images?.modal_backgrounds === undefined)
@@ -59,15 +67,11 @@ const BuildingsOnMap = ({
             {...modalsProps}
             contentType="toolStore"
             contentScreens={[
-              <div style={{ fontSize: 42, color: "white" }}>
-                toolStore Main Screen #1
-              </div>,
+              <ToolStoreMainScreen card={selectedCard} />,
               <div style={{ fontSize: 42, color: "white" }}>
                 toolStore Mangement Screen #2
               </div>,
-              <div style={{ fontSize: 42, color: "white" }}>
-                toolStore Level Up Screen #3
-              </div>,
+              <LevelUpLayout card={selectedCard} />,
             ]}
           />
         );
@@ -77,19 +81,25 @@ const BuildingsOnMap = ({
             {...modalsProps}
             contentType="hospital"
             contentScreens={[
-              <div style={{ fontSize: 42, color: "white" }}>
-                <h2>Hospital Main Screen #1</h2>
-              </div>,
-              <HospitalLayoutManage
-                card={selectedCard}
-                // changeInitValue={() => currentDoctors}
-              />,
-              <div style={{ fontSize: 42, color: "white" }}>
-                Hospital Level Up Screen #3
-              </div>,
+              <HospitalLayoutMainScreen card={selectedCard} />,
+              <HospitalManageScreen card={selectedCard} />,
+              <LevelUpLayout card={selectedCard} />,
             ]}
             onClose={() => {
-              console.log("🐱‍🏍 Leaving Hopsital...");
+              console.log("🐱‍🏍 Closing Hopsital...");
+              const currentDoctors =
+                gameVars.getState().allWorkers.hospitalWorkers;
+              console.log("🐱‍🏍 currentDoctors: ", currentDoctors);
+              console.log("🐱‍🏍 prevDoctors: ", prevDoctors);
+              if (prevDoctors === currentDoctors) return;
+              console.log("🐱‍🏍 Updating Hospital Workers...");
+              if (playerData === null || playerData.id === undefined)
+                throw new Error(
+                  "⛔ BuildingsOnMap.tsx: Hospital::OnClose:: Player ID is undefined!"
+                );
+              updatePlayerData(playerData?.id, {
+                workers_hospital: currentDoctors,
+              });
             }}
           />
         );
@@ -101,8 +111,8 @@ const BuildingsOnMap = ({
             {...modalsProps}
             contentType="building-passive"
             contentScreens={[
-              <AmusementParkMain card={selectedCard} />,
-              <AmusementParkLvlUp card={selectedCard} />,
+              <AmusementParkMainScreen card={selectedCard} />,
+              <LevelUpLayout card={selectedCard} />,
             ]}
           />
         );
@@ -112,9 +122,8 @@ const BuildingsOnMap = ({
             {...modalsProps}
             contentType="building-passive"
             contentScreens={[
-              <div style={{ fontSize: 42, color: "white" }}>
-                PassiveB Screen #1
-              </div>,
+              <RadioStationMainScreen card={selectedCard} />,
+              <LevelUpLayout card={selectedCard} />,
             ]}
           />
         );

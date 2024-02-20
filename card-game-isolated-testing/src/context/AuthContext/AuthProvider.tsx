@@ -47,13 +47,13 @@ export default function AuthProvider({
       const playerData = await getPlayerByWallet(walletAddress);
       console.log("🧪 2.2 | - ✅ Successfully GOT Player Data: ", playerData);
 
-      // 🔷 1. Initialize the Cards, and their side-effects if there are any
-      if (playerData.cards !== undefined && playerData.cards !== null) {
-        cardsInit(playerData.cards);
-      }
+      // 🔷 1. Initialize the Cards
+      const popGrowthRateNoBoost = playerInit(playerData.player);
 
-      // 🔷 2. Initialize the Cards
-      playerInit(playerData.player);
+      // 🔷 2. Initialize the Cards, and their side-effects if there are any
+      if (playerData.cards !== undefined && playerData.cards !== null) {
+        cardsInit(playerData.cards, popGrowthRateNoBoost);
+      }
 
       if (playerData.player.gold === null)
         throw new Error("⛔ - Custom: Player is not initialized (has No Gold)");

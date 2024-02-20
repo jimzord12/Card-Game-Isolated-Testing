@@ -12,6 +12,8 @@ import { useModalStore } from "../../../stores/modalStore";
 import RegCard from "../../../classes/regClass_V2";
 import { rarityConverter } from "../../Modals/InGameModals/Parts/CardGrid/utils";
 import { useGameVarsStore } from "../../../stores/gameVars";
+import PassiveRegMainScreen from "../../Layouts/MainScreenLayout/RegLayouts/PassiveRegMainScreen";
+import LevelUpLayout from "../../Layouts/LevelUpLayout/LevelUpLayout";
 
 interface Props {
   highlightedImg: number | null;
@@ -52,12 +54,8 @@ const RegsOnMap = ({
       <StandardModal
         bgImage={background}
         contentScreens={[
-          <div style={{ fontSize: 42, color: "white" }}>
-            REG MAIN SCREEN!!!
-          </div>,
-          <div style={{ fontSize: 42, color: "white" }}>
-            REG - Level Up Screen!!
-          </div>,
+          <PassiveRegMainScreen card={card} />,
+          <LevelUpLayout card={card} />,
         ]}
         contentType="reg"
         label={rarityConverter(card.rarity) as string}

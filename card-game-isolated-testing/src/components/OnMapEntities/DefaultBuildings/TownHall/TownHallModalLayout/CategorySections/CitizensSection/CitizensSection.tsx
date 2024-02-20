@@ -70,17 +70,17 @@ const CitizensSection = () => {
       <section className={styles.economySection}>
         <StandardLabel
           gameIcon={images?.gameIcons.totalGoldGameIcon}
-          valueToDisplay={`${playerGold}`}
+          valueToDisplay={`${round2Decimal(playerGold ?? -1)}`}
           alt="CitizensSpace"
         />
         <StandardLabel
           gameIcon={images?.gameIcons.incomeGameIcon}
-          valueToDisplay={`${income} /h`}
+          valueToDisplay={`${round2Decimal(income)} /h`}
           alt="REGsSpace"
         />
         <StandardLabel
           gameIcon={images?.gameIcons.expensesGameIcon}
-          valueToDisplay={`${expenses} /h`}
+          valueToDisplay={`${round2Decimal(expenses)} /h`}
           alt="BuildingsSpace"
         />
       </section>

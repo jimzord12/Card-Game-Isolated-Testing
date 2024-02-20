@@ -4,6 +4,7 @@ import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalCon
 import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
 import { isBuildingCard } from "../../../../../types/TypeGuardFns/BuildingGuards";
 import { isRegCard } from "../../../../../types/TypeGuardFns/RegGuards";
+import { isToolStore } from "../../../../../types/TypeGuardFns/isToolStore";
 import LabelWithIcon from "../../../../Labels/LabelWithIcon/LabelWithIcon";
 
 interface NewStatsProps {
@@ -34,7 +35,7 @@ const NewStats = ({ card }: NewStatsProps) => {
   let newMaintenance: number;
 
   if (isRegCard(card)) {
-    image = images.gameIcons.goldGameIcon;
+    image = images.gameIcons.expensesGameIcon;
     oldMaintenance = card.maintenance.gold;
     oldOutput = card.output.energy;
     newOutput = card.getNewStats().newOutput.energy;
@@ -118,6 +119,10 @@ const NewStats = ({ card }: NewStatsProps) => {
                 {
                   color: "black",
                   addGrayScale: "yes",
+                  type:
+                    isBuildingCard(card) && !isToolStore(card)
+                      ? "%"
+                      : undefined,
                 } as const
               }
               desc={
@@ -137,6 +142,10 @@ const NewStats = ({ card }: NewStatsProps) => {
               valueType={
                 {
                   color: "black",
+                  type:
+                    isBuildingCard(card) && !isToolStore(card)
+                      ? "%"
+                      : undefined,
                 } as const
               }
               desc={

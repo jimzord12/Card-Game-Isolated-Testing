@@ -29,6 +29,22 @@ export const updateBuildingRelatedGameVars = (
     return;
   }
 
+  // ✨ Hospital
+  if (card.name === nameToTemplateDataBuilding.Hospital.name) {
+    const currentEnergyConsumed = gameVars.energyConsumed;
+    const currentHappinessFromBuildings = gameVars.happinessFromBuildings;
+    const currentPopGrowthRate = gameVars.popGrowthRate;
+    const activeDoctors = gameVars.allWorkers.hospitalWorkers;
+    const hopsitalBoost = activeDoctors * output.boost;
+
+    gameVars.setHappinessFromBuildings(
+      currentHappinessFromBuildings + hopsitalBoost
+    );
+    gameVars.setPopGrowthRate(currentPopGrowthRate + hopsitalBoost);
+    gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
+    return;
+  }
+
   // ✨ RadioStation
   if (card.name === nameToTemplateDataBuilding.RadioStation.name) {
     const currentEnergyConsumed = gameVars.energyConsumed;
@@ -62,14 +78,6 @@ export const updateBuildingRelatedGameVars = (
       crystalsMultiplier:
         currentMultipliers.crystalsMultiplier + CardMultipliers.crystals,
     });
-    return;
-  }
-
-  // ✨ Hospital
-  if (card.name === nameToTemplateDataBuilding.Hospital.name) {
-    const currentEnergyConsumed = gameVars.energyConsumed;
-
-    gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
     return;
   }
 };

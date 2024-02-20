@@ -79,6 +79,7 @@ const Label = ({
         >
           <SimpleLabel
             value={finalValue}
+            valueType={valueType}
             size={size}
             color={valueType?.color ?? "white"}
           />

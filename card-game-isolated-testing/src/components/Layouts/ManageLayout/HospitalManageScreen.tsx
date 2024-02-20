@@ -1,18 +1,18 @@
-import CustomSlider from "../../../../CustomSlider/CustomSlider";
-import { useGameVarsStore } from "../../../../../stores/gameVars";
-import LabelWithIcon from "../../../../Labels/LabelWithIcon/LabelWithIcon";
-import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
 import { useRef, useState } from "react";
-import { hospitalConstants } from "../../../../../constants/game/buildingsConfig";
-import BuildingCard from "../../../../../classes/buildingClass_V2";
-import { round4Decimal } from "../../../../../utils/game/roundToDecimal";
-import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
+import BuildingCard from "../../../classes/buildingClass_V2";
+import { hospitalConstants } from "../../../constants/game/buildingsConfig";
+import { UseGlobalContext } from "../../../context/GlobalContext/GlobalContext";
+import useGetLabelsSize from "../../../hooks/game/useGetLabelsSize";
+import { useGameVarsStore } from "../../../stores/gameVars";
+import { round4Decimal } from "../../../utils/game/roundToDecimal";
+import CustomSlider from "../../CustomSlider/CustomSlider";
+import LabelWithIcon from "../../Labels/LabelWithIcon/LabelWithIcon";
 
 interface Props {
   card: BuildingCard;
 }
 
-const HospitalLayoutManage = ({ card }: Props) => {
+const HospitalManageScreen = ({ card }: Props) => {
   const allWorkers = useGameVarsStore((state) => state.allWorkers);
   const setAllWorkers = useGameVarsStore((state) => state.setAllWorkers);
   const setHospitalWorkers = useGameVarsStore(
@@ -104,7 +104,7 @@ const HospitalLayoutManage = ({ card }: Props) => {
           }}
           position="top"
           desc={{
-            text: "Growth Rate",
+            text: "Total Growth Rate",
             style: "white",
           }}
         />
@@ -154,4 +154,4 @@ const HospitalLayoutManage = ({ card }: Props) => {
   );
 };
 
-export default HospitalLayoutManage;
+export default HospitalManageScreen;

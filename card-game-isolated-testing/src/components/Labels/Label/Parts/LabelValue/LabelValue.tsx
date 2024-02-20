@@ -1,3 +1,5 @@
+import { round2Decimal } from "../../../../../utils/game/roundToDecimal";
+
 interface LabelValueProps {
   value: number | string;
   valueType?: {
@@ -15,7 +17,7 @@ const LabelValue = ({ value, valueType, className }: LabelValueProps) => {
       finalValue = `${value} /h`;
       break;
     case "%":
-      finalValue = `${value}%`;
+      finalValue = `${round2Decimal((value as number) * 100)} %`;
       break;
     case "maxLimit":
       finalValue = `${value}/${valueType.limit}`;

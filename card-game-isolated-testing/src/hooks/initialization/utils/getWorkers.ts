@@ -1,3 +1,4 @@
+import { hospitalConstants } from "../../../constants/game/buildingsConfig";
 import { Workers } from "../../../types/GameLoopTypes/GameLoopTypes";
 import { IPlayerDB } from "../../../types/PlayerTypes/Player";
 
@@ -11,12 +12,16 @@ export const getWorkers = (playerData: IPlayerDB): Workers => {
       "⛔ - usePlayerInit: getWorkers: Population is null or undefined or less than 0!"
     );
 
+  const doctors = playerData.workers_hospital
+    ? playerData.workers_hospital * hospitalConstants.doctorsToCitizensRatio
+    : 0;
+
   const allNonPrivateWorkers =
     (playerData.workers_concrete ?? 0) +
     (playerData.workers_metals ?? 0) +
     (playerData.workers_crystals ?? 0) +
     (playerData.workers_diesel ?? 0) +
-    (playerData.workers_hospital ?? 0);
+    doctors; // 1 Doctor counts as 4 Private Sector Workers
 
   const privateSector = playerData.population - allNonPrivateWorkers;
 

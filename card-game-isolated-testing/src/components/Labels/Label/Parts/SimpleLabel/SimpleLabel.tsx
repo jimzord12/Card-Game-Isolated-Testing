@@ -1,7 +1,14 @@
+import { round2Decimal } from "../../../../../utils/game/roundToDecimal";
 import { styles } from "./simpleLabelConstants";
 
 interface SimpleLabelProps {
   value: number | string;
+  valueType?: {
+    type?: "/h" | "%" | "maxLimit";
+    limit?: number;
+    color?: "white" | "black" | "rusty";
+    addGrayScale?: "yes" | "no";
+  };
   size: "extraSmall" | "small" | "medium" | "large";
   color: "white" | "black" | "rusty";
   bgColorHex?: string;
@@ -11,12 +18,18 @@ interface SimpleLabelProps {
 
 const SimpleLabel = ({
   value,
+  valueType,
   size,
   color,
   bgColorHex = "#076b07",
   borderColorHex = "#023002",
   borderWidthPx = 5,
 }: SimpleLabelProps) => {
+  let finalValue: number | string = value;
+  if (valueType?.type === "/h" && typeof value === "number")
+    finalValue = `${round2Decimal(value)} /h`;
+  if (valueType?.type === "%" && typeof value === "number")
+    finalValue = `${round2Decimal(value * 100)} %`;
   return (
     <div
       style={{
@@ -35,7 +48,7 @@ const SimpleLabel = ({
         borderRadius: "10px",
       }}
     >
-      {value}
+      {finalValue}
     </div>
   );
 };

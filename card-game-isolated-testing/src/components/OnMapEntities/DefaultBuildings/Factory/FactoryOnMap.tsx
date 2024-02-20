@@ -6,6 +6,7 @@ import "../defaultBuildings.css";
 import StandardModal from "../../../Modals/StandardModal/StandardModal";
 import { useModalStore } from "../../../../stores/modalStore";
 import { useGameVarsStore } from "../../../../stores/gameVars";
+import DefaultBuildingsLvlUpScreen from "../../../Layouts/LevelUpLayout/defaultBuildings/DefaultBuildingsLvlUpScreen";
 
 interface Props {
   highlightedImg: number | null;
@@ -38,7 +39,7 @@ const FactoryOnMap = ({
           <div style={{ fontSize: 42, color: "white" }}>
             The Main Screen!!!
           </div>,
-          <div style={{ fontSize: 42, color: "white" }}>Level Up Screen!!</div>,
+          <DefaultBuildingsLvlUpScreen type="factory" />,
         ]}
         contentType="factory"
         label="Diesel Factory"
