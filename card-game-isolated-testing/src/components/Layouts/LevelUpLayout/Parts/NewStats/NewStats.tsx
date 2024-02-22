@@ -109,7 +109,11 @@ const NewStats = ({ card }: NewStatsProps) => {
           </div>
           <div about="New-Effect" className="h-fit pb-8 flex flex-col gap-8">
             <LabelWithIcon
-              image={images.gameIcons.levelUpGradientGameIcon}
+              image={`${
+                isBuildingCard(card)
+                  ? images.gameIcons.levelUpGradientGameIcon
+                  : images.gameIcons.energyProductionGameIcon
+              }`}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
@@ -133,7 +137,11 @@ const NewStats = ({ card }: NewStatsProps) => {
               }
             />
             <LabelWithIcon
-              image={images.gameIcons.levelUpGradientGameIcon}
+              image={`${
+                isBuildingCard(card)
+                  ? images.gameIcons.levelUpGradientGameIcon
+                  : images.gameIcons.energyProductionGameIcon
+              }`}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
@@ -150,7 +158,7 @@ const NewStats = ({ card }: NewStatsProps) => {
               }
               desc={
                 {
-                  text: "New Output",
+                  text: "Old Output",
                   style: "white",
                 } as const
               }

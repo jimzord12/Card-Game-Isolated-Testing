@@ -110,7 +110,7 @@ export default class BuildingCard {
     if (data.templateId === nameToTemplateDataBuilding.ToolStore.id) {
       this.stats = data.stats
         ? data.stats
-        : { gold: 0, concrete: 0, crystals: 0, metals: 0 };
+        : { gold: 0, diesel: 0, concrete: 0, crystals: 0, metals: 0 };
     }
   }
 

@@ -124,7 +124,7 @@ export default function CardGrid({
         const { id, stats } = newCard;
         createCardStats_DB({
           cardId: id,
-          gold: stats.gold,
+          diesel: stats.diesel,
           concrete: stats.concrete,
           metals: stats.metals,
           crystals: stats.crystals,

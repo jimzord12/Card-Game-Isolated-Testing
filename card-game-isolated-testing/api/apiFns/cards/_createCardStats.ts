@@ -6,7 +6,7 @@ const CREATE_CARD_STATS_URL = "card-stats";
 
 interface ICardStatsToCreate {
   cardId: number;
-  gold: number;
+  diesel: number;
   concrete: number;
   metals: number;
   crystals: number;

@@ -35,6 +35,7 @@ export interface Workers {
 
 export interface Multipliers {
   goldMultiplier: number;
+  dieselMultiplier: number;
   concreteMultiplier: number;
   metalsMultiplier: number;
   crystalsMultiplier: number;

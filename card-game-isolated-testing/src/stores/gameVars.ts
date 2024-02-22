@@ -104,6 +104,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   // Multipliers
   multipliers: {
     goldMultiplier: 2,
+    dieselMultiplier: 2.5,
     concreteMultiplier: 1.5,
     metalsMultiplier: 1.25,
     crystalsMultiplier: 1,

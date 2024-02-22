@@ -26,7 +26,7 @@ export type BuildingStats = {
   concrete: number;
   crystals: number;
   metals: number;
-  // diesel: number;
+  diesel: number;
 };
 
 export interface ToolStoreType extends BuildingCard {

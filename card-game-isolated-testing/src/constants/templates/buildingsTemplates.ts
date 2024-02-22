@@ -32,13 +32,14 @@ const toolStoreTemplate: TemplateDataBuilding = {
   },
   baseStats: {
     gold: 0,
+    diesel: 0,
     concrete: 0,
     metals: 0,
     crystals: 0,
     // diesel: 0,
   },
   baseOutput: {
-    boost: 0.25,
+    boost: 0.05,
   },
   desc: "Enchances Gathering",
 };

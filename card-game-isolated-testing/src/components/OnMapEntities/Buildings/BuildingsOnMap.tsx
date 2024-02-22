@@ -25,6 +25,8 @@ import ToolStoreMainScreen from "../../Layouts/MainScreenLayout/BuildingsLayouts
 import HospitalManageScreen from "../../Layouts/ManageLayout/HospitalManageScreen";
 import { updatePlayerData } from "../../../../api/apiFns";
 import { useGameVarsStore } from "../../../stores/gameVars";
+import ToolStoreManageScreen from "../../Layouts/ManageLayout/ToolStoreManageScreen/ToolStoreManageScreen";
+import { isToolStore } from "../../../types/TypeGuardFns/isToolStore";
 
 interface Props {
   highlightedImg: number | null;
@@ -61,21 +63,19 @@ const BuildingsOnMap = ({
     };
 
     if (isActiveBuilding(selectedCard.name)) {
-      if (selectedCard.name === "ToolStore") {
+      if (selectedCard.name === "ToolStore" && isToolStore(selectedCard)) {
         pushModal(
           <StandardModal
             {...modalsProps}
             contentType="toolStore"
             contentScreens={[
               <ToolStoreMainScreen card={selectedCard} />,
-              <div style={{ fontSize: 42, color: "white" }}>
-                toolStore Mangement Screen #2
-              </div>,
+              <ToolStoreManageScreen card={selectedCard} />,
               <LevelUpLayout card={selectedCard} />,
             ]}
           />
         );
-      } else if (selectedCard.name === "Hospital") {
+      } else {
         pushModal(
           <StandardModal
             {...modalsProps}

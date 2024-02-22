@@ -10,7 +10,7 @@ const DefaultBuildingsLvlUpScreen = ({
 }: DefaultBuildingsLvlUpScreenProps) => {
   return (
     <div
-      className="flex flex-col w-full h-fit justify-center items-center"
+      className="flex flex-col w-full h-fit tablet:h-full justify-center items-center"
       about={`LevelUp-Layout-${type}`}
     >
       {/* <h2 className="text-white font-extrabold text-4xl">
@@ -19,7 +19,7 @@ const DefaultBuildingsLvlUpScreen = ({
       <h2 className="text-white text-xl largeScreen:text-3xl mb-6 bg-emerald-800/[.7] p-4 rounded-2xl border-4">
         Required Resources & New Stats
       </h2>
-      <div className="flex flex-col tablet:flex-col w-full h-fit gap-4 justify-center items-center">
+      <div className="flex w-full h-fit gap-4 justify-center items-center">
         {/* Card's Details Section */}
         <Default_B_RequiredResourcesSection type={type} />
 

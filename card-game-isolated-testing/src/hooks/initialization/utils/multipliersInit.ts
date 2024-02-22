@@ -22,7 +22,7 @@ export const multipliersInit = (
     startingMultipliers.concreteMultiplier += singleCardMultipliers.concrete;
     startingMultipliers.metalsMultiplier += singleCardMultipliers.metals;
     startingMultipliers.crystalsMultiplier += singleCardMultipliers.crystals;
-    startingMultipliers.goldMultiplier += singleCardMultipliers.gold;
+    startingMultipliers.dieselMultiplier += singleCardMultipliers.diesel;
   });
 
   return startingMultipliers;
