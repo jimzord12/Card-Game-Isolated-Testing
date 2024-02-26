@@ -17,6 +17,7 @@ interface ICardStatsToCreate {
 }
 
 interface ResponseData {
+  cardStatsId: number;
   cardId: number;
   success: boolean;
 }
@@ -31,5 +32,9 @@ export const createCardStats = async (
 
   const wasSuccessful = response.data.affectedRows === 1 ? true : false;
 
-  return { cardId: response.data.insertId, success: wasSuccessful };
+  return {
+    cardStatsId: response.data.insertId,
+    cardId: cardStatsDetails.cardId,
+    success: wasSuccessful,
+  };
 };

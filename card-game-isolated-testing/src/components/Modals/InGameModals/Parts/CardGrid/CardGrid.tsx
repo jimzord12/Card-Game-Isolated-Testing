@@ -140,7 +140,8 @@ export default function CardGrid({
   // Mutation #2 - Create Card's Stats
   const { mutate: createCardStats_DB } = useMutation({
     mutationFn: createCardStats, // Replace with your API function
-    onError: () => console.error("Error while creating the new card STATS!"),
+    onError: (error) =>
+      console.error("Error while creating the new card STATS!", error),
     onSuccess: (newCardStats) => console.log("New Card STATS: ", newCardStats),
   });
 

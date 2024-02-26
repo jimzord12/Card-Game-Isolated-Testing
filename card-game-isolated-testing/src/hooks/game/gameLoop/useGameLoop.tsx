@@ -262,6 +262,7 @@ const useGameLoop = () => {
     );
 
     console.log("Get Game State: PopG: ", currentPopGrowthRate);
+    console.log("Get Game State: Multipliers: ", gameVars.multipliers);
 
     const currentGold = isNotNullOrUndefined<number>(
       gameVars.player?.gold,

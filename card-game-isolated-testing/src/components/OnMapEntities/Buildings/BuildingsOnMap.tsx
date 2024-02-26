@@ -27,6 +27,7 @@ import { updatePlayerData } from "../../../../api/apiFns";
 import { useGameVarsStore } from "../../../stores/gameVars";
 import ToolStoreManageScreen from "../../Layouts/ManageLayout/ToolStoreManageScreen/ToolStoreManageScreen";
 import { isToolStore } from "../../../types/TypeGuardFns/isToolStore";
+import ToolStoreLvlUpScreen from "../../Layouts/LevelUpLayout/ToolStoreLvlUpScreen/ToolStoreLvlUpScreen";
 
 interface Props {
   highlightedImg: number | null;
@@ -71,7 +72,7 @@ const BuildingsOnMap = ({
             contentScreens={[
               <ToolStoreMainScreen card={selectedCard} />,
               <ToolStoreManageScreen card={selectedCard} />,
-              <LevelUpLayout card={selectedCard} />,
+              <ToolStoreLvlUpScreen card={selectedCard} />,
             ]}
           />
         );

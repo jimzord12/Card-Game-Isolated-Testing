@@ -1,18 +1,17 @@
-import BuildingCard from "../../../../../classes/buildingClass_V2";
-import RegCard from "../../../../../classes/regClass_V2";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
 import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
+import { ToolStoreType } from "../../../../../types";
 import { isBuildingCard } from "../../../../../types/TypeGuardFns/BuildingGuards";
 import { isRegCard } from "../../../../../types/TypeGuardFns/RegGuards";
 import { isToolStore } from "../../../../../types/TypeGuardFns/isToolStore";
 import LabelWithIcon from "../../../../Labels/LabelWithIcon/LabelWithIcon";
 
-interface NewStatsProps {
-  card: BuildingCard | RegCard;
+interface NewToolStoreStatsProps {
+  card: ToolStoreType;
   //   imagesForSB?: ImageGroups;
 }
 
-const NewStats = ({ card }: NewStatsProps) => {
+const NewToolStoreStats = ({ card }: NewToolStoreStatsProps) => {
   const size = useGetLabelsSize();
   console.log("Amusement Park - Level - Size: ", size);
 
@@ -26,31 +25,14 @@ const NewStats = ({ card }: NewStatsProps) => {
     images === undefined ||
     images === null
   )
-    throw new Error("⛔ NewStats.tsx: images are undefined!");
+    throw new Error("⛔ NewToolStoreStats.tsx: images are undefined!");
 
-  let image: string;
-  let oldOutput: number;
-  let newOutput: number;
-  let oldMaintenance: number;
-  let newMaintenance: number;
-
-  if (isRegCard(card)) {
-    image = images.gameIcons.expensesGameIcon;
-    oldMaintenance = card.maintenance.gold;
-    oldOutput = card.output.energy;
-    newOutput = card.getNewStats().newOutput.energy;
-    newMaintenance = card.getNewStats().newMaintenance.gold;
-  } else if (isBuildingCard(card)) {
-    image = images.gameIcons.energyUtilizationGameIcon;
-    oldMaintenance = card.maintenance.energy;
-    oldOutput = card.output.boost;
-    newOutput = card.getNewStats().newOutput.boost;
-    newMaintenance = card.getNewStats().newMaintenance.energy;
-  } else {
-    throw new Error(
-      "⛔ NewStats.tsx: card is neither a BuildingCard nor a RegCard!"
-    );
-  }
+  const energyUtilImg = images.gameIcons.energyUtilizationGameIcon;
+  const outputImg = images.gameIcons.levelUpGradientGameIcon;
+  const oldMaintenance = card.maintenance.energy;
+  const oldOutput = card.level;
+  const newOutput = oldOutput + 1;
+  const newMaintenance = card.getNewStats().newMaintenance.energy;
 
   return (
     <>
@@ -68,7 +50,7 @@ const NewStats = ({ card }: NewStatsProps) => {
             className="h-fit pb-8 flex flex-col gap-8"
           >
             <LabelWithIcon
-              image={image}
+              image={energyUtilImg}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
@@ -88,7 +70,7 @@ const NewStats = ({ card }: NewStatsProps) => {
               }
             />
             <LabelWithIcon
-              image={image}
+              image={energyUtilImg}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
@@ -109,11 +91,7 @@ const NewStats = ({ card }: NewStatsProps) => {
           </div>
           <div about="New-Effect" className="h-fit pb-8 flex flex-col gap-8">
             <LabelWithIcon
-              image={`${
-                isBuildingCard(card)
-                  ? images.gameIcons.levelUpGradientGameIcon
-                  : images.gameIcons.energyProductionGameIcon
-              }`}
+              image={outputImg}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
@@ -131,17 +109,13 @@ const NewStats = ({ card }: NewStatsProps) => {
               }
               desc={
                 {
-                  text: "Old Output",
+                  text: "Old Max Tool Lvl",
                   style: "white",
                 } as const
               }
             />
             <LabelWithIcon
-              image={`${
-                isBuildingCard(card)
-                  ? images.gameIcons.levelUpGradientGameIcon
-                  : images.gameIcons.energyProductionGameIcon
-              }`}
+              image={outputImg}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
@@ -158,7 +132,7 @@ const NewStats = ({ card }: NewStatsProps) => {
               }
               desc={
                 {
-                  text: "New Output",
+                  text: "New Max Tool Lvl",
                   style: "white",
                 } as const
               }
@@ -170,4 +144,4 @@ const NewStats = ({ card }: NewStatsProps) => {
   );
 };
 
-export default NewStats;
+export default NewToolStoreStats;

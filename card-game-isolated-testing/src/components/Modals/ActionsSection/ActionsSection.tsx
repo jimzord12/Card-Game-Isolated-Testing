@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { updateCardData } from "../../../../api/apiFns";
 import BuildingCard from "../../../classes/buildingClass_V2";
 import RegCard from "../../../classes/regClass_V2";
@@ -16,6 +16,9 @@ import useModalActions from "./useModalActions";
 import { useToastError } from "../../../hooks/notifications";
 import useCardLevelUp from "./useCardLevelUp";
 import useDefaultBuildingLevelUp from "./useDefaultBuildingLevelUp";
+import LoadingModal from "../LoadingModal/LoadingModal";
+import { useModalStore } from "../../../stores/modalStore";
+import { waitFor } from "../../../utils/general/waitPlease";
 
 interface ActionsSectionProps {
   contentType: ActionsSectionType;
@@ -50,13 +53,23 @@ const ActionsSection = ({
 
   const toastError = useToastError();
 
+  const pushModal = useModalStore((state) => state.pushModal);
+  const popModal = useModalStore((state) => state.popModal);
+
   const { levelUpCard } = useCardLevelUp({
     setCardLevel,
   });
   const { levelUpDefaultBuilding } = useDefaultBuildingLevelUp();
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) pushModal(<LoadingModal />);
+  }, [isLoading]);
+
   // TODO: Make the Backend Updates first! And the Client ones after
   async function deactivate() {
+    setIsLoading(true);
     console.log("⚡ - Deactiating Card: ", card);
     if (
       (card instanceof BuildingCard || card instanceof RegCard) &&
@@ -91,7 +104,11 @@ const ActionsSection = ({
           "⛔ ActionsSection: deactivate: Card was not updated in DB!"
         );
       console.log("⚡+✅ - In Backend: Card Successfully Deactivated: ", card);
+      setIsLoading(false);
+      popModal();
     } else {
+      setIsLoading(false);
+      popModal();
       throw new Error(
         "⛔ ActionsSection: |deactivate| Card is not an instance of any of the card classes!"
       );
@@ -99,6 +116,7 @@ const ActionsSection = ({
   }
 
   async function levelUp() {
+    setIsLoading(true);
     console.log("⚡ - (Action Section) - Leveling Up Card: ", card);
     if (
       player === null ||
@@ -124,6 +142,8 @@ const ActionsSection = ({
       diesel: player.diesel,
     };
 
+    await waitFor(2);
+
     // In Case of [Townhall] or [Factory]
     if (contentType === "townhall" || contentType === "factory") {
       levelUpDefaultBuilding({
@@ -143,10 +163,14 @@ const ActionsSection = ({
         "There was an Error!",
         "ActionsSection: LevelUp: Card is null, or contentType is not 'townhall' or 'factory'!"
       );
+      popModal();
+      setIsLoading(false);
       throw new Error(
         "⛔ ActionsSection: LevelUp: Card is null! or contentType is not 'townhall' or 'factory'!"
       );
     }
+    setIsLoading(false);
+    popModal();
   }
 
   const actions = useModalActions({

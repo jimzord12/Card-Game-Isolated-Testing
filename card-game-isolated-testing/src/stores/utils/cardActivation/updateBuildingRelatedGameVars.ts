@@ -3,6 +3,7 @@ import { GameVarsState } from "../../gameVars";
 import { nameToTemplateDataBuilding } from "../../../constants/templates";
 import { calcMulti } from "../../../hooks/initialization/utils/calcMulti";
 import { isToolStore } from "../../../types/TypeGuardFns/isToolStore";
+import { round2Decimal } from "../../../utils/game/roundToDecimal";
 
 export const updateBuildingRelatedGameVars = (
   card: BuildingCard,
@@ -70,13 +71,21 @@ export const updateBuildingRelatedGameVars = (
     gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
     gameVars.setMultipliers({
       ...gameVars.multipliers,
-      goldMultiplier: currentMultipliers.goldMultiplier + CardMultipliers.gold,
-      concreteMultiplier:
-        currentMultipliers.concreteMultiplier + CardMultipliers.concrete,
-      metalsMultiplier:
-        currentMultipliers.metalsMultiplier + CardMultipliers.metals,
-      crystalsMultiplier:
-        currentMultipliers.crystalsMultiplier + CardMultipliers.crystals,
+      goldMultiplier: round2Decimal(
+        currentMultipliers.goldMultiplier + CardMultipliers.gold
+      ),
+      concreteMultiplier: round2Decimal(
+        currentMultipliers.concreteMultiplier + CardMultipliers.concrete
+      ),
+      metalsMultiplier: round2Decimal(
+        currentMultipliers.metalsMultiplier + CardMultipliers.metals
+      ),
+      crystalsMultiplier: round2Decimal(
+        currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
+      ),
+      dieselMultiplier: round2Decimal(
+        currentMultipliers.dieselMultiplier + CardMultipliers.diesel
+      ),
     });
     return;
   }

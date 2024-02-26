@@ -8,7 +8,7 @@ import { isSPCard } from "../../types/TypeGuardFns/SPGuards";
 import { useGameVarsStore } from "../../stores/gameVars";
 import { isToolStore } from "../../types/TypeGuardFns/isToolStore";
 import { isBuildingCard } from "../../types/TypeGuardFns/BuildingGuards";
-import { multipliersInit } from "./utils/multipliersInit";
+// import { multipliersInit } from "./utils/multipliersInit";
 import { specialEffectInit } from "./utils/specialEffectInit";
 
 // Here we are Initializing:
@@ -36,8 +36,8 @@ const useCardsInit = () => {
   // Game Vars Store
   const {
     setActiveEffect,
-    setMultipliers,
-    multipliers: startingMultipliers,
+    // setMultipliers,
+    // multipliers: startingMultipliers,
     setPopGrowthRate,
   } = useGameVarsStore((state) => state);
 
@@ -58,18 +58,18 @@ const useCardsInit = () => {
       (card) => isBuildingCard(card) && isToolStore(card)
     ) as ToolStoreType[];
 
-    const activeToolStoreCards = toolStoreCards.filter(
-      (card) => card.state === true
-    );
+    // const activeToolStoreCards = toolStoreCards.filter(
+    //   (card) => card.state === true
+    // );
 
     // Special Effect Init
     const activeEffect = specialEffectInit(spCards); // 🔷 If there is an Active SP Card, creates the Effect.
 
-    // Multipliers Init
-    const multipliers = multipliersInit(
-      startingMultipliers,
-      activeToolStoreCards
-    ); // 🔷 If there are Multipliers, adds them to the Global State
+    // // Multipliers Init
+    // const multipliers = multipliersInit(
+    //   startingMultipliers,
+    //   activeToolStoreCards
+    // ); // 🔷 If there are Multipliers, adds them to the Global State
 
     // Template Cards for Craft Modal
     const templateCards = templateCardsInit(); // 🔷 Initialize the Template Cards (Used in Craft Modal)
@@ -80,7 +80,7 @@ const useCardsInit = () => {
     addAllTemplateCards(templateCards); // 🔷 Add the Template Cards to Global State
     addAllSPCards(spCards); // 🔷 Add the SP Cards to Global State
     setToolStoreCards(toolStoreCards); // 🔷 Add the Tool Store Cards to Global State
-    setMultipliers(multipliers); // 🔷 Add the Multipliers to Global State
+    // setMultipliers(multipliers); // 🔷 Add the Multipliers to Global State
 
     // Calculate Final Pop Growth Rate
     const happinessFromBuildings =

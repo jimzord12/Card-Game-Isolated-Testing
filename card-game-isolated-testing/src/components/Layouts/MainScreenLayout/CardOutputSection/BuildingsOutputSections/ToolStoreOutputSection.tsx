@@ -1,18 +1,16 @@
-import BuildingCard from "../../../../../classes/buildingClass_V2";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
 import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
-import { useGameVarsStore } from "../../../../../stores/gameVars";
-import { round2Decimal } from "../../../../../utils/game/roundToDecimal";
-import LabelWithIcon from "../../../../Labels/LabelWithIcon/LabelWithIcon";
+import { ToolStoreResources, ToolStoreType } from "../../../../../types";
+import ResourceToolCurrent from "../../../ManageLayout/ToolStoreManageScreen/Parts/ResourceToolCurrent/ResourceToolCurrent";
 
 interface ToolStoreOutputSectionProps {
-  card: BuildingCard;
+  card: ToolStoreType;
 }
 
 const ToolStoreOutputSection = ({ card }: ToolStoreOutputSectionProps) => {
   const { images } = UseGlobalContext();
   const deviceSize = useGetLabelsSize();
-  const popGrowthRate = useGameVarsStore((state) => state.popGrowthRate);
+  const tools = ["crystals", "concrete", "metals", "diesel"];
 
   // console.log("The selected size is: ", deviceSize);
 
@@ -21,47 +19,27 @@ const ToolStoreOutputSection = ({ card }: ToolStoreOutputSectionProps) => {
   return (
     <section
       about={`Card-Output-[${card.id}]`}
-      className="relative flex flex-col justify-center items-center w-full h-full "
+      className="flex flex-col justify-start largeScreen:justify-center items-center w-full h-full"
     >
-      <img
-        className="absolute max-w-1/2 max-h-full tablet:w-full tablet:h-full largeScreen:h-fit bg-emerald-700/[.6] rounded-2xl"
+      {/* <div className="w-[800px]" /> */}
+      {/* <img
+        className="absolute top-0 w-1/2 h-[370px] tablet:w-[800px] tablet:h-[600px] largeScreen:h-fit bg-emerald-700/[.6] rounded-2xl"
         src={images.frames.metalFrame}
         alt="Metal Frame"
-      />
-      <div className="flex justify-around items-center p-16 h-2/3">
-        <div className="flex flex-col items-center gap-12">
-          <LabelWithIcon
-            labelImages={images.labels}
-            image={images.gameIcons.growthGameIcon}
-            labelType="simple"
-            value={`${round2Decimal(popGrowthRate - card.output.boost)} /h`}
-            desc={{
-              text: "Citizen Growth Before",
-              style: "white",
-            }}
-            size={deviceSize}
-            valueType={
-              {
-                color: "white",
-              } as const
-            }
-          />
-          <LabelWithIcon
-            labelImages={images.labels}
-            image={images.gameIcons.growthGameIcon}
-            labelType="simple"
-            value={`${round2Decimal(popGrowthRate)} /h`}
-            desc={{
-              text: "Citizen Growth After",
-              style: "white",
-            }}
-            size={deviceSize}
-            valueType={
-              {
-                color: "white",
-              } as const
-            }
-          />
+      /> */}
+      <div className="flex justify-around items-center h-fit bg-emerald-700/[.6] rounded-2xl tablet:h-fit tablet:w-[400px] pt-4 pb-4">
+        <div className="flex flex-col items-center ">
+          {/* translate-y-16 */}
+          {tools.map((toolResType) => (
+            <ResourceToolCurrent
+              card={card}
+              labelImages={images.labels}
+              toolType={toolResType as keyof ToolStoreType["stats"]}
+              resType={toolResType as ToolStoreResources}
+              size={deviceSize}
+              key={`${card.id}-${toolResType}`}
+            />
+          ))}
         </div>
       </div>
     </section>

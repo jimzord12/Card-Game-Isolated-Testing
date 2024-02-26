@@ -6,21 +6,21 @@ import { ToolStoreType, BuildingStats } from "../../../types";
 // 3. These Tool Level are used to calculate the multipliers
 // for boosting the game's resources gathering.
 export const calcMulti = (card: ToolStoreType) => {
-  const props = ["concrete", "metals", "crystals", "gold"];
-  const multiplier = {
-    gold: 1,
-    concrete: 1,
-    metals: 1,
-    crystals: 1,
-    diesel: 1,
+  const toolType = ["concrete", "metals", "crystals", "diesel"];
+  const baseMultipliers = {
+    gold: 0,
+    concrete: 0,
+    metals: 0,
+    crystals: 0,
+    diesel: 0,
   };
 
-  for (let i = 0; i < props.length; i++) {
-    multiplier[props[i] as keyof BuildingStats] =
-      card.stats[props[i] as keyof BuildingStats] * card.output.boost;
+  for (let i = 0; i < toolType.length; i++) {
+    baseMultipliers[toolType[i] as keyof BuildingStats] =
+      card.stats[toolType[i] as keyof BuildingStats] * card.output.boost; // Tool Level * ToolStore Boost
   }
 
-  console.log("🎁 Utils:calcMulti:: ", multiplier);
+  console.log("🎁 Utils:calcMulti:: ", baseMultipliers);
 
-  return multiplier;
+  return baseMultipliers;
 };
