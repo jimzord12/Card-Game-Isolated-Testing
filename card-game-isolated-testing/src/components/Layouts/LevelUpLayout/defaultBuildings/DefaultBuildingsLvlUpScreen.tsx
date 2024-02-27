@@ -10,7 +10,7 @@ const DefaultBuildingsLvlUpScreen = ({
 }: DefaultBuildingsLvlUpScreenProps) => {
   return (
     <div
-      className="flex flex-col w-full h-fit tablet:h-full justify-center items-center"
+      className="flex flex-col w-full h-fit largeScreen:h-full justify-center items-center"
       about={`LevelUp-Layout-${type}`}
     >
       {/* <h2 className="text-white font-extrabold text-4xl">

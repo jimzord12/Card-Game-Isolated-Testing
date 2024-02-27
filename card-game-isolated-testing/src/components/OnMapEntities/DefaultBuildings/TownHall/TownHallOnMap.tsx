@@ -10,6 +10,7 @@ import StandardModal from "../../../Modals/StandardModal/StandardModal";
 import "../defaultBuildings.css";
 import TownHallModalMainScreen from "./TownHallModalLayout/Screens/TownHallModalMainScreen";
 import DefaultBuildingsLvlUpScreen from "../../../Layouts/LevelUpLayout/defaultBuildings/DefaultBuildingsLvlUpScreen";
+import TownHallManageScreen from "../../../Layouts/ManageLayout/TownHallManageScreen/TownHallManageScreen";
 
 interface Props {
   highlightedImg: number | null;
@@ -45,7 +46,7 @@ const TownHallOnMap = ({
         bgImage={images.modal_backgrounds.townHallBG}
         contentScreens={[
           <TownHallModalMainScreen />,
-          <div style={{ fontSize: 42, color: "white" }}>Workers Screen!!!</div>,
+          <TownHallManageScreen />,
           <DefaultBuildingsLvlUpScreen type="townhall" />,
         ]}
         contentType="townhall"

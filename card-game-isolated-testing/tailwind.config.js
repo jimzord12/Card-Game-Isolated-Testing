@@ -8,6 +8,7 @@ export default {
     // },
     extend: {
       screens: {
+        superSmall: { raw: "(max-height: 290px)" },
         mobile: {
           raw: "(max-height: 735px)",
         },

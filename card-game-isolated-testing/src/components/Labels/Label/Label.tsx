@@ -19,6 +19,7 @@ interface LabelProps {
     limit?: number;
     color?: "white" | "black" | "rusty";
     addGrayScale?: "yes" | "no";
+    addSepiaFilter?: boolean;
   };
   size?: LabelSize;
   desc?: {

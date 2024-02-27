@@ -1,4 +1,4 @@
-import { defaultBuildingsConfig } from "../../../../../constants/game";
+import { factoryBarrelsPerLevel } from "../../../../../constants/game/defaultBuildingsConfig";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
 import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
 import { useGameVarsStore } from "../../../../../stores/gameVars";
@@ -22,19 +22,9 @@ const Factory_LvlUp_NewStats = () => {
   )
     throw new Error("⛔ NewStats.tsx: images are undefined!");
 
-  const currentCitizensLimit =
-    defaultBuildingsConfig.townhallHousingLimitPerLevel[factoryLevel];
-  const nextCitizensLimit =
-    defaultBuildingsConfig.townhallHousingLimitPerLevel[
-      (factoryLevel + 1) as Level
-    ];
-
-  const currentSpace =
-    defaultBuildingsConfig.townhallAvailSpacePerLevel[factoryLevel];
-  const nextSpace =
-    defaultBuildingsConfig.townhallAvailSpacePerLevel[
-      (factoryLevel + 1) as Level
-    ];
+  const newBarrelCapacity =
+    factoryBarrelsPerLevel[(factoryLevel + 1) as Level] -
+    factoryBarrelsPerLevel[factoryLevel];
 
   return (
     <>
@@ -44,38 +34,39 @@ const Factory_LvlUp_NewStats = () => {
         </h2>
       ) : (
         <section
-          className="flex flex-col w-fit p-4 border-4 rounded-2xl bg-emerald-700/[.6]"
+          className="flex flex-col w-fit p-4 pb-12 pt-8 border-4 rounded-2xl bg-emerald-700/[.6]"
           about="Townhall-New-Stats"
         >
           <div
             about="Townhall-Effect"
-            className="h-fit pb-8 flex flex-col gap-12"
+            className="h-fit pb-8 flex flex-col gap-16"
           >
-            <LabelWithIcon
-              image={images.gameIcons.citizensSpaceGameIcon}
+            {/* <LabelWithIcon
+              image={images.gameIcons.dieselBarrelGameIcon}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
-              value={`+${nextCitizensLimit - currentCitizensLimit}`}
+              value={`+${factoryBarrelsPerLevel[factoryLevel]}`}
               position="left"
               valueType={
                 {
                   color: "black",
+                  addGrayScale: "yes",
                 } as const
               }
               desc={
                 {
-                  text: "New Citizen Capacity",
+                  text: "Old Barrel Capacity",
                   style: "white",
                 } as const
               }
-            />
+            /> */}
             <LabelWithIcon
-              image={images.gameIcons.buildingsSpaceGameIcon}
+              image={images.gameIcons.dieselBarrelGameIcon}
               labelImages={images!.labels}
               labelType="golden"
               size={size}
-              value={`+${nextSpace.buildings - currentSpace.buildings}`}
+              value={`+${newBarrelCapacity}`}
               position="left"
               valueType={
                 {
@@ -84,26 +75,7 @@ const Factory_LvlUp_NewStats = () => {
               }
               desc={
                 {
-                  text: "New Building Capacity",
-                  style: "white",
-                } as const
-              }
-            />
-            <LabelWithIcon
-              image={images.gameIcons.regSpaceGameIcon}
-              labelImages={images!.labels}
-              labelType="golden"
-              size={size}
-              value={`+${nextSpace.regs - currentSpace.regs}`}
-              position="left"
-              valueType={
-                {
-                  color: "black",
-                } as const
-              }
-              desc={
-                {
-                  text: "New Reg Capacity",
+                  text: "New Barrel Capacity",
                   style: "white",
                 } as const
               }

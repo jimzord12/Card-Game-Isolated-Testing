@@ -80,8 +80,8 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
   addAllActiveCards(cards) {
     set((state) => {
       const newBuildingCards: BuildingCard[] = [];
-
       const newRegCards: RegCard[] = [];
+      
       cards.forEach((card) => {
         if (card instanceof BuildingCard) {
           updateBuildingRelatedGameVars(card, useGameVarsStore.getState());

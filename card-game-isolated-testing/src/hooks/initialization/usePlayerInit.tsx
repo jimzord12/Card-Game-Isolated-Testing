@@ -3,6 +3,10 @@ import { useGameVarsStore } from "../../stores/gameVars";
 import { Level } from "../../types";
 import { IPlayerDB } from "../../types/PlayerTypes/Player";
 import { getWorkers } from "./utils";
+import {
+  barrelToEnergyConversion,
+  barrelToSadnessConversion,
+} from "../../constants/game/defaultBuildingsConfig";
 // Here we are Initializing:
 // 1. Resources
 // 2. Townhall Level
@@ -17,6 +21,9 @@ const usePlayerInit = () => {
     setFactoryLevel,
     setAllWorkers,
     setPopGrowthRate,
+    setFactoryBarrels,
+    setEnergyProduced,
+    energyProduced,
   } = useGameVarsStore((state) => state);
 
   const playerInit = (data: IPlayerDB) => {
@@ -24,6 +31,10 @@ const usePlayerInit = () => {
     console.log("💰💰💰💰💰💰💰💰: ", data.timestamp);
     setTownhallLevel(data.townhall_lvl as Level);
     setFactoryLevel(data.factory_lvl as Level);
+    setFactoryBarrels(data.factory_barrels ?? 0);
+    setEnergyProduced(
+      (data.factory_barrels ?? 0) * barrelToEnergyConversion + energyProduced
+    );
 
     const workers = getWorkers(data);
     setAllWorkers(workers);
@@ -33,7 +44,9 @@ const usePlayerInit = () => {
     if (data.population === null) {
       throw new Error("⛔ PlayerInit: Player Population is 0");
     }
-    const popGrowthRate = calcPopGrowthRate(data.population, 0);
+    const popGrowthRate =
+      calcPopGrowthRate(data.population, 0) -
+      (data.factory_barrels ?? 0) * barrelToSadnessConversion;
 
     setPopGrowthRate(popGrowthRate);
     return popGrowthRate;

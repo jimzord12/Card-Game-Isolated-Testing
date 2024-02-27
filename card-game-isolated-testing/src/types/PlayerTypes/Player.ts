@@ -11,6 +11,7 @@ export interface IPlayerDB {
   workers_crystals: number | null;
   workers_diesel: number | null;
   workers_hospital: number | null;
+  factory_barrels: number | null;
   taxes: number | null;
   voteCasted: number | null;
   concrete: number | null;
@@ -38,6 +39,7 @@ export type PlayerData = Pick<
   | "workers_crystals"
   | "workers_diesel"
   | "workers_hospital"
+  | "factory_barrels"
   | "concrete"
   | "metals"
   | "diesel"

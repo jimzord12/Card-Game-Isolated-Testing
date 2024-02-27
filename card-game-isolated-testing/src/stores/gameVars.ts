@@ -8,9 +8,18 @@ export type GameVarsState = {
   player: IPlayerDB | null;
   townhallLevel: Level;
   factoryLevel: Level;
+  factoryBarrels: number;
   happinessFromBuildings: number;
   expences: number; // In Old Code is Maintanance
   needsCatchUp: boolean;
+
+  // Quarries
+  quarryLevels: {
+    concrete: number;
+    metals: number;
+    crystals: number;
+    diesel: number;
+  };
 
   // Rates
   popGrowthRate: number;
@@ -50,9 +59,17 @@ export type GameVarsState = {
   setFactoryLevel: (
     fn: Level | ((currentFactoryLevel: Level) => Level)
   ) => void;
+  setFactoryBarrels: (barrels: number) => void;
 
   // Economy
   setExpences: (expences: number) => void;
+
+  // Rates
+  setGoldGathRate: (rate: number) => void;
+  setConcreteGathRate: (rate: number) => void;
+  setMetalsGathRate: (rate: number) => void;
+  setCrystalsGathRate: (rate: number) => void;
+  setDieselGathRate: (rate: number) => void;
 
   // Workers
   setAllWorkers: (workers: Workers) => void;
@@ -79,9 +96,18 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   player: null,
   townhallLevel: 1,
   factoryLevel: 1,
+  factoryBarrels: 0,
   happinessFromBuildings: 0,
   expences: 0,
   needsCatchUp: false,
+
+  // Quarries
+  quarryLevels: {
+    concrete: 1,
+    metals: 1,
+    crystals: 1,
+    diesel: 1,
+  },
 
   // Rates
   popGrowthRate: 0,
@@ -138,7 +164,18 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
       factoryLevel: typeof fn === "function" ? fn(state.factoryLevel) : fn,
     }));
   },
+  setFactoryBarrels: (barrels: number) => set({ factoryBarrels: barrels }),
 
+  // Quarries ✨ //TODO: Set it up in usePlayerInit
+  setQuarryLevel: (
+    quarry: keyof GameVarsState["quarryLevels"],
+    level: number
+  ) =>
+    set((state) => ({
+      quarryLevels: { ...state.quarryLevels, [quarry]: level },
+    })),
+
+  // Rates
   setPopGrowthRate: (rate: number) => set({ popGrowthRate: rate }),
   setGoldGathRate: (rate: number) => set({ goldGathRate: rate }),
   setConcreteGathRate: (rate: number) => set({ concreteGathRate: rate }),

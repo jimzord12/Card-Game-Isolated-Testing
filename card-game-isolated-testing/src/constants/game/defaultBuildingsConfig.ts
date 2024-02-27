@@ -116,3 +116,14 @@ export const factoryRequirements: Record<Level, CardRequirements> = {
     population: 1_000_000,
   },
 };
+
+export const barrelToEnergyConversion = 10;
+
+export const barrelToSadnessConversion = 0.02;
+export const factoryBarrelsPerLevel = {
+  1: 80,
+  2: 160,
+  3: 240,
+  4: 300,
+  5: 350,
+};

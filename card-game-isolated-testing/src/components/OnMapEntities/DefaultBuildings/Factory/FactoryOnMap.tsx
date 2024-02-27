@@ -7,7 +7,8 @@ import StandardModal from "../../../Modals/StandardModal/StandardModal";
 import { useModalStore } from "../../../../stores/modalStore";
 import { useGameVarsStore } from "../../../../stores/gameVars";
 import DefaultBuildingsLvlUpScreen from "../../../Layouts/LevelUpLayout/defaultBuildings/DefaultBuildingsLvlUpScreen";
-
+import FactoryMainScreen from "../../../Layouts/MainScreenLayout/DefaultBuildingsLayouts/FactoryMainScreen";
+import { updatePlayerData } from "../../../../../api/apiFns";
 interface Props {
   highlightedImg: number | null;
   handleHover: (id: number) => void;
@@ -28,6 +29,8 @@ const FactoryOnMap = ({
 
   const pushModal = useModalStore((state) => state.pushModal);
   const factoryLevel = useGameVarsStore((state) => state.factoryLevel);
+  const prevBarrelsPerHour = useGameVarsStore((state) => state.factoryBarrels);
+  const playerData = useGameVarsStore((state) => state.player);
 
   // This Renders the StandardModal
   const handleOpenFactoryModal = useCallback(() => {
@@ -36,14 +39,28 @@ const FactoryOnMap = ({
       <StandardModal
         bgImage={images.modal_backgrounds.dieselFactoryBG}
         contentScreens={[
-          <div style={{ fontSize: 42, color: "white" }}>
-            The Main Screen!!!
-          </div>,
+          <FactoryMainScreen />,
           <DefaultBuildingsLvlUpScreen type="factory" />,
         ]}
         contentType="factory"
         label="Diesel Factory"
         level={factoryLevel}
+        onClose={() => {
+          console.log("🐱‍🏍 Closing Factory...");
+          const cururentBarrelsPerHour =
+            useGameVarsStore.getState().factoryBarrels;
+          console.log("🐱‍🏍 cururentBarrelsPerHour: ", cururentBarrelsPerHour);
+          console.log("🐱‍🏍 prevBarrelsPerHour: ", prevBarrelsPerHour);
+          if (prevBarrelsPerHour === cururentBarrelsPerHour) return;
+          console.log("🐱‍🏍 Updating Hospital Workers...");
+          if (playerData === null || playerData.id === undefined)
+            throw new Error(
+              "⛔ BuildingsOnMap.tsx: Hospital::OnClose:: Player ID is undefined!"
+            );
+          updatePlayerData(playerData?.id, {
+            factory_barrels: cururentBarrelsPerHour,
+          });
+        }}
       />
     );
   }, []);

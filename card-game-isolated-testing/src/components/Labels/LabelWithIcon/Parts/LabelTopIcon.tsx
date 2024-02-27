@@ -23,6 +23,7 @@ interface LabelTopIconProps {
     limit?: number;
     color?: "white" | "black" | "rusty";
     addGrayScale?: "yes" | "no";
+    addSepiaFilter?: boolean;
   };
   desc?: {
     text: string;
@@ -50,7 +51,7 @@ const LabelTopIcon = ({
           alt="An image"
           className={`object-contain ${
             valueType?.addGrayScale === "yes" ? "grayscale" : ""
-          }`}
+          } ${valueType?.addSepiaFilter ? "sepia" : ""}`}
         />
       </div>
       <div className={`${styles.topIconPositionY[size]}`}>

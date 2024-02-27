@@ -12,6 +12,7 @@ interface LabelWithIconProps {
     limit?: number;
     color?: "white" | "black" | "rusty";
     addGrayScale?: "yes" | "no";
+    addSepiaFilter?: boolean;
   };
   desc?: {
     text: string;
