@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 
 import GameButton from "./GameButton";
 
@@ -20,7 +19,7 @@ export const Primary: Story = {
   args: {
     btnType: "primary",
     text: "Primary",
-    onClick: action("The Game Button was clicked!"),
+    onClick: () => console.log("The Game Button was clicked!"),
   },
 };
 
@@ -28,7 +27,7 @@ export const Secondary: Story = {
   args: {
     btnType: "secondary",
     text: "Primary",
-    onClick: action("The Game Button was clicked!"),
+    onClick: () => console.log("The Game Button was clicked!"),
   },
 };
 
@@ -36,6 +35,6 @@ export const Danger: Story = {
   args: {
     btnType: "danger",
     text: "Primary",
-    onClick: action("The Game Button was clicked!"),
+    onClick: () => console.log("The Game Button was clicked!"),
   },
 };

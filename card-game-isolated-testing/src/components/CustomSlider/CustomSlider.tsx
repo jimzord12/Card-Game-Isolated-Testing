@@ -13,22 +13,7 @@ interface CustomSliderProps {
   size?: Size;
   initValue?: number;
   onChange: (newValue: number) => void;
-  // changeInitValue?: () => number;
 }
-
-// For ChatGPT Reference
-// export const sliderSizes = {
-//     sliderBar: {
-//       small: { width: 300, height: 36 },
-//       medium: { width: 420, height: 51 },
-//       large: { width: 917, height: 111 },
-//     },
-//     sliderThumb: {
-//       small: { width: 30, height: 30 },
-//       medium: { width: 48, height: 48 },
-//       large: { width: 90, height: 90 },
-//     },
-//   };
 
 const CustomSlider = ({
   step = 1,
@@ -48,21 +33,6 @@ const CustomSlider = ({
     // changeInitValue !== undefined ? changeInitValue!() : 1
     initValue !== undefined ? initValue : 1
   );
-  // const [internalInitState, setinternalInitState] = useState(second)
-
-  // useEffect(() => {
-  //   console.log(initValue, "Initial");
-  //   // console.log(currentValue, "CurrentValue");
-  //   console.log(value, "Value");
-  //   onChange(value);
-  // }, [initValue, value]);
-
-  let currentValue = initValue || 0;
-
-  if (step <= 0 || step > max / 2)
-    throw new Error(
-      "⛔ CustomSlider: Step must be greater than 0 AND less than half the max value."
-    );
 
   // Event listeners
   const startDragging = useCallback(
@@ -77,7 +47,16 @@ const CustomSlider = ({
     []
   );
 
+  let currentValue = initValue || 0;
+
+  if (max !== 0 && (step <= 0 || step > max / 2))
+    throw new Error(
+      "⛔ CustomSlider: Step must be greater than 0 AND less than half the max value."
+    );
+
   const onDrag = (e: MouseEvent | TouchEvent) => {
+    if (max <= 0) return;
+
     const slider = sliderRef.current;
     if (slider === null) return;
     const { left, width } = slider.getBoundingClientRect();
@@ -91,16 +70,6 @@ const CustomSlider = ({
 
     // Calculate the proportion of the usable width that has been selected
     const proportion = diffX / usableWidth;
-
-    // Adjust proportion to account for the thumb width, relative to the usable width
-    // const thumbWidthProportion = sliderThumpSize.width / usableWidth;
-
-    // proportion = Math.max(
-    //   thumbWidthProportion / 2,
-    //   Math.min(proportion, 1 - thumbWidthProportion / 2)
-    // );
-    // console.log(thumbWidthProportion, "thumbWidthProportion");
-    // console.log(proportion, "NEW proportion");
 
     // Calculate the raw value based on the proportion within the usable width
     const rawValue = proportion * max;
@@ -146,6 +115,8 @@ const CustomSlider = ({
             left: `calc(${(value / max) * usableWidth}px - ${0}px + ${
               sliderBarSize.width * 0.025
             }px)`,
+            filter: max === 0 ? "grayscale(100%)" : "none",
+            zIndex: 9,
           }}
           onMouseDown={startDragging}
           onTouchStart={startDragging}
@@ -156,6 +127,10 @@ const CustomSlider = ({
           src={sliderBarImage}
           alt="Slider Bar"
           onDragStart={(e) => e.preventDefault()}
+          style={{
+            filter: max === 0 ? "grayscale(100%)" : "none",
+            zIndex: 10,
+          }}
         />
       </div>
     </div>

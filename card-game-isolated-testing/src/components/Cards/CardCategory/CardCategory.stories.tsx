@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CardCategory from "./CardCategory";
 import { cardCategoryImgs } from "../../../assets/craftAndInvModals/cardCategoryImgs";
-import { action } from "@storybook/addon-actions";
 
 const meta: Meta<typeof CardCategory> = {
   title: "Genera/CardCategory",
@@ -18,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const BuildingCategory = {
   args: {
     image: cardCategoryImgs.buildingCategory,
-    onClick: action("Clicked Building Category"),
+    onClick: () => console.log("Clicked Building Category"),
     text: "Building",
   },
 };
@@ -26,7 +25,7 @@ export const BuildingCategory = {
 export const RegCategory: Story = {
   args: {
     image: cardCategoryImgs.REG_Category,
-    handleSimpleCardSelection: action("Clicked REG Category"),
+    handleSimpleCardSelection: () => console.log("Clicked REG Category"),
     text: "REG",
   },
 };
@@ -34,7 +33,7 @@ export const RegCategory: Story = {
 export const SPCategory: Story = {
   args: {
     image: cardCategoryImgs.SP_Category,
-    handleSimpleCardSelection: action("Clicked SP Category"),
+    handleSimpleCardSelection: () => console.log("Clicked SP Category"),
     text: "Special Effect",
   },
 };

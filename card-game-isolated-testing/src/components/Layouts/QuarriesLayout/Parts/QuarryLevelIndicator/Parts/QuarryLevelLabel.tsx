@@ -26,7 +26,9 @@ const QuarryLevelLabel = ({ level, forceSize }: Props) => {
         className={`object-contain ${styles.imgSize[size]}`}
         alt="Quarry Level Label"
       />
-      <h2 className={`absolute ${styles.textSize[size]}`}>{level}</h2>
+      <h2 className={`absolute text-white ${styles.textSize[size]}`}>
+        {level}
+      </h2>
     </div>
   );
 };

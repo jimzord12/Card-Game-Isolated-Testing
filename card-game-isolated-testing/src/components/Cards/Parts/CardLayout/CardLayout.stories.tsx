@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import CardLayout from "./CardLayout";
 import { frames } from "../../../../assets/imgs_new_convention/frames";
-import { action } from "@storybook/addon-actions";
 import BuildingCard from "../../../../classes/buildingClass_V2";
 import RegCard from "../../../../classes/regClass_V2";
 import SPCard from "../../../../classes/spClass_V2";
@@ -28,7 +27,7 @@ export const ForCraftingBuilding: Story = {
     frameImg: frames.buildingCardFrame,
     currentModal: "Craft",
 
-    onClick: action("Selected [AmusementPark] for Crafting"),
+    onClick: () => console.log("Selected [AmusementPark] for Crafting"),
   },
 };
 
@@ -42,7 +41,7 @@ export const ForCraftingREG: Story = {
     frameImg: frames.regCardFrame,
     currentModal: "Craft",
 
-    onClick: action("Selected [SimpleSolarPanel] for Crafting"),
+    onClick: () => console.log("Selected [SimpleSolarPanel] for Crafting"),
   },
 };
 
@@ -56,7 +55,7 @@ export const ForCraftingSP: Story = {
 
     frameImg: frames.spCardFrame,
     currentModal: "Craft",
-    onClick: action("Selected [LoveApp] for Crafting"),
+    onClick: () => console.log("Selected [LoveApp] for Crafting"),
   },
 };
 
@@ -71,7 +70,7 @@ export const CompleteBuilding: Story = {
     }),
     frameImg: frames.buildingCardFrame,
     currentModal: "Inventory",
-    onClick: action("Selected [104] for Crafting"),
+    onClick: () => console.log("Selected [104] for Crafting"),
   },
 };
 
@@ -85,7 +84,7 @@ export const CompleteREG: Story = {
     frameImg: frames.regCardFrame,
     currentModal: "Inventory",
 
-    onClick: action("Selected [204] for Crafting"),
+    onClick: () => console.log("Selected [204] for Crafting"),
   },
 };
 
@@ -99,6 +98,6 @@ export const CompleteSP: Story = {
     frameImg: frames.spCardFrame,
     currentModal: "Inventory",
 
-    onClick: action("Selected [301] for Crafting"),
+    onClick: () => console.log("Selected [301] for Crafting"),
   },
 };

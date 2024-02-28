@@ -1,38 +1,67 @@
-import React, { useState } from "react";
-import GameButton from "../../../Buttons/GameButton/GameButton";
-import { QuarryType } from "../../../../types";
-import ConcreteQuarrySliderSection from "../../QuarriesLayout/QuarrySliderSections/ConcreteQuarrySliderSection";
+import { useState } from "react";
+import TownHallConcreteQuarry from "./TownHallQuarrySections/TownHallConcreteQuarry";
+import TownHallMetalsQuarry from "./TownHallQuarrySections/TownHallMetalsQuarry";
+import TownHallCrystalsQuarry from "./TownHallQuarrySections/TownHallCrystalsQuarry";
+import TownHallOilRigQuarry from "./TownHallQuarrySections/TownHallOilRigQuarry";
+import QuarrySelector from "./TownHallQuarrySections/Parts/QuarrySelector/QuarrySelector";
 
 const TownHallManageScreen = () => {
   const [selectedQuarry, setSelectedQuarry] = useState<QuarryType | null>(null);
+  enum QuarryType {
+    Concrete = "concrete",
+    Crystals = "crystals",
+    Metals = "metals",
+    Diesel = "diesel",
+  }
+
+  const handleGoBack = () => {
+    setSelectedQuarry(null);
+  };
 
   if (selectedQuarry === null) {
     return (
-      <div className="z-[401] absolute top-[336px] left-20">
-        <GameButton
+      <div className="flex gap-4 tablet:gap-4 largeScreen:gap-14 justify-center items-center h-full">
+        <QuarrySelector
+          type="concrete"
           onClick={() => {
-            setSelectedQuarry("concrete");
+            setSelectedQuarry(QuarryType.Concrete);
           }}
-          text="Concrete Quarry"
-          btnType="primary"
+        />
+        <QuarrySelector
+          type="metals"
+          onClick={() => {
+            setSelectedQuarry(QuarryType.Metals);
+          }}
+        />
+        <QuarrySelector
+          type="crystals"
+          onClick={() => {
+            setSelectedQuarry(QuarryType.Crystals);
+          }}
+        />
+        <QuarrySelector
+          type="diesel"
+          onClick={() => {
+            setSelectedQuarry(QuarryType.Diesel);
+          }}
         />
       </div>
     );
-  } else if (selectedQuarry === "concrete") {
-    return (
-      <div className="flex">
-        <div className="w-[400px] h-[400px] bg-slate-500" />
-        <ConcreteQuarrySliderSection />
-      </div>
-    );
+  } else if (selectedQuarry === QuarryType.Concrete) {
+    return <TownHallConcreteQuarry handleGoBack={handleGoBack} />;
+  } else if (selectedQuarry === QuarryType.Metals) {
+    return <TownHallMetalsQuarry handleGoBack={handleGoBack} />;
+  } else if (selectedQuarry === QuarryType.Crystals) {
+    return <TownHallCrystalsQuarry handleGoBack={handleGoBack} />;
+  } else if (selectedQuarry === QuarryType.Diesel) {
+    return <TownHallOilRigQuarry handleGoBack={handleGoBack} />;
   } else {
     return (
       <div className="flex justify-center items-center">
-        <h2 className="text-white text-4xl">AAAAAAAAAAAAAAAAAAAAA</h2>
+        <h2 className="text-white text-4xl">ERROR - ERROR</h2>
       </div>
     );
   }
-  return <div></div>;
 };
 
 export default TownHallManageScreen;

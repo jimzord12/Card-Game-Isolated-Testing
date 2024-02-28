@@ -24,6 +24,7 @@ const usePlayerInit = () => {
     setFactoryBarrels,
     setEnergyProduced,
     energyProduced,
+    setQuarryLevels,
   } = useGameVarsStore((state) => state);
 
   const playerInit = (data: IPlayerDB) => {
@@ -35,6 +36,12 @@ const usePlayerInit = () => {
     setEnergyProduced(
       (data.factory_barrels ?? 0) * barrelToEnergyConversion + energyProduced
     );
+    setQuarryLevels({
+      concrete: data.concrete_quarry_lvl ?? 1,
+      crystals: data.crystals_quarry_lvl ?? 1,
+      metals: data.metals_quarry_lvl ?? 1,
+      diesel: data.diesel_quarry_lvl ?? 1,
+    });
 
     const workers = getWorkers(data);
     setAllWorkers(workers);

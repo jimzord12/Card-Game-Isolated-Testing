@@ -4,22 +4,23 @@ import useGetLabelsSize from "../../../../hooks/game/useGetLabelsSize";
 import CustomSlider from "../../../CustomSlider/CustomSlider";
 import LabelWithIcon from "../../../Labels/LabelWithIcon/LabelWithIcon";
 import { useGameVarsStore } from "../../../../stores/gameVars";
-import { concreteQuarryConstants } from "../../../../constants/game/quarriesConfig";
+import {
+  concreteQuarryConstants,
+  dieselQuarryConstants,
+} from "../../../../constants/game/quarriesConfig";
 import { Level } from "../../../../types";
 
-const ConcreteQuarrySliderSection = () => {
+const DieselQuarrySliderSection = () => {
   const { images } = UseGlobalContext();
   const deviceSize = useGetLabelsSize();
   const gameVars = useGameVarsStore();
   if (images === undefined)
-    throw new Error(
-      "⛔ ConcreteQuarrySliderSection.tsx: images are undefined!"
-    );
+    throw new Error("⛔ DieselQuarrySliderSection.tsx: images are undefined!");
 
   const allWorkers = gameVars.allWorkers;
 
-  const workers = gameVars.allWorkers.concreteWorkers; // ✨ ✅
-  const mulitplier = gameVars.multipliers.concreteMultiplier; // ✨ ✅
+  const workers = gameVars.allWorkers.dieselWorkers; // ✨ ✅
+  const mulitplier = gameVars.multipliers.dieselMultiplier; // ✨ ✅
 
   const [sliderValue, setSliderValue] = useState(workers);
   const [gatherRate, setGatherRate] = useState(workers * mulitplier);
@@ -31,11 +32,11 @@ const ConcreteQuarrySliderSection = () => {
     const newPrivateSector = allWorkers.privateSector - differenceInWorkers;
 
     setGatherRate(gatherRate + differenceInGatherRate);
-    gameVars.setConcreteGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
+    gameVars.setDieselGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
     gameVars.setAllWorkers({
       ...allWorkers,
       privateSector: newPrivateSector,
-      concreteWorkers: newValue, // ✨ ✅
+      dieselWorkers: newValue, // ✨ ✅
     });
 
     // Update the slider value
@@ -45,9 +46,9 @@ const ConcreteQuarrySliderSection = () => {
   const maxAvailWorkers = useMemo(
     () =>
       Math.min(
-        allWorkers.privateSector + allWorkers.concreteWorkers, // ✨ ✅
-        concreteQuarryConstants.maxWorkers[ // ✨ ✅
-          gameVars.quarryLevels.concrete as Level // ✨ ✅
+        allWorkers.privateSector + allWorkers.dieselWorkers, // ✨ ✅
+        dieselQuarryConstants.maxWorkers[ // ✨ ✅
+          gameVars.quarryLevels.diesel as Level // ✨ ✅
         ]
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +69,7 @@ const ConcreteQuarrySliderSection = () => {
   </h1> */}
       <div className="flex flex-col items-center p-16 pb-24 bg-emerald-700/[.55] rounded-xl">
         <LabelWithIcon
-          image={images.gameIcons.concreteGameIcon} // ✨ ✅
+          image={images.gameIcons.dieselBarrelGameIcon} // ✨ ✅
           labelImages={images.labels}
           labelType="special"
           size={deviceSize}
@@ -101,16 +102,16 @@ const ConcreteQuarrySliderSection = () => {
           />
           <CustomSlider
             max={maxAvailWorkers}
-            initValue={allWorkers.concreteWorkers} // ✨ ✅
+            initValue={allWorkers.dieselWorkers} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
           />
           <LabelWithIcon
-            image={images.workers.concreteWorker} // ✨ ✅
+            image={images.workers.oilRigWorker} // ✨ ✅
             labelImages={images.labels}
             labelType="rusty"
             size={deviceSize}
-            value={allWorkers.concreteWorkers} // ✨ ✅
+            value={allWorkers.dieselWorkers} // ✨ ✅
             valueType={{
               type: "maxLimit",
               limit: maxAvailWorkers,
@@ -129,4 +130,4 @@ const ConcreteQuarrySliderSection = () => {
   );
 };
 
-export default ConcreteQuarrySliderSection;
+export default DieselQuarrySliderSection;

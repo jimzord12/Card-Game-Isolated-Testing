@@ -6,7 +6,7 @@ const textSize = {
 };
 
 const imgSize = {
-  extraSmall: "w-[40px]",
+  extraSmall: "w-[50px]",
   small: "w-[60px]",
   medium: "w-[80px]",
   large: "w-[110px]",

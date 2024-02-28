@@ -61,6 +61,13 @@ export type GameVarsState = {
   ) => void;
   setFactoryBarrels: (barrels: number) => void;
 
+  // Quarries
+  setQuarryLevel: (
+    quarry: keyof GameVarsState["quarryLevels"],
+    level: number
+  ) => void;
+  setQuarryLevels: (quarryLevels: GameVarsState["quarryLevels"]) => void;
+
   // Economy
   setExpences: (expences: number) => void;
 
@@ -173,6 +180,10 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   ) =>
     set((state) => ({
       quarryLevels: { ...state.quarryLevels, [quarry]: level },
+    })),
+  setQuarryLevels: (quarryLevels: GameVarsState["quarryLevels"]) =>
+    set((state) => ({
+      quarryLevels: { ...state.quarryLevels, ...quarryLevels },
     })),
 
   // Rates
