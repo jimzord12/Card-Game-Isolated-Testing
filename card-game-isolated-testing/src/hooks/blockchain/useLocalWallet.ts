@@ -66,7 +66,9 @@ function useLocalWallet() {
     if (privKryToRestore) {
       console.log("useLocalWallet: existingWallet: ", privKryToRestore);
       const existingWallet = new Wallet(privKryToRestore);
+      localStorage.setItem("walletPrivateKey", existingWallet.privateKey);
       setWallet(existingWallet);
+
       return { walletAddress: existingWallet.address, success: true };
     } else {
       const privateKey = localStorage.getItem("walletPrivateKey");

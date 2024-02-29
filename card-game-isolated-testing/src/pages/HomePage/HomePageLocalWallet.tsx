@@ -77,12 +77,24 @@ function HomePageLocalWallet() {
       <RestoreWalletModal
         open={isRestoreWalletModalOpen}
         retrieveWallet={retrieveWallet}
+        //   () => {
+
+        //   const {walletAddress} = retrieveWallet()
+        //   if (walletAddress) throw Error("🔴 - Wallet Address is not null")
+        //   setUser({
+
+        // })
+        // }
+        // }
         setModalVisibility={setRestoreWalletModalOpen}
       />
       <DeleteWalletModal
         open={isDeleteWalletModalOpen}
         setModalVisibility={setDeleteWalletModalOpen}
-        deleteWallet={deleteWallet}
+        deleteWallet={() => {
+          resetUser();
+          deleteWallet();
+        }}
       />
 
       {localWallet ? (
@@ -164,7 +176,8 @@ function HomePageLocalWallet() {
             value={localWallet.privateKey}
             copyToClipboard
           />
-          {userData?.username && login !== null ? (
+          {localWallet.address && login !== null ? ( // ✨
+            // {userData?.username && login !== null ? (
             <CustomButton
               title="Start Playing"
               isDisabled={!serverIsLive}
