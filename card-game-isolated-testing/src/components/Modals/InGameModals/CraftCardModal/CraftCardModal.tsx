@@ -8,6 +8,7 @@ import { typeFinder } from "./utils.js";
 import { CardClass, CardType } from "../../../../types/index.js";
 import { LazyLoadComponent } from "react-lazy-load-image-component";
 import { useAllCardsStore } from "../../../../stores/allCards.js";
+import useGetLabelsSize from "../../../../hooks/game/useGetLabelsSize.js";
 
 // TODO: Create a Class for General CardsDd Classes and based on the Card Type, create the correct Card Class
 // const CardCategory = lazy(
@@ -37,6 +38,8 @@ export default function CraftCardModal({
   // const [initCompleted, setInitCompleted] = useState(false);
   const [cardsInitCompleted, setCardsInitCompleted] = useState(false);
   const templateCards = useAllCardsStore((state) => state.templateCards);
+
+  const deviceSize = useGetLabelsSize();
   // const hasUseEffectRun = useRef(false);
 
   // const NameToImgMapping = {
@@ -182,7 +185,7 @@ export default function CraftCardModal({
             overflowY: "hidden",
             width: "100%",
             height: "fit-content",
-            maxHeight: "85%",
+            maxHeight: deviceSize === "extraSmall" ? "100%" : "85%",
             zIndex: 501,
             padding: "20px",
             paddingBottom: "65px",

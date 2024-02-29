@@ -4,14 +4,15 @@ import UseLandscape from "../../hooks/useLandscape";
 import RotateDevice from "../RotateDevice/RotateDevice";
 import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
-import CustomButton from "../Buttons/CustomButton/CustomButton";
-import { useNavigate } from "react-router-dom";
+// import CustomButton from "../Buttons/CustomButton/CustomButton";
+// import { useNavigate } from "react-router-dom";
 import GameButton from "../Buttons/GameButton/GameButton";
-import StatsBars from "../StatsBars/StatsBars";
+// import StatsBars from "../StatsBars/StatsBars";
 import GameWorker from "../../webWorkers/gameLoopWorker.worker?worker";
 import { gameLoopWorkerReturnType } from "../../types/GameLoopTypes/GameLoopTypes";
 import useGameLoop from "../../hooks/game/gameLoop/useGameLoop";
 import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
+// import GameSideBar from "../GameSideBar/GameSideBar";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -25,6 +26,7 @@ const CraftCardModal = lazy(
 const InventoryModal = lazy(
   () => import("../Modals/InGameModals/InventoryModal/InventoryModal")
 );
+const GameSideBar = lazy(() => import("../GameSideBar/GameSideBar"));
 
 type MapTypes = "town" | "world";
 
@@ -32,6 +34,7 @@ const Game = () => {
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
   const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("town");
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const [isInvModalOpen, setIsInvModalOpen] = useState(false);
   const [isCraftModalOpen, setIsCraftModalOpen] = useState(false);
@@ -39,7 +42,7 @@ const Game = () => {
   const gameWorker = useRef<Worker | null>(null);
   const gameLoopTick = useRef(0);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const auth = useRequireAuth();
 
@@ -140,6 +143,32 @@ const Game = () => {
               <RotateDevice show={shouldShow} />
               {/* INV + CRAFT MODALS */}
 
+              <GameSideBar
+                isOpen={isSideBarOpen}
+                setIsOpen={setIsSideBarOpen}
+                changeMap={() =>
+                  setMapToDisplay((prev) =>
+                    prev === "world" ? "town" : "world"
+                  )
+                }
+                openCardCraftingModal={() => {
+                  setIsInvModalOpen(false);
+                  setIsCraftModalOpen(true);
+                }}
+                openInventoryModal={() => {
+                  setIsCraftModalOpen(false);
+                  setIsInvModalOpen(true);
+                }}
+              />
+
+              <div className="z-[401] absolute top-12 right-20">
+                <GameButton
+                  onClick={() => setIsSideBarOpen(true)}
+                  text="Open Sidebar"
+                  btnType="primary"
+                />
+              </div>
+
               <CraftCardModal
                 isCraftModalOpen={isCraftModalOpen}
                 setIsCraftModalOpen={setIsCraftModalOpen}
@@ -148,6 +177,9 @@ const Game = () => {
                 isInvModalOpen={isInvModalOpen}
                 setIsInvModalOpen={setIsInvModalOpen}
               />
+
+              {/* 
+
               <div className="z-[401] absolute">
                 <StatsBars />
               </div>
@@ -208,6 +240,7 @@ const Game = () => {
                   btnType="primary"
                 />
               </div>
+              */}
 
               <ModalProvider>
                 {mapToDisplay === "town" && <TownMap />}

@@ -6,6 +6,7 @@ import CardManager from "../Parts/CardManager/CardManager";
 import "./inventoryModal.css";
 import { CardClass } from "../../../../types/index.js";
 import { useAllCardsStore } from "../../../../stores/allCards.js";
+import useGetLabelsSize from "../../../../hooks/game/useGetLabelsSize.js";
 
 interface InventoryModalProps {
   isInvModalOpen: boolean;
@@ -29,7 +30,7 @@ export default function InventoryModal({
   ); // This holds the selected Card
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
-  //   const modalRef = useRef();
+  const deviceSize = useGetLabelsSize();
 
   useEffect(() => {
     setIsOpen(isInvModalOpen);
@@ -98,7 +99,7 @@ export default function InventoryModal({
               right: 0,
               width: "100%",
               height: "fit-content",
-              maxHeight: "85%",
+              maxHeight: deviceSize === "extraSmall" ? "100%" : "85%",
               paddingBottom: "65px",
               zIndex: 501,
               padding: "20px",
