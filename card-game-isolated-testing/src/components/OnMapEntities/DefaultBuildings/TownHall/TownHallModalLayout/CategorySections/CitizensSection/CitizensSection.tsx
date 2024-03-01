@@ -9,6 +9,7 @@ import { useGameVarsStore } from "../../../../../../../stores/gameVars";
 import { round2Decimal } from "../../../../../../../utils/game/roundToDecimal";
 import CircularGoldenLabel from "../../../../../../GameAssets/Labels/CircularGoldenLabel/CircularGoldenLabel";
 import StandardLabel from "../../../../../../GameAssets/Labels/StandardLabel/StandardLabel";
+import { useUtilsForStatsBars } from "../../../../../../StatsBars/useUtilsForStatsBars";
 import styles from "./citizensSectionStyles.module.css";
 
 const CitizensSection = () => {
@@ -33,6 +34,7 @@ const CitizensSection = () => {
   );
 
   const townHallLevel = useGameVarsStore((state) => state.townhallLevel);
+  const { shortenLongNum } = useUtilsForStatsBars();
 
   if (images === undefined)
     throw new Error("⛔ CitizensSection, images is undefined!");
@@ -70,7 +72,7 @@ const CitizensSection = () => {
       <section className={styles.economySection}>
         <StandardLabel
           gameIcon={images?.gameIcons.totalGoldGameIcon}
-          valueToDisplay={`${round2Decimal(playerGold ?? -1)}`}
+          valueToDisplay={`${shortenLongNum(round2Decimal(playerGold ?? -1))}`}
           alt="CitizensSpace"
         />
         <StandardLabel

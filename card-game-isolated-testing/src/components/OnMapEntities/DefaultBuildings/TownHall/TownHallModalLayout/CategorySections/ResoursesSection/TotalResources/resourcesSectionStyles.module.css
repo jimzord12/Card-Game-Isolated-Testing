@@ -1,0 +1,36 @@
+.concreteMetalsSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: start;
+  height: 97%;
+  width: 50%;
+  padding-left: 8px;
+  padding-top: 3px;
+  /* border: 3px rgb(211, 226, 43) solid; */
+}
+
+.crystalsDieselSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: start;
+  padding-top: 3px;
+  height: 97%;
+  width: 50%;
+  /* border: 3px rgb(211, 226, 43) solid; */
+}
+
+@media screen and (min-width: 1500px) {
+  .concreteMetalsSection {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .crystalsDieselSection {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

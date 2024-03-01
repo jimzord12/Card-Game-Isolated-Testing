@@ -48,6 +48,7 @@ const TownHallOnMap = ({
           <TownHallModalMainScreen />,
           <TownHallManageScreen />,
           <DefaultBuildingsLvlUpScreen type="townhall" />,
+          // <TownHallResourcesScreen />, // Its the same as MainScreen, but instead of Showing the "Gath Rates" it shows the "Resources"
         ]}
         contentType="townhall"
         label="Town Hall"

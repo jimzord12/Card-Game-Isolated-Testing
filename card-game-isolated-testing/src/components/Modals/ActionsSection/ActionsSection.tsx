@@ -184,6 +184,8 @@ const ActionsSection = ({
     factoryLevel,
   });
 
+
+
   return (
     <div className={styles.actionSectionContainer}>
       {actions.map((action: ActionsSectionAction) => (

@@ -1,5 +1,6 @@
 import BuildingCard from "../../../classes/buildingClass_V2";
 import RegCard from "../../../classes/regClass_V2";
+import { useGeneralVariablesStore } from "../../../stores/generalVariables";
 import { useModalStore } from "../../../stores/modalStore";
 import {
   ActionsSectionAction,
@@ -30,6 +31,8 @@ const useCreateActions = ({
   levelUp,
 }: createActionsProps) => {
   const pushModal = useModalStore((state) => state.pushModal);
+  const { ratesResourcesToggler, setRatesResourcesToggler } =
+    useGeneralVariablesStore((state) => state);
 
   const handleLevelUp = (lvlUpScreenIndex: number) => {
     if (currentScreenIndex === lvlUpScreenIndex) {
@@ -45,21 +48,6 @@ const useCreateActions = ({
   const deactivateAction: ActionsSectionAction = {
     label: "Deactivate",
     handler: deactivate,
-  };
-
-  const manageHospital: ActionsSectionAction = {
-    label: "Manage",
-    handler: () => setCurrentScreenIndex(1),
-  };
-
-  const manageToolStore: ActionsSectionAction = {
-    label: "Upgrade",
-    handler: () => setCurrentScreenIndex(1),
-  };
-
-  const manageTownHall: ActionsSectionAction = {
-    label: "Manage Workers",
-    handler: () => setCurrentScreenIndex(1),
   };
 
   const goBack: ActionsSectionAction = {
@@ -89,6 +77,11 @@ const useCreateActions = ({
     isDisabled: card?.level === 5,
   };
 
+  const manageHospital: ActionsSectionAction = {
+    label: "Manage",
+    handler: () => setCurrentScreenIndex(1),
+  };
+
   // Tool Store
   const levelUpActionToolStore: ActionsSectionAction = {
     label: "Level Up",
@@ -96,11 +89,26 @@ const useCreateActions = ({
     isDisabled: card?.level === 5,
   };
 
+  const manageToolStore: ActionsSectionAction = {
+    label: "Upgrade",
+    handler: () => setCurrentScreenIndex(1),
+  };
+
   // Townhall
   const levelUpActionTownHall: ActionsSectionAction = {
     label: "Level Up",
     handler: () => handleLevelUp(levelUpScreenIndexes.townhall),
     isDisabled: townhallLevel === 5,
+  };
+
+  const manageTownHall: ActionsSectionAction = {
+    label: "Manage Workers",
+    handler: () => setCurrentScreenIndex(1),
+  };
+
+  const toggleRatesAndResources: ActionsSectionAction = {
+    label: "Rates/Resources",
+    handler: () => setRatesResourcesToggler(!ratesResourcesToggler),
   };
 
   // Factory
@@ -125,7 +133,7 @@ const useCreateActions = ({
         return [deactivateAction, levelUpActionToolStore, manageToolStore];
 
       case "townhall":
-        return [levelUpActionTownHall, manageTownHall];
+        return [toggleRatesAndResources, levelUpActionTownHall, manageTownHall];
 
       case "factory":
         return [levelUpActionFactory];

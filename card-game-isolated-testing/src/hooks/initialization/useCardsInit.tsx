@@ -38,6 +38,10 @@ const useCardsInit = () => {
     setActiveEffect,
     // setMultipliers,
     // multipliers: startingMultipliers,
+    setConcreteGathRate,
+    setMetalsGathRate,
+    setCrystalsGathRate,
+    setDieselGathRate,
     setPopGrowthRate,
   } = useGameVarsStore((state) => state);
 
@@ -98,6 +102,20 @@ const useCardsInit = () => {
     console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);
     console.log("🙌 3 - All the Active JS Cards: ", activeCards);
     console.log("🙌 5 - All the SP JS Cards: ", spCards);
+
+    // Grab latest Multipliers
+    const multipliers = useGameVarsStore.getState().multipliers;
+    const allWorkers = useGameVarsStore.getState().allWorkers;
+
+    // Gathering Rates
+    setConcreteGathRate(
+      allWorkers.concreteWorkers * multipliers.concreteMultiplier
+    );
+    setMetalsGathRate(allWorkers.metalsWorkers * multipliers.metalsMultiplier);
+    setCrystalsGathRate(
+      allWorkers.crystalsWorkers * multipliers.crystalsMultiplier
+    );
+    setDieselGathRate(allWorkers.dieselWorkers * multipliers.dieselMultiplier);
 
     // 🔷 Adding the Active Cards, that are NOT SP, to the Town Map
     for (const card of activeCards) {
