@@ -7,7 +7,8 @@
 
 .card-plus-btns {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-direction: row;
   align-items: center;
   gap: 16px;
 }
@@ -65,10 +66,6 @@
 .vertical-divider {
   margin-top: 20px;
 }
-
-/* .single-card-desc {
-  padding: 0px 180px;
-} */
 
 .single-card-desc > h3 {
   color: #3365ff;
@@ -164,22 +161,12 @@
   .single-card-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     /* align-items: center; */
   }
   .vertical-divider {
     display: none;
   }
-
-  .single-card-li {
-    text-indent: 24px;
-    padding-right: 32px;
-  }
-  /* 
-  .horizontal-divider {
-    display: block;
-    height: 500px;
-  } */
 
   .single-card-desc {
     border-radius: 16px;
@@ -191,11 +178,25 @@
     background: radial-gradient(#fdbb2d, #22c1c3);
     align-self: baseline;
   }
+
+  .single-card-li {
+    text-indent: 24px;
+    padding-right: 32px;
+    font-size: medium;
+  }
+
+  .single-card-desc > h3 {
+    font-size: large;
+  }
+
+  .single-card-btn {
+    font-size: large;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
   .single-card-container {
-    margin-top: 0px;
+    margin-top: 46px;
     align-items: baseline;
     justify-content: center;
   }
@@ -218,6 +219,10 @@
     border-radius: 15px;
     border: 5px solid #dfdbdb;
     box-shadow: 2px 4px 4px 0px black;
+  }
+
+  .single-card-btn {
+    font-size: xx-large;
   }
 
   .card-name.single-card {

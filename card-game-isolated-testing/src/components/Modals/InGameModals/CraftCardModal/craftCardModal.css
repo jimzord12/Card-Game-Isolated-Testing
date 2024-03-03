@@ -519,7 +519,8 @@
   }
 
   .card-column {
-    margin: 30px;
+    /* margin: 30px; */
+    margin: 0px 10px;
   }
 
   .filtering-column {
@@ -549,7 +550,8 @@
     justify-content: center;
   }
   .card-column {
-    margin: 50px 20px;
+    /* margin: 50px 20px; */
+    margin: 0px 10px;
   }
 
   .card-name {

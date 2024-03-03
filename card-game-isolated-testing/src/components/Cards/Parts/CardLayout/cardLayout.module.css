@@ -63,6 +63,8 @@
   padding-top: 12px;
   font-size: 12px;
   font-weight: 600;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .cardDesc {
@@ -72,6 +74,8 @@
   text-align: center;
   font-size: 12px;
   font-weight: 600;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .common {
