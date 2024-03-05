@@ -1,0 +1,62 @@
+[
+  {
+    "title": "What is the purpose of waste management policies?",
+    "answers": [
+      "To ensure that waste generation increases annually",
+      "To regulate the collection, treatment, and disposal of waste to protect the environment and human health",
+      "To encourage the unregulated dumping of waste",
+      "To promote the use of single-use plastics"
+    ],
+    "correct": 1,
+    "mainTopic": "Waste Management",
+    "subtopic": "Policy and Regulation"
+  },
+  {
+    "title": "What role do plants play in remediating soil pollution?",
+    "answers": [
+      "Plants contribute to soil pollution by shedding leaves",
+      "Plants exacerbate soil pollution by absorbing oxygen",
+      "Some plants can absorb and contain harmful pollutants, a process known as phytoremediation",
+      "Plants have no role in soil remediation"
+    ],
+    "correct": 2,
+    "mainTopic": "Pollution",
+    "subtopic": "Soil Pollution"
+  },
+  {
+    "title": "Which type of hydroelectric power generation is typically the most flexible in terms of location?",
+    "answers": [
+      "Tidal power",
+      "Run-of-the-river systems",
+      "Pumped storage",
+      "Large reservoir-based systems"
+    ],
+    "correct": 1,
+    "mainTopic": "Renewable Energy Sources",
+    "subtopic": "Hydroelectric Power"
+  },
+  {
+    "title": "What role does the Convention on Biological Diversity play in biodiversity conservation?",
+    "answers": [
+      "It discourages international cooperation on environmental issues",
+      "It promotes the sharing of resources regardless of conservation status",
+      "It provides a global framework for conserving and sustainably using biodiversity",
+      "It focuses solely on the conservation of commercially valuable species"
+    ],
+    "correct": 2,
+    "mainTopic": "Biodiversity",
+    "subtopic": "Conservation Strategies"
+  },
+  {
+    "title": "What do we call organisms that break down dead material and waste, recycling nutrients back into the ecosystem?",
+    "answers": [
+      "Producers",
+      "Primary consumers",
+      "Secondary consumers",
+      "Decomposers"
+    ],
+    "correct": 3,
+    "mainTopic": "Ecology",
+    "subtopic": "Trophic Levels"
+  }
+]

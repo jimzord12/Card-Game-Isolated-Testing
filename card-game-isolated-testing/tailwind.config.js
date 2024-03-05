@@ -12,6 +12,9 @@ export default {
         mobile: {
           raw: "(max-height: 735px)",
         },
+        largeMobile: {
+          raw: "(min-height: 410px)",
+        },
         tablet: {
           raw: "(min-height: 736px)",
         },
