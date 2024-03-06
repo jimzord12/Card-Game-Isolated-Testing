@@ -2,6 +2,9 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      Rocher: ["Rocher", "sans-serif"],
+    },
     // screens: {
     //   "md-custom": { min: "899px" },
 

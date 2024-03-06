@@ -9,14 +9,14 @@ const useGetScreenSize = (): ScreenSize => {
   const isLargeScreen = useMediaQuery("(min-height: 1023px)");
 
   console.log("isMobile", isMobile);
-  console.log("isLargeMobile", isLargeMobile);
-  console.log("isTablet", isTablet);
   console.log("isLargeScreen", isLargeScreen);
+  console.log("isTablet", isTablet);
+  console.log("isLargeMobile", isLargeMobile);
 
   if (isMobile) return "mobile";
-  else if (isLargeMobile) return "largeMobile";
-  else if (isTablet) return "tablet";
   else if (isLargeScreen) return "desktop";
+  else if (isTablet) return "tablet";
+  else if (isLargeMobile) return "largeMobile";
   else {
     console.error("⛔ useGetScreenSize.tsx: Problem with useMediaQuery Hook!");
     return "mobile";

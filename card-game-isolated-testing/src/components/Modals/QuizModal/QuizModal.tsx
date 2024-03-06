@@ -9,6 +9,14 @@ import Hearts from "./Parts/Hearts/Hearts";
 import dummyQuestions from "./testData/dummyQuestions.json";
 import useGetScreenSize from "../../../hooks/game/useGetScreenSize";
 
+export type quizQuestionDetails = {
+  index: number;
+  wasCorrect: boolean;
+  title: string;
+  mainTopic: string;
+  subTopic: string;
+};
+
 const QuizModal = () => {
   const { images } = UseGlobalContext();
   if (images === null || images === undefined)
@@ -16,13 +24,33 @@ const QuizModal = () => {
 
   const screenSize = useGetScreenSize();
 
-  const [gameStage, setGameStage] = useState(1);
-  const [currentScreen, setCurrentScreen] = useState(<StartScreen />);
+  const [gameStage, setGameStage] = useState(2);
   const [hearts, setHearts] = useState(3);
-  const [rewards, setRewards] = useState(0);
-  const [questions, setQuestions] = useState(dummyQuestions);
+  const [rewards, setRewards] = useState(3);
+  const [questions, setQuestions] = useState([] as typeof dummyQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentScreen, setCurrentScreen] = useState(
+    <StartScreen setQuestions={setQuestions} setGameStage={setGameStage} />
+  );
+  const [questionHistory, setQuestionHistory] = useState<quizQuestionDetails[]>(
+    []
+  );
   // const [questions, setQuestions] = useState([] as typeof dummyQuestions);
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setHearts((prev) => prev - 1);
+  //     setRewards((prev) => prev + 1);
+  //   }, 1000);
+  // }, []);
+
+  useEffect(() => {
+    if (currentQuestion > 4 || hearts === 0 || rewards === 3) {
+      setCurrentScreen(
+        <FinalGameScreen questionHistory={questionHistory} rewards={rewards} />
+      );
+    }
+  }, [currentQuestion, hearts, rewards]);
 
   const labelPositionStyles = {
     largeMobile: "largeMobile:-top-9",
@@ -33,7 +61,9 @@ const QuizModal = () => {
 
   useEffect(() => {
     if (gameStage === 0) {
-      setCurrentScreen(<StartScreen />);
+      setCurrentScreen(
+        <StartScreen setQuestions={setQuestions} setGameStage={setGameStage} />
+      );
     } else if (gameStage === 1) {
       setCurrentScreen(
         <QuizGameScreen
@@ -44,10 +74,13 @@ const QuizModal = () => {
           questions={questions}
           currentQuestion={currentQuestion}
           setCurrentQuestion={setCurrentQuestion}
+          setQuestionHistory={setQuestionHistory}
         />
       );
     } else if (gameStage === 2) {
-      setCurrentScreen(<FinalGameScreen />);
+      setCurrentScreen(
+        <FinalGameScreen questionHistory={questionHistory} rewards={rewards} />
+      );
     } else {
       throw new Error("Invalid gameStage");
     }
@@ -79,7 +112,7 @@ const QuizModal = () => {
             <Rewards rewards={rewards} />
           </section>
         </div>
-        <div className="h-[85.5%]">{currentScreen}</div>
+        <div className="h-[80%]">{currentScreen}</div>
       </div>
     </div>
   );

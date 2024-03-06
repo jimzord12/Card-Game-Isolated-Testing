@@ -1,6 +1,20 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Acme&family=Protest+Riot&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sixtyfour:SCAN@-26&display=swap");
 
+@font-face {
+  font-family: "Rocher";
+  src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
+}
+
+@font-palette-values --Red {
+  font-family: Rocher;
+  base-palette: 1;
+}
+
+.rocher-red {
+  font-palette: --Red;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

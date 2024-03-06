@@ -1,9 +1,12 @@
 //TODO:
 // 1 - Fetch the 5 Questions from the API
 
+import { useCallback } from "react";
 import useGetScreenSize from "../../../../../hooks/game/useGetScreenSize";
 import QuestionTimer from "../../Parts/QuestionTimer/QuestionTimer";
 import dummyQuestions from "../../testData/dummyQuestions.json";
+import { quizQuestionDetails } from "../../QuizModal";
+
 interface QuizGameScreenProps {
   setCurrentScreen: React.Dispatch<React.SetStateAction<JSX.Element>>;
   setHearts: React.Dispatch<React.SetStateAction<number>>;
@@ -12,6 +15,9 @@ interface QuizGameScreenProps {
   questions: typeof dummyQuestions;
   currentQuestion: number;
   setCurrentQuestion: React.Dispatch<React.SetStateAction<number>>;
+  setQuestionHistory: React.Dispatch<
+    React.SetStateAction<quizQuestionDetails[]>
+  >;
 }
 
 const gridStyles = {
@@ -39,8 +45,14 @@ const QuizGameScreen = ({
   questions,
   currentQuestion,
   setCurrentQuestion,
+  setQuestionHistory,
 }: QuizGameScreenProps) => {
   const screenSize = useGetScreenSize();
+
+  const questionDurationCalc = useCallback(() => {
+    if (questions[currentQuestion].title.length < 75) return 12;
+    return 12 + questions[currentQuestion].title.length / 25;
+  }, []);
 
   return (
     <>
@@ -86,7 +98,7 @@ const QuizGameScreen = ({
         </div>
         <div className="absolute w-full inset-x-0 bottom-0">
           <QuestionTimer
-            duration={12}
+            duration={questionDurationCalc()}
             reset={false}
             start={true}
             height={
