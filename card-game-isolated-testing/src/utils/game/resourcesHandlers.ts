@@ -46,3 +46,25 @@ export const subtractResources = ({
 
   return newPlayerResources;
 };
+
+interface addResourcesProps {
+  playerResources: CardRequirements;
+  requirements: CardRequirements;
+  percentage?: number;
+}
+
+export const addResources = ({
+  playerResources,
+  requirements,
+  percentage,
+}: addResourcesProps) => {
+  const newPlayerResources = { ...playerResources };
+  for (const resource in requirements) {
+    if (Object.hasOwnProperty.call(requirements, resource)) {
+      newPlayerResources[resource as keyof CardRequirements] +=
+        requirements[resource as keyof CardRequirements] * (percentage || 1);
+    }
+  }
+
+  return newPlayerResources;
+};

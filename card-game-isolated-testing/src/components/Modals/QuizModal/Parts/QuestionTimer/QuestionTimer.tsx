@@ -3,24 +3,23 @@ import { useState, useEffect } from "react";
 interface QuestionTimerProps {
   duration: number;
   height?: string;
-  //   color: string;
   reset: boolean;
   start: boolean;
+  setTimeRanOut: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const QuestionTimer = ({
   duration,
-  height = "20px",
-  //   color = "#ddd",
   reset,
   start,
+  setTimeRanOut,
 }: QuestionTimerProps) => {
   const [width, setWidth] = useState(0);
   const [backgroundColor, setBackgroundColor] = useState("white");
 
   useEffect(() => {
-    if (start === false) return;
-    setWidth(0); // Reset width to 0 when the key changes
+    if (reset) setWidth(0); // Reset width to 0 when the key changes
+
     const interval = setInterval(() => {
       setWidth((oldWidth) => {
         const increment = 100 / (duration * 10);
@@ -35,14 +34,20 @@ const QuestionTimer = ({
         }
         if (nextWidth >= 100) {
           clearInterval(interval);
+          setTimeRanOut(true);
           return 100;
         }
         return nextWidth;
       });
     }, 100); // Update width every 100ms
 
+    if (start === false) {
+      clearInterval(interval);
+      return;
+    }
+
     return () => clearInterval(interval);
-  }, [duration, reset]);
+  }, [duration, reset, setTimeRanOut, start]);
 
   return (
     <div
@@ -51,7 +56,7 @@ const QuestionTimer = ({
         backgroundColor: "#334155",
         borderRadius: "5px",
         // borderTop: "1px solid #ddd",
-        height: height,
+        height: "100%",
       }}
     >
       <div

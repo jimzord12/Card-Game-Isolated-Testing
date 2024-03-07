@@ -47,7 +47,7 @@ const useDefaultBuildingLevelUp = () => {
       // 🔷 Checking If Player has enough resources
       const alertFlags = hasEnoughResources({
         playerResources: playerResources,
-        requirements: townhallRequirements[newTownhallLevel],
+        requirements: townhallRequirements[townhallLevel],
       });
 
       // 🔷 If Player does NOT has enough resources
@@ -121,7 +121,7 @@ const useDefaultBuildingLevelUp = () => {
       // 🔷 Checking If Player has enough resources
       const alertFlags = hasEnoughResources({
         playerResources: playerResources,
-        requirements: factoryRequirements[newFactoryLevel],
+        requirements: factoryRequirements[factoryLevel],
       });
 
       // 🔷 If Player does NOT has enough resources

@@ -8,6 +8,7 @@ import Rewards from "./Parts/Rewards/Rewards";
 import Hearts from "./Parts/Hearts/Hearts";
 import dummyQuestions from "./testData/dummyQuestions.json";
 import useGetScreenSize from "../../../hooks/game/useGetScreenSize";
+import { CardRequirements } from "../../../types";
 
 export type quizQuestionDetails = {
   index: number;
@@ -17,16 +18,20 @@ export type quizQuestionDetails = {
   subTopic: string;
 };
 
-const QuizModal = () => {
+interface QuizModalProps {
+  resourceCosts: CardRequirements;
+}
+
+const QuizModal = ({ resourceCosts }: QuizModalProps) => {
   const { images } = UseGlobalContext();
   if (images === null || images === undefined)
     throw new Error("images is required");
 
   const screenSize = useGetScreenSize();
 
-  const [gameStage, setGameStage] = useState(2);
+  const [gameStage, setGameStage] = useState(0);
   const [hearts, setHearts] = useState(3);
-  const [rewards, setRewards] = useState(3);
+  const [rewards, setRewards] = useState(0);
   const [questions, setQuestions] = useState([] as typeof dummyQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentScreen, setCurrentScreen] = useState(
@@ -37,20 +42,13 @@ const QuizModal = () => {
   );
   // const [questions, setQuestions] = useState([] as typeof dummyQuestions);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setHearts((prev) => prev - 1);
-  //     setRewards((prev) => prev + 1);
-  //   }, 1000);
-  // }, []);
-
   useEffect(() => {
-    if (currentQuestion > 4 || hearts === 0 || rewards === 3) {
-      setCurrentScreen(
-        <FinalGameScreen questionHistory={questionHistory} rewards={rewards} />
-      );
-    }
-  }, [currentQuestion, hearts, rewards]);
+    // setInterval(() => {
+    //   setHearts((prev) => prev - 1);
+    //   setRewards((prev) => prev + 1);
+    // }, 1000);
+    console.log("QuizModal - Current Question: ", currentQuestion);
+  }, [currentQuestion]);
 
   const labelPositionStyles = {
     largeMobile: "largeMobile:-top-9",
@@ -67,28 +65,33 @@ const QuizModal = () => {
     } else if (gameStage === 1) {
       setCurrentScreen(
         <QuizGameScreen
-          setCurrentScreen={setCurrentScreen}
           setHearts={setHearts}
           setRewards={setRewards}
-          setQuestions={setQuestions}
-          questions={questions}
           currentQuestion={currentQuestion}
           setCurrentQuestion={setCurrentQuestion}
           setQuestionHistory={setQuestionHistory}
+          questions={questions}
+          setGameStage={setGameStage}
+          hearts={hearts}
+          rewards={rewards}
         />
       );
     } else if (gameStage === 2) {
       setCurrentScreen(
-        <FinalGameScreen questionHistory={questionHistory} rewards={rewards} />
+        <FinalGameScreen
+          questionHistory={questionHistory}
+          rewards={rewards}
+          resourceCosts={resourceCosts}
+        />
       );
     } else {
       throw new Error("Invalid gameStage");
     }
-  }, [gameStage, questions]);
+  }, [gameStage, questions, currentQuestion, questionHistory, rewards]);
 
   return (
-    <div className="w-full h-full flex items-end tablet:items-center">
-      <div className="relative bg-slate-700 w-full h-[92%] tablet:h-[75%] largeScreen:h-2/3 border-t-8 border-green-400 flex-col justify-center items-center">
+    <div className="w-screen h-screen flex items-end tablet:items-center">
+      <div className="relative bg-slate-700 w-full h-[100%] tablet:h-[75%] largeScreen:h-2/3 border-t-8 border-green-400 flex-col justify-center items-center">
         <div
           className={`absolute -top-8 left-0 w-full flex justify-center ${labelPositionStyles.largeMobile} ${labelPositionStyles.tablet} ${labelPositionStyles.largeScreen}`}
           about="QuizTime - title"

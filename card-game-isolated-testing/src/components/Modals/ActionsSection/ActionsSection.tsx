@@ -19,6 +19,12 @@ import useDefaultBuildingLevelUp from "./useDefaultBuildingLevelUp";
 import LoadingModal from "../LoadingModal/LoadingModal";
 import { useModalStore } from "../../../stores/modalStore";
 import { waitFor } from "../../../utils/general/waitPlease";
+import QuizModal from "../QuizModal/QuizModal";
+import {
+  factoryRequirements,
+  townhallRequirements,
+} from "../../../constants/game/defaultBuildingsConfig";
+import { AxiosError } from "axios";
 
 interface ActionsSectionProps {
   contentType: ActionsSectionType;
@@ -146,11 +152,34 @@ const ActionsSection = ({
 
     // In Case of [Townhall] or [Factory]
     if (contentType === "townhall" || contentType === "factory") {
-      levelUpDefaultBuilding({
-        playerResources,
-        playerId: player.id,
-        contentType,
-      });
+      const resources =
+        contentType === "townhall"
+          ? townhallRequirements[townhallLevel]
+          : factoryRequirements[factoryLevel];
+
+      try {
+        await levelUpDefaultBuilding({
+          playerResources,
+          playerId: player.id,
+          contentType,
+        });
+      } catch (error) {
+        toastError.showError(
+          "There was an Error!",
+          "ActionsSection: LevelUp: Something went wrong!"
+        );
+        setIsLoading(false);
+        popModal();
+        throw new Error(
+          "⛔ ActionsSection: LevelUp: Townhall or Factory was not updated in DB!",
+          error as AxiosError
+        );
+      } finally {
+        setIsLoading(false);
+        popModal();
+      }
+
+      pushModal(<QuizModal resourceCosts={resources} />);
     } else if (card) {
       // 💥 In Case of [Card]
       levelUpCard({
@@ -158,6 +187,12 @@ const ActionsSection = ({
         playerResources,
         playerId: player.id,
       });
+
+      if (card?.requirements === null || card?.requirements === undefined)
+        throw new Error(
+          "⛔ ActionsSection.tsx: Card's requirements are null or undefined!"
+        );
+      pushModal(<QuizModal resourceCosts={card?.requirements} />);
     } else {
       toastError.showError(
         "There was an Error!",
@@ -170,7 +205,6 @@ const ActionsSection = ({
       );
     }
     setIsLoading(false);
-    popModal();
   }
 
   const actions = useModalActions({
@@ -183,8 +217,6 @@ const ActionsSection = ({
     townhallLevel,
     factoryLevel,
   });
-
-
 
   return (
     <div className={styles.actionSectionContainer}>

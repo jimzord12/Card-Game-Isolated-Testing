@@ -31,6 +31,9 @@ import { updateCardData } from "./cards/_updateCardData";
 import { updateCardStats } from "./cards/_updateCardStats";
 import { getCardStatsById } from "./cards/_getCardStatsById";
 
+// Quiz Game
+import { getRandomQuestions } from "./quizGame/_getRandomQuestions";
+
 export {
   getPlayerByWallet,
   loginWithWallet,
@@ -55,4 +58,5 @@ export {
   updateCardData,
   updateCardStats,
   getCardStatsById,
+  getRandomQuestions,
 };

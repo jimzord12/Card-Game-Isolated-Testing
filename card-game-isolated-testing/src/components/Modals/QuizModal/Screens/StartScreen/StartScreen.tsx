@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { quizImages } from "../../../../../assets/quizImages";
 import FancyButton from "../../../../Buttons/FancyButton/FancyButton";
 import LessFancyButton from "../../../../Buttons/LessFancyButton/LessFancyButton";
-import { waitFor } from "../../../../../utils/general/waitPlease";
+// import { waitFor } from "../../../../../utils/general/waitPlease";
 import dummyQuestions from "../../testData/dummyQuestions.json";
 import QuizGameInfo from "./Parts/QuizGameInfo";
 import { ProgressBar } from "react-loader-spinner";
 import useGetScreenSize from "../../../../../hooks/game/useGetScreenSize";
+import { useModalStore } from "../../../../../stores/modalStore";
+import { getRandomQuestions } from "../../../../../../api/apiFns";
+import { useToastError } from "../../../../../hooks/notifications";
 
 interface StartScreenProps {
   setQuestions: React.Dispatch<React.SetStateAction<typeof dummyQuestions>>;
@@ -19,22 +22,36 @@ const StartScreen = ({ setQuestions, setGameStage }: StartScreenProps) => {
   const [isFetching, setIsFetching] = useState(false);
   const [questionsFetched, setQuestionsFetched] = useState(false);
 
+  const { showError } = useToastError();
+
   const screenSize = useGetScreenSize();
+
+  const popModal = useModalStore((state) => state.popModal);
 
   useEffect(() => {
     async function fetchQuestion() {
-      setIsFetching(true);
-      await waitFor(3);
-      setQuestions(dummyQuestions);
-      setQuestionsFetched(true);
+      try {
+        const fetchedQuestions = await getRandomQuestions();
+        setQuestions(fetchedQuestions);
+        setQuestionsFetched(true);
+      } catch (error) {
+        console.error("Error fetching questions: ", error);
+        showError(
+          "⛔ StartScreen.tsx: Error fetching questions",
+          "StartScreen: fetchQuestion"
+        );
+        popModal();
+      } finally {
+        setIsFetching(false);
+      }
     }
 
-    if (startGame) {
+    if (startGame && !questionsFetched) {
       console.log("1. Fetching Questions...");
-
+      setIsFetching(true);
       fetchQuestion();
     }
-  }, [setGameStage, setQuestions, startGame]);
+  }, [popModal, questionsFetched, setGameStage, setQuestions, showError, startGame]);
 
   if (questionsFetched) {
     return (
@@ -86,15 +103,17 @@ const StartScreen = ({ setQuestions, setGameStage }: StartScreenProps) => {
           </div>
         </>
       ) : (
-        <div className="font-sans relative flex flex-col gap-4 largeMobile:gap-8 tablet:gap-12 largeScreen:gap-16 items-center justify-center h-full">
-          <FancyButton text="PLAY" onClick={() => setStartGame(true)} />
-          <LessFancyButton
-            text="Leave"
-            variant="redish"
-            onClick={() => console.log("Implement me!")}
-          />
+        <div className="font-sans relative flex flex-col gap-4 largeMobile:gap-8 tablet:gap-12 largeScreen:gap-16 items-center justify-evenly h-full">
+          <h2 className="font-Rocher text-2xl tablet:text-3xl largeScreen:text-5xl">
+            {" "}
+            Answer Questions Correctly for Rewards!
+          </h2>
+          <div className="flex flex-col gap-6 tablet:gap-14">
+            <FancyButton text="PLAY" onClick={() => setStartGame(true)} />
+            <LessFancyButton text="Leave" variant="redish" onClick={popModal} />
+          </div>
           <div
-            className="absolute w-12 tablet:w-16 m-4 bottom-0 right-0 hover:cursor-pointer hover:scale-125"
+            className="absolute w-12 tablet:w-16 largeScreen:w-24 m-4 bottom-0 right-0 hover:cursor-pointer hover:scale-125"
             onClick={() => setDisplayInfo((prev: boolean) => !prev)}
           >
             <img
