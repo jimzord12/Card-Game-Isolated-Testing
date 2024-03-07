@@ -59,6 +59,8 @@ import EffectClass from "../../../../../classes/effectClass.js";
 import { convertToMySQLDateTime } from "./utils.js";
 import { isBuildingCard } from "../../../../../types/TypeGuardFns/BuildingGuards.js";
 import { isToolStore } from "../../../../../types/TypeGuardFns/isToolStore.js";
+import { useModalStore } from "../../../../../stores/modalStore.js";
+import QuizModal from "../../../QuizModal/QuizModal.js";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -82,6 +84,8 @@ export default function CardGrid({
   //   awardPoints, // TODO: 🅱 🛑 Not yet implemented in Blockchain Hooks
   //   createNFTCard, // TODO: 🅱 🛑 Not yet implemented in Blockchain Hooks
   // } = usePlayerContext();
+
+  const pushModal = useModalStore((state) => state.pushModal);
 
   const {
     activeCards,
@@ -495,6 +499,7 @@ export default function CardGrid({
   const handleLevelUpClick = (_card: CardClass) => {
     checkAndSubtractRes(_card, "level");
     closeModal();
+    pushModal(<QuizModal resourceCosts={_card.requirements} />);
   };
 
   /**
@@ -520,6 +525,9 @@ export default function CardGrid({
 
     // 7. Close Gracefully the Modal
     closeModal();
+
+    // 8. Plau the Quiz Game
+    pushModal(<QuizModal resourceCosts={card.requirements} />);
   };
 
   return (
