@@ -71,6 +71,40 @@ function HomePageLocalWallet() {
     };
   }, [localWallet, userData?.username, waitingServer, setLW_HookHasRun]);
 
+  useEffect(() => {
+    async function automaticLogin() {
+      if (serverIsLive === false && userData?.username) return;
+
+      try {
+        const { success, walletAddress } = retrieveWallet();
+        if (success) {
+          console.log(
+            "✅ - Local Wallet Discovery Success. Retrieving User Data..."
+          );
+          const userData = await loginWithWallet(walletAddress);
+          if (setUser === null)
+            throw new Error("⛔ - useLocalWallet: setUser is null");
+          setUser({ ...userData });
+        } else {
+          console.log("💥 - No Local Wallet was found");
+        }
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((error as any)?.response.status === 401) {
+          console.log(
+            "🔷 - Tried to Automatically Fetch User Data and Failed!"
+          );
+        } else {
+          console.log(
+            "🔷 - Automatic UserData Local Wallet Retrival Failed, probably no Wallet is stored."
+          );
+        }
+      }
+    }
+
+    automaticLogin();
+  }, [serverIsLive, userData?.username]);
+
   return (
     <div className="flex flex-col">
       <TransactionModal open={isTransactionModalOpen} />
@@ -160,7 +194,6 @@ function HomePageLocalWallet() {
             value={userData !== null ? userData.username : undefined}
             isDisabled={!serverIsLive}
           />
-
           <SizedBox />
           <CustomInput
             label="Public Address"
@@ -168,7 +201,6 @@ function HomePageLocalWallet() {
             value={localWallet.address}
             copyToClipboard
           />
-
           <SizedBox />
           <CustomInput
             label="Private Key"
@@ -176,8 +208,8 @@ function HomePageLocalWallet() {
             value={localWallet.privateKey}
             copyToClipboard
           />
-          {localWallet.address && login !== null ? ( // ✨
-            // {userData?.username && login !== null ? (
+          {/* {localWallet.address && login !== null ? (  */}
+          {userData?.username && login !== null ? (
             <CustomButton
               title="Start Playing"
               isDisabled={!serverIsLive}

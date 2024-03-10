@@ -2,6 +2,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useEffect, useState } from "react";
 
 interface TransactionModalProps {
   open: boolean;
@@ -28,9 +29,29 @@ function TransactionModal({
   title = "Checking Your ETH Balance",
   message = "We will send you 0.5 ETH if your balance is insufficient.",
 }: TransactionModalProps) {
+  const [isOpen, setIsOpen] = useState(open);
+
+  useEffect(() => {
+    const setTimeoutId = setTimeout(() => {
+      console.log("🔷 - TransactionModal: useEffect: setTimeoutId");
+      setIsOpen(false);
+    }, 20 * 1000);
+    return () => {
+      clearTimeout(setTimeoutId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [open]);
+
   return (
     <Modal
-      open={open}
+      open={isOpen}
       onClose={() => {}}
       aria-labelledby="transaction-modal-title"
       aria-describedby="transaction-modal-description"
