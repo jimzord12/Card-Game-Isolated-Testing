@@ -25,10 +25,12 @@ const InventoryCardGridSecondMenu = ({
 }: Props) => {
   // const [priceTagInput, setPriceTagInput] = useState<number | null>(null);
   const [isSellClickedTimes, setIsSellClickedTimes] = useState(0);
-  const [sellPrice, resetSellInput, attributeObj] = useInput(
-    "priceTagInput",
-    ""
-  );
+
+  const {
+    value: sellPrice,
+    reset: resetSellInput,
+    attributeObj,
+  } = useInput("priceTagInput");
 
   const { openConfirmationModal } = useConfirmationModal({
     title: "Sell Card Confirmation",
