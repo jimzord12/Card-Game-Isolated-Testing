@@ -21,7 +21,13 @@ const HomePagePOC = () => {
   return (
     <div className="min-h-screen flex xl:flex-row flex-col relative ">
       {/* <TestDashboard /> */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="text-3xl w-screen h-screen flex justify-center items-center">
+            Loading, Please Wait a Moment...
+          </div>
+        }
+      >
         <div className="flex flex-1 justify-between bg-siteblack py-8 sm:px-12 px-8 flex-col">
           <img
             src={logoGenera}

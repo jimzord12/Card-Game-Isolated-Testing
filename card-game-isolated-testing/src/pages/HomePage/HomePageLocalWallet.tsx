@@ -43,6 +43,9 @@ function HomePageLocalWallet() {
 
   useEffect(() => {
     if (userData?.wallet) getEthBalance();
+    if (localStorage.getItem("user")) {
+      localStorage.removeItem("user");
+    }
   }, [getEthBalance, userData?.wallet]);
 
   useEffect(() => {
