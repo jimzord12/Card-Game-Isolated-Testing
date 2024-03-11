@@ -8,9 +8,9 @@ const ResourcesSection = () => {
   );
 
   if (ratesResourcesToggler) {
-    return <TotalResources />;
-  } else {
     return <ResourceGathRates />;
+  } else {
+    return <TotalResources />;
   }
 };
 

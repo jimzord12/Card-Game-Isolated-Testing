@@ -107,7 +107,7 @@ const useCreateActions = ({
   };
 
   const toggleRatesAndResources: ActionsSectionAction = {
-    label: "Rates/Resources",
+    label: "Resources/Rates",
     handler: () => setRatesResourcesToggler(!ratesResourcesToggler),
   };
 

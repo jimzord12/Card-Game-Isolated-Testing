@@ -13,7 +13,7 @@ export function initNewPlayer(playerId: number): PlayerData {
     island_id: randomIslandId,
     townhall_lvl: 1,
     factory_lvl: 1,
-    factory_barrels: 0, // This is like workers. How many barrels /h are used in the factory.
+    factory_barrels: 0,
     workers_concrete: 0,
     workers_metals: 0,
     workers_crystals: 0,

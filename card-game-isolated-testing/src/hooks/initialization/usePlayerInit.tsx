@@ -29,7 +29,7 @@ const usePlayerInit = () => {
 
   const playerInit = (data: IPlayerDB) => {
     setPlayer(data); // 🔷 Set the Player Data to Global State
-    console.log("💰💰💰💰💰💰💰💰: ", data.timestamp);
+    console.log("💈 usePlayerInit: ", data);
     setTownhallLevel(data.townhall_lvl as Level);
     setFactoryLevel(data.factory_lvl as Level);
     setFactoryBarrels(data.factory_barrels ?? 0);

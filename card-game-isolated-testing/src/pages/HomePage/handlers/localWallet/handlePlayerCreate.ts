@@ -32,7 +32,8 @@ export const handlePlayerCreate = async (
   setUser: Dispatch<SetStateAction<userAuthType>> | null,
   setErrMsg: (msg: string) => void,
   resetUser: () => void,
-  setSuccessMsg: (msg: string) => void
+  setSuccessMsg: (msg: string) => void,
+  // initNewPlayer: (playerId: number) => void
 ) => {
   if (!usernameRegex.test(playerName)) {
     setErrMsg(
@@ -82,6 +83,9 @@ export const handlePlayerCreate = async (
       }
 
       setUser({ ...userData });
+
+      // Initialze the Player in DB
+
 
       return true;
     }

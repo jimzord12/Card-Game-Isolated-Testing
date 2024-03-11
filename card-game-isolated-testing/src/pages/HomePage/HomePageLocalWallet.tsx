@@ -42,6 +42,11 @@ function HomePageLocalWallet() {
   }, [getEthBalance, userData?.wallet]);
 
   useEffect(() => {
+    const serverTimeout = setTimeout(() => {
+      setErrMsg("Server Error: No response received.");
+      setWaitingServer(true);
+    }, 5000);
+
     const checkingServer = async () => {
       try {
         await loginWithWallet("0xCe8E2AAd6a2aE2C69B31e5CFa7512878c4cA4197");
@@ -53,11 +58,6 @@ function HomePageLocalWallet() {
         setWaitingServer(true);
       }
     };
-
-    const serverTimeout = setTimeout(() => {
-      setErrMsg("Server Error: No response received.");
-      setWaitingServer(true);
-    }, 5000);
 
     console.log("🔃 Checking for Server Status...");
 
