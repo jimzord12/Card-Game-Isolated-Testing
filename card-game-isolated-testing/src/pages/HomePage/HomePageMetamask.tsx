@@ -20,7 +20,11 @@ import { loginWithWallet } from "../../../api/apiFns";
 
 const HomePageMetamask = () => {
   const { login, setUser } = useAuth();
-  const [playerName, resetUser, userAttribs] = useInput("user", "");
+  const {
+    value: playerName,
+    reset: resetUser,
+    attributeObj: userAttribs,
+  } = useInput("");
   const {
     ethersProvider,
     metamaskProvider,

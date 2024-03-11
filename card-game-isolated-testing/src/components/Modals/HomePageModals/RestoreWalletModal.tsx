@@ -4,8 +4,8 @@ import Typography from "@mui/material/Typography";
 import CustomInput from "../../CustomInput/CustomInput";
 import CustomButton from "../../Buttons/CustomButton/CustomButton";
 import { Dispatch, SetStateAction } from "react";
-import useInput from "../../../hooks/useInput";
 import { isValidEthereumPrivateKey } from "../../../utils/blockchain/privKeyValidator";
+import useLocalPrivKey from "../../../hooks/useLocalPrivKey";
 
 type retrieveWalletReturnType =
   | {
@@ -46,7 +46,7 @@ function RestoreWalletModal({
   retrieveWallet,
 }: // message = "We will send you 0.5 ETH if your balance is insufficient.",
 RestoreWalletModalProps) {
-  const [privKeyValue, resetPrivKeyField, userAttribs] = useInput(
+  const { privKeyValue, resetPrivKeyField, userAttribs } = useLocalPrivKey(
     "privKey",
     ""
   );

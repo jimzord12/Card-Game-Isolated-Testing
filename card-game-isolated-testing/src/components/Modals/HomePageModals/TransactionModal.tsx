@@ -35,7 +35,7 @@ function TransactionModal({
     const setTimeoutId = setTimeout(() => {
       console.log("🔷 - TransactionModal: useEffect: setTimeoutId");
       setIsOpen(false);
-    }, 20 * 1000);
+    }, 10 * 1000);
     return () => {
       clearTimeout(setTimeoutId);
     };

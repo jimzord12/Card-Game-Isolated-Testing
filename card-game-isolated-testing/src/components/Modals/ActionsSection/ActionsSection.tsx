@@ -152,13 +152,14 @@ const ActionsSection = ({
 
     // In Case of [Townhall] or [Factory]
     if (contentType === "townhall" || contentType === "factory") {
+      let success = undefined;
       const resources =
         contentType === "townhall"
           ? townhallRequirements[townhallLevel]
           : factoryRequirements[factoryLevel];
 
       try {
-        await levelUpDefaultBuilding({
+        success = await levelUpDefaultBuilding({
           playerResources,
           playerId: player.id,
           contentType,
@@ -179,10 +180,10 @@ const ActionsSection = ({
         popModal();
       }
 
-      pushModal(<QuizModal resourceCosts={resources} />);
+      if (success) pushModal(<QuizModal resourceCosts={resources} />);
     } else if (card) {
       // 💥 In Case of [Card]
-      levelUpCard({
+      const success = await levelUpCard({
         card,
         playerResources,
         playerId: player.id,
@@ -192,7 +193,7 @@ const ActionsSection = ({
         throw new Error(
           "⛔ ActionsSection.tsx: Card's requirements are null or undefined!"
         );
-      pushModal(<QuizModal resourceCosts={card?.requirements} />);
+      if (success) pushModal(<QuizModal resourceCosts={card?.requirements} />);
     } else {
       toastError.showError(
         "There was an Error!",

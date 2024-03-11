@@ -57,6 +57,7 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
           "😬 You are short on the following Resources: ",
           alertFlags.join(", ")
         );
+        return false;
       }
 
       // 🔷 If Card is NOT a SP && Level is NOT MAX
@@ -65,7 +66,7 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
           "MAX Level",
           "😅 Your Card is at the Maximum Level! It can not be leveled Up any further"
         );
-        return;
+        return false;
       }
 
       card.levelUp(); // 🔷 2. Update Card Internally
@@ -128,6 +129,7 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
         }
 
         console.log("⚡+✅ - In Backend: Card Successfully Leveled Up: ", card);
+        return true;
       } catch (error) {
         toastError.showError(
           "There was an Error!",

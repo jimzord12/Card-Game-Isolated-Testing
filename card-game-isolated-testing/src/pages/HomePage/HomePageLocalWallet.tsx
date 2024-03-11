@@ -16,7 +16,11 @@ import DeleteWalletModal from "../../components/Modals/HomePageModals/DeleteWall
 
 function HomePageLocalWallet() {
   const { user: userData, login, setUser } = useAuth();
-  const [playerName, resetUser, userAttribs] = useInput("user", "");
+  const {
+    value: playerName,
+    reset: resetUser,
+    attributeObj: userAttribs,
+  } = useInput("");
   const [waitingServer, setWaitingServer] = useState(false);
   const [serverIsLive, setServerIsLive] = useState(false);
 

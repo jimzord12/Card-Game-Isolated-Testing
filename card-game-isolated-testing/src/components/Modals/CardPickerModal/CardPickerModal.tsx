@@ -50,6 +50,9 @@ const CardPickerModal = ({ type, spot }: Props) => {
     ? `${styles.cardPickerModalContainer} ${styles.slideOutEllipticTopBck}`
     : `${styles.cardPickerModalContainer} ${styles.enterAnimation}`;
 
+  const noCardsTextStyles =
+    "flex flex-col items-center justify-center leading-12 h-full leading text-white text-3xl largeMobile:text-2xl tablet:text-3xl tablet:leading-12 largeScreen:text-4xl largeScreen:leading-12";
+
   // Handlers
   const handleClose = () => {
     setIsClosing(true);
@@ -149,14 +152,22 @@ const CardPickerModal = ({ type, spot }: Props) => {
 
       <div className={styles.templateCardsContainer}>
         {type === "building" && buildingCards.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className={noCardsTextStyles}>
             <h1>No Available Cards for Activation.</h1>
-            <p>Try Crafting Card, using the Craft Button</p>
+            <p className="text-xl">Try Crafting Card, using the Craft Button</p>
+            <p>
+              To find it, close this window and then click on the button on the
+              top right.
+            </p>
           </div>
         ) : type === "reg" && regCards.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className={noCardsTextStyles}>
             <h1>No Available Cards for Activation.</h1>
             <p>Try Crafting Card, using the Craft Button</p>
+            <p>
+              To find it, close this window and then click on the button on the
+              top right.
+            </p>
           </div>
         ) : (
           (type === "building" ? buildingCards : regCards).map((card) => (

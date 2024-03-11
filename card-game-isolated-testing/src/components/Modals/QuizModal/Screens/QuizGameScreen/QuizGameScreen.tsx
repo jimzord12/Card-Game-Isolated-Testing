@@ -7,6 +7,7 @@ import QuestionTimer from "../../Parts/QuestionTimer/QuestionTimer";
 import dummyQuestions from "../../testData/dummyQuestions.json";
 import { quizQuestionDetails } from "../../QuizModal";
 import { waitFor } from "../../../../../utils/general/waitPlease";
+// import "./quizGameScreenStyles.css";
 
 interface QuizGameScreenProps {
   setHearts: React.Dispatch<React.SetStateAction<number>>;
@@ -55,6 +56,8 @@ const QuizGameScreen = ({
   const [playerAnswered, setPlayerAnswered] = useState<boolean>(false);
   const [resetTimer, setResetTimer] = useState(false);
   const [timeRanOut, setTimeRanOut] = useState(false);
+
+  const testing = true;
 
   // ⚡ GO TO FINAL SCREEN
   useEffect(() => {
@@ -133,17 +136,25 @@ const QuizGameScreen = ({
         },
       ]);
       setPlayerAnswered(true);
+
+      // // Remove focus from the clicked button after a delay
+      // setTimeout(() => {
+      //   if (document.activeElement instanceof HTMLElement) {
+      //     document.activeElement.blur();
+      //   }
+      // }, 2000); // Adjust the delay as needed
     }
   };
 
   const questionDurationCalc = useCallback(() => {
+    if (testing) return 100 * 100;
     if (questions[currentQuestion].title.length < 75) return 30;
     return questions[currentQuestion].title.length / 25 + 30;
   }, []);
 
   return (
     <>
-      <div className="flex flex-col gap-4 h-full py-4 items-center justify-evenly font-sans">
+      <div className="flex flex-col gap-4 h-full py-4 items-center justify-evenly font-sans overflow-auto">
         <div
           className={`flex flex-col justify-center items-center gap-4 ${topicsStyles.tablet}`}
         >
@@ -162,14 +173,18 @@ const QuizGameScreen = ({
 
           {/* QUESTION */}
           <section
-            className="h-fit text-sm px-4 mb-4 text-center largeMobile:text-lg tablet:text-2xl largeScreen:max-w-[1200px]"
+            className="h-fit px-4 mb-4 text-center text-2xl tablet:text-2xl largeScreen:max-w-[1200px]"
             about="Question Section"
           >
             {questions[currentQuestion].title}
           </section>
         </div>
+
         {/* ANSWERS */}
-        <div className="flex w-full h-fit justify-center items-center ">
+        <div
+          id="answers-section"
+          className="flex w-full h-fit justify-center items-center "
+        >
           <section
             className={`grid grid-rows-2 grid-cols-2 gap-4 px-2 ${gridStyles.largeMobile} ${gridStyles.tablet} ${gridStyles.largeScreen}`}
             about="Answers/Buttons Section"
@@ -177,7 +192,7 @@ const QuizGameScreen = ({
             {questions[currentQuestion].answers.map((answer, index) => (
               <button
                 key={index}
-                className={`font-sans text-xs ${btnStyles.largeMobile} ${btnStyles.tablet} bg-slate-800 p-2 rounded-md col-span-1 hover:scale-110 hover:bg-sky-600 transform transition-all duration-300`}
+                className={`font-sans text-lg ${btnStyles.largeMobile} ${btnStyles.tablet} bg-slate-800 py-2 px-4 rounded-md col-span-1 largeScreen:hover:scale-110 largeScreen:hover:bg-sky-600 transform transition-all duration-300`}
                 style={{
                   backgroundColor: !playerAnswered
                     ? ""
