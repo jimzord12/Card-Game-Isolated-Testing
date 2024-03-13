@@ -81,6 +81,25 @@ const ActionsSection = ({
       (card instanceof BuildingCard || card instanceof RegCard) &&
       card.id !== null
     ) {
+      if (card instanceof RegCard) {
+        const currentEnergyComsumed =
+          useGameVarsStore.getState().energyConsumed;
+        const currentEnergyProduced =
+          useGameVarsStore.getState().energyProduced;
+        const energyCardProduces = card.output.energy;
+        const newEnergyProduced = currentEnergyProduced - energyCardProduces;
+
+        if (currentEnergyComsumed > newEnergyProduced) {
+          toastError.showError(
+            "Invalid Action!",
+            "You cannot deactivate this card, because it will cause an energy shortage!",
+            "First, deactivate some Buildings."
+          );
+          setIsLoading(false);
+          // popModal();
+          return;
+        }
+      }
       // Regarding Client Side:
       // 1. Remove Card from map
       removeEntityFromMap(card);
@@ -189,6 +208,9 @@ const ActionsSection = ({
         playerId: player.id,
       });
 
+      setIsLoading(false);
+      popModal();
+
       if (card?.requirements === null || card?.requirements === undefined)
         throw new Error(
           "⛔ ActionsSection.tsx: Card's requirements are null or undefined!"
@@ -200,7 +222,6 @@ const ActionsSection = ({
         "ActionsSection: LevelUp: Card is null, or contentType is not 'townhall' or 'factory'!"
       );
       popModal();
-      setIsLoading(false);
       throw new Error(
         "⛔ ActionsSection: LevelUp: Card is null! or contentType is not 'townhall' or 'factory'!"
       );

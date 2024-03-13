@@ -1,5 +1,5 @@
 // React Imports
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // CSS Modules
 import styles from "./css/general.module.css";
@@ -20,6 +20,9 @@ import GlowOutlineFilter from "../../../components/GlowOutlineFilter";
 import EntityTemplateGroup from "../../../components/OnMapEntities/EntityTemplateGroup/EntityTemplateGroup";
 import Placeholders from "../../../components/OnMapEntities/Placeholders/Placeholders";
 import TreesOnMap from "../../../components/OnMapEntities/Trees/TreesOnMap";
+import { useAllCardsStore } from "../../../stores/allCards";
+// import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
+// import { isSPCard } from "../../../types/TypeGuardFns/SPGuards";
 
 // Modals
 
@@ -30,9 +33,10 @@ const TownMap = () => {
     null
   );
   // Zustang Store Related
-  const mapEntities = useTownMapStore((state) => state.mapEntities);
+  // const mapEntities = useTownMapStore((state) => state.mapEntities);
   // const addEntityOnMap = useTownMapStore((state) => state.addEntity);
   const townHallLevel = useGameVarsStore((state) => state.townhallLevel);
+  const activeCards = useAllCardsStore((state) => state.activeCards);
 
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ TownMap: images are undefined!");
@@ -52,13 +56,51 @@ const TownMap = () => {
     setHighlightedImg(null);
   }, []);
 
-  const templateGrpProps = {
-    setSelectedMapEntity,
-    handleHover,
-    handleLeave,
-    highlightedImg,
-    mapEntities,
-  };
+  const templateGrpProps = useMemo(
+    () => ({
+      setSelectedMapEntity,
+      handleHover,
+      handleLeave,
+      highlightedImg,
+      mapEntities: useTownMapStore.getState().mapEntities,
+    }),
+    [
+      handleHover,
+      handleLeave,
+      highlightedImg,
+      setSelectedMapEntity,
+      activeCards.length,
+    ]
+  );
+
+  // const mapEntitiesArray = Array.from(mapEntities);
+
+  // useEffect(() => {
+  //   const unsubscribe = useTownMapStore.subscribe((state, prevState) => {
+  //     // const numberOfNewEntities = Object.values(state.mapEntities).filter((v) => v !== null).length;
+  //     // const numberOfOldEntities = Object.keys(prevState.mapEntities).filter((v) => v !== null).length;;
+
+  //     if (state.mapEntities !== prevState.mapEntities) {
+  //       console.log("mapEntities has changed: New:", state.mapEntities);
+  //       console.log("mapEntities has changed: OLD:", prevState.mapEntities);
+  //       // activeCards.forEach((card) => {
+  //       //   if (isSPCard(card)) return;
+  //       //   addEntityOnMap(card);
+  //       // });
+  //     }
+  //   });
+
+  //   console.log("TOWN MAP::UseEffect");
+  //   console.log(
+  //     "🏰 mapEntitiesArray: ",
+  //     useTownMapStore.getState().mapEntities
+  //   );
+
+  //   // Cleanup subscription on unmount
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [mapEntities]);
 
   /**
    * @futureImprovement_1 Rather than providing all mapEntities to each EntityTemplateGroup. filter them and provide only the ones that are needed.

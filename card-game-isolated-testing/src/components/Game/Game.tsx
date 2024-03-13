@@ -12,6 +12,7 @@ import GameWorker from "../../webWorkers/gameLoopWorker.worker?worker";
 import { gameLoopWorkerReturnType } from "../../types/GameLoopTypes/GameLoopTypes";
 import useGameLoop from "../../hooks/game/gameLoop/useGameLoop";
 import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
+import CustomButton from "../Buttons/CustomButton/CustomButton";
 // import GameSideBar from "../GameSideBar/GameSideBar";
 
 const ImageProviderV5 = lazy(
@@ -79,7 +80,7 @@ const Game = () => {
       console.log("UseEffect: GameWorker.onmessage: ", event.data);
 
       if (wasSuccess) {
-        energyChecker();
+        energyChecker(); //
         const { expense } = maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
         const stateAfterExpenses = {
           ...newState,
@@ -178,6 +179,13 @@ const Game = () => {
                 setIsInvModalOpen={setIsInvModalOpen}
               />
 
+              <div className="z-[401] absolute top-4 left-[280px]">
+                <CustomButton
+                  title="Run Loop"
+                  handleClick={() => gameLoopRunner()}
+                />
+              </div>
+
               {/* 
 
               <div className="z-[401] absolute">
@@ -194,12 +202,7 @@ const Game = () => {
                   }
                 />
               </div>
-              <div className="z-[401] absolute top-4 left-[280px]">
-                <CustomButton
-                  title="Run Loop"
-                  handleClick={() => gameLoopRunner()}
-                />
-              </div>
+
               <div className="z-[401] absolute top-24 left-[280px]">
                 <CustomButton
                   title="Run 500x Loops"

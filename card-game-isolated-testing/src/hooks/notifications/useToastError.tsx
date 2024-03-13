@@ -11,7 +11,7 @@ export const useToastError = ({ autoClose = 10000 }: Props = {}) => {
   const showError = (
     title = "Error",
     message = "Something went wrong!",
-    specialText = "For this Reason"
+    specialText?: string
   ) => {
     toast.error(
       // Using .error to get the default error styling, you can modify further if needed

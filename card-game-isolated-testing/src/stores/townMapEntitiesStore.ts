@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import BuildingCard from "../classes/buildingClass_V2";
 import RegCard from "../classes/regClass_V2";
-import { TownMapEntitiesData } from "../types";
+import { BuildingSpot, RegSpot, TownMapEntitiesData } from "../types";
 
 interface TownMapState {
   mapEntities: TownMapEntitiesData;
@@ -35,17 +35,19 @@ export const useTownMapStore = create<TownMapState>((set) => ({
       ...state,
       mapEntities: {
         ...state.mapEntities,
-        [card.spot]: card,
+        [card.spot as BuildingSpot | RegSpot]: card,
       },
     })),
-  removeEntity: (card: BuildingCard | RegCard) =>
-    set((state) => ({
+  removeEntity: (card: BuildingCard | RegCard) => {
+    console.log(`Removing ${card} from Spot: ${card.spot}`);
+    return set((state) => ({
       ...state,
       mapEntities: {
         ...state.mapEntities,
-        [card.spot]: null,
+        [card.spot as BuildingSpot | RegSpot]: null,
       },
-    })),
+    }));
+  },
 }));
 
 // function getSpot(card: BuildingCard | RegCard): CardSpot {

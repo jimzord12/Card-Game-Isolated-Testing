@@ -15,7 +15,7 @@ const CraftingCardGridFirstMenu = ({
 
   // console.log("CraftingCardGridFirstMenu: Cards: ", cards);
   return (
-    <div className="flex flex-row gap-6">
+    <div className="flex flex-row gap-6 mt-6">
       {cards.map((card, index) => {
         return (
           <CompleteCard

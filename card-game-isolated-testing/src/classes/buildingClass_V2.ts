@@ -40,7 +40,7 @@ export default class BuildingCard {
   readonly type: CardType = "building"; // ✨
   readonly img: string;
   // readonly templateData: templateIdToTemplateDataBuilding;
-  public spot: BuildingSpot; // ✨
+  public spot: BuildingSpot | null; // ✨
   public rarity: CardRarity;
   public priceTag: number | null;
   public forSale: boolean;
@@ -207,13 +207,14 @@ export default class BuildingCard {
   }
 
   public activate(spot: BuildingSpot): void {
+    console.log("BuidlingCard: Activating Card to Spot: ", spot);
     this.state = true;
     this.spot = spot;
   }
 
   public deactivate(): void {
     this.state = false;
-    this.spot = 0;
+    this.spot = null;
   }
 
   public setOwner(newOwnerId: number): void {

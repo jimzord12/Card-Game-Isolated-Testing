@@ -80,7 +80,7 @@ const QuizGameScreen = ({
       setCurrentQuestion((prev) => prev + 1);
     }
 
-    if (playerAnswered) {
+    if (playerAnswered && currentQuestion <= 4) {
       waitABitAndThenDoStaff();
     }
   }, [playerAnswered, questions, currentQuestion, setCurrentQuestion]);
@@ -104,13 +104,13 @@ const QuizGameScreen = ({
       setTimeRanOut(false);
     }
 
-    if (timeRanOut) {
+    if (timeRanOut && currentQuestion <= 4) {
       waitABitAndThenDoStaff();
     }
   }, [timeRanOut]);
 
   const handleAnswerClick = (index: number) => {
-    if (index === questions[currentQuestion].correct) {
+    if (index === questions[currentQuestion].correct && currentQuestion <= 4) {
       setRewards((prev) => prev + 1);
       setQuestionHistory((prev) => [
         ...prev,
@@ -124,6 +124,7 @@ const QuizGameScreen = ({
       ]);
       setPlayerAnswered(true);
     } else {
+      if (currentQuestion > 4) return;
       setHearts((prev) => prev - 1);
       setQuestionHistory((prev) => [
         ...prev,

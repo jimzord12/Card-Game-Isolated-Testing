@@ -6,6 +6,8 @@
   height: 100%;
   margin: 0px;
   gap: 8px;
+  font-family: cursive;
+  font-weight: 500;
 
   /* outline: 3px rgb(255, 0, 0) solid; */
 }

@@ -10,17 +10,20 @@ import { useToastError } from "../../notifications";
 import { gameConfig } from "../../../constants/game";
 import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
 import BuildingCard from "../../../classes/buildingClass_V2";
+import { useTownMapStore } from "../../../stores/townMapEntitiesStore";
 
 const useValuesChecker = () => {
   const allCardsState = useAllCardsStore();
   const gameVars = useGameVarsStore();
   const toastError = useToastError();
 
+  const removeEntityFromMap = useTownMapStore((state) => state.removeEntity);
+
   // This check the if there is enough gold to pay for the maintenance of the REG cards
   function maintenanceSubtracker() {
-    const regCards = allCardsState.activeCards.filter((card) =>
-      isRegCard(card)
-    ) as RegCard[];
+    const regCards = useAllCardsStore
+      .getState()
+      .activeCards.filter((card) => isRegCard(card)) as RegCard[];
 
     // If there are not any REG Cards don't waste processing power
     if (regCards.length === 0) {
@@ -29,7 +32,7 @@ const useValuesChecker = () => {
     }
 
     const playerGold = isNotNullOrUndefined<number>(
-      gameVars.player?.gold,
+      useGameVarsStore.getState().player?.gold,
       "gold"
     );
 
@@ -40,11 +43,12 @@ const useValuesChecker = () => {
     const newExpenses = roundToDecimal(temp, 4);
 
     if (newExpenses > playerGold) {
-      cardsStateManager(regCards, "deactivate", updateCardData);
-
       regCards.forEach((card) => {
+        console.log("useValuesChecker::REG::Card to be Removed: ", card);
         allCardsState.removeCardFromActiveCards(card);
         allCardsState.addCardToInventory(card);
+        removeEntityFromMap(card);
+        cardsStateManager(regCards, "deactivate", updateCardData);
       });
 
       gameVars.setExpences(0);
@@ -86,30 +90,39 @@ const useValuesChecker = () => {
   }
 
   function energyChecker() {
-    const buildingCards = allCardsState.activeCards.filter((card) =>
-      isBuildingCard(card)
-    ) as BuildingCard[];
+    console.log("⚡ Running Energy Checker...");
+    const buildingCards = useAllCardsStore
+      .getState()
+      .activeCards.filter((card) => isBuildingCard(card)) as BuildingCard[];
+
+    console.log("UseValuesChecker::Building::Cards: ", buildingCards);
 
     // If there are not any REG Cards don't waste processing power
+    console.log("The Current Buildings: ", buildingCards);
     if (buildingCards.length === 0) {
       gameVars.setEnergyConsumed(0);
       return true;
     }
 
-    const energyProduced = gameVars.energyProduced;
+    const energyProduced = useGameVarsStore.getState().energyProduced;
+    console.log("⚡ energyProduced: ", energyProduced);
 
     const temp = buildingCards.reduce((acc, card) => {
       return acc + card.maintenance.energy;
     }, 0);
 
     const newEnergyConsumed = roundToDecimal(temp, 4);
+    const energyRemaining = energyProduced - newEnergyConsumed;
+    console.log("⚡ newEnergyConsumed: ", newEnergyConsumed);
+    console.log("⚡ Energy Remaining: ", energyProduced - newEnergyConsumed);
 
-    if (newEnergyConsumed > energyProduced) {
-      cardsStateManager(buildingCards, "deactivate", updateCardData);
-
+    if (energyRemaining < 0) {
       buildingCards.forEach((card) => {
+        console.log("useValuesChecker::Building::Card to be Removed: ", card);
+        removeEntityFromMap(card);
         allCardsState.removeCardFromActiveCards(card);
         allCardsState.addCardToInventory(card);
+        cardsStateManager(buildingCards, "deactivate", updateCardData);
       });
 
       gameVars.setEnergyConsumed(0);

@@ -52,7 +52,9 @@
 
 .value {
   position: absolute;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  /* font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; */
+  /* font-family: Protest Riot, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+
   font-size: 2vw;
   color: black;
   /* left: 43%;

@@ -15,6 +15,7 @@ import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
 import { useGameVarsStore } from "../../../stores/gameVars";
 import { useToastError } from "../../../hooks/notifications";
 import CompleteCard from "../../Cards/CardTemplates/CompleteCard/CompleteCard";
+import { templateIdToTemplateDataBuilding } from "../../../constants/templates";
 
 type Props = {
   type: CardType;
@@ -32,6 +33,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
     inventory: inventoryCards,
     addCardToActiveCards,
     removeCardFromInventory,
+    activeBuildingCards,
   } = useAllCardsStore((state) => state);
   const { energyRemaining, player } = useGameVarsStore((state) => state);
 
@@ -70,7 +72,36 @@ const CardPickerModal = ({ type, spot }: Props) => {
       throw new Error("⛔ CardPickerModal: Card can NOT be Activated!");
 
     // 1. Activate the Card
-    if (isBuildingCard(card)) card.activate(spot as BuildingSpot);
+
+    if (isBuildingCard(card)) {
+      let isAHospitalActive = false;
+      // 1.1 Checking if the Card is a Hospital
+      // 1.2 If it is, check if there is already an Active Hospital
+      if (
+        templateIdToTemplateDataBuilding[card.templateId].name === "Hospital"
+      ) {
+        activeBuildingCards.forEach((activeCard) => {
+          console.log("activeCard: ", activeCard);
+          console.log("cardName: ", templateIdToTemplateDataBuilding);
+
+          const cardName =
+            templateIdToTemplateDataBuilding[
+              (activeCard as BuildingCard).templateId
+            ].name;
+
+          if (cardName === "Hospital") {
+            toastError.showError(
+              "Invalid Action",
+              "You can only have one Active Hospital at a time!"
+            );
+            isAHospitalActive = true;
+          }
+        });
+      }
+
+      if (isAHospitalActive) return;
+      card.activate(spot as BuildingSpot);
+    }
     if (isRegCard(card)) card.activate(spot as RegSpot);
     if (!isBuildingCard(card) && !isRegCard(card)) {
       toastError.showError(
@@ -114,7 +145,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
         toastError.showError(
           "Insufficient Energy",
           `You need more ⚡ Energy to activate the (${card.name}) Card!`,
-          `Required: ${card.maintenance.energy} | Remaining: ${energyRemaining}`
+          `Energy Needed: ${card.maintenance.energy - energyRemaining}`
         );
         return false;
       }

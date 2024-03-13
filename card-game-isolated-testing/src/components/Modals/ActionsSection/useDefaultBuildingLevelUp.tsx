@@ -40,7 +40,7 @@ const useDefaultBuildingLevelUp = () => {
           "MAX Level",
           "😅 Your Townhall is at the Maximum Level! It can not be leveled Up any further"
         );
-        return;
+        return false;
       }
       const newTownhallLevel = (townhallLevel + 1) as Level;
 
@@ -57,6 +57,7 @@ const useDefaultBuildingLevelUp = () => {
           "😬 You are short on the following Resources: ",
           alertFlags.join(", ")
         );
+        return false;
       }
 
       // 🔷 If All are good...
@@ -95,6 +96,7 @@ const useDefaultBuildingLevelUp = () => {
           "Leveled Up Card",
           `💪 Awesome! You just leveled Up your Townhall to ${newTownhallLevel}!`
         );
+        return true;
       } catch (error) {
         toastError.showError(
           "There was an Error!",
