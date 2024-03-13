@@ -156,13 +156,13 @@ const QuizGameScreen = ({
     return questions[currentQuestion].title.length / 25 + 30;
   }, []);
 
-  if (currentQuestion > 4 || hearts === 0 || rewards === 3) {
-    return (
-      <div className="w-full h-full text-3xl flex justify-center items-center">
-        Loading Results Screen...
-      </div>
-    );
-  }
+  // if (currentQuestion > 4 || hearts === 0 || rewards === 3) {
+  //   return (
+  //     <div className="w-full h-full text-3xl flex justify-center items-center">
+  //       Loading Results Screen...
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
