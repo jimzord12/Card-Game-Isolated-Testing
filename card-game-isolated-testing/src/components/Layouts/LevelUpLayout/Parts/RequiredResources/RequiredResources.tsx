@@ -1,3 +1,4 @@
+import { useDebugValue } from "react";
 import BuildingCard from "../../../../../classes/buildingClass_V2";
 import RegCard from "../../../../../classes/regClass_V2";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
@@ -43,9 +44,15 @@ const RequiredResources = ({ card }: RequiredResourcesProps) => {
   return (
     <>
       {card.level === 5 ? (
-        <h2 className="text-white text-3xl text-center">
-          Your Card's Level is Maxed out! You can not level it up any further.
-        </h2>
+        <>
+          <div className="h-4 tablet:h-20 largeScreen:h-48" />
+          <div className="flex max-h-full items-center justify-center bg-emerald-700/85 rounded-lg py-6 px-4 mx-12">
+            <h2 className="text-white text-2xl text-center tablet:text-3xl">
+              Your Card's Level is Maxed out! You can not level it up any
+              further.
+            </h2>
+          </div>
+        </>
       ) : (
         <section
           className="grid grid-cols-2 gap-4 gap-y-10 w-fit p-4 pb-10 border-4 rounded-2xl bg-emerald-700/[.6]"

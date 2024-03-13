@@ -54,11 +54,7 @@ const NewStats = ({ card }: NewStatsProps) => {
 
   return (
     <>
-      {card.level === 5 ? (
-        <h2 className="text-white text-3xl text-center">
-          Your Card's Level is Maxed out! You can not level it up any further.
-        </h2>
-      ) : (
+      {card.level === 5 ? null : (
         <section
           className="grid grid-cols-2 gap-x-4 w-fit p-4 border-4 rounded-2xl bg-emerald-700/[.6]"
           about="Card-New-Stats"

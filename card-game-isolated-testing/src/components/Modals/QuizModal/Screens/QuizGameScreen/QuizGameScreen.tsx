@@ -56,6 +56,7 @@ const QuizGameScreen = ({
   const [playerAnswered, setPlayerAnswered] = useState<boolean>(false);
   const [resetTimer, setResetTimer] = useState(false);
   const [timeRanOut, setTimeRanOut] = useState(false);
+  const [disableButtons, setDisableButtons] = useState(false);
 
   const testing = false;
 
@@ -78,9 +79,11 @@ const QuizGameScreen = ({
       setPlayerAnswered(false);
       setResetTimer(true);
       setCurrentQuestion((prev) => prev + 1);
+      setDisableButtons(false);
     }
 
     if (playerAnswered && currentQuestion <= 4) {
+      setDisableButtons(true);
       waitABitAndThenDoStaff();
     }
   }, [playerAnswered, questions, currentQuestion, setCurrentQuestion]);
@@ -201,6 +204,7 @@ const QuizGameScreen = ({
             {questions[currentQuestion].answers.map((answer, index) => (
               <button
                 key={index}
+                disabled={disableButtons}
                 className={`font-sans text-lg ${btnStyles.largeMobile} ${btnStyles.tablet} bg-slate-800 py-2 px-4 rounded-md col-span-1 largeScreen:hover:scale-110 largeScreen:hover:bg-sky-600 transform transition-all duration-300`}
                 style={{
                   backgroundColor: !playerAnswered
