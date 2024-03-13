@@ -1,4 +1,3 @@
-import { useDebugValue } from "react";
 import BuildingCard from "../../../../../classes/buildingClass_V2";
 import RegCard from "../../../../../classes/regClass_V2";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
