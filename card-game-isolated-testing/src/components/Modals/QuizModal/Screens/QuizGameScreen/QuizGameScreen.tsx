@@ -57,7 +57,7 @@ const QuizGameScreen = ({
   const [resetTimer, setResetTimer] = useState(false);
   const [timeRanOut, setTimeRanOut] = useState(false);
 
-  const testing = true;
+  const testing = false;
 
   // ⚡ GO TO FINAL SCREEN
   useEffect(() => {
@@ -152,6 +152,14 @@ const QuizGameScreen = ({
     if (questions[currentQuestion].title.length < 75) return 30;
     return questions[currentQuestion].title.length / 25 + 30;
   }, []);
+
+  if (currentQuestion > 4 || hearts === 0 || rewards === 3) {
+    return (
+      <div className="w-full h-full text-3xl flex justify-center items-center">
+        Loading Results Screen...
+      </div>
+    );
+  }
 
   return (
     <>

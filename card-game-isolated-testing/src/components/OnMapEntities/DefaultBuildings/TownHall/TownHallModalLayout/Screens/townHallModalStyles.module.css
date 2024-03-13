@@ -6,8 +6,9 @@
   height: 100%;
   margin: 0px;
   gap: 8px;
-  font-family: cursive;
-  font-weight: 500;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: "Pacifico", cursive;
+  /* font-weight: 600; */
 
   /* outline: 3px rgb(255, 0, 0) solid; */
 }
