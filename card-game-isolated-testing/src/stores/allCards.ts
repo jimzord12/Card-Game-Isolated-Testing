@@ -89,6 +89,8 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
         } else if (card instanceof RegCard) {
           updateREG_RelatedGameVars(card, useGameVarsStore.getState());
           newRegCards.push(card);
+        } else {
+          // return;
         }
       });
       return {

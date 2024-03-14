@@ -37,7 +37,7 @@ class EffectClass {
     if (this.name === "WallStreet") {
       return { ...base, goldGathRate: base.goldGathRate + this.boost };
     } else if (this.name === "LoveApp") {
-      return { ...base, popGrowthRate: this.boost };
+      return { ...base, popGrowthRate: base.popGrowthRate + this.boost };
     } else if (this.name === "SuperStrong") {
       return {
         ...base,

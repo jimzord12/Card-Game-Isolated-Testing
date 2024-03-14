@@ -441,8 +441,11 @@ export default function CardGrid({
 
     const mysqlDate = convertToMySQLDateTime(newEffect.expiresAtUnix);
     console.log("HandleActivateClick::MySQLDate: ", mysqlDate);
-    updateCardData({ id, state: 1, endDate: mysqlDate }); // 🔷 2. Update the Card's Data in the DB
-    setActiveEffect(newEffect); // 🔷 3. Set the New Effect as the Active Effect in Global State
+    // 🔷 2. Update the Card's Data in the DB
+    updateCardData({ id, state: 1, endDate: mysqlDate }); 
+    
+    // 🔷 3. Client State - Zustang
+    setActiveEffect(newEffect); 
 
     // 0. Change SPCard's State to true
     card.activate(newEffect.expiresAtUnix); // 🔷 4. Activate the Card

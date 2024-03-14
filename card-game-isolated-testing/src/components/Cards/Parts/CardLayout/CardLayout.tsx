@@ -20,11 +20,10 @@ interface Props {
   onClick: () => void;
 }
 
-
-
 const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
   // console.log("frameImg :>> ", frameImg);
   // console.log("Card Data : ", card);
+  const useGrayscale = isSPCard(card) && card.disabled;
 
   return (
     <div className={styles.outerFrame} onClick={onClick}>
@@ -44,9 +43,9 @@ const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
       ) : (
         <>
           {/* Section ONLY for Inventory Modal */}
-          {/* // TODO: Change the BG Color based on the Rarity */}
 
-          {!isSPCard(card as CardClass) ? (
+          {/* NOT SP CARDS - (Buildings & REGs) */}
+          {!isSPCard(card as CardClass) && (
             <div
               about="Level Indicator Container"
               className="absolute w-full h-full"
@@ -65,8 +64,13 @@ const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
                 />
               </div>
             </div>
-          ) : null}
-          <div className={styles.cardFrameContainer}>
+          )}
+          <div
+            className={styles.cardFrameContainer}
+            style={{
+              filter: useGrayscale ? "grayscale(100%)" : "none",
+            }}
+          >
             <img src={frameImg} alt="Frame Image" className={styles.frameImg} />
           </div>
           <div
@@ -75,6 +79,9 @@ const CardLayout = ({ frameImg, card, onClick, currentModal }: Props) => {
               " " +
               styles[rarityConverter(card.rarity)?.toLowerCase() ?? ""]
             }
+            style={{
+              filter: useGrayscale ? "grayscale(100%)" : "none",
+            }}
           >
             <h3 className={styles.cardTitle}>{(card as CardClass).name}</h3>
             <img

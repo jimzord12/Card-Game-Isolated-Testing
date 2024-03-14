@@ -58,7 +58,7 @@ export default class SPCard {
     this.ownerId = data.ownerId;
     this.disabled = Boolean(data.disabled);
     this.expiresAtUnix = data.endDate
-      ? mysqlDatetimeToUnixTimestamp(data.endDate)
+      ? mysqlDatetimeToUnixTimestamp(data.endDate) * 1000
       : null;
 
     // From Templates

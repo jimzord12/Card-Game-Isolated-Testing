@@ -13,6 +13,7 @@ import money from "./money.svg";
 import loader from "./loader.svg";
 import thirdweb from "./thirdweb.png";
 import sold from "./sold.png";
+import goBackArrow from "./newAdditions/go_back_green_arrow.webp";
 
 export {
   tagType,
@@ -30,4 +31,5 @@ export {
   loader,
   thirdweb,
   sold,
+  goBackArrow,
 };

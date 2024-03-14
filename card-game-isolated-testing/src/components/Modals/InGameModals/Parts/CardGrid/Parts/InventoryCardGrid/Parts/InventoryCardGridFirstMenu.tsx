@@ -12,7 +12,7 @@ const InventoryCardGridFirstMenu = ({ cards, setSelectedCard }: Props) => {
 
   console.log("InventroyCardGridFirstMenu: Cards: ", cards);
   return (
-    <div className="flex flex-row gap-6 md-custom:flex-wrap p-8 tablet:pt-12">
+    <div className="flex flex-row gap-6 flex-wrap p-8 tablet:pt-12">
       {cards.map((card, index) => {
         return (
           <CompleteCard

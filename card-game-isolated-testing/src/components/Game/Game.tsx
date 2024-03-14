@@ -13,7 +13,9 @@ import { gameLoopWorkerReturnType } from "../../types/GameLoopTypes/GameLoopType
 import useGameLoop from "../../hooks/game/gameLoop/useGameLoop";
 import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
 import CustomButton from "../Buttons/CustomButton/CustomButton";
-// import GameSideBar from "../GameSideBar/GameSideBar";
+import EffectIndicator from "../EffectIndicator/EffectIndicator";
+import { useGameVarsStore } from "../../stores/gameVars";
+import SPCard from "../../classes/spClass_V2";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -42,6 +44,16 @@ const Game = () => {
 
   const gameWorker = useRef<Worker | null>(null);
   const gameLoopTick = useRef(0);
+
+  const testSPCard = SPCard.createNew({
+    ownerId: 1,
+    playerName: "test",
+    templateId: 301,
+  });
+  testSPCard.id = 1;
+
+  // const activeEffect = new EffectClass(testSPCard, Date.now() + effectDuration);
+  const activeEffect = useGameVarsStore((state) => state.activeEffect);
 
   // const navigate = useNavigate();
 
@@ -185,6 +197,11 @@ const Game = () => {
                   handleClick={() => gameLoopRunner()}
                 />
               </div>
+              {activeEffect && (
+                <div className="z-[401] absolute top-4 left-[120px]">
+                  <EffectIndicator activeEffect={activeEffect} />
+                </div>
+              )}
 
               {/* 
 

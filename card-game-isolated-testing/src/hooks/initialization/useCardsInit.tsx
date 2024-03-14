@@ -10,6 +10,7 @@ import { isToolStore } from "../../types/TypeGuardFns/isToolStore";
 import { isBuildingCard } from "../../types/TypeGuardFns/BuildingGuards";
 // import { multipliersInit } from "./utils/multipliersInit";
 import { specialEffectInit } from "./utils/specialEffectInit";
+import { useToastError } from "../notifications";
 
 // Here we are Initializing:
 // 1. All The Player's Cards
@@ -44,6 +45,8 @@ const useCardsInit = () => {
     setDieselGathRate,
     setPopGrowthRate,
   } = useGameVarsStore((state) => state);
+
+  const { showError } = useToastError();
 
   const cardsInit = (cardsFromDB: ICardDB[], popGrowRate: number) => {
     console.log("🙌 0 - All the Cards from DB: ", cardsFromDB);
@@ -96,7 +99,14 @@ const useCardsInit = () => {
 
     setPopGrowthRate(popGrowRate + happinessFromBuildings);
 
-    if (activeEffect !== null) setActiveEffect(activeEffect); // 🔷 If there is an Active SP Card, adds the Effect to Global State
+    if (activeEffect !== null) {
+      if (activeEffect !== false) {
+        setActiveEffect(activeEffect); // 🔷 If there is an Active SP Card, adds the Effect to Global State
+      } else {
+        showError("😢 Effect Expired!", "The Special Effect has expired.");
+        setActiveEffect(null); // 🔷 If there is no Active SP Card, sets the Active Effect to null
+      }
+    }
 
     console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
     console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);
