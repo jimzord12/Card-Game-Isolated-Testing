@@ -1,5 +1,5 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import { updateCardData } from "../../../../api/apiFns";
+import { updateCardData, updatePlayerData } from "../../../../api/apiFns";
 import BuildingCard from "../../../classes/buildingClass_V2";
 import RegCard from "../../../classes/regClass_V2";
 import { useAllCardsStore } from "../../../stores/allCards";
@@ -25,6 +25,8 @@ import {
   townhallRequirements,
 } from "../../../constants/game/defaultBuildingsConfig";
 import { AxiosError } from "axios";
+import { templateIdToTemplateDataBuilding } from "../../../constants/templates";
+import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
 
 interface ActionsSectionProps {
   contentType: ActionsSectionType;
@@ -117,6 +119,22 @@ const ActionsSection = ({
 
       handleCloseModal();
 
+      // 🔷 Specificly For Hospital:
+      if (
+        isBuildingCard(card) &&
+        templateIdToTemplateDataBuilding[card.templateId].name === "Hospital"
+      ) {
+        if (player !== null && player.id !== null) {
+          updatePlayerData(player.id, {
+            workers_hospital: 0,
+          });
+        } else {
+          throw new Error(
+            "⛔ ActionsSection: deactivate: Player is null or Player's ID is null!"
+          );
+        }
+      }
+
       // Regarding Server Side:
       // 1. Update Card's State and Spot in DB
       const success = await updateCardData({
@@ -124,6 +142,7 @@ const ActionsSection = ({
         state: 0,
         on_map_spot: null,
       });
+
       if (!success)
         throw new Error(
           "⛔ ActionsSection: deactivate: Card was not updated in DB!"

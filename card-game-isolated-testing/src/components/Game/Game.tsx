@@ -15,7 +15,8 @@ import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
 import CustomButton from "../Buttons/CustomButton/CustomButton";
 import EffectIndicator from "../EffectIndicator/EffectIndicator";
 import { useGameVarsStore } from "../../stores/gameVars";
-import SPCard from "../../classes/spClass_V2";
+import { updatePlayerData } from "../../../api/apiFns";
+import { useToastError } from "../../hooks/notifications";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -42,15 +43,32 @@ const Game = () => {
   const [isInvModalOpen, setIsInvModalOpen] = useState(false);
   const [isCraftModalOpen, setIsCraftModalOpen] = useState(false);
 
+  const { showError } = useToastError();
+
+  const player = useGameVarsStore((state) => state.player);
+  const setAllWorkers = useGameVarsStore((state) => state.setAllWorkers);
+  const setConcreteGathRate = useGameVarsStore(
+    (state) => state.setConcreteGathRate
+  );
+  const setMetalsGathRate = useGameVarsStore(
+    (state) => state.setMetalsGathRate
+  );
+  const setCrystalsGathRate = useGameVarsStore(
+    (state) => state.setCrystalsGathRate
+  );
+  const setDieselGathRate = useGameVarsStore(
+    (state) => state.setDieselGathRate
+  );
+
   const gameWorker = useRef<Worker | null>(null);
   const gameLoopTick = useRef(0);
 
-  const testSPCard = SPCard.createNew({
-    ownerId: 1,
-    playerName: "test",
-    templateId: 301,
-  });
-  testSPCard.id = 1;
+  // const testSPCard = SPCard.createNew({
+  //   ownerId: 1,
+  //   playerName: "test",
+  //   templateId: 301,
+  // });
+  // testSPCard.id = 1;
 
   // const activeEffect = new EffectClass(testSPCard, Date.now() + effectDuration);
   const activeEffect = useGameVarsStore((state) => state.activeEffect);
@@ -88,7 +106,7 @@ const Game = () => {
     gameWorker.current.onmessage = (
       event: MessageEvent<gameLoopWorkerReturnType>
     ) => {
-      const { wasSuccess, newState } = event.data;
+      const { wasSuccess, newState, actionMessage } = event.data;
       console.log("UseEffect: GameWorker.onmessage: ", event.data);
 
       if (wasSuccess) {
@@ -98,6 +116,51 @@ const Game = () => {
           ...newState,
           newGold: newState.newGold - expense,
         };
+
+        if (actionMessage === "reset workers") {
+          console.log(
+            "%c🎮 - ⛔ - [Game.tsx] Resetting Workers",
+            "font-size: 20px; color: red;"
+          );
+
+          showError(
+            "Workers Reset",
+            "Because your Citizens are unhappy some left. Thus, you have to re-assign wokers."
+          );
+
+          setAllWorkers({
+            privateSector: newState.newPopulation,
+            concreteWorkers: 0,
+            metalsWorkers: 0,
+            crystalsWorkers: 0,
+            dieselWorkers: 0,
+            hospitalWorkers: 0,
+          });
+
+          setConcreteGathRate(0);
+          setMetalsGathRate(0);
+          setCrystalsGathRate(0);
+          setDieselGathRate(0);
+
+          if (
+            player === null ||
+            player === undefined ||
+            player.id === null ||
+            player.id === undefined
+          )
+            throw new Error(
+              "⛔ - Game.tsx: GameLoop UseEffect: Player or Player ID is null or undefined!"
+            );
+
+          updatePlayerData(player.id, {
+            workers_concrete: 0,
+            workers_metals: 0,
+            workers_crystals: 0,
+            workers_diesel: 0,
+            workers_hospital: 0,
+          });
+        }
+
         // Update your game state or Zustand store here based on `newState`
         console.log("🎮 [Game.tsx] New - State: ", stateAfterExpenses);
         console.log(" ---------------------------------------");

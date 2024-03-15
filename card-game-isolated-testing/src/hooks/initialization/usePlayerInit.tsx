@@ -51,10 +51,11 @@ const usePlayerInit = () => {
     if (data.population === null) {
       throw new Error("⛔ PlayerInit: Player Population is 0");
     }
-    const popGrowthRate =
-      calcPopGrowthRate(data.population, 0) -
-      (data.factory_barrels ?? 0) * barrelToSadnessConversion;
-
+    const popGrowthRate = calcPopGrowthRate(
+      data.population,
+      0,
+      (data.factory_barrels ?? 0) * barrelToSadnessConversion
+    );
     setPopGrowthRate(popGrowthRate);
     return popGrowthRate;
   };

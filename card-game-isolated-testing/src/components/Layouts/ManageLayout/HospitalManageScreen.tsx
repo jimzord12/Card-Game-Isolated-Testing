@@ -125,8 +125,8 @@ const HospitalManageScreen = ({ card }: Props) => {
             }}
           />
           <CustomSlider
-            max={maxAvailDoctors}
-            initValue={allWorkers.hospitalWorkers}
+            max={Math.ceil(maxAvailDoctors)}
+            initValue={Math.ceil(allWorkers.hospitalWorkers)}
             onChange={handleSliderChange}
             size={deviceSize}
           />

@@ -32,6 +32,7 @@ const useCardsInit = () => {
     addAllTemplateCards,
     addAllSPCards,
     setToolStoreCards,
+    removeCardFromActiveCards,
   } = useAllCardsStore();
 
   // Game Vars Store
@@ -72,6 +73,15 @@ const useCardsInit = () => {
     // Special Effect Init
     const activeEffect = specialEffectInit(spCards); // 🔷 If there is an Active SP Card, creates the Effect.
 
+    if (activeEffect !== null) {
+      if (activeEffect !== false) {
+        setActiveEffect(activeEffect); // 🔷 If there is an Active SP Card, adds the Effect to Global State
+      } else {
+        showError("😢 Effect Expired!", "The Special Effect has expired.");
+        setActiveEffect(null); // 🔷 If there is no Active SP Card, sets the Active Effect to null
+        removeCardFromActiveCards(spCards[0]);
+      }
+    }
     // // Multipliers Init
     // const multipliers = multipliersInit(
     //   startingMultipliers,
@@ -98,15 +108,6 @@ const useCardsInit = () => {
     );
 
     setPopGrowthRate(popGrowRate + happinessFromBuildings);
-
-    if (activeEffect !== null) {
-      if (activeEffect !== false) {
-        setActiveEffect(activeEffect); // 🔷 If there is an Active SP Card, adds the Effect to Global State
-      } else {
-        showError("😢 Effect Expired!", "The Special Effect has expired.");
-        setActiveEffect(null); // 🔷 If there is no Active SP Card, sets the Active Effect to null
-      }
-    }
 
     console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
     console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);

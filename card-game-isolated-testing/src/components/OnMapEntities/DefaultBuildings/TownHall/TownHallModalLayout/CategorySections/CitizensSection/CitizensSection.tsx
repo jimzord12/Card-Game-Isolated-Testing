@@ -6,6 +6,7 @@ import { UseGlobalContext } from "../../../../../../../context/GlobalContext/Glo
 import { calcIncome } from "../../../../../../../hooks/game/gameLoop/utils";
 import { useAllCardsStore } from "../../../../../../../stores/allCards";
 import { useGameVarsStore } from "../../../../../../../stores/gameVars";
+import { useGeneralVariablesStore } from "../../../../../../../stores/generalVariables";
 import { round2Decimal } from "../../../../../../../utils/game/roundToDecimal";
 import CircularGoldenLabel from "../../../../../../GameAssets/Labels/CircularGoldenLabel/CircularGoldenLabel";
 import StandardLabel from "../../../../../../GameAssets/Labels/StandardLabel/StandardLabel";
@@ -24,6 +25,8 @@ const CitizensSection = () => {
   const privateSector = useGameVarsStore(
     (state) => state.allWorkers.privateSector
   );
+  console.log("🔵 CitizensSection: privateSector: ", privateSector);
+  console.log("🔵 CitizensSection: goldMultiplier: ", goldMultiplier);
   const income = calcIncome(privateSector, goldMultiplier);
   const expenses = useGameVarsStore((state) => state.expences);
   // const expenses = maintenanceSubtracker();
@@ -31,6 +34,10 @@ const CitizensSection = () => {
   const allActiveRegCards = useAllCardsStore((state) => state.activeRegCards);
   const allActiveBuildingCards = useAllCardsStore(
     (state) => state.activeBuildingCards
+  );
+
+  const ratesResourcesToggler = useGeneralVariablesStore(
+    (state) => state.ratesResourcesToggler
   );
 
   const townHallLevel = useGameVarsStore((state) => state.townhallLevel);
@@ -49,13 +56,26 @@ const CitizensSection = () => {
     <>
       {/* >>> TOWN-SPACE SECTION <<< */}
       <section className={styles.spaceSection}>
-        <StandardLabel
-          gameIcon={images?.gameIcons.citizensSpaceGameIcon}
-          valueToDisplay={`${Math.trunc(totalPop)}/${
-            townhallHousingLimitPerLevel[townHallLevel]
-          }`}
-          alt="CitizensSpace"
-        />
+        <>
+          {ratesResourcesToggler ? (
+            <StandardLabel
+              gameIcon={images?.workers.simpleCitizenWorker}
+              valueToDisplay={`${Math.ceil(privateSector)}/${Math.ceil(
+                totalPop
+              )}`}
+              alt="CitizensSpace-Private Sector / Total Citizens"
+            />
+          ) : (
+            // THIS IS DISPLAYED FRIST
+            <StandardLabel
+              gameIcon={images?.gameIcons.citizensSpaceGameIcon}
+              valueToDisplay={`${Math.ceil(totalPop)}/${
+                townhallHousingLimitPerLevel[townHallLevel]
+              }`}
+              alt="CitizensSpace-Total Citizen Space"
+            />
+          )}
+        </>
         <StandardLabel
           gameIcon={images?.gameIcons.regSpaceGameIcon}
           valueToDisplay={`${allActiveRegCards.length}/${townhallAvailSpacePerLevel[townHallLevel].regs}`}

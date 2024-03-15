@@ -11,6 +11,7 @@ import {
 import {
   IGameLoopWorkerInput,
   NewGameState,
+  gameLoopWorkerReturnType,
 } from "../types/GameLoopTypes/GameLoopTypes";
 import { roundToDecimal } from "../utils";
 
@@ -29,6 +30,7 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
       currentPopGrowthRate: 0,
       currentPopulation: 0,
     };
+    let actionMessage: "reset workers" | "" = "";
 
     for (let i = 0; i < e.data.loopsToRun; i++) {
       if (i === 0) {
@@ -40,6 +42,7 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
         nextState.currentMetals = firstResult.newState.newMetals;
         nextState.currentPopGrowthRate = firstResult.newState.newPopGrowthRate;
         nextState.currentPopulation = firstResult.newState.newPopulation;
+        actionMessage = firstResult.actionMessage;
       } else {
         const result = processGameLoopWorker(nextState, doesItNeedCatchUp);
         nextState.currentConcrete = result.newState.newConcrete;
@@ -49,9 +52,14 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
         nextState.currentMetals = result.newState.newMetals;
         nextState.currentPopGrowthRate = result.newState.newPopGrowthRate;
         nextState.currentPopulation = result.newState.newPopulation;
+        actionMessage = result.actionMessage;
       }
     }
-    const finalResult: { newState: NewGameState; wasSuccess: boolean } = {
+    const finalResult: {
+      newState: NewGameState;
+      wasSuccess: boolean;
+      actionMessage: "reset workers" | "";
+    } = {
       newState: {
         newConcrete: nextState.currentConcrete,
         newCrystals: nextState.currentCrystals,
@@ -62,6 +70,7 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
         newPopulation: nextState.currentPopulation,
       },
       wasSuccess: true,
+      actionMessage,
     };
     console.log("Final State: ", finalResult);
     postMessage(finalResult); // This is the message that will be sent back to the main thread
@@ -82,12 +91,14 @@ const processGameLoopWorker = (
     currentDiesel,
     activeEffect,
     maxAllowedPopulation,
+    factoryUnhappiness,
   }: IGameLoopWorkerInput,
   needsCatchUp: boolean = false
-) => {
+): gameLoopWorkerReturnType => {
   let wasSuccess = false;
   let newPopulation = maxAllowedPopulation;
   let newPopGrowthRate = 0;
+  let actionMessage: "reset workers" | "" = "";
   console.log("🚀✨ - currentPopulation: ", currentPopulation);
   console.log("🚀✨ - currentPopGrowthRate: ", currentPopGrowthRate);
   console.log("🚀✨ - maxAllowedPopulation: ", maxAllowedPopulation);
@@ -112,7 +123,8 @@ const processGameLoopWorker = (
     // 🔷 2. Population Growth Rate (🧪 Requires Testing)
     newPopGrowthRate = gathRatesCalculators.calcPopGrowthRate(
       newPopulation,
-      happinessProvidedByBuildings
+      happinessProvidedByBuildings,
+      factoryUnhappiness
     );
   }
   console.log("New Population: ", newPopulation);
@@ -124,10 +136,22 @@ const processGameLoopWorker = (
   // );
 
   // 🔷 3. Private Sector (🧪 Requires Testing)
-  const newPrivateSector = generalCalculators.privateSectorCalc(
+  const newPrivateSector_1 = generalCalculators.privateSectorCalc(
     allWorkers,
     newPopulation
   );
+
+  let newPrivateSector = 0;
+
+  if (newPrivateSector_1 === false) {
+    // This means that Population is less than the Workers
+    // This can happen when the Player has Negative PopGrowthRate
+    console.log("0asidnais-asdsa");
+    newPrivateSector = roundToDecimal(newPopulation, 4);
+    actionMessage = "reset workers";
+  } else {
+    newPrivateSector = newPrivateSector_1;
+  }
 
   // ✨ GATHERING RATES ✨
   // 🔷 4. Gold Gather Rate (🧪 Requires Testing)
@@ -182,7 +206,7 @@ const processGameLoopWorker = (
     needsCatchUp
   );
 
-  // 🔷 10. Concrete - Resource (🧪 Requires Testing)
+  // 🔷 11. Metals - Resource (🧪 Requires Testing)
   const newMetals = resourcesCalculators.metalsResourceCalc(
     currentMetals,
     newMetalsGathRate,
@@ -190,7 +214,7 @@ const processGameLoopWorker = (
     needsCatchUp
   );
 
-  // 🔷 10. Concrete - Resource (🧪 Requires Testing)
+  // 🔷 12. Crystals - Resource (🧪 Requires Testing)
   const newCrystals = resourcesCalculators.crystalsResourceCalc(
     currentCrystals,
     newCrystalsGathRate,
@@ -198,7 +222,7 @@ const processGameLoopWorker = (
     needsCatchUp
   );
 
-  // 🔷 10. Concrete - Resource (🧪 Requires Testing)
+  // 🔷 13. Diesel - Resource (🧪 Requires Testing)
   const newDiesel = resourcesCalculators.dieselResourceCalc(
     currentDiesel,
     newDieselGathRate,
@@ -221,5 +245,6 @@ const processGameLoopWorker = (
   return {
     newState,
     wasSuccess,
+    actionMessage,
   };
 };

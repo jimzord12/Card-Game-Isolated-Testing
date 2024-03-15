@@ -58,7 +58,7 @@ export default function CraftCardModal({
     //   hasUseEffectRun.current = true;
     // const templateCards = cardsInit();
     // console.log("Craft Modal: Suka! cards: ", cards);
-
+    console.log("CraftModal: templateCards: ", templateCards);
     setCards(templateCards);
     setCardsInitCompleted(true);
     // }
@@ -69,7 +69,7 @@ export default function CraftCardModal({
     if (cardsInitCompleted) {
       // console.log("Craft Modal: Filtered cards: ", cards);
       setFilteredCardsModal(cards);
-      // setInitCompleted(true);
+      // setCardsInitCompleted(false);
     }
   }, [cardsInitCompleted]);
 

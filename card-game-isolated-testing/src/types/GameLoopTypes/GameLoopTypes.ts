@@ -54,6 +54,7 @@ export interface gameLoopWorkerReturnType {
     newDiesel: number;
   };
   wasSuccess: boolean;
+  actionMessage: "reset workers" | "";
 }
 
 export interface NewGameState {
@@ -82,6 +83,7 @@ export interface IGameLoopWorkerInput {
   loopsToRun: number;
   lastLoginDate: string;
   maxAllowedPopulation: number;
+  factoryUnhappiness: number;
 }
 
 // export interface OldGameState {

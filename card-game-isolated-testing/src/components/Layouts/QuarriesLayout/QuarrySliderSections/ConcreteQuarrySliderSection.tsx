@@ -89,7 +89,7 @@ const ConcreteQuarrySliderSection = () => {
             labelImages={images.labels}
             labelType="rusty"
             size={deviceSize}
-            value={allWorkers.privateSector}
+            value={Math.ceil(allWorkers.privateSector)}
             valueType={{
               color: "rusty",
             }}
@@ -100,8 +100,8 @@ const ConcreteQuarrySliderSection = () => {
             }}
           />
           <CustomSlider
-            max={maxAvailWorkers}
-            initValue={allWorkers.concreteWorkers} // ✨ ✅
+            max={Math.ceil(maxAvailWorkers)}
+            initValue={Math.ceil(allWorkers.concreteWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
           />

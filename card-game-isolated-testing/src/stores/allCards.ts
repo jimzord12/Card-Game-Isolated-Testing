@@ -12,6 +12,8 @@ import {
   update_B_GameVars_Removal,
   update_R_GameVars_Removal,
 } from "./utils";
+import { updateSPRelatedGameVars } from "./utils/cardActivation/updateSPRelatedGameVars";
+import { update_SP_GameVars_Removal } from "./utils/cardDeactivation/update_SP_GameVars_Removal";
 
 // This probably manages all the cards in the game, in the sense what the players owns.
 // When a Card is crafted, it is added to this store.
@@ -81,7 +83,7 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
     set((state) => {
       const newBuildingCards: BuildingCard[] = [];
       const newRegCards: RegCard[] = [];
-      
+
       cards.forEach((card) => {
         if (card instanceof BuildingCard) {
           updateBuildingRelatedGameVars(card, useGameVarsStore.getState());
@@ -89,8 +91,8 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
         } else if (card instanceof RegCard) {
           updateREG_RelatedGameVars(card, useGameVarsStore.getState());
           newRegCards.push(card);
-        } else {
-          // return;
+        } else if (card instanceof SPCard) {
+          updateSPRelatedGameVars(card, useGameVarsStore.getState());
         }
       });
       return {
@@ -197,6 +199,7 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
           ),
         };
       } else {
+        update_SP_GameVars_Removal(card, useGameVarsStore.getState());
         return {
           ...state,
           activeCards: state.activeCards.filter(

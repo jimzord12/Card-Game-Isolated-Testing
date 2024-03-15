@@ -1,204 +1,205 @@
 import {
   calcRank,
-  calcUpdatedGathValue,
+  // calcUpdatedGathValue,
   convertTimestamp,
   convertToMySQLDatetime,
-  hoursToSecRates,
+  // hoursToSecRates,
   mysqlDatetimeToUnixTimestamp,
-  roundToDecimal,
+  // roundToDecimal,
 } from "./utils";
 import { useGameVarsStore } from "../../../stores/gameVars";
 import { isNotNullOrUndefined } from "../../../types/TypeGuardFns/isNullorUndefined";
 import { defaultBuildingsConfig, gameConfig } from "../../../constants/game";
-import {
-  gathRatesCalculators,
-  generalCalculators,
-  resourcesCalculators,
-} from "./calculators";
-import useValuesChecker from "./useValuesChecker";
-import { useRef } from "react";
+// import {
+//   gathRatesCalculators,
+//   generalCalculators,
+//   resourcesCalculators,
+// } from "./calculators";
+// import useValuesChecker from "./useValuesChecker";
+// import { useRef } from "react";
 import {
   IGameLoopWorkerInput,
   NewGameState,
 } from "../../../types/GameLoopTypes/GameLoopTypes";
 import { useToastError } from "../../notifications";
 import { updatePlayerData } from "../../../../api/apiFns";
+import { barrelToSadnessConversion } from "../../../constants/game/defaultBuildingsConfig";
 
 const useGameLoop = () => {
   const gameVars = useGameVarsStore();
-  const { energyChecker, maintenanceSubtracker } = useValuesChecker();
+  // const { energyChecker, maintenanceSubtracker } = useValuesChecker();
 
   const toastError = useToastError();
 
-  const loopCounter = useRef(0);
+  // const loopCounter = useRef(0);
 
-  const processGameLoop = () => {
-    // 🔷 Making sure the values are not Null or undefined
-    const population = isNotNullOrUndefined<number>(
-      gameVars.player?.population,
-      "population"
-    );
+  // const processGameLoop = () => {
+  //   // 🔷 Making sure the values are not Null or undefined
+  //   const population = isNotNullOrUndefined<number>(
+  //     gameVars.player?.population,
+  //     "population"
+  //   );
 
-    const popGrowthRate = isNotNullOrUndefined<number>(
-      gameVars.popGrowthRate,
-      "popGrowthRate"
-    );
+  //   const popGrowthRate = isNotNullOrUndefined<number>(
+  //     gameVars.popGrowthRate,
+  //     "popGrowthRate"
+  //   );
 
-    const currentGold = isNotNullOrUndefined<number>(
-      gameVars.player?.gold,
-      "gold"
-    );
-    const currentConcrete = isNotNullOrUndefined<number>(
-      gameVars.player?.concrete,
-      "concrete"
-    );
-    const currentMetals = isNotNullOrUndefined<number>(
-      gameVars.player?.metals,
-      "metals"
-    );
-    const currentCrystals = isNotNullOrUndefined<number>(
-      gameVars.player?.crystals,
-      "crystals"
-    );
-    const currentDiesel = isNotNullOrUndefined<number>(
-      gameVars.player?.diesel,
-      "diesel"
-    );
+  //   const currentGold = isNotNullOrUndefined<number>(
+  //     gameVars.player?.gold,
+  //     "gold"
+  //   );
+  //   const currentConcrete = isNotNullOrUndefined<number>(
+  //     gameVars.player?.concrete,
+  //     "concrete"
+  //   );
+  //   const currentMetals = isNotNullOrUndefined<number>(
+  //     gameVars.player?.metals,
+  //     "metals"
+  //   );
+  //   const currentCrystals = isNotNullOrUndefined<number>(
+  //     gameVars.player?.crystals,
+  //     "crystals"
+  //   );
+  //   const currentDiesel = isNotNullOrUndefined<number>(
+  //     gameVars.player?.diesel,
+  //     "diesel"
+  //   );
 
-    //////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////  CALCULATIONS START HERE  ///////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////
+  //   //////////////////////////////////////////////////////////////////////////////////////
+  //   ////////////////////////  CALCULATIONS START HERE  ///////////////////////////////////
+  //   //////////////////////////////////////////////////////////////////////////////////////
 
-    // 🔷 1. Population (🧪 Requires Testing)
-    const newPopulation = roundToDecimal(
-      calcUpdatedGathValue(
-        population,
-        hoursToSecRates(
-          popGrowthRate,
-          gameConfig.gamePace,
-          gameVars.needsCatchUp
-        )
-      ),
-      4
-    );
+  //   // 🔷 1. Population (🧪 Requires Testing)
+  //   const newPopulation = roundToDecimal(
+  //     calcUpdatedGathValue(
+  //       population,
+  //       hoursToSecRates(
+  //         popGrowthRate,
+  //         gameConfig.gamePace,
+  //         gameVars.needsCatchUp
+  //       )
+  //     ),
+  //     4
+  //   );
 
-    // 🔷 2. Population Growth Rate (🧪 Requires Testing)
-    const newPopGrowthRate = gathRatesCalculators.calcPopGrowthRate(
-      newPopulation,
-      gameVars.popGrowthRate
-    );
+  //   // 🔷 2. Population Growth Rate (🧪 Requires Testing)
+  //   const newPopGrowthRate = gathRatesCalculators.calcPopGrowthRate(
+  //     newPopulation,
+  //     gameVars.popGrowthRate
+  //   );
 
-    // 🔷 3. Private Sector (🧪 Requires Testing)
-    const newPrivateSector = generalCalculators.privateSectorCalc(
-      gameVars.allWorkers,
-      newPopulation
-    );
+  //   // 🔷 3. Private Sector (🧪 Requires Testing)
+  //   const newPrivateSector = generalCalculators.privateSectorCalc(
+  //     gameVars.allWorkers,
+  //     newPopulation
+  //   );
 
-    // ✨ GATHERING RATES ✨
-    // 🔷 4. Gold Gather Rate (🧪 Requires Testing)
-    const newGoldGathRate = gathRatesCalculators.goldGathRateCalc(
-      newPrivateSector,
-      gameVars.multipliers.goldMultiplier,
-      gameVars.activeEffect
-    );
+  //   // ✨ GATHERING RATES ✨
+  //   // 🔷 4. Gold Gather Rate (🧪 Requires Testing)
+  //   const newGoldGathRate = gathRatesCalculators.goldGathRateCalc(
+  //     newPrivateSector || newPopulation,
+  //     gameVars.multipliers.goldMultiplier,
+  //     gameVars.activeEffect
+  //   );
 
-    // 🔷 5. Concrete Gather Rate (🧪 Requires Testing)
-    const newConcreteGathRate = gathRatesCalculators.concreteGathRateCalc(
-      gameVars.allWorkers,
-      gameVars.multipliers.concreteMultiplier,
-      gameVars.activeEffect
-    );
+  //   // 🔷 5. Concrete Gather Rate (🧪 Requires Testing)
+  //   const newConcreteGathRate = gathRatesCalculators.concreteGathRateCalc(
+  //     gameVars.allWorkers,
+  //     gameVars.multipliers.concreteMultiplier,
+  //     gameVars.activeEffect
+  //   );
 
-    // 🔷 6. Concrete Gather Rate (🧪 Requires Testing)
-    const newMetalsGathRate = gathRatesCalculators.metalsGathRateCalc(
-      gameVars.allWorkers,
-      gameVars.multipliers.metalsMultiplier,
-      gameVars.activeEffect
-    );
+  //   // 🔷 6. Concrete Gather Rate (🧪 Requires Testing)
+  //   const newMetalsGathRate = gathRatesCalculators.metalsGathRateCalc(
+  //     gameVars.allWorkers,
+  //     gameVars.multipliers.metalsMultiplier,
+  //     gameVars.activeEffect
+  //   );
 
-    // 🔷 7. Concrete Gather Rate (🧪 Requires Testing)
-    const newCrystalsGathRate = gathRatesCalculators.crystalsGathRateCalc(
-      gameVars.allWorkers,
-      gameVars.multipliers.crystalsMultiplier,
-      gameVars.activeEffect
-    );
+  //   // 🔷 7. Concrete Gather Rate (🧪 Requires Testing)
+  //   const newCrystalsGathRate = gathRatesCalculators.crystalsGathRateCalc(
+  //     gameVars.allWorkers,
+  //     gameVars.multipliers.crystalsMultiplier,
+  //     gameVars.activeEffect
+  //   );
 
-    // 🔷 8. Concrete Gather Rate (🧪 Requires Testing)
-    const newDieselGathRate = gathRatesCalculators.dieselGathRateCalc(
-      gameVars.allWorkers,
-      gameVars.activeEffect
-    );
+  //   // 🔷 8. Concrete Gather Rate (🧪 Requires Testing)
+  //   const newDieselGathRate = gathRatesCalculators.dieselGathRateCalc(
+  //     gameVars.allWorkers,
+  //     gameVars.activeEffect
+  //   );
 
-    // ✨ RESOURCES ✨
-    // 🔷 9. Gold - Resource (🧪 Requires Testing)
-    const newGold = resourcesCalculators.goldResourceCalc(
-      currentGold,
-      newGoldGathRate,
-      gameConfig.gamePace,
-      gameVars.needsCatchUp
-    );
+  //   // ✨ RESOURCES ✨
+  //   // 🔷 9. Gold - Resource (🧪 Requires Testing)
+  //   const newGold = resourcesCalculators.goldResourceCalc(
+  //     currentGold,
+  //     newGoldGathRate,
+  //     gameConfig.gamePace,
+  //     gameVars.needsCatchUp
+  //   );
 
-    // 🔷 10. Concrete - Resource (🧪 Requires Testing)
-    const newConcrete = resourcesCalculators.concreteResourceCalc(
-      currentConcrete,
-      newConcreteGathRate,
-      gameConfig.gamePace,
-      gameVars.needsCatchUp
-    );
+  //   // 🔷 10. Concrete - Resource (🧪 Requires Testing)
+  //   const newConcrete = resourcesCalculators.concreteResourceCalc(
+  //     currentConcrete,
+  //     newConcreteGathRate,
+  //     gameConfig.gamePace,
+  //     gameVars.needsCatchUp
+  //   );
 
-    // 🔷 10. Concrete - Resource (🧪 Requires Testing)
-    const newMetals = resourcesCalculators.metalsResourceCalc(
-      currentMetals,
-      newMetalsGathRate,
-      gameConfig.gamePace,
-      gameVars.needsCatchUp
-    );
+  //   // 🔷 10. Concrete - Resource (🧪 Requires Testing)
+  //   const newMetals = resourcesCalculators.metalsResourceCalc(
+  //     currentMetals,
+  //     newMetalsGathRate,
+  //     gameConfig.gamePace,
+  //     gameVars.needsCatchUp
+  //   );
 
-    // 🔷 10. Concrete - Resource (🧪 Requires Testing)
-    const newCrystals = resourcesCalculators.crystalsResourceCalc(
-      currentCrystals,
-      newCrystalsGathRate,
-      gameConfig.gamePace,
-      gameVars.needsCatchUp
-    );
+  //   // 🔷 10. Concrete - Resource (🧪 Requires Testing)
+  //   const newCrystals = resourcesCalculators.crystalsResourceCalc(
+  //     currentCrystals,
+  //     newCrystalsGathRate,
+  //     gameConfig.gamePace,
+  //     gameVars.needsCatchUp
+  //   );
 
-    // 🔷 10. Concrete - Resource (🧪 Requires Testing)
-    const newDiesel = resourcesCalculators.dieselResourceCalc(
-      currentDiesel,
-      newDieselGathRate,
-      gameConfig.gamePace,
-      gameVars.needsCatchUp
-    );
+  //   // 🔷 10. Concrete - Resource (🧪 Requires Testing)
+  //   const newDiesel = resourcesCalculators.dieselResourceCalc(
+  //     currentDiesel,
+  //     newDieselGathRate,
+  //     gameConfig.gamePace,
+  //     gameVars.needsCatchUp
+  //   );
 
-    /////////////////////////////////////////////////////////////////////////////////////////
+  //   /////////////////////////////////////////////////////////////////////////////////////////
 
-    // ✨ Maintenance Check + Resource Subtraction✨
-    maintenanceSubtracker();
+  //   // ✨ Maintenance Check + Resource Subtraction✨
+  //   maintenanceSubtracker();
 
-    // ✨ Energy Checker ✨
-    energyChecker();
+  //   // ✨ Energy Checker ✨
+  //   energyChecker();
 
-    loopCounter.current += 1;
+  //   loopCounter.current += 1;
 
-    /////////////////////////////////////////////////////////////////////////////////////////
+  //   /////////////////////////////////////////////////////////////////////////////////////////
 
-    // ✨ Final Return ✨
-    return {
-      newPopulation,
-      newPopGrowthRate,
-      newPrivateSector,
-      newGoldGathRate,
-      newConcreteGathRate,
-      newMetalsGathRate,
-      newCrystalsGathRate,
-      newDieselGathRate,
-      newGold,
-      newConcrete,
-      newMetals,
-      newCrystals,
-      newDiesel,
-    };
-  };
+  //   // ✨ Final Return ✨
+  //   return {
+  //     newPopulation,
+  //     newPopGrowthRate,
+  //     newPrivateSector,
+  //     newGoldGathRate,
+  //     newConcreteGathRate,
+  //     newMetalsGathRate,
+  //     newCrystalsGathRate,
+  //     newDieselGathRate,
+  //     newGold,
+  //     newConcrete,
+  //     newMetals,
+  //     newCrystals,
+  //     newDiesel,
+  //   };
+  // };
 
   const setNewGameState = ({
     newPopulation,
@@ -295,6 +296,11 @@ const useGameLoop = () => {
       "townhallLevel"
     );
 
+    const factoryUnhappiness = isNotNullOrUndefined<number>(
+      gameVars.factoryBarrels * barrelToSadnessConversion,
+      "factoryUnhappiness"
+    );
+
     const maxAllowedPopulation =
       defaultBuildingsConfig.townhallHousingLimitPerLevel[
         townhallLevel as keyof typeof defaultBuildingsConfig.townhallHousingLimitPerLevel
@@ -315,6 +321,7 @@ const useGameLoop = () => {
       loopsToRun,
       lastLoginDate,
       maxAllowedPopulation,
+      factoryUnhappiness,
     };
   };
 
@@ -368,7 +375,7 @@ const useGameLoop = () => {
   };
 
   return {
-    processGameLoop,
+    // processGameLoop,
     setNewGameState,
     getGameState,
     needsCatchUp,

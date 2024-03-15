@@ -61,6 +61,8 @@ export const update_B_GameVars_Removal = (
     const currentEnergyConsumed = gameVars.energyConsumed;
     const currentHappinessFromBuildings = gameVars.happinessFromBuildings;
     const currentPopGrowthRate = gameVars.popGrowthRate;
+    const currentDoctors = gameVars.allWorkers.hospitalWorkers;
+    const currentPrivateSector = gameVars.allWorkers.privateSector;
 
     // if (card.doctors === undefined)
     //   throw new Error(
@@ -69,6 +71,11 @@ export const update_B_GameVars_Removal = (
 
     const outputEffect = (card.doctors ?? 0) * output.boost;
 
+    gameVars.setAllWorkers({
+      ...gameVars.allWorkers,
+      hospitalWorkers: 0,
+      privateSector: currentPrivateSector + currentDoctors,
+    });
     gameVars.setHappinessFromBuildings(
       currentHappinessFromBuildings - outputEffect
     );

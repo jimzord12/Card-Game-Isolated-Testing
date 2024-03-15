@@ -1,3 +1,5 @@
+import SPCard from "../../../classes/spClass_V2";
+import { templateIdToTemplateDataSP } from "../../../constants/templates";
 import { ToolStoreType, BuildingStats } from "../../../types";
 
 // IMPORTANT:
@@ -23,4 +25,40 @@ export const calcMulti = (card: ToolStoreType) => {
   console.log("🎁 Utils:calcMulti:: ", baseMultipliers);
 
   return baseMultipliers;
+};
+
+export const calcMultiSPCards = (card: SPCard) => {
+  const baseMultipliers = {
+    gold: 0,
+    concrete: 0,
+    metals: 0,
+    crystals: 0,
+    diesel: 0,
+  };
+
+  if (templateIdToTemplateDataSP[card.templateId].name === "WallStreet") {
+    console.log("🎁 Utils:calcMulti::SP-Card:WallStreet: ", {
+      ...baseMultipliers,
+      gold: card.output.boost,
+    });
+
+    return { ...baseMultipliers, gold: card.output.boost };
+  }
+  if (templateIdToTemplateDataSP[card.templateId].name === "SuperStrong") {
+    console.log("🎁 Utils:calcMulti::SP-Card:SuperStrong: ", {
+      ...baseMultipliers,
+      concrete: card.output.boost,
+      metals: card.output.boost,
+      crystals: card.output.boost,
+      diesel: card.output.boost,
+    });
+
+    return {
+      ...baseMultipliers,
+      concrete: card.output.boost,
+      metals: card.output.boost,
+      crystals: card.output.boost,
+      diesel: card.output.boost,
+    };
+  }
 };

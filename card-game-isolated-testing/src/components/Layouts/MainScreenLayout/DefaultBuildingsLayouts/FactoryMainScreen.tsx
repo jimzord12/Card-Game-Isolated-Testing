@@ -53,6 +53,7 @@ const FactoryMainScreen = () => {
     gameVars.setPopGrowthRate(
       round2Decimal(currentPopGrowth - differenceInHappiness)
     );
+
     gameVars.setEnergyProduced(
       round2Decimal(
         differenceInEnergyFromBarrelsForCalc + currentEnergyProduced
@@ -114,7 +115,7 @@ const FactoryMainScreen = () => {
             labelImages={images.labels}
             labelType="special"
             size={deviceSize}
-            value={gameVars.factoryBarrels}
+            value={Math.ceil(gameVars.factoryBarrels)}
             valueType={{
               color: "black",
             }}
@@ -126,7 +127,7 @@ const FactoryMainScreen = () => {
           />
           <CustomSlider
             max={maxSliderBarrelLimit}
-            initValue={gameVars.factoryBarrels}
+            initValue={Math.ceil(gameVars.factoryBarrels)}
             onChange={handleSliderChange}
             size={deviceSize}
           />

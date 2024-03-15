@@ -90,7 +90,7 @@ const DieselQuarrySliderSection = () => {
             labelImages={images.labels}
             labelType="rusty"
             size={deviceSize}
-            value={allWorkers.privateSector}
+            value={Math.ceil(allWorkers.privateSector)}
             valueType={{
               color: "rusty",
             }}
@@ -101,8 +101,8 @@ const DieselQuarrySliderSection = () => {
             }}
           />
           <CustomSlider
-            max={maxAvailWorkers}
-            initValue={allWorkers.dieselWorkers} // ✨ ✅
+            max={Math.ceil(maxAvailWorkers)}
+            initValue={Math.ceil(allWorkers.dieselWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
           />

@@ -7,7 +7,8 @@ import { roundToDecimal, calcProduction } from "../utils";
 
 export const calcPopGrowthRate = (
   population: number,
-  happinessProvidedByBuildings: number
+  happinessProvidedByBuildings: number,
+  factoryUnhappiness: number
 ) => {
   const baseHappiness = round4Decimal(
     (startingStats.livingStandardsBase / population) *
@@ -18,7 +19,8 @@ export const calcPopGrowthRate = (
     "calcPopGrowthRate: happinessProvidedByBuildings: ",
     happinessProvidedByBuildings
   );
-  return baseHappiness + happinessProvidedByBuildings;
+  console.log("calcPopGrowthRate: factoryUnhappiness: ", factoryUnhappiness);
+  return baseHappiness + happinessProvidedByBuildings - factoryUnhappiness;
 };
 
 export const goldGathRateCalc = (
