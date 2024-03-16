@@ -67,7 +67,7 @@ const QuizGameScreen = ({
       setGameStage(2);
     }
 
-    if (currentQuestion > 4 || hearts === 0 || rewards === 3) {
+    if (hearts === 0 || rewards === 3) {
       waitABitAndThenDoStaff();
     }
   }, [currentQuestion, hearts, rewards, setGameStage]);
@@ -78,7 +78,10 @@ const QuizGameScreen = ({
       await waitFor(3);
       setPlayerAnswered(false);
       setResetTimer(true);
-      setCurrentQuestion((prev) => prev + 1);
+      setCurrentQuestion((prev) => {
+        if (prev < 4) return prev + 1;
+        return prev;
+      });
       setDisableButtons(false);
     }
 

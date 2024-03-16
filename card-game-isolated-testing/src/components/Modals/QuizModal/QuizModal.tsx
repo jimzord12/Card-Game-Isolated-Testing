@@ -42,13 +42,13 @@ const QuizModal = ({ resourceCosts }: QuizModalProps) => {
   );
   // const [questions, setQuestions] = useState([] as typeof dummyQuestions);
 
-  useEffect(() => {
-    // setInterval(() => {
-    //   setHearts((prev) => prev - 1);
-    //   setRewards((prev) => prev + 1);
-    // }, 1000);
-    console.log("QuizModal - Current Question: ", currentQuestion);
-  }, [currentQuestion]);
+  // useEffect(() => {
+  //   // setInterval(() => {
+  //   //   setHearts((prev) => prev - 1);
+  //   //   setRewards((prev) => prev + 1);
+  //   // }, 1000);
+  //   console.log("QuizModal - Current Question: ", currentQuestion);
+  // }, [currentQuestion]);
 
   const labelPositionStyles = {
     largeMobile: "largeMobile:-top-9",
