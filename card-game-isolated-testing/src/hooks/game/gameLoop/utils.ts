@@ -322,20 +322,21 @@ function hoursToSecRates(
   return roundToDecimal(mathCalc, 4);
 }
 
-function datesDelta(activationDate: number) {
+function datesDelta(expirationTimestamp: number) {
   const currentDate = Date.now();
   // Subtract the time values of the two dates to get the difference in milliseconds
-  const diff = activationDate - currentDate;
-  console.log("activationDate: ", activationDate);
-  console.log("currentDate: ", currentDate);
-  console.log("diff: ", diff);
+  const diff = expirationTimestamp - currentDate;
+  console.log("datesDelta::expirationTimestamp: ", expirationTimestamp);
+  console.log("datesDelta::currentDate: ", currentDate);
+  console.log("1 - diff: ", diff);
+  console.log("2 - diff: ", convertTimestamp2(diff));
 
   // Check if the difference is less than or equal to zero
   if (diff <= 0) {
-    return false;
+    return true;
   }
   // Returns true if the effect has still remaining time...
-  return true;
+  return false;
 }
 
 //@Important: "precision" must be in milliseconds!

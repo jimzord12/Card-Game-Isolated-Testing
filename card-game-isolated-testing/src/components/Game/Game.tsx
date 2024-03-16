@@ -110,6 +110,7 @@ const Game = () => {
       console.log("UseEffect: GameWorker.onmessage: ", event.data);
 
       if (wasSuccess) {
+        hasEffectExpired();
         energyChecker(); //
         const { expense } = maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
         const stateAfterExpenses = {

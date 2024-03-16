@@ -15,8 +15,8 @@ const catchUpLoopDuration = 10 * minute; // 10 minutes
 
 const happinessCoefficient = 0.3;
 
-const effectDuration = 5 * day;
-// const effectDuration = 0.25 * minute; // ✨ For Testing
+const effectDuration = 3 * day;
+// const effectDuration = 15 * minute; // ✨ For Testing
 
 export {
   catchUpLoopDuration,
