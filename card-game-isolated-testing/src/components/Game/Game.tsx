@@ -17,6 +17,7 @@ import EffectIndicator from "../EffectIndicator/EffectIndicator";
 import { useGameVarsStore } from "../../stores/gameVars";
 import { updatePlayerData } from "../../../api/apiFns";
 import { useToastError } from "../../hooks/notifications";
+import GameMapActionsBtn from "../Buttons/GameMapActionsBtn/GameMapActionsBtn";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -238,11 +239,19 @@ const Game = () => {
                 }}
               />
 
-              <div className="z-[401] absolute top-12 right-20">
+              {/* <div className="z-[401] fixed top-12 right-20">
                 <GameButton
                   onClick={() => setIsSideBarOpen(true)}
                   text="Open Sidebar"
                   btnType="primary"
+                />
+              </div> */}
+
+              <div className="z-[401] fixed top-6 right-6">
+                <GameMapActionsBtn
+                  size="small"
+                  text="Actions"
+                  onClick={() => setIsSideBarOpen(true)}
                 />
               </div>
 
