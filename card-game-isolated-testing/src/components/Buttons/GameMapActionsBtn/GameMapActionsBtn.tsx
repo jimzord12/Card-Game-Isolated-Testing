@@ -1,4 +1,4 @@
-import { GiClick } from "react-icons/gi";
+// import { GiClick } from "react-icons/gi";
 import { playerActionsLabel } from "../../../assets/gameMap/index";
 import BtnWIthLeaves from "./Parts/BtnWIthLeaves";
 
@@ -10,17 +10,17 @@ interface GameMapActionsBtnProps {
 
 const GameMapActionsBtn = ({ size, text, onClick }: GameMapActionsBtnProps) => {
   let btnSize = "w-44 h-20";
-  let iconSize = 24;
+  // let iconSize = 24;
   switch (size) {
     case "small":
       break;
     case "medium":
       btnSize = "w-56 h-56";
-      iconSize = 32;
+      // iconSize = 32;
       break;
     case "large":
       btnSize = "w-64 h-64";
-      iconSize = 40;
+      // iconSize = 40;
       break;
 
     default:

@@ -92,6 +92,7 @@ export default function CardGrid({
     inventory: inventoryCards,
     addCardToInventory,
     removeCardFromInventory,
+    addCardToActiveCards,
   } = useAllCardsStore((state) => state);
 
   const {
@@ -442,10 +443,14 @@ export default function CardGrid({
     const mysqlDate = convertToMySQLDateTime(newEffect.expiresAtUnix);
     console.log("HandleActivateClick::MySQLDate: ", mysqlDate);
     // 🔷 2. Update the Card's Data in the DB
-    updateCardData({ id, state: 1, endDate: mysqlDate }); 
-    
-    // 🔷 3. Client State - Zustang
-    setActiveEffect(newEffect); 
+    updateCardData({ id, state: 1, endDate: mysqlDate });
+
+    // 🔷 3.1 Client State - Register Effect - Zustang
+    setActiveEffect(newEffect);
+
+    // 🔷 3.2 Client State - Add Card to Active Cards - Zustang
+    // For the multiplier to work, the card needs to be in the activeCards array
+    addCardToActiveCards(card);
 
     // 0. Change SPCard's State to true
     card.activate(newEffect.expiresAtUnix); // 🔷 4. Activate the Card

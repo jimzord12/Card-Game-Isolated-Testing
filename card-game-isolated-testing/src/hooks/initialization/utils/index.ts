@@ -1,6 +1,6 @@
-import { calcMulti } from "./calcMulti";
+import { calcMultiToolStore } from "./calcMultiToolStore";
 import { getWorkers } from "./getWorkers";
 import { multipliersInit } from "./multipliersInit";
 import { specialEffectInit } from "./specialEffectInit";
 
-export { calcMulti, getWorkers, multipliersInit, specialEffectInit };
+export { calcMultiToolStore, getWorkers, multipliersInit, specialEffectInit };

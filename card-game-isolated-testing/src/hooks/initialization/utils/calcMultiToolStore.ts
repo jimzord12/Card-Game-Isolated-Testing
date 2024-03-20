@@ -7,7 +7,7 @@ import { ToolStoreType, BuildingStats } from "../../../types";
 // 2. The stats property indicates the level of the card's Tools levels
 // 3. These Tool Level are used to calculate the multipliers
 // for boosting the game's resources gathering.
-export const calcMulti = (card: ToolStoreType) => {
+export const calcMultiToolStore = (card: ToolStoreType) => {
   const toolType = ["concrete", "metals", "crystals", "diesel"];
   const baseMultipliers = {
     gold: 0,

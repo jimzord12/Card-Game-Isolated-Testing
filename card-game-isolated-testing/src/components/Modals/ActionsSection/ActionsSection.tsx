@@ -186,7 +186,7 @@ const ActionsSection = ({
       diesel: player.diesel,
     };
 
-    await waitFor(2);
+    await waitFor(1.2);
 
     // In Case of [Townhall] or [Factory]
     if (contentType === "townhall" || contentType === "factory") {

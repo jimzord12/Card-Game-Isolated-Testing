@@ -1,6 +1,6 @@
 import SPCard from "../../../classes/spClass_V2";
 import { nameToTemplateDataSP } from "../../../constants/templates";
-import { calcMultiSPCards } from "../../../hooks/initialization/utils/calcMulti";
+import { calcMultiSPCards } from "../../../hooks/initialization/utils/calcMultiToolStore";
 import { round2Decimal } from "../../../utils/game/roundToDecimal";
 import { GameVarsState } from "../../gameVars";
 

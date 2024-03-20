@@ -6,7 +6,7 @@ import LoadingScreen from "../../pages/LoadingScreen/LoadingScreen";
 import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
 // import CustomButton from "../Buttons/CustomButton/CustomButton";
 // import { useNavigate } from "react-router-dom";
-import GameButton from "../Buttons/GameButton/GameButton";
+// import GameButton from "../Buttons/GameButton/GameButton";
 // import StatsBars from "../StatsBars/StatsBars";
 import GameWorker from "../../webWorkers/gameLoopWorker.worker?worker";
 import { gameLoopWorkerReturnType } from "../../types/GameLoopTypes/GameLoopTypes";

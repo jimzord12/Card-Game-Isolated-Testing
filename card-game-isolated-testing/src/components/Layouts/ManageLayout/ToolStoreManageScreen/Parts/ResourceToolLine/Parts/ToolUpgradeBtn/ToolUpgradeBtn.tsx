@@ -22,7 +22,7 @@ import LoadingModal from "../../../../../../../Modals/LoadingModal/LoadingModal"
 import { waitFor } from "../../../../../../../../utils/general/waitPlease";
 import { useEffect, useState } from "react";
 import { round2Decimal } from "../../../../../../../../utils/game/roundToDecimal";
-import { calcMulti } from "../../../../../../../../hooks/initialization/utils";
+import { calcMultiToolStore } from "../../../../../../../../hooks/initialization/utils";
 
 interface ToolUpgradeBtnProps {
   onClick: () => void;
@@ -66,6 +66,7 @@ const ToolUpgradeBtn = ({
     if (isLoading) {
       pushModal(<LoadingModal />);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   const handleClick = () => {
@@ -141,15 +142,8 @@ const ToolUpgradeBtn = ({
     };
 
     const newResources = subtractResources({ playerResources, requirements });
+    const oldMultipliers = calcMultiToolStore(card);
     card.levelUpTool(toolType);
-    const currentMultipliers = gameVars.multipliers;
-    const CardMultipliers = calcMulti(card);
-    gameVars.setMultipliers({
-      ...currentMultipliers,
-      [`${toolType}Multiplier`]: round2Decimal(
-        currentMultipliers[`${toolType}Multiplier`] + CardMultipliers[toolType]
-      ),
-    });
 
     try {
       if (card.id === null || card.id === undefined) {
@@ -167,7 +161,54 @@ const ToolUpgradeBtn = ({
         gold: newResources.gold,
       });
 
-      await waitFor(2);
+      await waitFor(1.2);
+
+      const currentMultipliers = gameVars.multipliers;
+      const CardMultipliers = calcMultiToolStore(card);
+      const cardMultiDiff =
+        CardMultipliers[toolType] - oldMultipliers[toolType];
+      gameVars.setMultipliers({
+        ...currentMultipliers,
+        [`${toolType}Multiplier`]: round2Decimal(
+          currentMultipliers[`${toolType}Multiplier`] + cardMultiDiff
+        ),
+      });
+
+      switch (toolType) {
+        case "concrete":
+          console.log(
+            "1 - DDDDDDDDDDDDDDDDDDDDDDDDDDDD: ",
+            gameVars.allWorkers
+          );
+          console.log("2 - DDDDDDDDDDDDDDDDDD: ", gameVars.multipliers);
+
+          gameVars.setConcreteGathRate(
+            gameVars.allWorkers.concreteWorkers *
+              (cardMultiDiff + gameVars.multipliers.concreteMultiplier)
+          );
+          break;
+        case "metals":
+          gameVars.setMetalsGathRate(
+            gameVars.allWorkers.metalsWorkers *
+              (cardMultiDiff + gameVars.multipliers.metalsMultiplier)
+          );
+          break;
+        case "crystals":
+          gameVars.setCrystalsGathRate(
+            gameVars.allWorkers.crystalsWorkers *
+              (cardMultiDiff + gameVars.multipliers.crystalsMultiplier)
+          );
+          break;
+        case "diesel":
+          gameVars.setDieselGathRate(
+            gameVars.allWorkers.dieselWorkers *
+              (gameVars.multipliers.dieselMultiplier + cardMultiDiff)
+          );
+          break;
+
+        default:
+          break;
+      }
 
       if (responseCardStats && responsePlayerData) {
         gameVars.updatePlayerData({ gold: newResources.gold });

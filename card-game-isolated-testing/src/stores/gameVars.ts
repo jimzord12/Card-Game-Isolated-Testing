@@ -3,6 +3,12 @@ import { Level } from "../types";
 import { IPlayerDB } from "../types/PlayerTypes/Player";
 import { effectClass } from "../classes";
 import { Multipliers, Workers } from "../types/GameLoopTypes/GameLoopTypes";
+import {
+  defaultQuarryLevels,
+  defaultRates,
+  defaultRatesMultipliers,
+  defaultWorkers,
+} from "../constants/game/gameConfig";
 
 export type GameVarsState = {
   player: IPlayerDB | null;
@@ -109,39 +115,21 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   needsCatchUp: false,
 
   // Quarries
-  quarryLevels: {
-    concrete: 1,
-    metals: 1,
-    crystals: 1,
-    diesel: 1,
-  },
+  quarryLevels: defaultQuarryLevels,
 
   // Rates
-  popGrowthRate: 0,
-  goldGathRate: 0,
-  concreteGathRate: 0,
-  metalsGathRate: 0,
-  crystalsGathRate: 0,
-  dieselGathRate: 0,
+  popGrowthRate: defaultRates.popGrowthRate,
+  goldGathRate: defaultRates.goldGathRate,
+  concreteGathRate: defaultRates.concreteGathRate,
+  metalsGathRate: defaultRates.metalsGathRate,
+  crystalsGathRate: defaultRates.crystalsGathRate,
+  dieselGathRate: defaultRates.dieselGathRate,
 
   // Workers
-  allWorkers: {
-    privateSector: 0,
-    concreteWorkers: 0,
-    metalsWorkers: 0,
-    crystalsWorkers: 0,
-    dieselWorkers: 0,
-    hospitalWorkers: 0,
-  },
+  allWorkers: defaultWorkers,
 
   // Multipliers
-  multipliers: {
-    goldMultiplier: 2,
-    dieselMultiplier: 2.5,
-    concreteMultiplier: 1.5,
-    metalsMultiplier: 1.25,
-    crystalsMultiplier: 1,
-  },
+  multipliers: defaultRatesMultipliers,
 
   // Energy
   energyProduced: 0,
@@ -325,5 +313,22 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
         allWorkers: { ...state.allWorkers, hospitalWorkers },
       };
     }),
-  setMultipliers: (multipliers: Multipliers) => set({ multipliers }),
+  // setMultipliers: (multipliers: Multipliers) => set({ multipliers }),
+  setMultipliers: (multipliers: Multipliers) =>
+    set((state) => {
+      // This is Done for the ToolStore
+      state.setConcreteGathRate(
+        state.allWorkers.concreteWorkers * multipliers.concreteMultiplier
+      );
+      state.setMetalsGathRate(
+        state.allWorkers.metalsWorkers * multipliers.metalsMultiplier
+      );
+      state.setCrystalsGathRate(
+        state.allWorkers.crystalsWorkers * multipliers.crystalsMultiplier
+      );
+      state.setDieselGathRate(
+        state.allWorkers.dieselWorkers * multipliers.dieselMultiplier
+      );
+      return { multipliers: {...state.multipliers, ...multipliers} };
+    }),
 }));

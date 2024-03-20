@@ -164,6 +164,8 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
           activeRegCards: [...state.activeRegCards, card],
         };
       } else {
+        // 🔷 ✨ When a SP Card is Activated, its side-effects are handled in the fn below
+        updateSPRelatedGameVars(card, useGameVarsStore.getState());
         return { ...state, activeCards: [...state.activeCards, card] };
       }
     }),

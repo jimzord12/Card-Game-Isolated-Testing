@@ -1,6 +1,6 @@
 import { ToolStoreType } from "../../../types";
 import { Multipliers } from "../../../types/GameLoopTypes/GameLoopTypes";
-import { calcMulti } from "./calcMulti";
+import { calcMultiToolStore } from "./calcMultiToolStore";
 
 export const multipliersInit = (
   startingMultipliers: Multipliers,
@@ -16,7 +16,7 @@ export const multipliersInit = (
   console.log("🔷 Multipliers Init: ", startingMultipliers);
 
   toolStoreCards.forEach((card) => {
-    const singleCardMultipliers = calcMulti(card);
+    const singleCardMultipliers = calcMultiToolStore(card);
     console.log("🔷 2- Multipliers Init: ", card);
 
     startingMultipliers.concreteMultiplier += singleCardMultipliers.concrete;

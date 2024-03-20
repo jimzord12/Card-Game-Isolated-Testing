@@ -18,6 +18,39 @@ const happinessCoefficient = 0.3;
 const effectDuration = 3 * day;
 // const effectDuration = 15 * minute; // ✨ For Testing
 
+const defaultRatesMultipliers = {
+  goldMultiplier: 2,
+  dieselMultiplier: 2.5,
+  concreteMultiplier: 1.5,
+  metalsMultiplier: 1.25,
+  crystalsMultiplier: 1,
+};
+
+const defaultRates = {
+  popGrowthRate: 0,
+  goldGathRate: 0,
+  dieselGathRate: 0,
+  concreteGathRate: 0,
+  metalsGathRate: 0,
+  crystalsGathRate: 0,
+};
+
+const defaultQuarryLevels = {
+  concrete: 1,
+  metals: 1,
+  crystals: 1,
+  diesel: 1,
+};
+
+const defaultWorkers = {
+  privateSector: 0,
+  concreteWorkers: 0,
+  metalsWorkers: 0,
+  crystalsWorkers: 0,
+  dieselWorkers: 0,
+  hospitalWorkers: 0,
+};
+
 export {
   catchUpLoopDuration,
   gamePace,
@@ -27,4 +60,8 @@ export {
   hour,
   day,
   effectDuration,
+  defaultRatesMultipliers,
+  defaultRates,
+  defaultQuarryLevels,
+  defaultWorkers,
 };

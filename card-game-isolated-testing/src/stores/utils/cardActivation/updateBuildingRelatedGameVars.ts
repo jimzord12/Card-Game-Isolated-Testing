@@ -1,7 +1,7 @@
 import BuildingCard from "../../../classes/buildingClass_V2";
 import { GameVarsState } from "../../gameVars";
 import { nameToTemplateDataBuilding } from "../../../constants/templates";
-import { calcMulti } from "../../../hooks/initialization/utils/calcMulti";
+import { calcMultiToolStore } from "../../../hooks/initialization/utils/calcMultiToolStore";
 import { isToolStore } from "../../../types/TypeGuardFns/isToolStore";
 import { round2Decimal } from "../../../utils/game/roundToDecimal";
 
@@ -65,7 +65,7 @@ export const updateBuildingRelatedGameVars = (
       throw new Error("⛔ updateBuildingRelatedGameVars: Not a ToolStore card");
 
     const currentMultipliers = gameVars.multipliers;
-    const CardMultipliers = calcMulti(card);
+    const CardMultipliers = calcMultiToolStore(card);
     const currentEnergyConsumed = gameVars.energyConsumed;
 
     gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);

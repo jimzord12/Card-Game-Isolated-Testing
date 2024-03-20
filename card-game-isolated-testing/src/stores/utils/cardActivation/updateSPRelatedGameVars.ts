@@ -1,6 +1,6 @@
 import { GameVarsState } from "../../gameVars";
 import { nameToTemplateDataSP } from "../../../constants/templates";
-import { calcMultiSPCards } from "../../../hooks/initialization/utils/calcMulti";
+import { calcMultiSPCards } from "../../../hooks/initialization/utils/calcMultiToolStore";
 import { round2Decimal } from "../../../utils/game/roundToDecimal";
 import SPCard from "../../../classes/spClass_V2";
 
@@ -9,7 +9,7 @@ export const updateSPRelatedGameVars = (
   gameVars: GameVarsState
 ) => {
   const { output } = card;
-  
+
   // ✨ WallStreet
   console.log("updateSPRelatedGameVars: CARD: ", card);
   if (card.name === nameToTemplateDataSP.WallStreet.name) {
@@ -21,24 +21,33 @@ export const updateSPRelatedGameVars = (
         "⛔ updateSPRelatedGameVars.ts: CardMultipliers is undefined"
       );
 
+    const newGoldMultiplier = round2Decimal(
+      currentMultipliers.goldMultiplier + CardMultipliers.gold
+    );
+    const newConcreteMultiplier = round2Decimal(
+      currentMultipliers.concreteMultiplier + CardMultipliers.concrete
+    );
+    const newMetalsMultiplier = round2Decimal(
+      currentMultipliers.metalsMultiplier + CardMultipliers.metals
+    );
+    const newCrystalsMultiplier = round2Decimal(
+      currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
+    );
+    const newDieselMultiplier = round2Decimal(
+      currentMultipliers.dieselMultiplier + CardMultipliers.diesel
+    );
+
     gameVars.setMultipliers({
       ...gameVars.multipliers,
-      goldMultiplier: round2Decimal(
-        currentMultipliers.goldMultiplier + CardMultipliers.gold
-      ),
-      concreteMultiplier: round2Decimal(
-        currentMultipliers.concreteMultiplier + CardMultipliers.concrete
-      ),
-      metalsMultiplier: round2Decimal(
-        currentMultipliers.metalsMultiplier + CardMultipliers.metals
-      ),
-      crystalsMultiplier: round2Decimal(
-        currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
-      ),
-      dieselMultiplier: round2Decimal(
-        currentMultipliers.dieselMultiplier + CardMultipliers.diesel
-      ),
+      goldMultiplier: newGoldMultiplier,
+      concreteMultiplier: newConcreteMultiplier,
+      metalsMultiplier: newMetalsMultiplier,
+      crystalsMultiplier: newCrystalsMultiplier,
+      dieselMultiplier: newDieselMultiplier,
     });
+
+    gameVars.setGoldGathRate(gameVars.goldGathRate * newGoldMultiplier);
+
     return;
   }
 
@@ -52,24 +61,40 @@ export const updateSPRelatedGameVars = (
         "⛔ updateSPRelatedGameVars.ts: CardMultipliers is undefined"
       );
 
+    const newGoldMultiplier = round2Decimal(
+      currentMultipliers.goldMultiplier + CardMultipliers.gold
+    );
+    const newConcreteMultiplier = round2Decimal(
+      currentMultipliers.concreteMultiplier + CardMultipliers.concrete
+    );
+    const newMetalsMultiplier = round2Decimal(
+      currentMultipliers.metalsMultiplier + CardMultipliers.metals
+    );
+    const newCrystalsMultiplier = round2Decimal(
+      currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
+    );
+    const newDieselMultiplier = round2Decimal(
+      currentMultipliers.dieselMultiplier + CardMultipliers.diesel
+    );
+
     gameVars.setMultipliers({
       ...gameVars.multipliers,
-      goldMultiplier: round2Decimal(
-        currentMultipliers.goldMultiplier + CardMultipliers.gold
-      ),
-      concreteMultiplier: round2Decimal(
-        currentMultipliers.concreteMultiplier + CardMultipliers.concrete
-      ),
-      metalsMultiplier: round2Decimal(
-        currentMultipliers.metalsMultiplier + CardMultipliers.metals
-      ),
-      crystalsMultiplier: round2Decimal(
-        currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
-      ),
-      dieselMultiplier: round2Decimal(
-        currentMultipliers.dieselMultiplier + CardMultipliers.diesel
-      ),
+      goldMultiplier: newGoldMultiplier,
+      concreteMultiplier: newConcreteMultiplier,
+      metalsMultiplier: newMetalsMultiplier,
+      crystalsMultiplier: newCrystalsMultiplier,
+      dieselMultiplier: newDieselMultiplier,
     });
+
+    gameVars.setConcreteGathRate(
+      gameVars.concreteGathRate * newConcreteMultiplier
+    );
+    gameVars.setMetalsGathRate(gameVars.metalsGathRate * newMetalsMultiplier);
+    gameVars.setCrystalsGathRate(
+      gameVars.crystalsGathRate * newCrystalsMultiplier
+    );
+    gameVars.setDieselGathRate(gameVars.dieselGathRate * newDieselMultiplier);
+
     return;
   }
 
