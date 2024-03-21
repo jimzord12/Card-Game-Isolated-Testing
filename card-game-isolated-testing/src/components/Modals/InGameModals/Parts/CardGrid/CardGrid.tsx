@@ -61,6 +61,7 @@ import { isBuildingCard } from "../../../../../types/TypeGuardFns/BuildingGuards
 import { isToolStore } from "../../../../../types/TypeGuardFns/isToolStore.js";
 import { useModalStore } from "../../../../../stores/modalStore.js";
 import QuizModal from "../../../QuizModal/QuizModal.js";
+import ConfirmationModal from "../../../ConfirmationModal/ConfirmationModal.js";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -86,6 +87,7 @@ export default function CardGrid({
   // } = usePlayerContext();
 
   const pushModal = useModalStore((state) => state.pushModal);
+  const popModal = useModalStore((state) => state.popModal);
 
   const {
     activeCards,
@@ -505,9 +507,17 @@ export default function CardGrid({
    * @param _card
    */
   const handleLevelUpClick = (_card: CardClass) => {
-    checkAndSubtractRes(_card, "level");
-    closeModal();
-    pushModal(<QuizModal resourceCosts={_card.requirements} />);
+    pushModal(
+      <ConfirmationModal
+        onConfirm={() => {
+          popModal();
+          checkAndSubtractRes(_card, "level");
+          closeModal();
+          pushModal(<QuizModal resourceCosts={_card.requirements} />);
+        }}
+        title="LEVEL UP CONFIRMATION"
+      />
+    );
   };
 
   /**

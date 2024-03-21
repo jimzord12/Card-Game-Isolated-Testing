@@ -193,7 +193,8 @@ const CardPickerModal = ({ type, spot }: Props) => {
             <menu className="list-decimal mt-4 text-lg">
               <li>Close this window.</li>
               <li>
-                Then click on the button on the{" "}
+                Then click on the{" "}
+                <span className="text-emerald-400">Actions</span> button on the{" "}
                 <span className="text-emerald-400">top-right</span>.
               </li>
             </menu>

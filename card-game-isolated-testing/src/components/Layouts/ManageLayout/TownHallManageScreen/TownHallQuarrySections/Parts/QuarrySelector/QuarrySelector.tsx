@@ -39,7 +39,7 @@ const QuarrySelector = ({ type, onClick }: Props) => {
 
   return (
     <div
-      className=" border-2 tablet:border-3 bg-emerald-600/70 p-2 tablet:p-4 rounded-xl flex flex-col gap-2 items-center tablet:gap-4 tablet:text-2xl largeScreen:text-3xl w-fit cursor-pointer hover:drop-shadow-md hover:animate-bounce"
+      className=" border-2 tablet:border-3 bg-emerald-600/70 p-2 tablet:p-4 rounded-xl flex flex-col gap-2 items-center tablet:gap-4 tablet:text-2xl largeScreen:text-3xl w-fit cursor-pointer hover:drop-shadow-md hover:scale-115 transition-all duration-400 ease-in-out"
       onClick={onClick}
     >
       <img

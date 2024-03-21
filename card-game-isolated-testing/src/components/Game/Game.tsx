@@ -267,7 +267,7 @@ const Game = () => {
               <div className="z-[401] absolute top-4 left-[280px]">
                 <CustomButton
                   title="Run Loop"
-                  handleClick={() => gameLoopRunner()}
+                  handleClick={() => gameLoopRunner(100)}
                 />
               </div>
               {activeEffect && (

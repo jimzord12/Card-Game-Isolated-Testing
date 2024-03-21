@@ -42,6 +42,19 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
       (card instanceof BuildingCard || card instanceof RegCard) &&
       card.id !== null
     ) {
+      if (card instanceof BuildingCard && card.state === true) {
+        const availableEnergy = gameVars.energyRemaining;
+        const newEnergyRequirements =
+          availableEnergy - card.getNewStats().newMaintenance.energy;
+        if (newEnergyRequirements < 0) {
+          toastError.showError(
+            "Not Enough Energy",
+            "😬 Your current energy can not support the Next Level of this Building."
+          );
+          return false;
+        }
+      }
+
       const oldCard = { output: card.output, maintenance: card.maintenance };
 
       // 🔷 Checking If Player has enough resources
