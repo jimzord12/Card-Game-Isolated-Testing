@@ -49,10 +49,18 @@ const CustomSlider = ({
 
   let currentValue = initValue || 0;
 
-  if (max !== 0 && (step <= 0 || step > max / 2))
-    throw new Error(
-      "⛔ CustomSlider: Step must be greater than 0 AND less than half the max value."
-    );
+  // if (max !== 0 && (step <= 0 || step < max / 2)) {
+  //   console.log("⛔ Max Value: ", max); // if this is 1
+  //   console.log("⛔ Step Value: ", step); // and this is 1
+  //   console.log("⛔ Half Max Value: ", max / 2);
+  //   console.log("⛔ Condition #1 ", max !== 0);
+  //   console.log("⛔ Condition #2 ", step <= 0); // How can this be false?
+  //   console.log("⛔ Condition #3: ", step > max / 2);
+
+  //   throw new Error(
+  //     "⛔ CustomSlider: Step must be greater than 0 AND less than half the max value."
+  //   );
+  // }
 
   const onDrag = (e: MouseEvent | TouchEvent) => {
     if (max <= 0) return;

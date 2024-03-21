@@ -34,7 +34,7 @@ const HospitalManageScreen = ({ card }: Props) => {
 
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ HopsitalLayoutManage.tsx: images are undefined!");
-
+ 
   // The conversion rate from citizens to doctors.
 
   //   const totalWorkers = allWorkers.privateSector + allWorkers.hospitalWorkers;
