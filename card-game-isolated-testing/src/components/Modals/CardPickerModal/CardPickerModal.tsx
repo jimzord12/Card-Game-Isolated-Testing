@@ -53,7 +53,7 @@ const CardPickerModal = ({ type, spot }: Props) => {
     : `${styles.cardPickerModalContainer} ${styles.enterAnimation}`;
 
   const noCardsTextStyles =
-    "bg-slate-800/85 px-6 rounded-xl flex flex-col items-center justify-center leading-12 h-fit p-4 text-white text-3xl largeMobile:text-2xl tablet:text-3xl tablet:leading-12 tablet:p-6 largeScreen:text-4xl largeScreen:leading-12 largeScreen:p-8";
+    "bg-slate-800/85 px-6 rounded-xl flex flex-col items-center justify-center leading-12 h-fit p-4 text-white text-3xl largeMobile:text-2xl tablet:text-3xl tablet:leading-12 tablet:p-6 largeScreen:text-5xl largeScreen:leading-12 largeScreen:p-8";
 
   // Handlers
   const handleClose = () => {
@@ -185,16 +185,18 @@ const CardPickerModal = ({ type, spot }: Props) => {
         {type === "building" && buildingCards.length === 0 ? (
           <div className={noCardsTextStyles}>
             <h1>No Available Cards.</h1>
-            <div className="h-4" />
-            <p className="text-xl">
-              Try Crafting Card, using the Craft Button.
+            <div className="h-4 largeScreen:h-12" />
+            <p className="text-xl largeScreen:text-3xl text-start">
+              Try Crafting a Card by using the Craft Button.
             </p>
-            <p className="text-xl self-start">To find it:</p>
-            <menu className="list-decimal mt-4 text-lg">
+            <p className="text-xl self-start largeScreen:text-3xl">
+              To find it:
+            </p>
+            <menu className="list-decimal mt-4 text-lg largeScreen:text-3xl">
               <li>Close this window.</li>
               <li>
-                Then click on the{" "}
-                <span className="text-emerald-400">Actions</span> button on the{" "}
+                Then click the <span className="text-emerald-400">Actions</span>{" "}
+                button on the{" "}
                 <span className="text-emerald-400">top-right</span>.
               </li>
             </menu>
@@ -202,12 +204,12 @@ const CardPickerModal = ({ type, spot }: Props) => {
         ) : type === "reg" && regCards.length === 0 ? (
           <div className={noCardsTextStyles}>
             <h1>No Available Cards.</h1>
-            <div className="h-4" />
-            <p className="text-xl">
+            <div className="h-4 largeScreen:h-12" />
+            <p className="text-xl largeScreen:text-3xl">
               Try Crafting Card, using the Craft Button.
             </p>
             <p className="text-xl self-start">To find it:</p>
-            <menu className="list-decimal mt-4 text-lg">
+            <menu className="list-decimal mt-4 text-lg largeScreen:text-3xl">
               <li>Close this window.</li>
               <li>
                 Then click on the button on the{" "}

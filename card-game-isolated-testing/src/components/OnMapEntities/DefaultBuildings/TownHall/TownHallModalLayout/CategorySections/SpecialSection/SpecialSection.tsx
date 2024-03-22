@@ -15,7 +15,7 @@ const SpecialSection = () => {
     <section className={styles.specialSection}>
       <SpecialLabel
         gameIcon={images?.gameIcons.rankGameIcon}
-        valueToDisplay={"No. " + playerData?.rank ?? "XerrorX"}
+        valueToDisplay={"Score: " + playerData?.rank ?? "XerrorX"}
         alt="CitizensSpace"
       />
       <SpecialLabel

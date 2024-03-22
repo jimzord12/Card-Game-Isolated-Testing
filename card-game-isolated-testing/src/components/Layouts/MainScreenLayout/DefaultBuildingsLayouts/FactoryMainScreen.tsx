@@ -74,8 +74,8 @@ const FactoryMainScreen = () => {
     throw new Error("⛔ HopsitalLayoutManage.tsx: images are undefined!");
 
   const faceFinder = (popGrowthRate: number): string => {
-    if (popGrowthRate < 0.5) return images.gameIcons.angryFaceGameIcon;
-    if (popGrowthRate >= 0.5 && popGrowthRate < 1)
+    if (popGrowthRate < 0) return images.gameIcons.angryFaceGameIcon;
+    if (popGrowthRate >= 0 && popGrowthRate < 1)
       return images.gameIcons.sadFaceGameIcon;
     if (popGrowthRate >= 1 && popGrowthRate < 2)
       return images.gameIcons.neutralFaceGameIcon;

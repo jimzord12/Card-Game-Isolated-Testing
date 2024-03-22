@@ -101,6 +101,7 @@ const Game = () => {
       hasEffectExpired();
       const catchUpLoops = calcTimeUnits();
       console.log("🎮 [Game.tsx] Needs Catch Up: ", needsCatchUp());
+      console.log("🎮 [Game.tsx] Number of Loops: ", catchUpLoops);
       gameLoopRunner(catchUpLoops);
     }
 

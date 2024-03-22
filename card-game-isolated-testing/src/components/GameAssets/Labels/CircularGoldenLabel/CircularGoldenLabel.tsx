@@ -15,8 +15,8 @@ const CircularGoldenLabel = ({ popGrowthRate, alt }: Props) => {
 
   const faceFinder = useCallback(
     (popGrowthRate: number): keyof Partial<GameIconsImageGroup> => {
-      if (popGrowthRate < 0.5) return "angryFaceGameIcon";
-      if (popGrowthRate >= 0.5 && popGrowthRate < 1) return "sadFaceGameIcon";
+      if (popGrowthRate < 0) return "angryFaceGameIcon";
+      if (popGrowthRate >= 0 && popGrowthRate < 1) return "sadFaceGameIcon";
       if (popGrowthRate >= 1 && popGrowthRate < 2) return "neutralFaceGameIcon";
       if (popGrowthRate >= 2 && popGrowthRate < 3.5) return "happyFaceGameIcon";
       if (popGrowthRate >= 3.5) return "overjoyedFaceGameIcon";

@@ -354,23 +354,41 @@ const useGameLoop = () => {
   }
 
   const calcTimeUnits = () => {
-    const currentDate = Date.now() / 1000;
+    const currentDate = Date.now();
     const lastLoginDate = isNotNullOrUndefined<string>(
       gameVars.player?.timestamp,
       "lastLoginDate"
     );
 
-    const convertedPrevDate = mysqlDatetimeToUnixTimestamp(lastLoginDate);
+    const convertedPrevDate =
+      mysqlDatetimeToUnixTimestamp(lastLoginDate) * 1000;
+    console.log("1 - Calculating CatchUp Loops | currentDate: ", currentDate);
+    console.log(
+      "2 - Calculating CatchUp Loops | convertedPrevDate: ",
+      convertedPrevDate
+    );
+
     const diff = Math.abs(currentDate - convertedPrevDate);
-    const sevenDays = 7 * (gameConfig.day / 1000);
+    const sevenDays = 7 * gameConfig.day;
+
+    console.log("3 - Calculating CatchUp Loops | DIFF: ", diff);
 
     if (diff > sevenDays) {
       toastError.showError(
         "Absent for too long",
         "😔 We are very sorry to inform you that because you were absent more than 7 Days, your account was disabled and your progress was lost!"
       );
+      console.log(
+        "4 - Calculating CatchUp Loops | 7 Days | Final: ",
+        Math.trunc(diff / gameConfig.catchUpLoopDuration)
+      );
       return Math.trunc(sevenDays / gameConfig.catchUpLoopDuration);
     }
+    console.log(
+      "4 - Calculating CatchUp Loops | Final: ",
+      Math.trunc(diff / gameConfig.catchUpLoopDuration)
+    );
+
     return Math.trunc(diff / gameConfig.catchUpLoopDuration);
   };
 
