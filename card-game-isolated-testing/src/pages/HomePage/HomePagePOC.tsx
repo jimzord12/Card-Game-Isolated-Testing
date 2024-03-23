@@ -3,6 +3,7 @@ import { UniwaLogo, footerImg, logoGenera } from "../../assets/homePageImgs";
 import SwitchBtn from "../../components/WalletRelated/SwitchBtn";
 import { Suspense, lazy, useState } from "react";
 import useViewportWidthGreaterThan320 from "../../components/Utility/useViewportWidthGreaterThan320";
+import useGA4 from "../../hooks/useGA4";
 // import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 // import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
 
@@ -13,6 +14,7 @@ const HomePageLocalWallet = lazy(() => import("./HomePageLocalWallet"));
 // import { useNavigate } from 'react-router-dom';
 
 const HomePagePOC = () => {
+  useGA4();
   // const mediaMax320 = useMediaQuery("(max-width: 320px)");
   const isGreaterThan320 = useViewportWidthGreaterThan320();
   const [usingLW, setUsingLW] = useState(false);

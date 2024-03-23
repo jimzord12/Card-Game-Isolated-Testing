@@ -33,8 +33,12 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
     let actionMessage: "reset workers" | "" = "";
 
     for (let i = 0; i < e.data.loopsToRun; i++) {
+      console.log(
+        `%c Loop #${i}/${e.data.loopsToRun} `,
+        "color: red; font-size: 20px",
+        i
+      );
       if (i === 0) {
-        console.log("%c Loop # ", "color: red; font-size: 24px", i);
         const firstResult = processGameLoopWorker(e.data);
         nextState.currentConcrete = firstResult.newState.newConcrete;
         nextState.currentCrystals = firstResult.newState.newCrystals;

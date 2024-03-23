@@ -18,6 +18,8 @@ import { useGameVarsStore } from "../../stores/gameVars";
 import { updatePlayerData } from "../../../api/apiFns";
 import { useToastError } from "../../hooks/notifications";
 import GameMapActionsBtn from "../Buttons/GameMapActionsBtn/GameMapActionsBtn";
+import { gameConfig } from "../../constants/game";
+import useGA4 from "../../hooks/useGA4";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -36,6 +38,7 @@ const GameSideBar = lazy(() => import("../GameSideBar/GameSideBar"));
 type MapTypes = "town" | "world";
 
 const Game = () => {
+  useGA4();
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
   const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("town");
@@ -164,12 +167,14 @@ const Game = () => {
           });
         }
 
+        // 🔷 Try to update the DB using the "updatePlayerData" api function.
+
         // Update your game state or Zustand store here based on `newState`
         console.log("🎮 [Game.tsx] New - State: ", stateAfterExpenses);
         console.log(" ---------------------------------------");
 
         setNewGameState({ ...stateAfterExpenses });
-        // gameLoopTick.current += 1; // ✨ Uncomment after testing
+        gameLoopTick.current += 1; // ✨ Uncomment after testing
       } else {
         throw new Error(
           "⛔ Game.tsx: Game Loop Worker failed to process the game state"
@@ -177,17 +182,15 @@ const Game = () => {
       }
     };
 
-    // // Setup interval for game loop
-    // const gameLoopInterval = setInterval(() => {
-    //
-
-    //   gameLoopRunner(currentGameState);
-    // }, gamePace * 1000); // 5 sec
+    // Setup interval for game loop
+    const gameLoopInterval = setInterval(() => {
+      gameLoopRunner();
+    }, gameConfig.gamePace * 1000); // 5 sec
 
     return () => {
       // Terminate the worker when the component unmounts
       gameWorker.current?.terminate();
-      // clearInterval(gameLoopInterval);
+      clearInterval(gameLoopInterval);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameLoopTick.current]);

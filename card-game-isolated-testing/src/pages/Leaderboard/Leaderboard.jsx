@@ -9,8 +9,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllPlayers, getPlayerByWallet } from "../../../api/apiFns";
 
 import { useGameVarsStore } from "../../stores/gameVars";
+import useGA4 from "../../hooks/useGA4";
 
 function Leaderboard() {
+  useGA4();
   const navigate = useNavigate();
 
   const playerData = useGameVarsStore((state) => state.player);

@@ -10,8 +10,10 @@ import {
   Withdraw,
 } from "./pages";
 import ErrorBoundary from "../../../components/ErrorBoundry/ErrorBoundry";
+import useGA4 from "../../../hooks/useGA4";
 
 const Marketplace = () => {
+  useGA4();
   return (
     <ErrorBoundary>
       <StateContextProvider>

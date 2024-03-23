@@ -2,9 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import ReactGA from "react-ga4";
 
 const isProduction = import.meta.env.MODE === "production";
 const disableSW = true;
+
+const measurementId = "G-GXWTBE5SFP"; // Replace this with your Measurement ID
+ReactGA.initialize(measurementId);
+
+// Send pageview with a custom path
+ReactGA.send({ hitType: "pageview", page: "/my-path", title: "Custom Title" });
 
 if ("serviceWorker" in navigator && !disableSW) {
   window.addEventListener("load", () => {

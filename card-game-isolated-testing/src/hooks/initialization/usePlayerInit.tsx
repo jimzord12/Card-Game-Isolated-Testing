@@ -17,6 +17,7 @@ import {
 const usePlayerInit = () => {
   const {
     setPlayer,
+    setRank,
     setTownhallLevel,
     setFactoryLevel,
     setAllWorkers,
@@ -42,6 +43,7 @@ const usePlayerInit = () => {
       metals: data.metals_quarry_lvl ?? 1,
       diesel: data.diesel_quarry_lvl ?? 1,
     });
+    setRank(data.rank ?? -1);
 
     const workers = getWorkers(data);
     setAllWorkers(workers);

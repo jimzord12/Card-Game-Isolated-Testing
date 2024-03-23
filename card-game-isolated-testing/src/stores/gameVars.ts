@@ -18,6 +18,7 @@ export type GameVarsState = {
   happinessFromBuildings: number;
   expences: number; // In Old Code is Maintanance
   needsCatchUp: boolean;
+  rank: number;
 
   // Quarries
   quarryLevels: {
@@ -55,6 +56,7 @@ export type GameVarsState = {
 
   setPlayer: (player: IPlayerDB) => void;
   updatePlayerData: (playerData: Partial<IPlayerDB>) => void;
+  setRank: (rank: number) => void;
   // setTotalPop: (totalPop: number) => void;
   setHappinessFromBuildings: (currentHappiness: number) => void;
   setPopGrowthRate: (rate: number) => void;
@@ -107,6 +109,7 @@ export type GameVarsState = {
 
 export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   player: null,
+  rank: 0,
   townhallLevel: 1,
   factoryLevel: 1,
   factoryBarrels: 0,
@@ -146,6 +149,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
     set((state) => ({
       player: state.player ? { ...state.player, ...playerData } : null,
     })),
+  setRank: (rank: number) => set({ rank }),
   setExpences: (expences: number) => set({ expences }),
   setNeedsCatchUp: (needsCatchUp: boolean) => set({ needsCatchUp }),
   setHappinessFromBuildings: (currentHappiness: number) =>
@@ -329,6 +333,6 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
       state.setDieselGathRate(
         state.allWorkers.dieselWorkers * multipliers.dieselMultiplier
       );
-      return { multipliers: {...state.multipliers, ...multipliers} };
+      return { multipliers: { ...state.multipliers, ...multipliers } };
     }),
 }));
