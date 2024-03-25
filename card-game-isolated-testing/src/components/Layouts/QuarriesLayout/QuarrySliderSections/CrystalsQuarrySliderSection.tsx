@@ -9,6 +9,7 @@ import {
   crystalsQuarryConstants,
 } from "../../../../constants/game/quarriesConfig";
 import { Level } from "../../../../types";
+import { useToastError } from "../../../../hooks/notifications";
 
 const CrystalsQuarrySliderSection = () => {
   const { images } = UseGlobalContext();
@@ -18,6 +19,11 @@ const CrystalsQuarrySliderSection = () => {
     throw new Error(
       "⛔ CrystalsQuarrySliderSection.tsx: images are undefined!"
     );
+
+  const [lastSafeValue, setLastSafeValue] = useState(
+    gameVars.allWorkers.crystalsWorkers
+  );
+  const { showError } = useToastError();
 
   const allWorkers = gameVars.allWorkers;
 
@@ -33,6 +39,26 @@ const CrystalsQuarrySliderSection = () => {
     const differenceInGatherRate = differenceInWorkers * mulitplier;
     const newPrivateSector = allWorkers.privateSector - differenceInWorkers;
 
+    const newGoldIncome =
+      newPrivateSector * gameVars.multipliers.goldMultiplier;
+    const currentExpences = gameVars.expences;
+    if (currentExpences > newGoldIncome) {
+      showError(
+        "You cannot afford more Workers",
+        "Descrease your Expenses or Increase your Gold Income!"
+      );
+
+      setGatherRate(lastSafeValue * mulitplier);
+      gameVars.setCrystalsGathRate(lastSafeValue * mulitplier); // ✨ ✅
+      gameVars.setAllWorkers({
+        ...allWorkers,
+        privateSector: allWorkers.privateSector,
+        crystalsWorkers: lastSafeValue, // ✨ ✅
+      });
+
+      return false;
+    }
+
     setGatherRate(gatherRate + differenceInGatherRate);
     gameVars.setCrystalsGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
     gameVars.setAllWorkers({
@@ -43,6 +69,7 @@ const CrystalsQuarrySliderSection = () => {
 
     // Update the slider value
     setSliderValue(newValue);
+    setLastSafeValue(newValue);
   };
 
   const maxAvailWorkers = useMemo(
@@ -107,6 +134,7 @@ const CrystalsQuarrySliderSection = () => {
             initValue={Math.ceil(allWorkers.crystalsWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
+            lastSafeValue={lastSafeValue}
           />
           <LabelWithIcon
             image={images.workers.crystalsWorker} // ✨ ✅

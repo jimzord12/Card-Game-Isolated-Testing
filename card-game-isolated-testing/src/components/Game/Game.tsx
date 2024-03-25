@@ -115,6 +115,7 @@ const Game = () => {
       console.log("UseEffect: GameWorker.onmessage: ", event.data);
 
       if (wasSuccess) {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAA");
         hasEffectExpired();
         energyChecker(); //
         const { expense } = maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
@@ -182,15 +183,15 @@ const Game = () => {
       }
     };
 
-    // Setup interval for game loop
-    const gameLoopInterval = setInterval(() => {
-      gameLoopRunner();
-    }, gameConfig.gamePace * 1000); // 5 sec
+    // // Setup interval for game loop // ✨ Uncomment after testing
+    // const gameLoopInterval = setInterval(() => { // ✨ Uncomment after testing
+    //   gameLoopRunner(); // ✨ Uncomment after testing
+    // }, gameConfig.gamePace * 1000); // 5 sec // ✨ Uncomment after testing
 
     return () => {
-      // Terminate the worker when the component unmounts
-      gameWorker.current?.terminate();
-      clearInterval(gameLoopInterval);
+      // Terminate the worker when the component unmounts // ✨ Uncomment after testing
+      // gameWorker.current?.terminate(); // ✨ Uncomment after testing
+      // clearInterval(gameLoopInterval); // ✨ Uncomment after testing
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameLoopTick.current]);
@@ -271,6 +272,16 @@ const Game = () => {
               <div className="z-[401] absolute top-4 left-[280px]">
                 <CustomButton
                   title="Run Loop"
+                  handleClick={() => {
+                    gameLoopTick.current += 1;
+                    gameLoopRunner(1);
+                  }}
+                />
+              </div>
+
+              <div className="z-[401] absolute top-[100px] left-[280px]">
+                <CustomButton
+                  title="Run 100x Loops"
                   handleClick={() => gameLoopRunner(100)}
                 />
               </div>

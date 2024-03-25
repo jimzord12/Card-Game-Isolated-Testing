@@ -97,6 +97,8 @@ const processGameLoopWorker = (
     activeEffect,
     maxAllowedPopulation,
     factoryUnhappiness,
+    barrelsUsedPerHour,
+    expensesPerHour,
   }: IGameLoopWorkerInput,
   needsCatchUp: boolean = false
 ): gameLoopWorkerReturnType => {
@@ -162,6 +164,7 @@ const processGameLoopWorker = (
   // 🔷 4. Gold Gather Rate (🧪 Requires Testing)
   const newGoldGathRate = gathRatesCalculators.goldGathRateCalc(
     newPrivateSector,
+    expensesPerHour,
     multipliers.goldMultiplier,
     activeEffect
   );
@@ -190,6 +193,7 @@ const processGameLoopWorker = (
   // 🔷 8. Concrete Gather Rate (🧪 Requires Testing)
   const newDieselGathRate = gathRatesCalculators.dieselGathRateCalc(
     allWorkers,
+    barrelsUsedPerHour,
     activeEffect
   );
 

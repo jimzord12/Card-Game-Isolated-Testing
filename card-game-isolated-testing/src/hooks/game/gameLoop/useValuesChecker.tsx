@@ -17,7 +17,10 @@ const useValuesChecker = () => {
   const gameVars = useGameVarsStore();
   const toastError = useToastError();
 
-  const removeEntityFromMap = useTownMapStore((state) => state.removeEntity);
+  const removeAllBuildings = useTownMapStore(
+    (state) => state.removeAllBuildings
+  );
+  const removeAllREGs = useTownMapStore((state) => state.removeAllREGs);
 
   // This check the if there is enough gold to pay for the maintenance of the REG cards
   function maintenanceSubtracker() {
@@ -27,6 +30,10 @@ const useValuesChecker = () => {
 
     // If there are not any REG Cards don't waste processing power
     if (regCards.length === 0) {
+      console.log(
+        "%c Maintenance Subtracker - No REGs",
+        "color: limegreen; font-size: 16px;"
+      );
       gameVars.setExpences(0);
       return { expense: 0, success: true };
     }
@@ -43,11 +50,15 @@ const useValuesChecker = () => {
     const newExpenses = roundToDecimal(temp, 4);
 
     if (newExpenses > playerGold) {
+      console.log(
+        "%c Maintenance Subtracker - Low on GOLD",
+        "color: red; font-size: 20px;"
+      );
+      removeAllREGs();
       regCards.forEach((card) => {
         console.log("useValuesChecker::REG::Card to be Removed: ", card);
         allCardsState.removeCardFromActiveCards(card);
         allCardsState.addCardToInventory(card);
-        removeEntityFromMap(card);
         cardsStateManager(regCards, "deactivate", updateCardData);
       });
 
@@ -74,9 +85,9 @@ const useValuesChecker = () => {
       console.log("Prev - Player gold: ", playerGold);
 
       //@Important: This Line subtracts gold from the resources
-      gameVars.updatePlayerData({
-        gold: playerGold - newExpense_GameLoopTickAmount,
-      });
+      // gameVars.updatePlayerData({
+      //   gold: playerGold - newExpense_GameLoopTickAmount,
+      // });
 
       console.log(
         "New - Player gold: ",
@@ -117,9 +128,13 @@ const useValuesChecker = () => {
     console.log("⚡ Energy Remaining: ", energyProduced - newEnergyConsumed);
 
     if (energyRemaining < 0) {
+      console.log(
+        "%c Energy Checker - Low on Energy",
+        "color: red; font-size: 20px;"
+      );
+      removeAllBuildings();
       buildingCards.forEach((card) => {
         console.log("useValuesChecker::Building::Card to be Removed: ", card);
-        removeEntityFromMap(card);
         allCardsState.removeCardFromActiveCards(card);
         allCardsState.addCardToInventory(card);
         cardsStateManager(buildingCards, "deactivate", updateCardData);

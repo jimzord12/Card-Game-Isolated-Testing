@@ -13,7 +13,6 @@ import {
 } from "../../../types/GameLoopTypes/GameLoopTypes";
 import { useToastError } from "../../notifications";
 import { updatePlayerData } from "../../../../api/apiFns";
-import { barrelToSadnessConversion } from "../../../constants/game/defaultBuildingsConfig";
 
 const useGameLoop = () => {
   const gameVars = useGameVarsStore();
@@ -114,8 +113,18 @@ const useGameLoop = () => {
     );
 
     const factoryUnhappiness = isNotNullOrUndefined<number>(
-      gameVars.factoryBarrels * barrelToSadnessConversion,
+      gameVars.factoryUnhappiness,
       "factoryUnhappiness"
+    );
+
+    const expensesPerHour = isNotNullOrUndefined<number>(
+      gameVars.expences,
+      "expensesPerHour"
+    );
+
+    const barrelsUsedPerHour = isNotNullOrUndefined<number>(
+      gameVars.factoryBarrels,
+      "barrelsUsedPerHour"
     );
 
     const maxAllowedPopulation =
@@ -139,6 +148,8 @@ const useGameLoop = () => {
       lastLoginDate,
       maxAllowedPopulation,
       factoryUnhappiness,
+      expensesPerHour,
+      barrelsUsedPerHour,
     };
   };
 

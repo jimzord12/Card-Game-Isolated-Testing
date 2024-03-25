@@ -9,12 +9,16 @@ import {
   defaultRatesMultipliers,
   defaultWorkers,
 } from "../constants/game/gameConfig";
+import { defaultBuildingsConfig } from "../constants/game";
+import { calcPopGrowthRate } from "../hooks/game/gameLoop/calculators/gathRatesCalculators";
+import { round4Decimal } from "../utils/game/roundToDecimal";
 
 export type GameVarsState = {
   player: IPlayerDB | null;
   townhallLevel: Level;
   factoryLevel: Level;
   factoryBarrels: number;
+  factoryUnhappiness: number;
   happinessFromBuildings: number;
   expences: number; // In Old Code is Maintanance
   needsCatchUp: boolean;
@@ -68,6 +72,7 @@ export type GameVarsState = {
     fn: Level | ((currentFactoryLevel: Level) => Level)
   ) => void;
   setFactoryBarrels: (barrels: number) => void;
+  setFactoryUnhappiness: (unhappiness: number) => void;
 
   // Quarries
   setQuarryLevel: (
@@ -113,6 +118,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   townhallLevel: 1,
   factoryLevel: 1,
   factoryBarrels: 0,
+  factoryUnhappiness: 0,
   happinessFromBuildings: 0,
   expences: 0,
   needsCatchUp: false,
@@ -163,7 +169,28 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
       factoryLevel: typeof fn === "function" ? fn(state.factoryLevel) : fn,
     }));
   },
-  setFactoryBarrels: (barrels: number) => set({ factoryBarrels: barrels }),
+  setFactoryUnhappiness: (unhappiness: number) =>
+    set({ factoryUnhappiness: unhappiness }),
+  setFactoryBarrels: (barrels: number) => {
+    set((state) => {
+      const newFactoryUnhappiness = round4Decimal(
+        barrels * defaultBuildingsConfig.barrelToSadnessConversion
+      );
+
+      // 1. Updating the Factory Unhappiness
+      state.setFactoryUnhappiness(newFactoryUnhappiness);
+
+      // 2. Updating the Pop Growth Rate
+      state.setPopGrowthRate(
+        calcPopGrowthRate(
+          state.player?.population ?? 0,
+          state.happinessFromBuildings,
+          newFactoryUnhappiness
+        )
+      );
+      return { factoryBarrels: barrels };
+    });
+  },
 
   // Quarries ✨ //TODO: Set it up in usePlayerInit
   setQuarryLevel: (

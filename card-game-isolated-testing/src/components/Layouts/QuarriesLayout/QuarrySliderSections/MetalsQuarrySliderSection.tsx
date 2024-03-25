@@ -9,6 +9,7 @@ import {
   metalsQuarryConstants,
 } from "../../../../constants/game/quarriesConfig";
 import { Level } from "../../../../types";
+import { useToastError } from "../../../../hooks/notifications";
 
 const MetalsQuarrySliderSection = () => {
   const { images } = UseGlobalContext();
@@ -16,6 +17,11 @@ const MetalsQuarrySliderSection = () => {
   const gameVars = useGameVarsStore();
   if (images === undefined)
     throw new Error("⛔ MetalsQuarrySliderSection.tsx: images are undefined!");
+
+  const [lastSafeValue, setLastSafeValue] = useState(
+    gameVars.allWorkers.metalsWorkers
+  );
+  const { showError } = useToastError();
 
   const allWorkers = gameVars.allWorkers;
 
@@ -31,6 +37,26 @@ const MetalsQuarrySliderSection = () => {
     const differenceInGatherRate = differenceInWorkers * mulitplier;
     const newPrivateSector = allWorkers.privateSector - differenceInWorkers;
 
+    const newGoldIncome =
+      newPrivateSector * gameVars.multipliers.goldMultiplier;
+    const currentExpences = gameVars.expences;
+    if (currentExpences > newGoldIncome) {
+      showError(
+        "You cannot afford more Workers",
+        "Descrease your Expenses or Increase your Gold Income!"
+      );
+
+      setGatherRate(lastSafeValue * mulitplier);
+      gameVars.setMetalsGathRate(lastSafeValue * mulitplier); // ✨ ✅
+      gameVars.setAllWorkers({
+        ...allWorkers,
+        privateSector: allWorkers.privateSector,
+        metalsWorkers: lastSafeValue, // ✨ ✅
+      });
+
+      return false;
+    }
+
     setGatherRate(gatherRate + differenceInGatherRate);
     gameVars.setMetalsGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
     gameVars.setAllWorkers({
@@ -41,6 +67,7 @@ const MetalsQuarrySliderSection = () => {
 
     // Update the slider value
     setSliderValue(newValue);
+    setLastSafeValue(newValue);
   };
 
   const maxAvailWorkers = useMemo(
@@ -105,6 +132,7 @@ const MetalsQuarrySliderSection = () => {
             initValue={Math.ceil(allWorkers.metalsWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
+            lastSafeValue={lastSafeValue}
           />
           <LabelWithIcon
             image={images.workers.metalsWorker} // ✨ ✅

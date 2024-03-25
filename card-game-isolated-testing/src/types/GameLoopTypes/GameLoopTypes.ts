@@ -84,6 +84,8 @@ export interface IGameLoopWorkerInput {
   lastLoginDate: string;
   maxAllowedPopulation: number;
   factoryUnhappiness: number;
+  expensesPerHour: number;
+  barrelsUsedPerHour: number;
 }
 
 // export interface OldGameState {

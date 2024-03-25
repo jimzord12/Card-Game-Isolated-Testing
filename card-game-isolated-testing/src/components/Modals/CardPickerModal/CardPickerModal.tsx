@@ -16,6 +16,7 @@ import { useGameVarsStore } from "../../../stores/gameVars";
 import { useToastError } from "../../../hooks/notifications";
 import CompleteCard from "../../Cards/CardTemplates/CompleteCard/CompleteCard";
 import { templateIdToTemplateDataBuilding } from "../../../constants/templates";
+import { calcIncome } from "../../../hooks/game/gameLoop/utils";
 
 type Props = {
   type: CardType;
@@ -35,7 +36,16 @@ const CardPickerModal = ({ type, spot }: Props) => {
     removeCardFromInventory,
     activeBuildingCards,
   } = useAllCardsStore((state) => state);
-  const { energyRemaining, player } = useGameVarsStore((state) => state);
+  const { energyRemaining, player, expences } = useGameVarsStore(
+    (state) => state
+  );
+  const goldMultiplier = useGameVarsStore(
+    (state) => state.multipliers.goldMultiplier
+  );
+  const privateSector = useGameVarsStore(
+    (state) => state.allWorkers.privateSector
+  );
+  const income = calcIncome(privateSector, goldMultiplier);
 
   // Hooks
   const toastError = useToastError();
@@ -155,10 +165,16 @@ const CardPickerModal = ({ type, spot }: Props) => {
         throw new Error(
           "⛔ CardPickerModal: canBeActivated: Player is nulll or player.gold is null!"
         );
-      if (player.gold - card.maintenance.gold < 0) {
+      // if (player.gold - card.maintenance.gold < 0) {
+      const newExpenses = expences + card.maintenance.gold;
+      if (player.gold <= 0 && income < newExpenses) {
+        console.log("CardPickerModal:Player Gold: ", player.gold);
+        console.log("CardPickerModal: Gold Income: ", income);
+        console.log("CardPickerModal:expences: ", expences);
         toastError.showError(
-          "Insufficient Energy",
-          `You need more 💰 Gold to activate the (${card.name}) Card!`
+          "Insufficient Gold Gathering",
+          `You need more Gold /h to activate the (${card.name}) Card!`,
+          `Gold Needed: ${card.maintenance.gold}`
         );
         return false;
       }

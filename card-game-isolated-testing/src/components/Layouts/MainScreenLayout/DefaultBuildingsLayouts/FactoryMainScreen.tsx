@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UseGlobalContext } from "../../../../context/GlobalContext/GlobalContext";
 import useGetLabelsSize from "../../../../hooks/game/useGetLabelsSize";
 import { round2Decimal } from "../../../../utils/game/roundToDecimal";
@@ -10,56 +10,114 @@ import {
   barrelToSadnessConversion,
   factoryBarrelsPerLevel,
 } from "../../../../constants/game/defaultBuildingsConfig";
+import { calcPopGrowthRate } from "../../../../hooks/game/gameLoop/calculators/gathRatesCalculators";
+import { useToastError } from "../../../../hooks/notifications";
 
 const FactoryMainScreen = () => {
   const { images } = UseGlobalContext();
   const deviceSize = useGetLabelsSize();
+  const { showError } = useToastError();
 
   const gameVars = useGameVarsStore();
-  const currentPopGrowth = round2Decimal(gameVars.popGrowthRate);
+  console.log("[1] - Population: ", gameVars.player?.population);
+  console.log(
+    "[2] - Happiness From Buildings: ",
+    gameVars.happinessFromBuildings
+  );
+  console.log("[3] - Factory Unhappiness: ", gameVars.factoryUnhappiness);
+  const currentPopGrowth = round2Decimal(
+    calcPopGrowthRate(
+      gameVars.player?.population ?? 0,
+      gameVars.happinessFromBuildings,
+      gameVars.factoryUnhappiness
+    )
+  );
+  // const currentHappyFromBuildings = round2Decimal(
+  //   gameVars.happinessFromBuildings
+  // );
   const currentEnergyProduced = round2Decimal(gameVars.energyProduced);
 
   const [sliderValue, setSliderValue] = useState(gameVars.factoryBarrels); // init: 80
+  const [lastSafeValue, setLastSafeValue] = useState(gameVars.factoryBarrels);
   //   const [sadnessFromFactory, setSadnessFromFactory] = useState(
   //     currentPopGrowth - barrelToSadnessConversion * sliderValue
   //   );
   const [energyFromBarrels, setEnergyFromBarrels] = useState(
     gameVars.factoryBarrels * barrelToEnergyConversion
-  ); // init: 800
+  );
 
   const handleSliderChange = (newValue: number) => {
-    console.log("New Slider Value", newValue);
+    console.log("1 - New Slider Value", newValue);
     const differenceInBarrels = newValue - sliderValue;
-    console.log("Difference in Barrels", differenceInBarrels);
+    console.log("2 - Difference in Barrels", differenceInBarrels);
+    console.log("=========================================");
 
     const differenceInEnergyFromBarrelsToDisplay =
       energyFromBarrels + differenceInBarrels * barrelToEnergyConversion;
 
     const differenceInEnergyFromBarrelsForCalc =
       differenceInBarrels * barrelToEnergyConversion;
+    console.log("4 - Factory - Energy Produced", currentEnergyProduced);
 
     console.log("=========================================");
 
-    console.log("Current PopGrowth", currentPopGrowth);
+    console.log("5 - Current PopGrowth", currentPopGrowth);
     const differenceInHappiness =
       differenceInBarrels * barrelToSadnessConversion;
     console.log(
-      "Difference in Happiness",
+      "6 - Difference in Happiness",
       round2Decimal(differenceInHappiness)
     );
     console.log("=========================================");
 
-    setEnergyFromBarrels(round2Decimal(differenceInEnergyFromBarrelsToDisplay));
-    gameVars.setPopGrowthRate(
-      round2Decimal(currentPopGrowth - differenceInHappiness)
+    const newProducedEnergy = round2Decimal(
+      differenceInEnergyFromBarrelsForCalc + currentEnergyProduced
     );
+    const currentEnergyConsumed = gameVars.energyConsumed;
 
-    gameVars.setEnergyProduced(
-      round2Decimal(
-        differenceInEnergyFromBarrelsForCalc + currentEnergyProduced
-      )
-    );
+    if (currentEnergyConsumed > newProducedEnergy) {
+      console.log(
+        "🔴 FactoryMainScreen: Energy Consumed is greater than Energy Produced!"
+      );
+      showError(
+        "Invalid Action!",
+        "You cannot decrease the Barrels, because it will cause an energy shortage!",
+        "First, deactivate some Buildings."
+      );
+      gameVars.setFactoryBarrels(lastSafeValue);
+      setEnergyFromBarrels(
+        round2Decimal(lastSafeValue * barrelToEnergyConversion)
+      );
+      gameVars.setEnergyProduced(
+        currentEnergyProduced + lastSafeValue * barrelToEnergyConversion
+      );
+
+      return false;
+    }
+
+    // Update the Global State, A lot is happening in "setFactoryBarrels" at gameVars, go check it out for debugging.
     gameVars.setFactoryBarrels(newValue);
+    setLastSafeValue(newValue);
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
+    // Local State (useState)
+    setEnergyFromBarrels(round2Decimal(differenceInEnergyFromBarrelsToDisplay));
+
+    // // Updating the Game State
+    // gameVars.setPopGrowthRate(
+    //   round2Decimal(
+    //     calcPopGrowthRate(
+    //       gameVars.player?.population ?? 0,
+    //       gameVars.happinessFromBuildings,
+    //       gameVars.factoryUnhappiness
+    //     )
+    //   )
+    // );
+    // gameVars.setHappinessFromBuildings(
+    //   currentHappyFromBuildings - differenceInHappiness
+    // );
+
+    gameVars.setEnergyProduced(newProducedEnergy);
 
     // Update the slider value
     setSliderValue(newValue);
@@ -88,6 +146,10 @@ const FactoryMainScreen = () => {
     );
     return "calendarGameIcon";
   };
+
+  useEffect(() => {
+    setEnergyFromBarrels(round2Decimal(sliderValue * barrelToEnergyConversion));
+  }, [sliderValue]);
 
   return (
     <div className="flex flex-col w-full h-full justify-center items-center">
@@ -130,6 +192,7 @@ const FactoryMainScreen = () => {
             initValue={Math.ceil(gameVars.factoryBarrels)}
             onChange={handleSliderChange}
             size={deviceSize}
+            lastSafeValue={lastSafeValue}
           />
           <LabelWithIcon
             image={images.gameIcons.energyUtilizationGameIcon}

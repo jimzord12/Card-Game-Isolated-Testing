@@ -23,17 +23,38 @@ export const calcPopGrowthRate = (
   return baseHappiness + happinessProvidedByBuildings - factoryUnhappiness;
 };
 
+export const dieselGathRateCalc = (
+  workers: Workers,
+  //   dieselMultiplier: number,
+  barrelsUsedPerHour: number,
+  specialEffect: effectClass | null
+) => {
+  const dieselFromWorkers = roundToDecimal(
+    calcProduction(workers.dieselWorkers, 1),
+    4
+  );
+  const boostFromEffect = specialEffect
+    ? specialEffect.output["dieselGathRate" as keyof EffectOutput]
+    : 1;
+
+  return dieselFromWorkers * boostFromEffect - barrelsUsedPerHour;
+};
+
 export const goldGathRateCalc = (
   privateSector: number,
+  expenses: number,
   goldMultiplier: number,
   specialEffect: effectClass | null
 ) => {
-  return (
-    roundToDecimal(calcProduction(privateSector, goldMultiplier), 4) *
-    (specialEffect
-      ? specialEffect.output["goldGathRate" as keyof EffectOutput]
-      : 1)
+  const goldFromPrivateSector = roundToDecimal(
+    calcProduction(privateSector, goldMultiplier),
+    4
   );
+  const boostFromEffect = specialEffect
+    ? specialEffect.output["goldGathRate" as keyof EffectOutput]
+    : 1;
+
+  return goldFromPrivateSector * boostFromEffect - expenses;
 };
 
 export const concreteGathRateCalc = (
@@ -77,19 +98,6 @@ export const crystalsGathRateCalc = (
     ) *
     (specialEffect
       ? specialEffect.output["crystalsGathRate" as keyof EffectOutput]
-      : 1)
-  );
-};
-
-export const dieselGathRateCalc = (
-  workers: Workers,
-  //   dieselMultiplier: number,
-  specialEffect: effectClass | null
-) => {
-  return (
-    roundToDecimal(calcProduction(workers.dieselWorkers, 1), 4) *
-    (specialEffect
-      ? specialEffect.output["dieselGathRate" as keyof EffectOutput]
       : 1)
   );
 };

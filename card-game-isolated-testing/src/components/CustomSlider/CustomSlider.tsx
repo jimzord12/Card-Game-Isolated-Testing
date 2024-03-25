@@ -12,7 +12,8 @@ interface CustomSliderProps {
   max: number;
   size?: Size;
   initValue?: number;
-  onChange: (newValue: number) => void;
+  lastSafeValue?: number;
+  onChange: (newValue: number) => void | boolean;
 }
 
 const CustomSlider = ({
@@ -21,6 +22,7 @@ const CustomSlider = ({
   size = "medium",
   initValue,
   onChange,
+  lastSafeValue,
 }: CustomSliderProps) => {
   const sliderRef = useRef<HTMLImageElement>(null);
 
@@ -33,6 +35,8 @@ const CustomSlider = ({
     // changeInitValue !== undefined ? changeInitValue!() : 1
     initValue !== undefined ? initValue : 1
   );
+
+  // const [lastSafeValue, setLastSafeValue] = useState(initValue || 0);
 
   // Event listeners
   const startDragging = useCallback(
@@ -94,8 +98,13 @@ const CustomSlider = ({
   };
 
   const stopDragging = () => {
-    console.log("TEST: Slider Value: ", currentValue);
-    onChange(currentValue);
+    console.log("[1.1] - CustomerSlider:: Value: ", currentValue);
+    console.log("[1.2] - CustomerSlider:: lastSafeValue: ", lastSafeValue);
+    const wasSuccess = onChange(currentValue);
+    if (wasSuccess === false && lastSafeValue !== undefined) {
+      console.log("[2.1] - CustomerSlider:: lastSafeValue: ", lastSafeValue);
+      setValue(lastSafeValue);
+    }
 
     document.removeEventListener("mousemove", onDrag);
     document.removeEventListener("mouseup", stopDragging);

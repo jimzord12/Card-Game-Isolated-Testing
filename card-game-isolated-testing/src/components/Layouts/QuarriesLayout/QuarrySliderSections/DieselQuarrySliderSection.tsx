@@ -9,6 +9,7 @@ import {
   dieselQuarryConstants,
 } from "../../../../constants/game/quarriesConfig";
 import { Level } from "../../../../types";
+import { useToastError } from "../../../../hooks/notifications";
 
 const DieselQuarrySliderSection = () => {
   const { images } = UseGlobalContext();
@@ -16,6 +17,11 @@ const DieselQuarrySliderSection = () => {
   const gameVars = useGameVarsStore();
   if (images === undefined)
     throw new Error("⛔ DieselQuarrySliderSection.tsx: images are undefined!");
+
+  const [lastSafeValue, setLastSafeValue] = useState(
+    gameVars.allWorkers.dieselWorkers
+  );
+  const { showError } = useToastError();
 
   const allWorkers = gameVars.allWorkers;
 
@@ -31,6 +37,26 @@ const DieselQuarrySliderSection = () => {
     const differenceInGatherRate = differenceInWorkers * mulitplier;
     const newPrivateSector = allWorkers.privateSector - differenceInWorkers;
 
+    const newGoldIncome =
+      newPrivateSector * gameVars.multipliers.goldMultiplier;
+    const currentExpences = gameVars.expences;
+    if (currentExpences > newGoldIncome) {
+      showError(
+        "You cannot afford more Workers",
+        "Descrease your Expenses or Increase your Gold Income!"
+      );
+
+      setGatherRate(lastSafeValue * mulitplier);
+      gameVars.setDieselGathRate(lastSafeValue * mulitplier); // ✨ ✅
+      gameVars.setAllWorkers({
+        ...allWorkers,
+        privateSector: allWorkers.privateSector,
+        dieselWorkers: lastSafeValue, // ✨ ✅
+      });
+
+      return false;
+    }
+
     setGatherRate(gatherRate + differenceInGatherRate);
     gameVars.setDieselGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
     gameVars.setAllWorkers({
@@ -41,6 +67,7 @@ const DieselQuarrySliderSection = () => {
 
     // Update the slider value
     setSliderValue(newValue);
+    setLastSafeValue(newValue);
   };
 
   const maxAvailWorkers = useMemo(
@@ -105,6 +132,7 @@ const DieselQuarrySliderSection = () => {
             initValue={Math.ceil(allWorkers.dieselWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
+            lastSafeValue={lastSafeValue}
           />
           <LabelWithIcon
             image={images.workers.oilRigWorker} // ✨ ✅
