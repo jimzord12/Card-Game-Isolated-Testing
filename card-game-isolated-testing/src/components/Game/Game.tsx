@@ -183,15 +183,16 @@ const Game = () => {
       }
     };
 
-    // // Setup interval for game loop // ✨ Uncomment after testing
-    // const gameLoopInterval = setInterval(() => { // ✨ Uncomment after testing
-    //   gameLoopRunner(); // ✨ Uncomment after testing
-    // }, gameConfig.gamePace * 1000); // 5 sec // ✨ Uncomment after testing
+    // // Setup interval for game loop
+    const gameLoopInterval = setInterval(() => {
+      // ✨ Uncomment after testing
+      gameLoopRunner(); // ✨ Uncomment after testing
+    }, gameConfig.gamePace * 1000); // 5 sec // ✨ Uncomment after testing
 
     return () => {
-      // Terminate the worker when the component unmounts // ✨ Uncomment after testing
-      // gameWorker.current?.terminate(); // ✨ Uncomment after testing
-      // clearInterval(gameLoopInterval); // ✨ Uncomment after testing
+      // Terminate the worker when the component unmounts
+      gameWorker.current?.terminate(); // ✨ Uncomment after testing
+      clearInterval(gameLoopInterval); // ✨ Uncomment after testing
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameLoopTick.current]);
