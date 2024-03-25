@@ -8,14 +8,6 @@ const meta: Meta<typeof CustomSlider> = {
     layout: "screen",
   },
   tags: ["autodocs"],
-  //   argTypes: {
-  //     size: {
-  //       control: {
-  //         type: "radio",
-  //         options: ["small", "medium", "large"],
-  //       },
-  //     },
-  //   },
 } satisfies Meta<typeof CustomSlider>;
 
 export default meta;
@@ -25,7 +17,7 @@ const DefaultProps: Story["args"] = {
   max: 100,
   onChange: (newValue: number) => {
     console.log(newValue, "newValue");
-    return newValue;
+    return false;
   },
 };
 
