@@ -132,7 +132,8 @@ const CustomSlider = ({
             left: `calc(${(value / max) * usableWidth}px - ${0}px + ${
               sliderBarSize.width * 0.025
             }px)`,
-            filter: max === 0 ? "grayscale(100%)" : "none",
+            filter: max <= 1 ? "grayscale(100%)" : "none",
+            cursor: max <= 1 ? "not-allowed" : "pointer",
             zIndex: 9,
           }}
           onMouseDown={startDragging}
@@ -145,7 +146,9 @@ const CustomSlider = ({
           alt="Slider Bar"
           onDragStart={(e) => e.preventDefault()}
           style={{
-            filter: max === 0 ? "grayscale(100%)" : "none",
+            filter: max <= 1 ? "grayscale(100%)" : "none",
+            cursor: max <= 1 ? "not-allowed" : "pointer",
+
             zIndex: 10,
           }}
         />

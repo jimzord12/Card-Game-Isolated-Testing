@@ -34,7 +34,7 @@ const HospitalOutputSection = ({ card }: HospitalOutputSectionProps) => {
             labelImages={images.labels}
             image={images.gameIcons.growthGameIcon}
             labelType="simple"
-            value={`${round2Decimal(doctors * card.output.boost)} /h`}
+            value={`+${round2Decimal(doctors * card.output.boost)} /h`}
             desc={{
               text: "Growth From Hospital",
               style: "white",

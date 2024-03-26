@@ -63,7 +63,7 @@ const amusementParkTemplate: TemplateDataBuilding = {
     diesel: 0,
   },
   baseOutput: {
-    boost: 0.25,
+    boost: 1.5,
   },
   desc: "Enchances Happiness",
 };

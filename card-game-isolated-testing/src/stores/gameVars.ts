@@ -188,6 +188,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
           newFactoryUnhappiness
         )
       );
+      
       return { factoryBarrels: barrels };
     });
   },

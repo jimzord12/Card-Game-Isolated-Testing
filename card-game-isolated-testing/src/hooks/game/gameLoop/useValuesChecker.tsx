@@ -22,6 +22,71 @@ const useValuesChecker = () => {
   );
   const removeAllREGs = useTownMapStore((state) => state.removeAllREGs);
 
+  function factoryChecker() {
+    const barrelsUsedInFactoryPerHour =
+      useGameVarsStore.getState().factoryBarrels;
+    if (barrelsUsedInFactoryPerHour === 0) {
+      console.log(
+        "%c Factory Checker - No Barrels Used",
+        "color: limegreen; font-size: 16px;"
+      );
+      return;
+    }
+
+    const barrelsAvailable = useGameVarsStore.getState().player?.diesel;
+    if (barrelsAvailable === undefined || barrelsAvailable === null) {
+      console.log(
+        "%c Factory Checker - Null or Undefined Barrels",
+        "color: red; font-size: 20px;"
+      );
+      gameVars.setFactoryBarrels(0);
+      toastError.showError(
+        "Problem with Factory Barrels",
+        "😱 Something went wrong with the Code."
+      );
+      return;
+    }
+
+    const buildingCards = useAllCardsStore
+      .getState()
+      .activeCards.filter((card) => isBuildingCard(card)) as BuildingCard[];
+
+    console.log(
+      `%c Consumed Barrels per 5sec: ${hoursToSecRates(
+        barrelsUsedInFactoryPerHour,
+        gameConfig.gamePace,
+        false
+      )}`,
+      "color: purple; font-size: 16px;"
+    );
+
+    if (
+      barrelsAvailable <
+      hoursToSecRates(barrelsUsedInFactoryPerHour, gameConfig.gamePace, false)
+    ) {
+      console.log(
+        "%c Factory Checker - Low on Barrels",
+        "color: red; font-size: 20px;"
+      );
+      gameVars.setFactoryBarrels(0);
+      gameVars.updatePlayerData({
+        diesel: 0,
+      });
+      toastError.showError(
+        "Low on Barrels",
+        "😱 Your current Diesel Barrels are not enough to run the Factory! Therefore, your Buildings are deactivated due to Energy shortage."
+      );
+      removeAllBuildings();
+      buildingCards.forEach((card) => {
+        console.log("useValuesChecker::Building::Card to be Removed: ", card);
+        allCardsState.removeCardFromActiveCards(card);
+        allCardsState.addCardToInventory(card);
+        cardsStateManager(buildingCards, "deactivate", updateCardData);
+      });
+      return;
+    }
+  }
+
   // This check the if there is enough gold to pay for the maintenance of the REG cards
   function maintenanceSubtracker() {
     const regCards = useAllCardsStore
@@ -49,7 +114,16 @@ const useValuesChecker = () => {
 
     const newExpenses = roundToDecimal(temp, 4);
 
-    if (newExpenses > playerGold) {
+    console.log(
+      `%c 2 - Expenses per 5sec: ${hoursToSecRates(
+        newExpenses,
+        gameConfig.gamePace,
+        false
+      )}`,
+      "color: purple; font-size: 16px;"
+    );
+
+    if (playerGold < hoursToSecRates(newExpenses, gameConfig.gamePace, false)) {
       console.log(
         "%c Maintenance Subtracker - Low on GOLD",
         "color: red; font-size: 20px;"
@@ -63,6 +137,9 @@ const useValuesChecker = () => {
       });
 
       gameVars.setExpences(0);
+      gameVars.updatePlayerData({
+        gold: 0,
+      });
 
       toastError.showError(
         "Low on Gold",
@@ -191,7 +268,12 @@ const useValuesChecker = () => {
       });
     }
   }
-  return { maintenanceSubtracker, energyChecker, hasEffectExpired };
+  return {
+    maintenanceSubtracker,
+    energyChecker,
+    hasEffectExpired,
+    factoryChecker,
+  };
 };
 
 export default useValuesChecker;

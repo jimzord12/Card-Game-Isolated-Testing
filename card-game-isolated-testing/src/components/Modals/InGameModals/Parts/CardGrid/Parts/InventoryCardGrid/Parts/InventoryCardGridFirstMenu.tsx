@@ -13,16 +13,22 @@ const InventoryCardGridFirstMenu = ({ cards, setSelectedCard }: Props) => {
   console.log("InventroyCardGridFirstMenu: Cards: ", cards);
   return (
     <div className="flex flex-row gap-6 flex-wrap p-8 tablet:pt-12">
-      {cards.map((card, index) => {
-        return (
-          <CompleteCard
-            card={card}
-            setSelectedCard={setSelectedCard}
-            currentModal="Inventory"
-            key={`InventroyCardGrid-${card.name}-${card.id}-${index}`}
-          />
-        );
-      })}
+      {cards.length > 0 ? (
+        cards.map((card, index) => {
+          return (
+            <CompleteCard
+              card={card}
+              setSelectedCard={setSelectedCard}
+              currentModal="Inventory"
+              key={`InventroyCardGrid-${card.name}-${card.id}-${index}`}
+            />
+          );
+        })
+      ) : (
+        <div className="text-3xl text-slate-800 tablet:text-5xl">
+          No cards in the Inventory
+        </div>
+      )}
     </div>
   );
 };

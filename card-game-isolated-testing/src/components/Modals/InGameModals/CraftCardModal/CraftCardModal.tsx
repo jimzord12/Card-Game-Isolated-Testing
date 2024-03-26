@@ -209,7 +209,13 @@ export default function CraftCardModal({
               borderRadius: "10px",
               boxShadow: "1px 2px 2px 0px black",
             }}
-            onClick={closeModal}
+            onClick={() => {
+              closeModal();
+              setTimeout(() => {
+                setTypeSelection(null);
+                resetCardFilters();
+              }, 600);
+            }}
           >
             Close
           </button>

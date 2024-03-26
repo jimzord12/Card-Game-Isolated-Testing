@@ -83,8 +83,12 @@ const Game = () => {
 
   const { setNewGameState, getGameState, needsCatchUp, calcTimeUnits } =
     useGameLoop();
-  const { energyChecker, maintenanceSubtracker, hasEffectExpired } =
-    useValuesChecker();
+  const {
+    energyChecker,
+    maintenanceSubtracker,
+    hasEffectExpired,
+    factoryChecker,
+  } = useValuesChecker();
 
   // If not authenticated, nothing will be rendered and user will be redirected
   function gameLoopRunner(
@@ -117,6 +121,7 @@ const Game = () => {
       if (wasSuccess) {
         console.log("AAAAAAAAAAAAAAAAAAAAAAA");
         hasEffectExpired();
+        factoryChecker();
         energyChecker(); //
         const { expense } = maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
         const stateAfterExpenses = {
