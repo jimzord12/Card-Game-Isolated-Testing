@@ -109,6 +109,30 @@ const usePlayerInit = () => {
     //   (data.factory_barrels ?? 0) * barrelToSadnessConversion
     // );
     setPopGrowthRate(popGrowthRate);
+
+    toastError.showError(
+      "Important (1/3)",
+      "If you encouter any issues or weird behaviors, please...",
+      "Refresh the Page",
+      15 * 1000,
+      false
+    );
+    toastError.showError(
+      "Important (2/3)",
+      "After performing an Action, some values take time (3-5s) to be updated. If you don't see the changes...",
+      "Refresh the Page",
+      20 * 1000,
+      false
+    );
+    toastError.showError(
+      "Important (3/3)",
+      "If you find a Bug or a Glitch, please contact the Developer.",
+      "mscres-72@uniwa.gr",
+      30 * 1000,
+      false,
+      false
+    )
+
     return popGrowthRate;
   };
 
