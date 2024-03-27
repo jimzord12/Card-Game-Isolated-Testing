@@ -11,7 +11,10 @@ export const useToastError = ({ autoClose = 10000 }: Props = {}) => {
   const showError = (
     title = "Error",
     message = "Something went wrong!",
-    specialText?: string
+    specialText?: string,
+    closeAfter?: number,
+    draggable?: boolean,
+    closeOnClick?: boolean
   ) => {
     toast.error(
       // Using .error to get the default error styling, you can modify further if needed
@@ -21,7 +24,9 @@ export const useToastError = ({ autoClose = 10000 }: Props = {}) => {
         specialText={specialText}
       />,
       {
-        autoClose: autoClose,
+        autoClose: closeAfter !== undefined ? closeAfter : autoClose,
+        draggable: draggable !== undefined ? draggable : true,
+        closeOnClick: closeOnClick !== undefined ? closeOnClick : true,
         // autoClose: false,
       }
     );

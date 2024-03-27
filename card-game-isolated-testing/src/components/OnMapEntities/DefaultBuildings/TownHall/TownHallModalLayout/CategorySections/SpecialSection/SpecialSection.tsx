@@ -1,11 +1,12 @@
 import { UseGlobalContext } from "../../../../../../../context/GlobalContext/GlobalContext";
+import { calcRank } from "../../../../../../../hooks/game/gameLoop/utils";
 import { useGameVarsStore } from "../../../../../../../stores/gameVars";
 import SpecialLabel from "../../../../../../GameAssets/Labels/SpecialLabel/SpecialLabel";
 import styles from "./specialSectionStyles.module.css";
 
 const SpecialSection = () => {
   const { images } = UseGlobalContext();
-  const playerData = useGameVarsStore((state) => state.player);
+  const { energyProduced, player } = useGameVarsStore((state) => state);
   // const environment = useGameVarsStore((state) => state.environment); //TODO: Implement Environment
 
   if (images === undefined)
@@ -15,7 +16,10 @@ const SpecialSection = () => {
     <section className={styles.specialSection}>
       <SpecialLabel
         gameIcon={images?.gameIcons.rankGameIcon}
-        valueToDisplay={"Score: " + playerData?.rank ?? "XerrorX"}
+        valueToDisplay={
+          "Score: " + calcRank(player?.population ?? 0, energyProduced) ??
+          "XerrorX"
+        }
         alt="CitizensSpace"
       />
       <SpecialLabel
