@@ -42,7 +42,7 @@ export const dieselGathRateCalc = (
 
 export const goldGathRateCalc = (
   privateSector: number,
-  expenses: number,
+  expensesPerHour: number,
   goldMultiplier: number,
   specialEffect: effectClass | null
 ) => {
@@ -54,7 +54,7 @@ export const goldGathRateCalc = (
     ? specialEffect.output["goldGathRate" as keyof EffectOutput]
     : 1;
 
-  return goldFromPrivateSector * boostFromEffect - expenses;
+  return goldFromPrivateSector * boostFromEffect - expensesPerHour;
 };
 
 export const concreteGathRateCalc = (

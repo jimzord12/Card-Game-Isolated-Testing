@@ -394,6 +394,9 @@ export default function CardGrid({
         "Crafted New Card",
         "✨ You can check it out in your Inventory!"
       );
+
+      // 8. Play the Quiz Game
+      pushModal(<QuizModal resourceCosts={newCard.requirements} />);
     }
   }
 
@@ -544,8 +547,8 @@ export default function CardGrid({
     // 7. Close Gracefully the Modal
     closeModal();
 
-    // 8. Plau the Quiz Game
-    pushModal(<QuizModal resourceCosts={card.requirements} />);
+    // 8. Play the Quiz Game
+    // if (success) pushModal(<QuizModal resourceCosts={card.requirements} />); ✨
   };
 
   return (

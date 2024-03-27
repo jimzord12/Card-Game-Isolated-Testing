@@ -7,7 +7,7 @@ import { isRegCard } from "../../../types/TypeGuardFns/RegGuards";
 import { isNotNullOrUndefined } from "../../../types/TypeGuardFns/isNullorUndefined";
 import { roundToDecimal } from "../../../utils";
 import { useToastError } from "../../notifications";
-import { gameConfig } from "../../../constants/game";
+import { defaultBuildingsConfig, gameConfig } from "../../../constants/game";
 import { isBuildingCard } from "../../../types/TypeGuardFns/BuildingGuards";
 import BuildingCard from "../../../classes/buildingClass_V2";
 import { useTownMapStore } from "../../../stores/townMapEntitiesStore";
@@ -68,21 +68,39 @@ const useValuesChecker = () => {
         "%c Factory Checker - Low on Barrels",
         "color: red; font-size: 20px;"
       );
+
+      const oldEnergy = gameVars.energyProduced;
+      const newEnergy =
+        oldEnergy -
+        barrelsUsedInFactoryPerHour *
+          defaultBuildingsConfig.barrelToEnergyConversion;
+
+      // 1. This remove the Energy produced by the Factory
+      gameVars.setEnergyProduced(newEnergy);
       gameVars.setFactoryBarrels(0);
       gameVars.updatePlayerData({
         diesel: 0,
       });
+
+      // 🧪 Needs Testing
+      if (gameVars.energyConsumed > newEnergy) {
+        removeAllBuildings();
+        buildingCards.forEach((card) => {
+          console.log("useValuesChecker::Building::Card to be Removed: ", card);
+          allCardsState.removeCardFromActiveCards(card);
+          allCardsState.addCardToInventory(card);
+          cardsStateManager(buildingCards, "deactivate", updateCardData);
+        });
+        toastError.showError(
+          "Low on Barrels",
+          "😱 Your current Diesel Barrels are not enough to run the Factory! Therefore, your Buildings are deactivated due to Energy shortage."
+        );
+      }
       toastError.showError(
         "Low on Barrels",
-        "😱 Your current Diesel Barrels are not enough to run the Factory! Therefore, your Buildings are deactivated due to Energy shortage."
+        "😱 Your current Diesel Barrels are not enough to run the Factory! However, your REGs can sustain the Buildings."
       );
-      removeAllBuildings();
-      buildingCards.forEach((card) => {
-        console.log("useValuesChecker::Building::Card to be Removed: ", card);
-        allCardsState.removeCardFromActiveCards(card);
-        allCardsState.addCardToInventory(card);
-        cardsStateManager(buildingCards, "deactivate", updateCardData);
-      });
+
       return;
     }
   }
@@ -115,7 +133,7 @@ const useValuesChecker = () => {
     const newExpenses = roundToDecimal(temp, 4);
 
     console.log(
-      `%c 2 - Expenses per 5sec: ${hoursToSecRates(
+      `%c Maintenance Subtracker - Expenses per 5sec: ${hoursToSecRates(
         newExpenses,
         gameConfig.gamePace,
         false
@@ -188,6 +206,10 @@ const useValuesChecker = () => {
     // If there are not any REG Cards don't waste processing power
     console.log("The Current Buildings: ", buildingCards);
     if (buildingCards.length === 0) {
+      console.log(
+        "%c Energy Checker ⚡ - No Buildings",
+        "color: limegreen; font-size: 16px;"
+      );
       gameVars.setEnergyConsumed(0);
       return true;
     }
@@ -221,7 +243,7 @@ const useValuesChecker = () => {
 
       toastError.showError(
         "Low on Energy",
-        "😱 Your current Energy is not enough to pay for the maintenance of your Buildings! Therefore, your Buildings will be deactivated."
+        "😱 Your current Energy is not enough to power your Buildings! Therefore, your Buildings will be deactivated."
       );
 
       return false;

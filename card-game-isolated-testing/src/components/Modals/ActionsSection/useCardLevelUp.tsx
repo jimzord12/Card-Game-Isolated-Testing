@@ -43,9 +43,17 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
       card.id !== null
     ) {
       if (card instanceof BuildingCard && card.state === true) {
-        const availableEnergy = gameVars.energyRemaining;
-        const newEnergyRequirements =
-          availableEnergy - card.getNewStats().newMaintenance.energy;
+        const energyRemaining = gameVars.energyRemaining;
+        const cardCurrentEnergy = card.maintenance.energy;
+        const cardNewEnergy = card.getNewStats().newMaintenance.energy;
+        const cardEnergyDiff = cardNewEnergy - cardCurrentEnergy;
+        const newEnergyRequirements = energyRemaining - cardEnergyDiff;
+        console.log("{1} - Energy Remaining: ", energyRemaining);
+        console.log("{2} - Card Current Energy: ", cardCurrentEnergy);
+        console.log("{3} - Card New Energy: ", cardNewEnergy);
+        console.log("{4} - Card Energy Diff: ", cardEnergyDiff);
+        console.log("{5} - New Energy Requirements: ", newEnergyRequirements);
+
         if (newEnergyRequirements < 0) {
           toastError.showError(
             "Not Enough Energy",
@@ -82,20 +90,18 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
         return false;
       }
 
-      card.levelUp(); // 🔷 2. Update Card Internally
-
       // 🔷 If All are good...
       try {
         const success_card = await updateCardData({
           id: card.id,
-          level: card.level,
+          level: card.level + 1,
         }); // 🔷 1.  Update Card in MySQL
         if (!success_card)
           throw new Error(
             "⛔ ActionsSection: levelUp: Card was not updated in DB! Probably it does not exists"
           );
 
-        setCardLevel(card.level); // 🔷 3. Update Parent State to trigger Re-render
+        setCardLevel((card.level + 1) as CardLevel); // 🔷 3. Update Parent State to trigger Re-render
 
         console.log("1 - OLD RESOURECES: ", playerResources);
 
@@ -106,6 +112,8 @@ const useCardLevelUp = ({ setCardLevel }: Props) => {
         });
 
         console.log("2 - NEW RESOURECES: ", newPlayerResources);
+
+        card.levelUp(); // 🔷 2. Update Card Internally
 
         // 🔷 5. Updates the Resources of GameVars Store
         updatePlayerData(newPlayerResources);

@@ -11,6 +11,7 @@ import {
 } from "../../../../constants/game/defaultBuildingsConfig";
 import { calcPopGrowthRate } from "../../../../hooks/game/gameLoop/calculators/gathRatesCalculators";
 import { useToastError } from "../../../../hooks/notifications";
+import { defaultBuildingsConfig } from "../../../../constants/game";
 
 const FactoryMainScreen = () => {
   const { images } = UseGlobalContext();
@@ -24,13 +25,34 @@ const FactoryMainScreen = () => {
   //   gameVars.happinessFromBuildings
   // );
   // console.log("[3] - Factory Unhappiness: ", gameVars.factoryUnhappiness);
-  const currentPopGrowth = round2Decimal(
-    calcPopGrowthRate(
-      gameVars.player?.population ?? 0,
-      gameVars.happinessFromBuildings,
-      gameVars.factoryUnhappiness
-    )
-  );
+
+  // Is the Population maxed out?
+  const popGrowthCondition =
+    (gameVars.player?.population ?? 0) >=
+    defaultBuildingsConfig.townhallHousingLimitPerLevel[gameVars.townhallLevel];
+
+  // If yes, then the currentPopGrowth should be 0.
+  // If no, then calculate the currentPopGrowth.
+  const currentPopGrowth = popGrowthCondition
+    ? 0
+    : round2Decimal(
+        calcPopGrowthRate(
+          gameVars.player?.population ?? 0,
+          gameVars.happinessFromBuildings,
+          gameVars.factoryUnhappiness
+        )
+      );
+
+  // const currentPopGrowth = round2Decimal(
+  //   calcPopGrowthRate(
+  //     gameVars.player?.population ?? 0,
+  //     gameVars.happinessFromBuildings,
+  //     gameVars.factoryUnhappiness
+  //   )
+  // );
+
+  // console.log("[4] - Factory CurrentPopGrowth: ", currentPopGrowth);
+
   // const currentHappyFromBuildings = round2Decimal(
   //   gameVars.happinessFromBuildings
   // );

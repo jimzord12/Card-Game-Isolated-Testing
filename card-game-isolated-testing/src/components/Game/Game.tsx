@@ -9,10 +9,13 @@ import { useRequireAuth } from "../../hooks/auth/useRequiresAuth";
 // import GameButton from "../Buttons/GameButton/GameButton";
 // import StatsBars from "../StatsBars/StatsBars";
 import GameWorker from "../../webWorkers/gameLoopWorker.worker?worker";
-import { gameLoopWorkerReturnType } from "../../types/GameLoopTypes/GameLoopTypes";
+import {
+  IGameLoopWorkerInput,
+  gameLoopWorkerReturnType,
+} from "../../types/GameLoopTypes/GameLoopTypes";
 import useGameLoop from "../../hooks/game/gameLoop/useGameLoop";
 import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
-import CustomButton from "../Buttons/CustomButton/CustomButton";
+// import CustomButton from "../Buttons/CustomButton/CustomButton";
 import EffectIndicator from "../EffectIndicator/EffectIndicator";
 import { useGameVarsStore } from "../../stores/gameVars";
 import { updatePlayerData } from "../../../api/apiFns";
@@ -91,10 +94,8 @@ const Game = () => {
   } = useValuesChecker();
 
   // If not authenticated, nothing will be rendered and user will be redirected
-  function gameLoopRunner(
-    /* currentGameState: IGameLoopWorkerInput */ catchUpLoops?: number
-  ) {
-    const currentGameState = getGameState(catchUpLoops ? catchUpLoops : 1);
+  function gameLoopRunner(currentGameState: IGameLoopWorkerInput) {
+    // const currentGameState = getGameState(catchUpLoops ? catchUpLoops : 1);
     console.log("🎮 [Game.tsx] OLD - GameState: ", currentGameState);
     gameWorker.current?.postMessage(currentGameState);
   }
@@ -107,9 +108,12 @@ const Game = () => {
     if (requiresCatchUp) {
       hasEffectExpired();
       const catchUpLoops = calcTimeUnits();
+      const currentGameStateCatchUp = getGameState(
+        catchUpLoops ? catchUpLoops : 1
+      );
       console.log("🎮 [Game.tsx] Needs Catch Up: ", needsCatchUp());
       console.log("🎮 [Game.tsx] Number of Loops: ", catchUpLoops);
-      gameLoopRunner(catchUpLoops);
+      gameLoopRunner(currentGameStateCatchUp);
     }
 
     gameWorker.current.onmessage = (
@@ -191,7 +195,8 @@ const Game = () => {
     // // Setup interval for game loop
     const gameLoopInterval = setInterval(() => {
       // ✨ Uncomment after testing
-      gameLoopRunner(); // ✨ Uncomment after testing
+      const currentGameState = getGameState(1);
+      gameLoopRunner(currentGameState); // ✨ Uncomment after testing
     }, gameConfig.gamePace * 1000); // 5 sec // ✨ Uncomment after testing
 
     return () => {
@@ -275,7 +280,7 @@ const Game = () => {
                 setIsInvModalOpen={setIsInvModalOpen}
               />
 
-              <div className="z-[401] absolute top-4 left-[280px]">
+              {/* <div className="z-[401] absolute top-4 left-[280px]">
                 <CustomButton
                   title="Run Loop"
                   handleClick={() => {
@@ -290,7 +295,7 @@ const Game = () => {
                   title="Run 100x Loops"
                   handleClick={() => gameLoopRunner(100)}
                 />
-              </div>
+              </div> */}
               {activeEffect && (
                 <div className="z-[401] absolute top-4 left-[120px]">
                   <EffectIndicator activeEffect={activeEffect} />

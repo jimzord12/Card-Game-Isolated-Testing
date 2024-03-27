@@ -6,7 +6,10 @@ import { getWorkers } from "./utils";
 import {
   barrelToEnergyConversion,
   barrelToSadnessConversion,
+  townhallHousingLimitPerLevel,
 } from "../../constants/game/defaultBuildingsConfig";
+import { round2Decimal } from "../../utils/game/roundToDecimal";
+import { useToastError } from "../notifications";
 // Here we are Initializing:
 // 1. Resources
 // 2. Townhall Level
@@ -27,6 +30,8 @@ const usePlayerInit = () => {
     energyProduced,
     setQuarryLevels,
   } = useGameVarsStore((state) => state);
+
+  const toastError = useToastError();
 
   const playerInit = (data: IPlayerDB) => {
     setPlayer(data); // 🔷 Set the Player Data to Global State
@@ -53,11 +58,33 @@ const usePlayerInit = () => {
     if (data.population === null) {
       throw new Error("⛔ PlayerInit: Player Population is 0");
     }
-    const popGrowthRate = calcPopGrowthRate(
-      data.population,
-      0,
-      (data.factory_barrels ?? 0) * barrelToSadnessConversion
-    );
+
+    const popGrowthCondition =
+      (data.population ?? 0) >=
+      townhallHousingLimitPerLevel[data.townhall_lvl as Level];
+
+    const popGrowthRate = popGrowthCondition
+      ? 0
+      : round2Decimal(
+          calcPopGrowthRate(
+            data.population ?? 0,
+            0,
+            (data.factory_barrels ?? 0) * barrelToSadnessConversion
+          )
+        );
+
+    if (popGrowthRate === 0) {
+      toastError.showError(
+        "Your Town is Full!",
+        "As a result, your Population Growth Rate is 0. Upgrade your Townhall to increase the Population Limit."
+      );
+    }
+
+    // const popGrowthRate = calcPopGrowthRate(
+    //   data.population,
+    //   0,
+    //   (data.factory_barrels ?? 0) * barrelToSadnessConversion
+    // );
     setPopGrowthRate(popGrowthRate);
     return popGrowthRate;
   };

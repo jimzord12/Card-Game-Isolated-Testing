@@ -61,7 +61,7 @@ export const townhallAvailSpacePerLevel = {
     regs: 4,
   },
   5: {
-    buildings: 7,
+    buildings: 6,
     regs: 6,
   },
 };

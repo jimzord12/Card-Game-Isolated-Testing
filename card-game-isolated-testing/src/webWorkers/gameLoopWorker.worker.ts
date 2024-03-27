@@ -68,8 +68,8 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
       newState: {
         newConcrete: nextState.currentConcrete,
         newCrystals: nextState.currentCrystals,
-        newDiesel: nextState.currentDiesel,
-        newGold: nextState.currentGold,
+        newDiesel: nextState.currentDiesel < 0 ? 0 : nextState.currentDiesel,
+        newGold: nextState.currentGold < 0 ? 0 : nextState.currentGold,
         newMetals: nextState.currentMetals,
         newPopGrowthRate: nextState.currentPopGrowthRate,
         newPopulation: nextState.currentPopulation,
@@ -153,11 +153,19 @@ const processGameLoopWorker = (
   if (newPrivateSector_1 === false) {
     // This means that Population is less than the Workers
     // This can happen when the Player has Negative PopGrowthRate
-    console.log("0asidnais-asdsa");
+    console.log(
+      "%c ⛔ GameLoopWorker - Population is less than Workers!",
+      "color: red; font-size: 12px;"
+    );
     newPrivateSector = roundToDecimal(newPopulation, 4);
     actionMessage = "reset workers";
   } else {
     newPrivateSector = newPrivateSector_1;
+    console.log(
+      "%c 🔃 GameLoopWorker - New Private Sector!",
+      "color: aqua; font-size: 14px;",
+      newPrivateSector_1
+    );
   }
 
   // ✨ GATHERING RATES ✨
@@ -167,6 +175,12 @@ const processGameLoopWorker = (
     expensesPerHour,
     multipliers.goldMultiplier,
     activeEffect
+  );
+
+  console.log(
+    "%c 🔃 GameLoopWorker - New Gold Gath Rate!",
+    "color: aqua; font-size: 14px;",
+    newGoldGathRate
   );
 
   // 🔷 5. Concrete Gather Rate (🧪 Requires Testing)
@@ -195,6 +209,12 @@ const processGameLoopWorker = (
     allWorkers,
     barrelsUsedPerHour,
     activeEffect
+  );
+
+  console.log(
+    "%c 🔃 GameLoopWorker - New Barrels Gath Rate!",
+    "color: aqua; font-size: 14px;",
+    newDieselGathRate
   );
 
   // ✨ RESOURCES ✨

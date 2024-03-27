@@ -9,6 +9,7 @@ import {
 import { useGameVarsStore } from "../../../../../stores/gameVars";
 import { useModalStore } from "../../../../../stores/modalStore";
 import { Level, QuarryType } from "../../../../../types";
+import { round2Decimal } from "../../../../../utils/game/roundToDecimal";
 import ConfirmationModal from "../../../../Modals/ConfirmationModal/ConfirmationModal";
 import styles from "./styles";
 
@@ -27,41 +28,69 @@ const QuarryLevelUpBtn = ({ type }: Props) => {
   if (images === undefined || images === null)
     throw new Error("⛔ QuarryLevelUpBtn.tsx, images is undefined | null!");
   const deviceSize = useGetLabelsSize();
+  const quarryLevel = gameVars.quarryLevels[type];
 
-  const handleQuarryLevelUp = () => {
-    const quarryLevel = gameVars.quarryLevels[type];
+  const handleQuarryLevelUp = async () => {
     const requiredGold = quarryLevelCost[quarryLevel as Level];
     const playerGold = gameVars.player?.gold ?? 0;
     const playerId = gameVars.player?.id;
 
-    if (playerId === undefined)
+    if (quarryLevel === undefined || quarryLevel === null) {
+      showError("Code Error", "Quarry Level is undefined | null!");
+      throw new Error("⛔ QuarryLevelUpBtn: quarryLevel is undefined | null!");
+    }
+
+    // Max Level Reached
+    if (quarryLevel === 5) {
+      showError("Max Level Reached", "Quarry is already at Max Level.");
+      return;
+    }
+
+    if (playerId === undefined) {
+      showError("Code Error", "Player Id is undefined!");
       throw new Error("⛔ QuarryLevelUpBtn: playerId is undefined!");
+    }
 
     if (playerGold === 0) {
-      showError("Game Error!", "QuarryLevelUpBtn.tsx: Player Gold is 0");
+      showError(
+        "Low on Gold",
+        "Your Gold is not Sufficient",
+        `Current Gold: ${playerGold}`
+      );
       return;
     }
 
     if (playerGold < requiredGold) {
       showError(
         "Insuffient Gold",
-        "To level up the Quarry, more gold is required."
+        "To level up the Quarry, more gold is required.",
+        `You need ${round2Decimal(requiredGold - playerGold)} more Gold.`
       );
       return;
     }
 
-    show(
-      "Quarry Leveled Up!",
-      `Now you can assign more workers to this Quarry!`
-    );
     gameVars.setQuarryLevel(type, quarryLevel + 1); // Update Client Side State
     gameVars.updatePlayerData({ gold: playerGold - requiredGold }); // Update Client Side State
 
     const quarryProperty = propertyMapper[type];
-    updatePlayerData(playerId, {
-      gold: playerGold - requiredGold,
-      [`${quarryProperty}`]: quarryLevel + 1,
-    }); // Update Server Side State
+    try {
+      // Update Database State
+      await updatePlayerData(playerId, {
+        gold: playerGold - requiredGold,
+        [`${quarryProperty}`]: quarryLevel + 1,
+      });
+
+      show(
+        "Quarry Leveled Up!",
+        `Now you can assign more workers to this Quarry!`
+      );
+    } catch (error) {
+      console.error("QuarryLevelUpBtn: Error updating player data", error);
+      showError(
+        "Server Error",
+        "Failed to Level Up Quarry. Please try again later."
+      );
+    }
   };
 
   const propertyMapper = {
@@ -86,7 +115,16 @@ const QuarryLevelUpBtn = ({ type }: Props) => {
   return (
     <div
       className="w-fit p-2 border-2 largeScreen:p-4 largeScreen:border-4 rounded-xl bg-slate-700/70 hover:bg-emerald-700/60"
-      onClick={openConfirmationModal}
+      style={{
+        filter: quarryLevel === 5 ? "grayscale(100%)" : "grayscale(0%)",
+        cursor: quarryLevel === 5 ? "not-allowed" : "pointer",
+      }}
+      onClick={
+        quarryLevel === 5
+          ? () =>
+              showError("Max Level Reached", "Quarry is already at Max Level.")
+          : openConfirmationModal
+      }
     >
       <img
         className={`object-contain ${styles.imgSize[deviceSize]}`}

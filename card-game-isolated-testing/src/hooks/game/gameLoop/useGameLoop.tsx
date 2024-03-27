@@ -64,66 +64,69 @@ const useGameLoop = () => {
 
   const getGameState = (loopsToRun: number): IGameLoopWorkerInput => {
     const currentPopulation = isNotNullOrUndefined<number>(
-      gameVars.player?.population,
+      useGameVarsStore.getState().player?.population,
       "population"
     );
 
     const happinessProvidedByBuildings = isNotNullOrUndefined<number>(
-      gameVars.happinessFromBuildings,
+      useGameVarsStore.getState().happinessFromBuildings,
       "happinessFromBuildings"
     );
 
     const currentPopGrowthRate = isNotNullOrUndefined<number>(
-      gameVars.popGrowthRate,
+      useGameVarsStore.getState().popGrowthRate,
       "popGrowthRate"
     );
 
     console.log("Get Game State: PopG: ", currentPopGrowthRate);
-    console.log("Get Game State: Multipliers: ", gameVars.multipliers);
+    console.log(
+      "Get Game State: Multipliers: ",
+      useGameVarsStore.getState().multipliers
+    );
 
     const currentGold = isNotNullOrUndefined<number>(
-      gameVars.player?.gold,
+      useGameVarsStore.getState().player?.gold,
       "gold"
     );
     const currentConcrete = isNotNullOrUndefined<number>(
-      gameVars.player?.concrete,
+      useGameVarsStore.getState().player?.concrete,
       "concrete"
     );
     const currentMetals = isNotNullOrUndefined<number>(
-      gameVars.player?.metals,
+      useGameVarsStore.getState().player?.metals,
       "metals"
     );
     const currentCrystals = isNotNullOrUndefined<number>(
-      gameVars.player?.crystals,
+      useGameVarsStore.getState().player?.crystals,
       "crystals"
     );
     const currentDiesel = isNotNullOrUndefined<number>(
-      gameVars.player?.diesel,
+      useGameVarsStore.getState().player?.diesel,
       "diesel"
     );
 
     const lastLoginDate = isNotNullOrUndefined<string>(
-      gameVars.player?.timestamp,
+      useGameVarsStore.getState().player?.timestamp,
       "lastLoginDate"
     );
 
     const townhallLevel = isNotNullOrUndefined<number>(
-      gameVars.townhallLevel,
+      useGameVarsStore.getState().townhallLevel,
       "townhallLevel"
     );
 
     const factoryUnhappiness = isNotNullOrUndefined<number>(
-      gameVars.factoryUnhappiness,
+      useGameVarsStore.getState().factoryUnhappiness,
       "factoryUnhappiness"
     );
 
     const expensesPerHour = isNotNullOrUndefined<number>(
-      gameVars.expences,
+      useGameVarsStore.getState().expences,
       "expensesPerHour"
     );
 
     const barrelsUsedPerHour = isNotNullOrUndefined<number>(
-      gameVars.factoryBarrels,
+      useGameVarsStore.getState().factoryBarrels,
       "barrelsUsedPerHour"
     );
 
@@ -132,10 +135,10 @@ const useGameLoop = () => {
         townhallLevel as keyof typeof defaultBuildingsConfig.townhallHousingLimitPerLevel
       ];
     return {
-      activeEffect: gameVars.activeEffect,
-      allWorkers: gameVars.allWorkers,
-      multipliers: gameVars.multipliers,
-      needsCatchUp: gameVars.needsCatchUp,
+      activeEffect: useGameVarsStore.getState().activeEffect,
+      allWorkers: useGameVarsStore.getState().allWorkers,
+      multipliers: useGameVarsStore.getState().multipliers,
+      needsCatchUp: useGameVarsStore.getState().needsCatchUp,
       currentGold,
       currentConcrete,
       currentMetals,
