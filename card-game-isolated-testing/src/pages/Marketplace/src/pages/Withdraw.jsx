@@ -10,6 +10,8 @@ const Withdraw = () => {
     isErrorSoldCards,
   } = useStateContext();
 
+  console.log("--Withdraws: ", userSoldCards);
+  console.log("--Withdraws - UserId: ", isLoadingSoldCards);
   return (
     <>
       {userId && (

@@ -168,7 +168,7 @@ const CardDetails = () => {
         "🚀 - Custom: Marketplace | CardDetails.jsx : purchaseMutation: ",
         purchaseDetails
       );
-      return purchaseCard(purchaseDetails);
+      purchaseCard(purchaseDetails);
     },
     onError: (error) => {
       console.error(

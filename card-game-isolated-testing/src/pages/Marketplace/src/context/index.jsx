@@ -77,7 +77,7 @@ export const StateContextProvider = ({ children }) => {
       );
       setPlayers(fetchedPlayersData);
       setPlayersMapping((prev) => {
-        const formattedPlayers = {};isSuccessPlayers
+        const formattedPlayers = {};
         fetchedPlayersData.forEach((player) => {
           formattedPlayers[`${player.id}`] = player.name;
         });
@@ -108,8 +108,16 @@ export const StateContextProvider = ({ children }) => {
         "SUCCESSFUL - Got Purchase Events (Marketplace): ",
         soldCardsData
       );
+      console.log(
+        "SUCCESSFUL - Got Purchase Events (Marketplace) - UserID: ",
+        userId
+      );
       setUserSoldCards(soldCardsData);
     } else if (isErrorSoldCards) {
+      console.log(
+        "ERROR - Getting Purchase Events (Marketplace): ",
+        isErrorSoldCards
+      );
       setUserSoldCards([]);
     }
   }, [isSoldCardsSuccess, soldCardsData, isErrorSoldCards]);
