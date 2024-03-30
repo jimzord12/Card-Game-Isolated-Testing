@@ -3,6 +3,7 @@ import { GameVarsState } from "../../gameVars";
 import { nameToTemplateDataBuilding } from "../../../constants/templates";
 import { calcMultiToolStore } from "../../../hooks/initialization/utils/calcMultiToolStore";
 import { isToolStore } from "../../../types/TypeGuardFns/isToolStore";
+import { updatePlayerData } from "../../../../api/apiFns";
 
 export const update_B_GameVars_Removal = (
   card: BuildingCard,
@@ -70,6 +71,13 @@ export const update_B_GameVars_Removal = (
     //   );
 
     const outputEffect = (card.doctors ?? 0) * output.boost;
+
+    if (gameVars.player === null || gameVars.player.id === undefined)
+      throw new Error("⛔ update_B_GameVars_Removal: Player ID is undefined");
+    // Update Database
+    updatePlayerData(gameVars.player.id, {
+      workers_hospital: 0,
+    });
 
     gameVars.setAllWorkers({
       ...gameVars.allWorkers,

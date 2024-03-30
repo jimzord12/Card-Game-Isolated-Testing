@@ -12,6 +12,7 @@ import {
 import { calcPopGrowthRate } from "../../../../hooks/game/gameLoop/calculators/gathRatesCalculators";
 import { useToastError } from "../../../../hooks/notifications";
 import { defaultBuildingsConfig } from "../../../../constants/game";
+import { faceFinder } from "../../../../utils/game/faceFinder";
 
 const FactoryMainScreen = () => {
   const { images } = UseGlobalContext();
@@ -154,21 +155,21 @@ const FactoryMainScreen = () => {
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ HopsitalLayoutManage.tsx: images are undefined!");
 
-  const faceFinder = (popGrowthRate: number): string => {
-    if (popGrowthRate < 0) return images.gameIcons.angryFaceGameIcon;
-    if (popGrowthRate >= 0 && popGrowthRate < 1)
-      return images.gameIcons.sadFaceGameIcon;
-    if (popGrowthRate >= 1 && popGrowthRate < 2)
-      return images.gameIcons.neutralFaceGameIcon;
-    if (popGrowthRate >= 2 && popGrowthRate < 3.5)
-      return images.gameIcons.happyFaceGameIcon;
-    if (popGrowthRate >= 3.5) return images.gameIcons.overjoyedFaceGameIcon;
-    console.error(
-      "⛔ CircularGoldenLabel: popGrowthRate is invalid!",
-      popGrowthRate
-    );
-    return "calendarGameIcon";
-  };
+  // const faceFinder = (popGrowthRate: number): string => {
+  //   if (popGrowthRate < 0) return images.gameIcons.angryFaceGameIcon;
+  //   if (popGrowthRate >= 0 && popGrowthRate < 1)
+  //     return images.gameIcons.sadFaceGameIcon;
+  //   if (popGrowthRate >= 1 && popGrowthRate < 2)
+  //     return images.gameIcons.neutralFaceGameIcon;
+  //   if (popGrowthRate >= 2 && popGrowthRate < 3.5)
+  //     return images.gameIcons.happyFaceGameIcon;
+  //   if (popGrowthRate >= 3.5) return images.gameIcons.overjoyedFaceGameIcon;
+  //   console.error(
+  //     "⛔ CircularGoldenLabel: popGrowthRate is invalid!",
+  //     popGrowthRate
+  //   );
+  //   return "calendarGameIcon";
+  // };
 
   useEffect(() => {
     setEnergyFromBarrels(round2Decimal(sliderValue * barrelToEnergyConversion));

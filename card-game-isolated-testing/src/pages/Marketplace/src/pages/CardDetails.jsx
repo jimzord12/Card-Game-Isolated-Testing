@@ -31,6 +31,7 @@ import {
 } from "../../../../../api/apiFns";
 import { classBuilding, classREG, classSP } from "../../../../classes";
 import { mapOldCardIdsToNewOnes } from "../../../../utils/migration/mapOldCardIdsToNewOnes";
+import { useGeneralVariablesStore } from "../../../../stores/generalVariables";
 
 const createCardObject = (cardDataFromDB) => {
   switch (cardDataFromDB.templateId) {
@@ -40,6 +41,21 @@ const createCardObject = (cardDataFromDB) => {
       return new classSP({ ...cardDataFromDB, templateId: 301 });
     case 13:
       return new classBuilding({ ...cardDataFromDB, templateId: 101 });
+    case 201:
+    case 202:
+    case 203:
+    case 204:
+      return new classREG(cardDataFromDB);
+    case 301:
+    case 302:
+    case 303:
+    case 304:
+      return new classSP(cardDataFromDB);
+    case 101:
+    case 102:
+    case 103:
+    case 104:
+      return new classBuilding(cardDataFromDB);
   }
 };
 const CardDetails = () => {
@@ -47,6 +63,9 @@ const CardDetails = () => {
 
   const playerData = useGameVarsStore((state) => state.player);
   const setPlayerData = useGameVarsStore((state) => state.setPlayer);
+  const setShouldRefetchInvCards = useGeneralVariablesStore(
+    (state) => state.setShouldRefecthInvCards
+  );
 
   const refetchPlayerData = async (playerWallet) => {
     const playerData = await getPlayerByWallet(playerWallet);
@@ -69,6 +88,8 @@ const CardDetails = () => {
   } = useStateContext();
 
   console.log("Marketplace - Card Details |1| - Selected Card: ", selectedCard);
+
+  const [isPurchasing, setIsPurchasing] = useState(false);
 
   // Transaction States
   const [showTranMsg, setShowTranMsg] = useState(false);
@@ -139,7 +160,16 @@ const CardDetails = () => {
     isSuccess: isTxSuccess,
     isError: isTxError,
   } = useMutation({
-    mutationFn: purchaseCard, // This creates an Entry in the Maeketplace MySQL Table
+    // mutationFn: purchaseCard, // This creates an Entry in the Maeketplace MySQL Table
+    mutationFn: (purchaseDetails) => {
+      setIsPurchasing(true);
+      setShouldRefetchInvCards(true);
+      console.log(
+        "🚀 - Custom: Marketplace | CardDetails.jsx : purchaseMutation: ",
+        purchaseDetails
+      );
+      return purchaseCard(purchaseDetails);
+    },
     onError: (error) => {
       console.error(
         " ⛔ - Custom: Marketplace | CardDetails.jsx : purchaseMutation: ",
@@ -158,14 +188,16 @@ const CardDetails = () => {
       await removeFromMP(selectedCard.id); // This changes the card's in_mp state to false (in the cards table)
       await ownersSwapper(selectedCard.id, userId); // This changes the card's owner_id to the buyer's id (in the cards table
       setTranType("success");
+
+      refetchSoldCards();
+      refetchAllCards();
+      refetchPlayerData(playerData.walletAddress);
+      setPlayerBalance((prev) => prev - selectedCard.priceTag); // This updates the player's balance only in Marketplace
       setTimeout(() => {
-        refetchSoldCards();
-        refetchAllCards();
-        refetchPlayerData(playerData.walletAddress);
-        setPlayerBalance((prev) => prev - selectedCard.priceTag); // This updates the player's balance only in Marketplace
         navigate("/marketplace");
         smoothScrollTo(0, 500);
-      }, 3500);
+        setIsPurchasing(false);
+      }, 2000);
     },
   });
 
@@ -173,7 +205,7 @@ const CardDetails = () => {
     if (showTranMsg) smoothScrollTo(document.body.scrollHeight, 1750);
   }, [showTranMsg]);
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     if (selectedCard.id) {
       purchaseMutation({
         cardId: selectedCard?.id,
@@ -197,7 +229,7 @@ const CardDetails = () => {
       refetchPlayerData();
       navigate("/marketplace");
       smoothScrollTo(0, 500);
-    }, 4000);
+    }, 2000);
   };
 
   return (
@@ -415,22 +447,24 @@ const CardDetails = () => {
                     }
                   />
 
-                  <CustomButton
-                    btnType="button"
-                    title={
-                      redirectedFrom === "profile"
-                        ? "Remove Card"
-                        : canBuy
-                        ? "Buy Card"
-                        : "Can't Buy Card"
-                    }
-                    styles="w-full bg-[#8c6dfd]"
-                    disabled={redirectedFrom === "profile" ? false : !canBuy}
-                    handleClick={() => {
-                      setShowTranMsg(true);
-                      console.log("The Card Details: ", selectedCard);
-                    }}
-                  />
+                  {!isPurchasing && (
+                    <CustomButton
+                      btnType="button"
+                      title={
+                        redirectedFrom === "profile"
+                          ? "Remove Card"
+                          : canBuy
+                          ? "Buy Card"
+                          : "Can't Buy Card"
+                      }
+                      styles="w-full bg-[#8c6dfd]"
+                      disabled={redirectedFrom === "profile" ? false : !canBuy}
+                      handleClick={() => {
+                        setShowTranMsg(true);
+                        console.log("The Card Details: ", selectedCard);
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             )}

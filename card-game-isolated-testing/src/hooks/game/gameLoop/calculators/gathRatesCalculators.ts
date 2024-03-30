@@ -46,14 +46,25 @@ export const goldGathRateCalc = (
   goldMultiplier: number,
   specialEffect: effectClass | null
 ) => {
+  // console.log("🧮 goldGathRateCalc: privateSector: ", privateSector);
+  // console.log("🧮 goldGathRateCalc: expensesPerHour: ", expensesPerHour);
+  // console.log("🧮 goldGathRateCalc: goldMultiplier: ", goldMultiplier);
+  // console.log("🧮 goldGathRateCalc: specialEffect: ", specialEffect);
+
   const goldFromPrivateSector = roundToDecimal(
     calcProduction(privateSector, goldMultiplier),
     4
   );
+  // console.log("🧮 goldFromPrivateSector: ", goldFromPrivateSector);
   const boostFromEffect = specialEffect
     ? specialEffect.output["goldGathRate" as keyof EffectOutput]
     : 1;
 
+  // console.log("🧮 boostFromEffect: ", boostFromEffect);
+  // console.log(
+  //   "🧮 goldGathRateCalc: ",
+  //   goldFromPrivateSector * boostFromEffect - expensesPerHour
+  // );
   return goldFromPrivateSector * boostFromEffect - expensesPerHour;
 };
 

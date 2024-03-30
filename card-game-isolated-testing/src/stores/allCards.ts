@@ -35,6 +35,7 @@ interface AllCardsState {
   removeCard: (card: CardClass) => void;
   addCardToInventory: (card: CardClass) => void;
   addAllInventoryCards: (cards: CardClass[]) => void;
+  removeAllInventoryCards: () => void;
   removeCardFromInventory: (card: CardClass) => void;
   addCardToActiveCards: (card: CardClass) => void;
   addAllActiveCards: (cards: CardClass[]) => void;
@@ -76,6 +77,13 @@ export const useAllCardsStore = create<AllCardsState>((set) => ({
       inventory: [...state.inventory, ...cards],
     }));
   },
+
+  // ✨ This is Used to Update Inventory, after a MP purchase
+  removeAllInventoryCards: () =>
+    set((state) => ({
+      ...state,
+      inventory: [],
+    })),
 
   // ✨ When Logging in, add all active cards in one go
   // ✨ Also update the GameVars based on the output of the activated cards

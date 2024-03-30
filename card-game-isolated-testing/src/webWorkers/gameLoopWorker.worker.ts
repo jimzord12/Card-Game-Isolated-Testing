@@ -135,7 +135,7 @@ const processGameLoopWorker = (
     );
   }
   console.log("New Population: ", newPopulation);
-  console.log("New Population Growth Rate: ", newPopGrowthRate);
+  console.log("New Population Growth Rate (/h): ", newPopGrowthRate);
 
   // console.log(
   //   "✌️ [gameLoopWorker] newPopulation: ",

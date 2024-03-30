@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component<
     // console.log("3 - Aaaaaaaa: ", window.location.origin);
     // console.log("4 - Aaaaaaaa: ", window.location.pathname);
     // console.log("5 - Aaaaaaaa: ", window.location.hostname);
-    window.location.replace(window.location.origin);
+    window.location.replace(window.location.origin); // ✨ Uncomment after testing this line to refresh the page
 
     // alert("An error occurred. Please refresh the page.");
   }

@@ -10,6 +10,21 @@ export const goldResourceCalc = (
   gamePace: number,
   needsCatchUp: boolean
 ) => {
+  console.log("🧮 goldResourceCalc: currentGold: ", currentGold);
+  console.log("🧮 goldResourceCalc: goldGathRate: ", goldGathRate);
+  console.log("🧮 goldResourceCalc: gamePace: ", gamePace);
+  console.log("🧮 goldResourceCalc: needsCatchUp: ", needsCatchUp);
+
+  console.log(
+    "🧮 goldResourceCalc: result: ",
+    roundToDecimal(
+      calcUpdatedGathValue(
+        currentGold,
+        hoursToSecRates(goldGathRate, gamePace, needsCatchUp)
+      ),
+      4
+    )
+  );
   return roundToDecimal(
     calcUpdatedGathValue(
       currentGold,

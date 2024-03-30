@@ -18,11 +18,15 @@ import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
 // import CustomButton from "../Buttons/CustomButton/CustomButton";
 import EffectIndicator from "../EffectIndicator/EffectIndicator";
 import { useGameVarsStore } from "../../stores/gameVars";
-import { updatePlayerData } from "../../../api/apiFns";
+import { getPlayerByWallet, updatePlayerData } from "../../../api/apiFns";
 import { useToastError } from "../../hooks/notifications";
 import GameMapActionsBtn from "../Buttons/GameMapActionsBtn/GameMapActionsBtn";
 import { gameConfig } from "../../constants/game";
 import useGA4 from "../../hooks/useGA4";
+import { useAuth } from "../../hooks/auth/useAuth";
+import { useAllCardsStore } from "../../stores/allCards";
+import { useGeneralVariablesStore } from "../../stores/generalVariables";
+import { createJSCards } from "../../utils/game/createJSCards";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -67,6 +71,8 @@ const Game = () => {
     (state) => state.setDieselGathRate
   );
 
+  const [reRenderCounters, setReRenderCounters] = useState(0);
+
   const gameWorker = useRef<Worker | null>(null);
   const gameLoopTick = useRef(0);
 
@@ -83,6 +89,15 @@ const Game = () => {
   // const navigate = useNavigate();
 
   const auth = useRequireAuth();
+
+  const { user } = useAuth();
+  const addAllInventoryCards = useAllCardsStore(
+    (state) => state.addAllInventoryCards
+  );
+  const removeAllInventoryCards = useAllCardsStore(
+    (state) => state.removeAllInventoryCards
+  );
+  const refetchCards = useGeneralVariablesStore((state) => state);
 
   const { setNewGameState, getGameState, needsCatchUp, calcTimeUnits } =
     useGameLoop();
@@ -127,10 +142,10 @@ const Game = () => {
         hasEffectExpired();
         factoryChecker();
         energyChecker(); //
-        const { expense } = maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
+        maintenanceSubtracker(); // TODO: if catchUpisRequired, subtrack the relevant values currently only subtracks once
         const stateAfterExpenses = {
           ...newState,
-          newGold: newState.newGold - expense,
+          newGold: newState.newGold,
         };
 
         if (actionMessage === "reset workers") {
@@ -221,6 +236,37 @@ const Game = () => {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
+  }, []);
+
+  useEffect(() => {
+    let counter = 0;
+    const fetchInvCards = async () => {
+      if (refetchCards.shouldRefecthInvCards) {
+        if (user?.wallet === null || user?.wallet === undefined)
+          throw new Error("⛔ InventoryModal:UseEffect: Wallet is not defined");
+
+        const playerData = await getPlayerByWallet(user?.wallet);
+        const convertedFromDB_To_JS = createJSCards(playerData.cards); // 🔷 Convert the Cards from DB to JS
+
+        const inventoryCards = convertedFromDB_To_JS.filter(
+          (card) => card.state === false && card.forSale === false
+        );
+        addAllInventoryCards(inventoryCards); // 🔷 Updates Client State (Zustand)
+      }
+    };
+
+    if (
+      refetchCards.shouldRefecthInvCards &&
+      reRenderCounters === 0 &&
+      counter === 0
+    ) {
+      removeAllInventoryCards();
+      console.log("asjiodnaojsdoads123123asddas");
+      fetchInvCards();
+      refetchCards.setShouldRefecthInvCards(false);
+      setReRenderCounters(reRenderCounters + 1);
+      counter += 1;
+    }
   }, []);
 
   if (!auth.user) return null;

@@ -61,8 +61,13 @@ export const updateBuildingRelatedGameVars = (
 
   // ✨ ToolStore
   if (card.name === nameToTemplateDataBuilding.ToolStore.name) {
-    if (!isToolStore(card))
+    if (!isToolStore(card)) {
+      console.log(
+        "⛔ updateBuildingRelatedGameVars: Not a ToolStore card",
+        card
+      );
       throw new Error("⛔ updateBuildingRelatedGameVars: Not a ToolStore card");
+    }
 
     const currentMultipliers = gameVars.multipliers;
     const CardMultipliers = calcMultiToolStore(card);

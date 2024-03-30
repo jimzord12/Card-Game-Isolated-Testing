@@ -12,6 +12,7 @@ import CustomSlider from "../../CustomSlider/CustomSlider";
 import LabelWithIcon from "../../Labels/LabelWithIcon/LabelWithIcon";
 import { useToastError } from "../../../hooks/notifications";
 import { calcPopGrowthRate } from "../../../hooks/game/gameLoop/calculators/gathRatesCalculators";
+import { faceFinder } from "../../../utils/game/faceFinder";
 
 interface Props {
   card: BuildingCard;
@@ -147,21 +148,21 @@ const HospitalManageScreen = ({ card }: Props) => {
     hospitalConstants.maxDoctors[card.level]
   );
 
-  const faceFinder = (popGrowthRate: number): string => {
-    if (popGrowthRate < 0) return images.gameIcons.angryFaceGameIcon;
-    if (popGrowthRate >= 0 && popGrowthRate < 1)
-      return images.gameIcons.sadFaceGameIcon;
-    if (popGrowthRate >= 1 && popGrowthRate < 2)
-      return images.gameIcons.neutralFaceGameIcon;
-    if (popGrowthRate >= 2 && popGrowthRate < 3.5)
-      return images.gameIcons.happyFaceGameIcon;
-    if (popGrowthRate >= 3.5) return images.gameIcons.overjoyedFaceGameIcon;
-    console.error(
-      "⛔ CircularGoldenLabel: popGrowthRate is invalid!",
-      popGrowthRate
-    );
-    return "calendarGameIcon";
-  };
+  // const faceFinder = (popGrowthRate: number): string => {
+  //   if (popGrowthRate < 0) return images.gameIcons.angryFaceGameIcon;
+  //   if (popGrowthRate >= 0 && popGrowthRate < 1)
+  //     return images.gameIcons.sadFaceGameIcon;
+  //   if (popGrowthRate >= 1 && popGrowthRate < 2)
+  //     return images.gameIcons.neutralFaceGameIcon;
+  //   if (popGrowthRate >= 2 && popGrowthRate < 3.5)
+  //     return images.gameIcons.happyFaceGameIcon;
+  //   if (popGrowthRate >= 3.5) return images.gameIcons.overjoyedFaceGameIcon;
+  //   console.error(
+  //     "⛔ CircularGoldenLabel: popGrowthRate is invalid!",
+  //     popGrowthRate
+  //   );
+  //   return "calendarGameIcon";
+  // };
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-full ">

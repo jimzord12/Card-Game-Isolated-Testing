@@ -22,6 +22,7 @@ export default function InventoryModal({
   // TODO: Use Zustang store to get the cards
 
   const inventoryCards = useAllCardsStore((state) => state.inventory);
+
   const [isOpen, setIsOpen] = useState(isInvModalOpen);
   const [filteredCardsModal, setFilteredCardsModal] =
     useState<CardClass[]>(inventoryCards);
