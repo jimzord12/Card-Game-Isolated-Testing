@@ -55,7 +55,7 @@ const useGameLoop = () => {
       throw new Error("⛔ GameLoopWorker: Private Sector is False");
 
     gameVars.setAllWorkers({
-      ...gameVars.allWorkers,
+      ...useGameVarsStore.getState().allWorkers,
       privateSector: newPrivateSector,
     });
 
