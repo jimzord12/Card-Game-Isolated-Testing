@@ -89,11 +89,11 @@ export const update_B_GameVars_Removal = (
     );
     gameVars.setPopGrowthRate(currentPopGrowthRate - outputEffect);
     gameVars.setEnergyConsumed(currentEnergyConsumed - maintenance.energy);
-    gameVars.setAllWorkers({
-      ...gameVars.allWorkers,
-      hospitalWorkers:
-        gameVars.allWorkers.hospitalWorkers - (card.doctors ?? 0),
-    });
+    // gameVars.setAllWorkers({
+    //   ...gameVars.allWorkers,
+    //   hospitalWorkers:
+    //     gameVars.allWorkers.hospitalWorkers - (card.doctors ?? 0),
+    // });
     return;
   }
 };

@@ -28,13 +28,13 @@ const FactoryMainScreen = () => {
   // console.log("[3] - Factory Unhappiness: ", gameVars.factoryUnhappiness);
 
   // Is the Population maxed out?
-  const popGrowthCondition =
+  const isTownfull =
     (gameVars.player?.population ?? 0) >=
     defaultBuildingsConfig.townhallHousingLimitPerLevel[gameVars.townhallLevel];
 
   // If yes, then the currentPopGrowth should be 0.
   // If no, then calculate the currentPopGrowth.
-  const currentPopGrowth = popGrowthCondition
+  const currentPopGrowth = isTownfull
     ? 0
     : round2Decimal(
         calcPopGrowthRate(

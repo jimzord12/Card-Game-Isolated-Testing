@@ -13,6 +13,7 @@ import LabelWithIcon from "../../Labels/LabelWithIcon/LabelWithIcon";
 import { useToastError } from "../../../hooks/notifications";
 import { calcPopGrowthRate } from "../../../hooks/game/gameLoop/calculators/gathRatesCalculators";
 import { faceFinder } from "../../../utils/game/faceFinder";
+import { townhallHousingLimitPerLevel } from "../../../constants/game/defaultBuildingsConfig";
 
 interface Props {
   card: BuildingCard;
@@ -41,13 +42,19 @@ const HospitalManageScreen = ({ card }: Props) => {
 
   const { images } = UseGlobalContext();
 
-  const currentPopGrowth = round2Decimal(
-    calcPopGrowthRate(
-      gameVars.player?.population ?? 0,
-      gameVars.happinessFromBuildings,
-      gameVars.factoryUnhappiness
-    )
-  );
+  const isTownfull =
+    (gameVars.player?.population ?? 0) >=
+    townhallHousingLimitPerLevel[gameVars.townhallLevel];
+
+  const currentPopGrowth = isTownfull
+    ? 0
+    : round2Decimal(
+        calcPopGrowthRate(
+          gameVars.player?.population ?? 0,
+          gameVars.happinessFromBuildings,
+          gameVars.factoryUnhappiness
+        )
+      );
 
   if (images?.maps === undefined || images?.onMapAssets === undefined)
     throw new Error("⛔ HopsitalLayoutManage.tsx: images are undefined!");
