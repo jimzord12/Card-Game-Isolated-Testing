@@ -28,7 +28,11 @@ const useGameLoop = () => {
     newCrystals,
     newDiesel,
   }: NewGameState) => {
-    const newRank = calcRank(newPopulation, gameVars.energyProduced);
+    const factoryEnergy =
+      gameVars.factoryBarrels * defaultBuildingsConfig.barrelToEnergyConversion;
+    const onlyGreenEnergy = gameVars.energyProduced - factoryEnergy;
+
+    const newRank = calcRank(newPopulation, onlyGreenEnergy);
     const newTimestamp = convertToMySQLDatetime(Date.now());
     console.log("NEW TIMESTAMP: ", newTimestamp);
 

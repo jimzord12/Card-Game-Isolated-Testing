@@ -59,11 +59,11 @@ const usePlayerInit = () => {
       throw new Error("⛔ PlayerInit: Player Population is 0");
     }
 
-    const popGrowthCondition =
+    const isTownFull =
       (data.population ?? 0) >=
       townhallHousingLimitPerLevel[data.townhall_lvl as Level];
 
-    const popGrowthRate = popGrowthCondition
+    const popGrowthRate = isTownFull
       ? 0
       : round2Decimal(
           calcPopGrowthRate(

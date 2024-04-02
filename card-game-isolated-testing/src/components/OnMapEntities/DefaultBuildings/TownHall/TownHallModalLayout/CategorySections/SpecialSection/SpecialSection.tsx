@@ -1,3 +1,4 @@
+import { defaultBuildingsConfig } from "../../../../../../../constants/game";
 import { UseGlobalContext } from "../../../../../../../context/GlobalContext/GlobalContext";
 import { calcRank } from "../../../../../../../hooks/game/gameLoop/utils";
 import { useGameVarsStore } from "../../../../../../../stores/gameVars";
@@ -6,7 +7,13 @@ import styles from "./specialSectionStyles.module.css";
 
 const SpecialSection = () => {
   const { images } = UseGlobalContext();
-  const { energyProduced, player } = useGameVarsStore((state) => state);
+  const { energyProduced, player, factoryBarrels } = useGameVarsStore(
+    (state) => state
+  );
+
+  const factoryEnergy =
+    factoryBarrels * defaultBuildingsConfig.barrelToEnergyConversion;
+  const onlyGreenEnergy = energyProduced - factoryEnergy;
   // const environment = useGameVarsStore((state) => state.environment); //TODO: Implement Environment
 
   if (images === undefined)
@@ -17,7 +24,7 @@ const SpecialSection = () => {
       <SpecialLabel
         gameIcon={images?.gameIcons.rankGameIcon}
         valueToDisplay={
-          "Score: " + calcRank(player?.population ?? 0, energyProduced) ??
+          "Score: " + calcRank(player?.population ?? 0, onlyGreenEnergy) ??
           "XerrorX"
         }
         alt="CitizensSpace"
