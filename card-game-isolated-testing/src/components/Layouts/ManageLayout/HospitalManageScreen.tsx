@@ -192,7 +192,7 @@ const HospitalManageScreen = ({ card }: Props) => {
             labelImages={images.labels}
             labelType="special"
             size={deviceSize}
-            value={allWorkers.privateSector}
+            value={Math.floor(allWorkers.privateSector)}
             valueType={{
               color: "black",
             }}
@@ -203,8 +203,8 @@ const HospitalManageScreen = ({ card }: Props) => {
             }}
           />
           <CustomSlider
-            max={Math.ceil(maxAvailDoctors)}
-            initValue={Math.ceil(allWorkers.hospitalWorkers)}
+            max={Math.floor(maxAvailDoctors)}
+            initValue={Math.floor(allWorkers.hospitalWorkers)}
             onChange={handleSliderChange}
             size={deviceSize}
             lastSafeValue={lastSafeValue}

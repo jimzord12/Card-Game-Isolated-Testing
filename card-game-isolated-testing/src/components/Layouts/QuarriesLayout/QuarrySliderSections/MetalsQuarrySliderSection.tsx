@@ -117,7 +117,7 @@ const MetalsQuarrySliderSection = () => {
             labelImages={images.labels}
             labelType="rusty"
             size={deviceSize}
-            value={Math.ceil(allWorkers.privateSector)}
+            value={Math.floor(allWorkers.privateSector)}
             valueType={{
               color: "rusty",
             }}
@@ -128,8 +128,8 @@ const MetalsQuarrySliderSection = () => {
             }}
           />
           <CustomSlider
-            max={Math.ceil(maxAvailWorkers)}
-            initValue={Math.ceil(allWorkers.metalsWorkers)} // ✨ ✅
+            max={Math.floor(maxAvailWorkers)}
+            initValue={Math.floor(allWorkers.metalsWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
             lastSafeValue={lastSafeValue}
