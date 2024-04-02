@@ -1,3 +1,4 @@
+import { hospitalConstants } from "../../../../constants/game/buildingsConfig";
 import { Workers } from "../../../../types/GameLoopTypes/GameLoopTypes";
 
 export const privateSectorCalc = (workers: Workers, population: number) => {
@@ -6,7 +7,7 @@ export const privateSectorCalc = (workers: Workers, population: number) => {
     workers.metalsWorkers +
     workers.crystalsWorkers +
     workers.dieselWorkers +
-    workers.hospitalWorkers;
+    workers.hospitalWorkers * hospitalConstants.doctorsToCitizensRatio;
 
   console.log("🧮 GameLoopWorker: concreteWorkers: ", workers.concreteWorkers);
   console.log("🧮 GameLoopWorker: metalsWorkers: ", workers.metalsWorkers);
@@ -27,6 +28,12 @@ export const privateSectorCalc = (workers: Workers, population: number) => {
     );
     return false;
   }
+
+  console.log("🧮 GameLoopWorker: Population: ", population);
+  console.log(
+    "🧮 GameLoopWorker: PrivateSector: ",
+    population - allNonPrivateWorkers
+  );
 
   return population - allNonPrivateWorkers;
 };

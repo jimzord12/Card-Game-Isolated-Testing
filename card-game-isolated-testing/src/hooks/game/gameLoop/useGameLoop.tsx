@@ -13,6 +13,7 @@ import {
 } from "../../../types/GameLoopTypes/GameLoopTypes";
 import { useToastError } from "../../notifications";
 import { updatePlayerData } from "../../../../api/apiFns";
+import { generalCalculators } from "./calculators";
 
 const useGameLoop = () => {
   const gameVars = useGameVarsStore();
@@ -43,6 +44,19 @@ const useGameLoop = () => {
       diesel: newDiesel,
       rank: newRank,
       timestamp: newTimestamp,
+    });
+
+    const newPrivateSector = generalCalculators.privateSectorCalc(
+      gameVars.allWorkers,
+      newPopulation
+    );
+
+    if (newPrivateSector === false)
+      throw new Error("⛔ GameLoopWorker: Private Sector is False");
+
+    gameVars.setAllWorkers({
+      ...gameVars.allWorkers,
+      privateSector: newPrivateSector,
     });
 
     const playerId = isNotNullOrUndefined<number>(gameVars.player?.id, "id");

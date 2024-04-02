@@ -171,7 +171,7 @@ const HospitalManageScreen = ({ card }: Props) => {
       </h1> */}
       <div className="flex flex-col items-center p-16 pb-24 bg-emerald-700/[.55] rounded-xl">
         <LabelWithIcon
-          image={faceFinder(currentPopGrowth)}
+          image={images.gameIcons[faceFinder(currentPopGrowth)]}
           labelImages={images.labels}
           labelType="special"
           size={deviceSize}

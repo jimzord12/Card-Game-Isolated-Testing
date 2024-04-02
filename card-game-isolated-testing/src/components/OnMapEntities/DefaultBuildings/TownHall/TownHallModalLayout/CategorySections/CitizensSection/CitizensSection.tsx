@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   townhallAvailSpacePerLevel,
   townhallHousingLimitPerLevel,
@@ -31,6 +32,10 @@ const CitizensSection = () => {
   const expenses = useGameVarsStore((state) => state.expences);
   // const expenses = maintenanceSubtracker();
 
+  useEffect(() => {
+    console.log("🔵 CitizensSection: income: ", income);
+  }, [income]);
+
   const allActiveRegCards = useAllCardsStore((state) => state.activeRegCards);
   const allActiveBuildingCards = useAllCardsStore(
     (state) => state.activeBuildingCards
@@ -60,7 +65,7 @@ const CitizensSection = () => {
           {ratesResourcesToggler ? (
             <StandardLabel
               gameIcon={images?.workers.simpleCitizenWorker}
-              valueToDisplay={`${Math.ceil(privateSector)}/${Math.ceil(
+              valueToDisplay={`${Math.floor(privateSector)}/${Math.floor(
                 totalPop
               )}`}
               alt="CitizensSpace-Private Sector / Total Citizens"
@@ -69,7 +74,7 @@ const CitizensSection = () => {
             // THIS IS DISPLAYED FRIST
             <StandardLabel
               gameIcon={images?.gameIcons.citizensSpaceGameIcon}
-              valueToDisplay={`${Math.ceil(totalPop)}/${
+              valueToDisplay={`${Math.floor(totalPop)}/${
                 townhallHousingLimitPerLevel[townHallLevel]
               }`}
               alt="CitizensSpace-Total Citizen Space"

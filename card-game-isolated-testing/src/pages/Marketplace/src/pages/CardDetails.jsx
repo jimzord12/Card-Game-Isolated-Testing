@@ -192,7 +192,6 @@ const CardDetails = () => {
       refetchSoldCards();
       refetchAllCards();
       refetchPlayerData(playerData.walletAddress);
-      setPlayerBalance((prev) => prev - selectedCard.priceTag); // This updates the player's balance only in Marketplace
       setTimeout(() => {
         navigate("/marketplace");
         smoothScrollTo(0, 500);

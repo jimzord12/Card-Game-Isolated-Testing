@@ -25,6 +25,19 @@ export const getWorkers = (playerData: IPlayerDB): Workers => {
 
   const privateSector = playerData.population - allNonPrivateWorkers;
 
+  console.log(
+    "✨ usePlayerInit: GetWorkers: Population: ",
+    playerData.population
+  );
+  console.log("✨ usePlayerInit: GetWorkers: privateSector: ", privateSector);
+  console.log("✨ usePlayerInit: GetWorkers: Other Workers: ", {
+    concreteWorkers: playerData.workers_concrete ?? 0,
+    metalsWorkers: playerData.workers_metals ?? 0,
+    crystalsWorkers: playerData.workers_crystals ?? 0,
+    dieselWorkers: playerData.workers_diesel ?? 0,
+    hospitalWorkers: playerData.workers_hospital ?? 0,
+  });
+
   return {
     privateSector: privateSector,
     concreteWorkers: playerData.workers_concrete ?? 0,

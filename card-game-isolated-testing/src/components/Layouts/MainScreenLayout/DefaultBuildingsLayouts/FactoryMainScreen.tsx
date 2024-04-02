@@ -180,7 +180,7 @@ const FactoryMainScreen = () => {
       <div className="flex flex-col items-center p-16 pb-20 bt-12 bg-emerald-700/[.55] rounded-xl border-2 tablet:border-4">
         <div className="h-0 superSmall:h-12" />
         <LabelWithIcon
-          image={faceFinder(currentPopGrowth)}
+          image={images.gameIcons[faceFinder(currentPopGrowth)]}
           labelImages={images.labels}
           labelType="special"
           size={deviceSize}
