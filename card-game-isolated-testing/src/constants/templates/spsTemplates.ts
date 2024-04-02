@@ -15,12 +15,12 @@ const goldSPTemplate: TemplateDataSP = {
     : devModeCardUrls.sps.WallStreet,
   baseOutput: { boost: 0.25 },
   baseRequirements: {
-    gold: 500,
-    concrete: 650,
-    metals: 780,
-    crystals: 260,
-    population: 10,
-    diesel: 0,
+    gold: 25_000,
+    concrete: 12_500,
+    metals: 8_000,
+    crystals: 6_500,
+    population: 0,
+    diesel: 10_000,
   },
   desc: "Enchances Gold Income",
 };
@@ -34,12 +34,12 @@ const growthSPTemplate: TemplateDataSP = {
     : devModeCardUrls.sps.LoveApp,
   baseOutput: { boost: 0.25 },
   baseRequirements: {
-    gold: 500,
-    concrete: 650,
-    metals: 780,
-    crystals: 260,
-    population: 10,
-    diesel: 0,
+    gold: 25_000,
+    concrete: 12_500,
+    metals: 8_000,
+    crystals: 6_500,
+    population: 0,
+    diesel: 10_000,
   },
   desc: "Enchances Population Growth",
 };
@@ -53,12 +53,12 @@ const resourcesSPTemplate: TemplateDataSP = {
     : devModeCardUrls.sps.SuperStrong,
   baseOutput: { boost: 0.25 },
   baseRequirements: {
-    gold: 500,
-    concrete: 650,
-    metals: 780,
-    crystals: 260,
-    population: 10,
-    diesel: 0,
+    gold: 25_000,
+    concrete: 12_500,
+    metals: 8_000,
+    crystals: 6_500,
+    population: 0,
+    diesel: 10_000,
   },
   desc: "Enchances Resource Gathering",
 };
@@ -67,7 +67,7 @@ const templateIdToTemplateDataSP: Record<SPTemplateId, TemplateDataSP> = {
   301: goldSPTemplate,
   302: growthSPTemplate,
   303: resourcesSPTemplate,
-  7: resourcesSPTemplate
+  7: resourcesSPTemplate,
 };
 
 export const spTemplateIds: number[] = [301, 302, 303];
