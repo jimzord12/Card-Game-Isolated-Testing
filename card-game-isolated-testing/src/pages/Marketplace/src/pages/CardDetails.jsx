@@ -161,14 +161,18 @@ const CardDetails = () => {
     isError: isTxError,
   } = useMutation({
     // mutationFn: purchaseCard, // This creates an Entry in the Maeketplace MySQL Table
-    mutationFn: (purchaseDetails) => {
+    mutationFn: async (purchaseDetails) => {
       setIsPurchasing(true);
       setShouldRefetchInvCards(true);
       console.log(
         "🚀 - Custom: Marketplace | CardDetails.jsx : purchaseMutation: ",
         purchaseDetails
       );
-      purchaseCard(purchaseDetails);
+      try {
+        await purchaseCard(purchaseDetails);
+      } catch (error) {
+        throw new Error(error);
+      }
     },
     onError: (error) => {
       console.error(
@@ -187,6 +191,7 @@ const CardDetails = () => {
 
       await removeFromMP(selectedCard.id); // This changes the card's in_mp state to false (in the cards table)
       await ownersSwapper(selectedCard.id, userId); // This changes the card's owner_id to the buyer's id (in the cards table
+
       setTranType("success");
 
       refetchSoldCards();
