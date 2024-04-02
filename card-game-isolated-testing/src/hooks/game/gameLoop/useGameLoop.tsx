@@ -47,7 +47,7 @@ const useGameLoop = () => {
     });
 
     const newPrivateSector = generalCalculators.privateSectorCalc(
-      gameVars.allWorkers,
+      useGameVarsStore.getState().allWorkers,
       newPopulation
     );
 
