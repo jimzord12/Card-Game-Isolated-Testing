@@ -34,11 +34,17 @@ const usePlayerInit = () => {
   const toastError = useToastError();
 
   const playerInit = (data: IPlayerDB) => {
+    // This is a special case where the Factory Barrels are more than the Diesel Barrels
+    let barrelsUsedByFactory = data.factory_barrels ?? 0;
+    const availableDieselBarrels = data.diesel ?? 0;
+    if (barrelsUsedByFactory > availableDieselBarrels)
+      barrelsUsedByFactory = availableDieselBarrels;
+
     setPlayer(data); // 🔷 Set the Player Data to Global State
     console.log("💈 usePlayerInit: ", data);
     setTownhallLevel(data.townhall_lvl as Level);
     setFactoryLevel(data.factory_lvl as Level);
-    setFactoryBarrels(data.factory_barrels ?? 0);
+    setFactoryBarrels(barrelsUsedByFactory);
     setEnergyProduced(
       (data.factory_barrels ?? 0) * barrelToEnergyConversion + energyProduced
     );

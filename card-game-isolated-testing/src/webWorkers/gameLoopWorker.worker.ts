@@ -15,6 +15,8 @@ import {
 } from "../types/GameLoopTypes/GameLoopTypes";
 import { roundToDecimal } from "../utils";
 
+type actionMessage = "reset workers" | "";
+
 onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
   if (e.data.loopsToRun === undefined) {
     postMessage(processGameLoopWorker(e.data));
@@ -30,7 +32,7 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
       currentPopGrowthRate: 0,
       currentPopulation: 0,
     };
-    let actionMessage: "reset workers" | "" = "";
+    let actionMessage: actionMessage = "";
 
     for (let i = 0; i < e.data.loopsToRun; i++) {
       console.log(
@@ -63,7 +65,7 @@ onmessage = (e: MessageEvent<IGameLoopWorkerInput>) => {
     const finalResult: {
       newState: NewGameState;
       wasSuccess: boolean;
-      actionMessage: "reset workers" | "";
+      actionMessage: actionMessage;
     } = {
       newState: {
         newConcrete: nextState.currentConcrete,
@@ -105,7 +107,7 @@ const processGameLoopWorker = (
   let wasSuccess = false;
   let newPopulation = maxAllowedPopulation;
   let newPopGrowthRate = 0;
-  let actionMessage: "reset workers" | "" = "";
+  let actionMessage: actionMessage = "";
   console.log("🚀✨ - currentPopulation: ", currentPopulation);
   console.log("🚀✨ - currentPopGrowthRate: ", currentPopGrowthRate);
   console.log("🚀✨ - maxAllowedPopulation: ", maxAllowedPopulation);

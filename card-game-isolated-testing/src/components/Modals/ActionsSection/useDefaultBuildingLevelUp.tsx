@@ -42,13 +42,17 @@ const useDefaultBuildingLevelUp = () => {
         );
         return false;
       }
-      const newTownhallLevel = (townhallLevel + 1) as Level;
 
       // 🔷 Checking If Player has enough resources
       const alertFlags = hasEnoughResources({
         playerResources: playerResources,
         requirements: townhallRequirements[townhallLevel],
       });
+
+      console.log(
+        " [2] - useDefaultBuildingLevelUp: hasEnoughResources => hasEnoughResources: ",
+        alertFlags
+      );
 
       // 🔷 If Player does NOT has enough resources
       if (alertFlags.length > 0) {
@@ -61,6 +65,7 @@ const useDefaultBuildingLevelUp = () => {
       }
 
       // 🔷 If All are good...
+      const newTownhallLevel = (townhallLevel + 1) as Level;
 
       try {
         const success_townhall = await updatePlayerDataSQL(playerId, {
@@ -76,7 +81,7 @@ const useDefaultBuildingLevelUp = () => {
         // 🔷 4. Subtracks the Resources.
         const newPlayerResources = subtractResources({
           playerResources: playerResources,
-          requirements: townhallRequirements[newTownhallLevel],
+          requirements: townhallRequirements[townhallLevel],
         });
 
         // 🔷 5. Updates the State of GameVars Store
@@ -118,7 +123,6 @@ const useDefaultBuildingLevelUp = () => {
         );
         return false;
       }
-      const newFactoryLevel = (factoryLevel + 1) as Level;
 
       // 🔷 Checking If Player has enough resources
       const alertFlags = hasEnoughResources({
@@ -137,6 +141,7 @@ const useDefaultBuildingLevelUp = () => {
       }
 
       // 🔷 If All are good...
+      const newFactoryLevel = (factoryLevel + 1) as Level;
 
       try {
         const success_factory = await updatePlayerDataSQL(playerId, {
@@ -152,7 +157,7 @@ const useDefaultBuildingLevelUp = () => {
         // 🔷 4. Subtracks the Resources.
         const newPlayerResources = subtractResources({
           playerResources: playerResources,
-          requirements: factoryRequirements[newFactoryLevel],
+          requirements: factoryRequirements[factoryLevel],
         });
 
         // 🔷 5. Updates the State of GameVars Store

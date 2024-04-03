@@ -110,21 +110,23 @@ const ConcreteQuarrySliderSection = () => {
           }}
         />
         <div className="flex items-center gap-3">
-          <LabelWithIcon
-            image={images.workers.simpleCitizenWorker}
-            labelImages={images.labels}
-            labelType="rusty"
-            size={deviceSize}
-            value={Math.floor(allWorkers.privateSector)}
-            valueType={{
-              color: "rusty",
-            }}
-            position="top"
-            desc={{
-              text: "Citizens",
-              style: "white",
-            }}
-          />
+          <div className="-translate-y-8 largeScreen:-translate-y-12">
+            <LabelWithIcon
+              image={images.workers.simpleCitizenWorker}
+              labelImages={images.labels}
+              labelType="rusty"
+              size={deviceSize}
+              value={Math.floor(allWorkers.privateSector)}
+              valueType={{
+                color: "rusty",
+              }}
+              position="top"
+              desc={{
+                text: "Citizens",
+                style: "white",
+              }}
+            />
+          </div>
           <CustomSlider
             max={Math.floor(maxAvailWorkers)}
             initValue={Math.floor(allWorkers.concreteWorkers)} // ✨ ✅
@@ -132,23 +134,25 @@ const ConcreteQuarrySliderSection = () => {
             size={deviceSize}
             lastSafeValue={lastSafeValue}
           />
-          <LabelWithIcon
-            image={images.workers.concreteWorker} // ✨ ✅
-            labelImages={images.labels}
-            labelType="rusty"
-            size={deviceSize}
-            value={allWorkers.concreteWorkers} // ✨ ✅
-            valueType={{
-              type: "maxLimit",
-              limit: maxAvailWorkers,
-              color: "rusty",
-            }}
-            position="top"
-            desc={{
-              text: "Workers",
-              style: "white",
-            }}
-          />
+          <div className="-translate-y-8 largeScreen:-translate-y-12">
+            <LabelWithIcon
+              image={images.workers.concreteWorker} // ✨ ✅
+              labelImages={images.labels}
+              labelType="rusty"
+              size={deviceSize}
+              value={Math.floor(allWorkers.concreteWorkers)} // ✨ ✅
+              valueType={{
+                type: "maxLimit",
+                limit: maxAvailWorkers,
+                color: "rusty",
+              }}
+              position="top"
+              desc={{
+                text: "Workers",
+                style: "white",
+              }}
+            />
+          </div>
         </div>
       </div>
       <div className="h-16" />

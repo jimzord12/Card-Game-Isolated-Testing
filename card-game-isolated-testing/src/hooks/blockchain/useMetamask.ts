@@ -6,6 +6,7 @@ import { generaChain } from "../../constants/blockchain/chainConfig";
 import { useCallback, useEffect, useState } from "react";
 import { BrowserProvider } from "ethers";
 import { formatBalance, formatChainAsNum } from "../../utils";
+import { useToastError } from "../notifications";
 
 const disconnectedState = { accounts: [], balance: "", chainId: -1 };
 
@@ -13,6 +14,7 @@ export const useMetamask = () => {
   const [ethersProvider, setEthersProvider] = useState<BrowserProvider | null>(
     null
   );
+  const { showError } = useToastError();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [metamaskProvider, setMetamaskProvider] = useState<any | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,7 +23,7 @@ export const useMetamask = () => {
   const [wallet, setWallet] = useState(disconnectedState);
 
   const getProvider = useCallback(async () => {
-    const metamaskProvider = await detectEthereumProvider({ silent: true });
+    const metamaskProvider = await detectEthereumProvider({ silent: false });
     if (metamaskProvider) {
       setMetamaskProvider(metamaskProvider);
       const _ethersProvider = new ethers.BrowserProvider(
@@ -37,13 +39,23 @@ export const useMetamask = () => {
   }, []);
 
   const _updateWallet = useCallback(async () => {
+    console.log(
+      "🟢 [2] - Custom: useMetamask: _updateWallet: metamaskProvider: ",
+      metamaskProvider
+    );
     if (metamaskProvider === null) {
+      showError("⛔ Metamask Error", "Metamask Provider is null");
       return null;
     }
 
     const accounts = await metamaskProvider.request({
       method: "eth_requestAccounts",
     });
+
+    console.log(
+      "🟢 [3] - Custom: useMetamask: _updateWallet: accounts: ",
+      accounts
+    );
 
     if (accounts.length === 0) {
       // If there are no accounts, then the user is disconnected
@@ -60,10 +72,20 @@ export const useMetamask = () => {
         })
       );
 
+      console.log(
+        "🟢 [4] - Custom: useMetamask: _updateWallet: balance: ",
+        balance
+      );
+
       const chainId = formatChainAsNum(
         await metamaskProvider.request({
           method: "eth_chainId",
         })
+      );
+
+      console.log(
+        "🟢 [5] - Custom: useMetamask: _updateWallet: chainId: ",
+        chainId
       );
 
       setWallet({ accounts, balance, chainId });
@@ -101,7 +123,10 @@ export const useMetamask = () => {
     } catch (switchError) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((switchError as any).code === 4902) {
-        console.error("This chain does not exist.");
+        console.error("⛔ This chain does not exist on Metamask.");
+        throw new Error("This chain does not exist on Metamask");
+        // await addNetwork();
+        // await switchNetwork();
       } else {
         console.error("⛔ Custom: Eror while Switching Chains", switchError);
       }
@@ -110,10 +135,12 @@ export const useMetamask = () => {
 
   // Handles adding a new network.
   const addNetwork = async () => {
+    const generaChainMetamaskData = { ...generaChain };
+    delete generaChainMetamaskData.parsedChainId;
     try {
       await metamaskProvider.request({
         method: "wallet_addEthereumChain",
-        params: [generaChain],
+        params: [generaChainMetamaskData],
       });
     } catch (addError) {
       console.error(addError);
@@ -125,6 +152,9 @@ export const useMetamask = () => {
       // const accounts = await metamaskProvider.request({
       //   method: "eth_requestAccounts",
       // });
+      console.log(
+        "🟢 [1] - Custom: useMetamask: connectMetaMask: trying to connect wallet"
+      );
       clearError();
       _updateWallet();
     } catch (err) {

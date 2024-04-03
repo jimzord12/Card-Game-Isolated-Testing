@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import Blockie from 'react-blockies';
-import SimpleLoader from './SimpleLoader';
+import Blockie from "react-blockies";
+import SimpleLoader from "./SimpleLoader";
 
 function WalletAvatar({ walletAddress, scale = 3 }) {
   //   const [walletAddress, setWalletAddress] = useState("");
-  console.log('walletAddress: ', walletAddress);
+  console.log("walletAddress: ", walletAddress);
   return (
     <>
       {walletAddress !== undefined ? (

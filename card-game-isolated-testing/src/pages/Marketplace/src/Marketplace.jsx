@@ -34,8 +34,14 @@ const Marketplace = () => {
                 path="marketplace/card-details/:id"
                 element={<CardDetails />}
               />
+              {/* ⛔ This Route Probably is falsy  */}
               <Route
                 path="/profile/marketplace/card-details/:id"
+                element={<CardDetails />}
+              />
+              {/* ✅ This is the route that allows the user to remove the card from the marketplace  */}
+              <Route
+                path="profile/card-details/:id"
                 element={<CardDetails />}
               />
             </Routes>

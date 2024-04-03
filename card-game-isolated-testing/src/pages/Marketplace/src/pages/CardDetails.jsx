@@ -59,6 +59,7 @@ const createCardObject = (cardDataFromDB) => {
   }
 };
 const CardDetails = () => {
+  console.log("asddddddddddddddddddddddddddddddddddd");
   const { state: locationState } = useLocation(); // Card's Data
 
   const playerData = useGameVarsStore((state) => state.player);

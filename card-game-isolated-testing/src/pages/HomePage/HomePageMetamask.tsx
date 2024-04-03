@@ -33,7 +33,7 @@ const HomePageMetamask = () => {
     // getProvider,
     // _updateWallet,
     switchNetwork,
-    // addNetwork,
+    addNetwork,
     connectMetaMask,
   } = useMetamask();
 
@@ -114,8 +114,19 @@ const HomePageMetamask = () => {
       case 2:
         return {
           text: "Select Genera Network",
-          handler: () => {
-            switchNetwork();
+          handler: async () => {
+            try {
+              await switchNetwork();
+            } catch (error) {
+              if (
+                (error as { message: string }).message ===
+                "This chain does not exist on Metamask"
+              ) {
+                console.log("🟢 asdsada");
+                await addNetwork();
+                await switchNetwork();
+              }
+            }
           },
         };
         break;
@@ -137,7 +148,7 @@ const HomePageMetamask = () => {
     if (success) {
       try {
         const { username } = await loginWithWallet(wallet.accounts[0]);
-        // console.log("Handle Login: ", success, username);
+        console.log("🟢✨ Handle Login: ", success, username);
 
         if (username) {
           try {

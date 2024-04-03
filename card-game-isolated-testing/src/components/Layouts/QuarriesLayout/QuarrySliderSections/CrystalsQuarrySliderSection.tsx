@@ -141,7 +141,7 @@ const CrystalsQuarrySliderSection = () => {
             labelImages={images.labels}
             labelType="rusty"
             size={deviceSize}
-            value={allWorkers.crystalsWorkers} // ✨ ✅
+            value={Math.floor(allWorkers.crystalsWorkers)} // ✨ ✅
             valueType={{
               type: "maxLimit",
               limit: maxAvailWorkers,

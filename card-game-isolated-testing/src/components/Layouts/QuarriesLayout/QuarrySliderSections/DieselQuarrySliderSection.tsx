@@ -139,7 +139,7 @@ const DieselQuarrySliderSection = () => {
             labelImages={images.labels}
             labelType="rusty"
             size={deviceSize}
-            value={allWorkers.dieselWorkers} // ✨ ✅
+            value={Math.floor(allWorkers.dieselWorkers)} // ✨ ✅
             valueType={{
               type: "maxLimit",
               limit: maxAvailWorkers,

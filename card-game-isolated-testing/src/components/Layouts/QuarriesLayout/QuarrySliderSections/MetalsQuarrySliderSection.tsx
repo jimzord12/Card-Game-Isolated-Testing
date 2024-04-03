@@ -139,7 +139,7 @@ const MetalsQuarrySliderSection = () => {
             labelImages={images.labels}
             labelType="rusty"
             size={deviceSize}
-            value={allWorkers.metalsWorkers} // ✨ ✅
+            value={Math.floor(allWorkers.metalsWorkers)} // ✨ ✅
             valueType={{
               type: "maxLimit",
               limit: maxAvailWorkers,

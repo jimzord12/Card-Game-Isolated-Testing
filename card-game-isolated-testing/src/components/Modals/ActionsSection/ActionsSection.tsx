@@ -186,7 +186,7 @@ const ActionsSection = ({
       diesel: player.diesel,
     };
 
-    await waitFor(1.2);
+    await waitFor(1);
 
     // In Case of [Townhall] or [Factory]
     if (contentType === "townhall" || contentType === "factory") {
@@ -195,6 +195,8 @@ const ActionsSection = ({
         contentType === "townhall"
           ? townhallRequirements[townhallLevel]
           : factoryRequirements[factoryLevel];
+
+      console.log("ActionSection::levelup() => Townhall => resoruces: ", resources);
 
       try {
         success = await levelUpDefaultBuilding({

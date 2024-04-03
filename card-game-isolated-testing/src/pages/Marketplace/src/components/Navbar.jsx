@@ -81,7 +81,7 @@ const Navbar = () => {
           }}
         />
 
-        <Link to="/profile" onClick={() => setIsActive("profile")}>
+        <Link to="profile" onClick={() => setIsActive("profile")}>
           <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
             {/* <img
               src={thirdweb}

@@ -42,7 +42,7 @@ const useValuesChecker = () => {
       gameVars.setFactoryBarrels(0);
       toastError.showError(
         "Problem with Factory Barrels",
-        "😱 Something went wrong with the Code."
+        "😱 Something went wrong with the Code. Resting the used Barrels in Factory."
       );
       return;
     }

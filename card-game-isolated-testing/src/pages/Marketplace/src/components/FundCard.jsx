@@ -84,7 +84,7 @@ const FundCard = ({ card, handleClick, /*playerAvatar,*/ from }) => {
       <img
         src={import.meta.env.VITE_HOST_URL + cardDetails.image}
         alt="card Image"
-        className="w-full h-[158px] object-cover rounded-[15px]"
+        className="w-full h-[158px] object-contain rounded-[15px]"
       />
 
       <div className="flex flex-col p-4">

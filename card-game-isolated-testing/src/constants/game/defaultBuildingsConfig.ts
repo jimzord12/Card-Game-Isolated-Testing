@@ -33,6 +33,7 @@ export const townhallRequirements: Record<Level, CardRequirements> = {
     diesel: 400,
     population: 0,
   },
+  // This one should never be reached!
   5: {
     gold: 1_000_000,
     concrete: 1_000_000,
