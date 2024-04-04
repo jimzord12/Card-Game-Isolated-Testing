@@ -116,6 +116,9 @@ export default function CraftCardModal({
   const closeModal = () => {
     setIsCraftModalOpen(false);
     setSelectedCardModal(null);
+    setTypeSelection(null);
+    resetCardFilters();
+
     const id = setTimeout(() => {
       setSelectedCardModal(null);
       setTypeSelection(null);
