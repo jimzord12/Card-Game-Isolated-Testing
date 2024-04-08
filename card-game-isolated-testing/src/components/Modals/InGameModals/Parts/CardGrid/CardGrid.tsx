@@ -445,6 +445,10 @@ export default function CardGrid({
         "⛔ Cardgrid: handleActivateClick (#1): Card ID is null!"
       );
 
+    console.log(
+      "HandleActivateClick::The JS TIMESTAMP: ",
+      newEffect.expiresAtUnix
+    );
     const mysqlDate = convertToMySQLDateTime(newEffect.expiresAtUnix);
     console.log("HandleActivateClick::MySQLDate: ", mysqlDate);
     // 🔷 2. Update the Card's Data in the DB

@@ -9,7 +9,7 @@ import {
   metalsQuarryConstants,
 } from "../../../../constants/game/quarriesConfig";
 import { Level } from "../../../../types";
-import { useToastError } from "../../../../hooks/notifications";
+// import { useToastError } from "../../../../hooks/notifications";
 
 const MetalsQuarrySliderSection = () => {
   const { images } = UseGlobalContext();
@@ -18,10 +18,10 @@ const MetalsQuarrySliderSection = () => {
   if (images === undefined)
     throw new Error("⛔ MetalsQuarrySliderSection.tsx: images are undefined!");
 
-  const [lastSafeValue, setLastSafeValue] = useState(
-    gameVars.allWorkers.metalsWorkers
-  );
-  const { showError } = useToastError();
+  // const [lastSafeValue, setLastSafeValue] = useState(
+  //   gameVars.allWorkers.metalsWorkers
+  // );
+  // const { showError } = useToastError();
 
   const allWorkers = gameVars.allWorkers;
 
@@ -37,25 +37,25 @@ const MetalsQuarrySliderSection = () => {
     const differenceInGatherRate = differenceInWorkers * mulitplier;
     const newPrivateSector = allWorkers.privateSector - differenceInWorkers;
 
-    const newGoldIncome =
-      newPrivateSector * gameVars.multipliers.goldMultiplier;
-    const currentExpences = gameVars.expences;
-    if (currentExpences > newGoldIncome) {
-      showError(
-        "You cannot afford more Workers",
-        "Descrease your Expenses or Increase your Gold Income!"
-      );
+    // const newGoldIncome =
+    //   newPrivateSector * gameVars.multipliers.goldMultiplier;
+    // const currentExpences = gameVars.expences;
+    // if (currentExpences > newGoldIncome) {
+    //   showError(
+    //     "You cannot afford more Workers",
+    //     "Descrease your Expenses or Increase your Gold Income!"
+    //   );
 
-      setGatherRate(lastSafeValue * mulitplier);
-      gameVars.setMetalsGathRate(lastSafeValue * mulitplier); // ✨ ✅
-      gameVars.setAllWorkers({
-        ...allWorkers,
-        privateSector: allWorkers.privateSector,
-        metalsWorkers: lastSafeValue, // ✨ ✅
-      });
+    //   setGatherRate(lastSafeValue * mulitplier);
+    //   gameVars.setMetalsGathRate(lastSafeValue * mulitplier); // ✨ ✅
+    //   gameVars.setAllWorkers({
+    //     ...allWorkers,
+    //     privateSector: allWorkers.privateSector,
+    //     metalsWorkers: lastSafeValue, // ✨ ✅
+    //   });
 
-      return false;
-    }
+    //   return false;
+    // }
 
     setGatherRate(gatherRate + differenceInGatherRate);
     gameVars.setMetalsGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
@@ -67,7 +67,7 @@ const MetalsQuarrySliderSection = () => {
 
     // Update the slider value
     setSliderValue(newValue);
-    setLastSafeValue(newValue);
+    // setLastSafeValue(newValue);
   };
 
   const maxAvailWorkers = useMemo(
@@ -132,7 +132,7 @@ const MetalsQuarrySliderSection = () => {
             initValue={Math.floor(allWorkers.metalsWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
-            lastSafeValue={lastSafeValue}
+            // lastSafeValue={lastSafeValue}
           />
           <LabelWithIcon
             image={images.workers.metalsWorker} // ✨ ✅

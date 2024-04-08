@@ -12,6 +12,8 @@ import CompleteCard from "../../../../../../../Cards/CardTemplates/CompleteCard/
 import SecondsMenuSection from "./SecondMenuParts/SecondsMenuSection";
 import SecondsMenuSectionSP from "./SecondMenuParts/SecondsMenuSectionSP";
 import vertDivider from "../../../../../../../../assets/craftAndInvModals/cardGrid/vertical_section_divider.png";
+import { useModalStore } from "../../../../../../../../stores/modalStore";
+import ConfirmationModal from "../../../../../../ConfirmationModal/ConfirmationModal";
 
 interface Props {
   selectedCard: CardClass | null;
@@ -22,6 +24,8 @@ const CraftingCardGridSecondMenu = ({
   selectedCard,
   handleCraftClick,
 }: Props) => {
+  const pushModal = useModalStore((state) => state.pushModal);
+
   let currentlySelectedCard: CardClass;
   switch (selectedCard?.type) {
     case "building":
@@ -51,6 +55,17 @@ const CraftingCardGridSecondMenu = ({
     default:
       throw new Error("⛔ CraftingCardGrid: SecondMenu: cardType is undefined");
   }
+
+  const openConfirmationModal = () => {
+    pushModal(
+      <ConfirmationModal
+        title="Crafting a Card"
+        message={`Are you certain you wish to proceed?`}
+        onConfirm={() => handleCraftClick(currentlySelectedCard)}
+      />
+    );
+  };
+
   return (
     <div
       key={"CardisSelected-" + selectedCard}
@@ -67,7 +82,7 @@ const CraftingCardGridSecondMenu = ({
               borderRadius: "10px",
               boxShadow: "1px 2px 2px 0px black",
             }}
-            onClick={() => handleCraftClick(currentlySelectedCard)}
+            onClick={openConfirmationModal}
           >
             Craft ⚙
           </button>

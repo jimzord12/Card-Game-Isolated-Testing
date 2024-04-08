@@ -6,7 +6,7 @@ import LabelWithIcon from "../../../Labels/LabelWithIcon/LabelWithIcon";
 import { useGameVarsStore } from "../../../../stores/gameVars";
 import { concreteQuarryConstants } from "../../../../constants/game/quarriesConfig";
 import { Level } from "../../../../types";
-import { useToastError } from "../../../../hooks/notifications";
+// import { useToastError } from "../../../../hooks/notifications";
 
 const ConcreteQuarrySliderSection = () => {
   const { images } = UseGlobalContext();
@@ -16,10 +16,10 @@ const ConcreteQuarrySliderSection = () => {
     throw new Error(
       "⛔ ConcreteQuarrySliderSection.tsx: images are undefined!"
     );
-  const [lastSafeValue, setLastSafeValue] = useState(
-    gameVars.allWorkers.concreteWorkers
-  );
-  const { showError } = useToastError();
+  // const [lastSafeValue, setLastSafeValue] = useState(
+  //   gameVars.allWorkers.concreteWorkers
+  // );
+  // const { showError } = useToastError();
 
   const allWorkers = gameVars.allWorkers;
 
@@ -35,25 +35,26 @@ const ConcreteQuarrySliderSection = () => {
     const differenceInGatherRate = differenceInWorkers * mulitplier;
     const newPrivateSector = allWorkers.privateSector - differenceInWorkers;
 
-    const newGoldIncome =
-      newPrivateSector * gameVars.multipliers.goldMultiplier;
-    const currentExpences = gameVars.expences;
-    if (currentExpences > newGoldIncome) {
-      showError(
-        "You cannot afford more Workers",
-        "Descrease your Expenses or Increase your Gold Income!"
-      );
+    // Uncomment for enabling LastSafeValue ✨
+    // const newGoldIncome =
+    //   newPrivateSector * gameVars.multipliers.goldMultiplier;
+    // const currentExpences = gameVars.expences;
+    // if (currentExpences > newGoldIncome) {
+    //   showError(
+    //     "You cannot afford more Workers",
+    //     "Descrease your Expenses or Increase your Gold Income!"
+    //   );
 
-      setGatherRate(lastSafeValue * mulitplier);
-      gameVars.setConcreteGathRate(lastSafeValue * mulitplier); // ✨ ✅
-      gameVars.setAllWorkers({
-        ...allWorkers,
-        privateSector: allWorkers.privateSector,
-        concreteWorkers: lastSafeValue, // ✨ ✅
-      });
+    //   setGatherRate(lastSafeValue * mulitplier);
+    //   gameVars.setConcreteGathRate(lastSafeValue * mulitplier); // ✨ ✅
+    //   gameVars.setAllWorkers({
+    //     ...allWorkers,
+    //     privateSector: allWorkers.privateSector,
+    //     concreteWorkers: lastSafeValue, // ✨ ✅
+    //   });
 
-      return false;
-    }
+    //   return false;
+    // }
 
     setGatherRate(gatherRate + differenceInGatherRate);
     gameVars.setConcreteGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
@@ -65,7 +66,7 @@ const ConcreteQuarrySliderSection = () => {
 
     // Update the slider value
     setSliderValue(newValue);
-    setLastSafeValue(newValue);
+    // setLastSafeValue(newValue);     // Uncomment for enabling LastSafeValue ✨
   };
 
   const maxAvailWorkers = useMemo(
@@ -132,7 +133,7 @@ const ConcreteQuarrySliderSection = () => {
             initValue={Math.floor(allWorkers.concreteWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
-            lastSafeValue={lastSafeValue}
+            // lastSafeValue={lastSafeValue}
           />
           <div className="-translate-y-8 largeScreen:-translate-y-12">
             <LabelWithIcon

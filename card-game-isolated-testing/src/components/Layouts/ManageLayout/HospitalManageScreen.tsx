@@ -10,7 +10,7 @@ import {
 } from "../../../utils/game/roundToDecimal";
 import CustomSlider from "../../CustomSlider/CustomSlider";
 import LabelWithIcon from "../../Labels/LabelWithIcon/LabelWithIcon";
-import { useToastError } from "../../../hooks/notifications";
+// import { useToastError } from "../../../hooks/notifications";
 import { calcPopGrowthRate } from "../../../hooks/game/gameLoop/calculators/gathRatesCalculators";
 import { faceFinder } from "../../../utils/game/faceFinder";
 import { townhallHousingLimitPerLevel } from "../../../constants/game/defaultBuildingsConfig";
@@ -22,7 +22,7 @@ interface Props {
 const HospitalManageScreen = ({ card }: Props) => {
   const allWorkers = useGameVarsStore((state) => state.allWorkers);
   const gameVars = useGameVarsStore();
-  const { showError } = useToastError();
+  // const { showError } = useToastError();
 
   const setAllWorkers = useGameVarsStore((state) => state.setAllWorkers);
   const setHospitalWorkers = useGameVarsStore(
@@ -74,9 +74,9 @@ const HospitalManageScreen = ({ card }: Props) => {
   const [happinessFromHospital, setHappinessFromHospital] =
     useState(popGrowthRate);
 
-  const [lastSafeValue, setLastSafeValue] = useState(
-    gameVars.allWorkers.hospitalWorkers
-  );
+  // const [lastSafeValue, setLastSafeValue] = useState(
+  //   gameVars.allWorkers.hospitalWorkers
+  // );     // Uncomment for enabling LastSafeValue ✨
 
   const handleSliderChange = (newValue: number) => {
     // Calculate the difference in the number of doctors.
@@ -89,32 +89,34 @@ const HospitalManageScreen = ({ card }: Props) => {
 
     const newPrivateSector = allWorkers.privateSector - differenceInCitizens;
 
-    const newGoldIncome =
-      newPrivateSector * gameVars.multipliers.goldMultiplier;
-    const currentExpences = gameVars.expences;
+    // Uncomment for enabling LastSafeValue ✨
+    // const newGoldIncome =
+    //   newPrivateSector * gameVars.multipliers.goldMultiplier;
+    // const currentExpences = gameVars.expences;
 
-    if (currentExpences > newGoldIncome) {
-      showError(
-        "You cannot afford more Doctors",
-        "Descrease your Expenses or Increase your Gold Income!"
-      );
+    // Uncomment for enabling LastSafeValue ✨
+    // if (currentExpences > newGoldIncome) {
+    //   showError(
+    //     "You cannot afford more Doctors",
+    //     "Descrease your Expenses or Increase your Gold Income!"
+    //   );
 
-      gameVars.setHospitalWorkers(lastSafeValue, true);
-      gameVars.setPopGrowthRate(
-        calcPopGrowthRate(
-          gameVars.player?.population ?? 0,
-          happinessFromBuildings + lastSafeValue * card.output.boost,
-          gameVars.factoryUnhappiness
-        )
-      );
-      gameVars.setAllWorkers({
-        ...allWorkers,
-        privateSector: allWorkers.privateSector,
-        hospitalWorkers: lastSafeValue, // ✨ ✅
-      });
+    //   gameVars.setHospitalWorkers(lastSafeValue, true);
+    //   gameVars.setPopGrowthRate(
+    //     calcPopGrowthRate(
+    //       gameVars.player?.population ?? 0,
+    //       happinessFromBuildings + lastSafeValue * card.output.boost,
+    //       gameVars.factoryUnhappiness
+    //     )
+    //   );
+    //   gameVars.setAllWorkers({
+    //     ...allWorkers,
+    //     privateSector: allWorkers.privateSector,
+    //     hospitalWorkers: lastSafeValue, // ✨ ✅
+    //   });
 
-      return false;
-    }
+    //   return false;
+    // }
 
     // Update the state
     setAllWorkers({
@@ -147,7 +149,7 @@ const HospitalManageScreen = ({ card }: Props) => {
 
     // Update the slider value
     setSliderValue(newValue);
-    setLastSafeValue(newValue);
+    // setLastSafeValue(newValue);     // Uncomment for enabling LastSafeValue ✨
   };
 
   const maxAvailDoctors = Math.min(
@@ -214,7 +216,7 @@ const HospitalManageScreen = ({ card }: Props) => {
             initValue={Math.floor(allWorkers.hospitalWorkers)}
             onChange={handleSliderChange}
             size={deviceSize}
-            lastSafeValue={lastSafeValue}
+            // lastSafeValue={lastSafeValue}     // Uncomment for enabling LastSafeValue ✨
           />
           <LabelWithIcon
             image={images.workers.doctorWorker}

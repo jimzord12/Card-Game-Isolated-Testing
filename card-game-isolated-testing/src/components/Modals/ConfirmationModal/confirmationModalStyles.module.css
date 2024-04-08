@@ -47,6 +47,9 @@
 
 .message {
   font-weight: 500;
+  padding-left: 32px;
+  padding-right: 32px;
+  text-align: center;
 }
 
 .buttons {

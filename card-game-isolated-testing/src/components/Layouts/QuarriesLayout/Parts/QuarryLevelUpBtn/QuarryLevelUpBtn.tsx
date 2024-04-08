@@ -1,5 +1,8 @@
 import { updatePlayerData } from "../../../../../../api/apiFns";
-import { quarryLevelCost } from "../../../../../constants/game/quarriesConfig";
+import {
+  concreteQuarryConstants,
+  quarryLevelCost,
+} from "../../../../../constants/game/quarriesConfig";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
 import useGetLabelsSize from "../../../../../hooks/game/useGetLabelsSize";
 import {
@@ -104,9 +107,17 @@ const QuarryLevelUpBtn = ({ type }: Props) => {
     pushModal(
       <ConfirmationModal
         title="Level Up Quarry"
-        message={`Required Gold: [${
+        message={`The required Gold is [${
           quarryLevelCost[gameVars.quarryLevels[type] as Level]
-        }] is needed to level up the Quarry. Proceed?`}
+        }] and your Workers Capacity will increase from [${
+          concreteQuarryConstants.maxWorkers[
+            gameVars.quarryLevels[type] as Level
+          ]
+        }] -> [${
+          concreteQuarryConstants.maxWorkers[
+            (gameVars.quarryLevels[type] + 1) as Level
+          ]
+        }]. Proceed?`}
         onConfirm={handleQuarryLevelUp}
       />
     );

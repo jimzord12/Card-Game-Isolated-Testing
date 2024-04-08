@@ -9,7 +9,7 @@ import {
   dieselQuarryConstants,
 } from "../../../../constants/game/quarriesConfig";
 import { Level } from "../../../../types";
-import { useToastError } from "../../../../hooks/notifications";
+// import { useToastError } from "../../../../hooks/notifications";
 
 const DieselQuarrySliderSection = () => {
   const { images } = UseGlobalContext();
@@ -18,10 +18,10 @@ const DieselQuarrySliderSection = () => {
   if (images === undefined)
     throw new Error("⛔ DieselQuarrySliderSection.tsx: images are undefined!");
 
-  const [lastSafeValue, setLastSafeValue] = useState(
-    gameVars.allWorkers.dieselWorkers
-  );
-  const { showError } = useToastError();
+  // const [lastSafeValue, setLastSafeValue] = useState(
+  //   gameVars.allWorkers.dieselWorkers
+  // );
+  // const { showError } = useToastError();
 
   const allWorkers = gameVars.allWorkers;
 
@@ -37,25 +37,25 @@ const DieselQuarrySliderSection = () => {
     const differenceInGatherRate = differenceInWorkers * mulitplier;
     const newPrivateSector = allWorkers.privateSector - differenceInWorkers;
 
-    const newGoldIncome =
-      newPrivateSector * gameVars.multipliers.goldMultiplier;
-    const currentExpences = gameVars.expences;
-    if (currentExpences > newGoldIncome) {
-      showError(
-        "You cannot afford more Workers",
-        "Descrease your Expenses or Increase your Gold Income!"
-      );
+    // const newGoldIncome =
+    //   newPrivateSector * gameVars.multipliers.goldMultiplier;
+    // const currentExpences = gameVars.expences;
+    // if (currentExpences > newGoldIncome) {
+    //   showError(
+    //     "You cannot afford more Workers",
+    //     "Descrease your Expenses or Increase your Gold Income!"
+    //   );
 
-      setGatherRate(lastSafeValue * mulitplier);
-      gameVars.setDieselGathRate(lastSafeValue * mulitplier); // ✨ ✅
-      gameVars.setAllWorkers({
-        ...allWorkers,
-        privateSector: allWorkers.privateSector,
-        dieselWorkers: lastSafeValue, // ✨ ✅
-      });
+    //   setGatherRate(lastSafeValue * mulitplier);
+    //   gameVars.setDieselGathRate(lastSafeValue * mulitplier); // ✨ ✅
+    //   gameVars.setAllWorkers({
+    //     ...allWorkers,
+    //     privateSector: allWorkers.privateSector,
+    //     dieselWorkers: lastSafeValue, // ✨ ✅
+    //   });
 
-      return false;
-    }
+    //   return false;
+    // }
 
     setGatherRate(gatherRate + differenceInGatherRate);
     gameVars.setDieselGathRate(gatherRate + differenceInGatherRate); // ✨ ✅
@@ -67,7 +67,7 @@ const DieselQuarrySliderSection = () => {
 
     // Update the slider value
     setSliderValue(newValue);
-    setLastSafeValue(newValue);
+    // setLastSafeValue(newValue);
   };
 
   const maxAvailWorkers = useMemo(
@@ -132,7 +132,7 @@ const DieselQuarrySliderSection = () => {
             initValue={Math.floor(allWorkers.dieselWorkers)} // ✨ ✅
             onChange={handleSliderChange}
             size={deviceSize}
-            lastSafeValue={lastSafeValue}
+            // lastSafeValue={lastSafeValue}
           />
           <LabelWithIcon
             image={images.workers.oilRigWorker} // ✨ ✅
