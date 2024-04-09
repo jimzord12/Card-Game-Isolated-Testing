@@ -374,11 +374,25 @@ function convertToMySQLDatetime(timestamp: number) {
   return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
 }
 
+function removeTimezoneInfo(datetimeStr: string) {
+  // Check if the string ends with 'Z' and remove it
+  if (datetimeStr.endsWith("Z")) {
+    return datetimeStr.slice(0, -1);
+  }
+  // Return the original string if 'Z' is not present
+  return datetimeStr;
+}
+
 function mysqlDatetimeToUnixTimestamp(mysqlDatetime: string) {
   console.log("mysqlDatetimeToUnixTimestamp::Input => ", mysqlDatetime);
+  const dateWithoutTimeZone = removeTimezoneInfo(mysqlDatetime);
+  console.log(
+    "mysqlDatetimeToUnixTimestamp::Removed TimeZone Info => ",
+    dateWithoutTimeZone
+  );
   // const localDatetime = mysqlDatetime.slice(0, 19);
   // const date = new Date(localDatetime + "Z"); // Ensure UTC by appending 'Z'
-  const date = new Date(mysqlDatetime);
+  const date = new Date(dateWithoutTimeZone);
   // console.log("MySQL Date String => Timestamp: ", date.getTime() / 1000);
   return date.getTime() / 1000; // Corrected to divide by 1000
 }

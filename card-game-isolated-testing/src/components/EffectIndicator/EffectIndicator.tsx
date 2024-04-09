@@ -28,7 +28,9 @@ function formatDate(timestamp: number) {
   const day = date.getDate();
   const month = date.getMonth() + 1; // getMonth() returns 0-based index
   const year = date.getFullYear();
-  return `${day}/${month}/${year} ${hours}:${minutes}`;
+  const dateString = `${day}/${month}/${year} ${hours}:${minutes}`
+  console.log("EffectIndicator: dateString: ", dateString)
+  return dateString;
 }
 
 function tooltipTextMaker(effect: EffectClass) {
