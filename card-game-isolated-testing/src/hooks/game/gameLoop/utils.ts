@@ -364,12 +364,12 @@ function convertToMySQLDatetime(timestamp: number) {
 
   const pad = (num: number) => (num < 10 ? "0" + num : num);
 
-  const yyyy = date.getUTCFullYear();
-  const mm = pad(date.getUTCMonth() + 1); // Months are zero-based
-  const dd = pad(date.getUTCDate());
-  const hh = pad(date.getUTCHours());
-  const mi = pad(date.getUTCMinutes());
-  const ss = pad(date.getUTCSeconds());
+  const yyyy = date.getFullYear();
+  const mm = pad(date.getMonth() + 1); // Months are zero-based
+  const dd = pad(date.getDate());
+  const hh = pad(date.getHours());
+  const mi = pad(date.getMinutes());
+  const ss = pad(date.getSeconds());
 
   return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
 }
