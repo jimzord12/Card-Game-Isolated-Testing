@@ -3,7 +3,7 @@ import styles from "./specialLabelStyles.module.css";
 
 interface Props {
   gameIcon: string;
-  valueToDisplay: string;
+  valueToDisplay: string | JSX.Element;
   alt: string;
 }
 

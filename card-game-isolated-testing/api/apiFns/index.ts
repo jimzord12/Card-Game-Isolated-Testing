@@ -34,6 +34,10 @@ import { getCardStatsById } from "./cards/_getCardStatsById";
 // Quiz Game
 import { getRandomQuestions } from "./quizGame/_getRandomQuestions";
 
+// Smart Contract Functions
+import { getMGSBalance } from "./smartContractFns/_getMGSBalance";
+import { awardMGS } from "./smartContractFns/_awardMGS";
+
 export {
   getPlayerByWallet,
   loginWithWallet,
@@ -59,4 +63,6 @@ export {
   updateCardStats,
   getCardStatsById,
   getRandomQuestions,
+  getMGSBalance,
+  awardMGS,
 };
