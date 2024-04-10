@@ -5,6 +5,7 @@ import type { HDNodeWallet } from "ethers";
 import { useEffect, useState } from "react";
 import { loginWithWallet } from "../../../api/apiFns";
 import { useAuth } from "../auth/useAuth";
+import { useBlockchainStore } from "../../stores/blockchainStore";
 
 function useLocalWallet() {
   const provider = new JsonRpcProvider(
@@ -15,6 +16,7 @@ function useLocalWallet() {
   const [balance, setBalance] = useState("-1");
   const [setLW_HookHasRun, setSetLW_HookHasRun] = useState(false);
 
+  const setLocalWallet = useBlockchainStore((state) => state.setLocalWallet);
   const { setUser } = useAuth();
 
   useEffect(() => {
@@ -49,6 +51,7 @@ function useLocalWallet() {
     }
 
     automaticLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const generateWallet = () => {
@@ -58,6 +61,7 @@ function useLocalWallet() {
       "✨ New Local Wallet Created! Private Key: ",
       newWallet.privateKey
     );
+    setLocalWallet(newWallet);
     setWallet(newWallet);
   };
 
@@ -67,6 +71,7 @@ function useLocalWallet() {
       console.log("useLocalWallet: existingWallet: ", privKryToRestore);
       const existingWallet = new Wallet(privKryToRestore);
       localStorage.setItem("walletPrivateKey", existingWallet.privateKey);
+      setLocalWallet(existingWallet);
       setWallet(existingWallet);
 
       return { walletAddress: existingWallet.address, success: true };
@@ -74,6 +79,7 @@ function useLocalWallet() {
       const privateKey = localStorage.getItem("walletPrivateKey");
       if (privateKey) {
         const existingWallet = new Wallet(privateKey);
+        setLocalWallet(existingWallet);
         setWallet(existingWallet);
         return { walletAddress: existingWallet.address, success: true };
       } else {

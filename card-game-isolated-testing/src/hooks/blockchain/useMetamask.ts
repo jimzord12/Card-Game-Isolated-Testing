@@ -95,6 +95,7 @@ export const useMetamask = () => {
     }
 
     // return { accounts, balance, chainId };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metamaskProvider]);
 
   useEffect(() => {
@@ -111,6 +112,7 @@ export const useMetamask = () => {
       );
       metamaskProvider?.removeListener("chainChanged", _updateWallet);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getProvider, metamaskProvider]);
 
   // Handles switching to a different network.

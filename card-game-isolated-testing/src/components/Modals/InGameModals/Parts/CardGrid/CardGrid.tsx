@@ -62,6 +62,7 @@ import { isToolStore } from "../../../../../types/TypeGuardFns/isToolStore.js";
 import { useModalStore } from "../../../../../stores/modalStore.js";
 import QuizModal from "../../../QuizModal/QuizModal.js";
 import ConfirmationModal from "../../../ConfirmationModal/ConfirmationModal.js";
+import { useBlockchainStore } from "../../../../../stores/blockchainStore.js";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -88,6 +89,11 @@ export default function CardGrid({
 
   const pushModal = useModalStore((state) => state.pushModal);
   const popModal = useModalStore((state) => state.popModal);
+
+  const rewardingToolContract = useBlockchainStore(
+    (state) => state.rewardingToolContract
+  );
+  const gameContract = useBlockchainStore((state) => state.gameContract);
 
   const {
     activeCards,
@@ -124,6 +130,19 @@ export default function CardGrid({
 
       const newCard = newCard_2; // Just to make the code more readable
       newCard.id = newCardID.cardId; // This "newCardData" comes from the the createCard_DB Mutation
+
+      if (gameContract === null) {
+        toastError.showError(
+          "Error in CardGrid, checkAndSubtractRes",
+          "Game Contract is null!"
+        );
+        throw new Error(
+          "⛔ CardGrid: checkAndSubtractRes: Game Contract is null!"
+        );
+      }
+
+      // 🅱✨ 9. Create the Card in the Blockchain
+      // await gameContract.createCard(newCard.id, newCard.templateId);
 
       addCardToInventory(newCard);
 
@@ -238,10 +257,6 @@ export default function CardGrid({
         );
         throw new Error("⛔ CardGrid: createNewCard: Invalid Card Type!");
     }
-
-    // 🅱 Blockchain: Game Smart Contract
-    // awardPoints("cardCreation"); // TODO: Implement This in Blockchain Hooks
-    // createNFTCard(newCard.id, newCard.templateId); // TODO: Implement This in Blockchain Hooks
 
     // console.log("CardGrid, Create Card Data: ", newCard);
     newCard_2 = newCard; // This is done so in useEffect we have access to this Card.
@@ -397,6 +412,30 @@ export default function CardGrid({
 
       // 8. Play the Quiz Game
       pushModal(<QuizModal resourceCosts={newCard.requirements} />);
+
+      // 🅱 Blockchain: Game Smart Contract
+      // awardPoints("cardCreation"); // TODO: Implement This in Blockchain Hooks
+      // createNFTCard(newCard.id, newCard.templateId); // TODO: Implement This in Blockchain Hooks
+
+      if (rewardingToolContract === null) {
+        toastError.showError(
+          "Error in CardGrid, checkAndSubtractRes",
+          "Rewarding Tool Contract is null!"
+        );
+        throw new Error(
+          "⛔ CardGrid: checkAndSubtractRes: Rewarding Tool Contract is null!"
+        );
+      }
+
+      // 🅱 10. Call the Rewarding Tool Contract to Award Points
+      try {
+        await rewardingToolContract.addPoints("game", "cardCreation");
+      } catch (error) {
+        console.error(
+          "🅱🅱🅱 Error while calling the Rewarding Tool Contract: ",
+          error
+        );
+      }
     }
   }
 
@@ -543,16 +582,13 @@ export default function CardGrid({
     //    3) Local Storage
     //    4) Frontend => CardsInInventory (Context Variable
 
-    checkAndSubtractRes(card, "craft");
+    checkAndSubtractRes(card, "craft"); // <- The Quiz Modal is called from here
 
     // 6. Unselect the Card. This also goes 1 step back in the Modal (Where all the cards are dispayed).
     setSelectedCard(null);
 
     // 7. Close Gracefully the Modal
     closeModal();
-
-    // 8. Play the Quiz Game
-    // if (success) pushModal(<QuizModal resourceCosts={card.requirements} />); ✨
   };
 
   return (

@@ -27,6 +27,10 @@ import { useAuth } from "../../hooks/auth/useAuth";
 import { useAllCardsStore } from "../../stores/allCards";
 import { useGeneralVariablesStore } from "../../stores/generalVariables";
 import { createJSCards } from "../../utils/game/createJSCards";
+import { useBlockchainStore } from "../../stores/blockchainStore";
+import { useRewardingToolContract } from "../../hooks/blockchain/useRewardingToolContract";
+import { useGameContract } from "../../hooks/blockchain/useGameContract";
+// import type { Contract } from "ethers/contract";
 
 const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
@@ -44,6 +48,13 @@ const GameSideBar = lazy(() => import("../GameSideBar/GameSideBar"));
 
 type MapTypes = "town" | "world";
 
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ethereum: any;
+  }
+}
+
 const Game = () => {
   useGA4();
   const shouldShow = UseLandscape();
@@ -53,6 +64,21 @@ const Game = () => {
 
   const [isInvModalOpen, setIsInvModalOpen] = useState(false);
   const [isCraftModalOpen, setIsCraftModalOpen] = useState(false);
+
+  // const [rewardingContract, setRewardingContract] = useState<
+  //   Contract | undefined | null
+  // >(null);
+  // const [gameContract, setGameContract] = useState<Contract | undefined | null>(
+  //   null
+  // );
+  const {
+    initialize: initializeRTContract,
+    // isLoading: isLoadingRTContract
+  } = useRewardingToolContract();
+  const {
+    initialize: initializeGameContract,
+    // isLoading: isLoadingGameContract,
+  } = useGameContract();
 
   const { showError } = useToastError();
 
@@ -76,21 +102,17 @@ const Game = () => {
   const gameWorker = useRef<Worker | null>(null);
   const gameLoopTick = useRef(0);
 
-  // const testSPCard = SPCard.createNew({
-  //   ownerId: 1,
-  //   playerName: "test",
-  //   templateId: 301,
-  // });
-  // testSPCard.id = 1;
-
-  // const activeEffect = new EffectClass(testSPCard, Date.now() + effectDuration);
   const activeEffect = useGameVarsStore((state) => state.activeEffect);
 
-  // const navigate = useNavigate();
-
   const auth = useRequireAuth();
-
   const { user } = useAuth();
+
+  const localWallet = useBlockchainStore((state) => state.localWallet);
+  const setRewardingToolContract = useBlockchainStore(
+    (state) => state.setRewardingToolContract
+  );
+  const setGameContract = useBlockchainStore((state) => state.setGameContract);
+
   const addAllInventoryCards = useAllCardsStore(
     (state) => state.addAllInventoryCards
   );
@@ -115,6 +137,7 @@ const Game = () => {
     gameWorker.current?.postMessage(currentGameState);
   }
 
+  // For the Game Loop
   useEffect(() => {
     // Initialize the worker
     gameWorker.current = new GameWorker();
@@ -222,6 +245,124 @@ const Game = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameLoopTick.current]);
 
+  // Web3 Init Staff
+  useEffect(() => {
+    console.log(" 🅱 (1) BLOCKCHAIN - INIT: User", user);
+    console.log(" 🅱 (2) BLOCKCHAIN - INIT: LocalWallet", localWallet);
+    if (window.ethereum || localWallet) {
+      console.log("🅱 Step #1: Initializing Contracts");
+
+      (async () => {
+        // Rewarding Tool Contract
+        try {
+          if (localWallet !== null && localWallet !== undefined) {
+            console.log(
+              "🅱 (LocalWallet) #1.1.1: Initializing Rewarding Tool Contract Instance..."
+            );
+            const _rewardingContract = await initializeRTContract(
+              true,
+              localWallet
+            );
+            if (_rewardingContract === null || _rewardingContract === undefined)
+              throw new Error(
+                "⛔ Rewarding Tool Contract is null or undefined"
+              );
+            setRewardingToolContract(_rewardingContract);
+            console.log(
+              "🅱 (LocalWallet) #1.1.2: ✅ Rewarding Tool Contract Instance Completed!"
+            );
+          } else if (window.ethereum) {
+            console.log(
+              "🅱 (MetaMask) #1.1.3: Initializing Rewarding Tool Contract Instance..."
+            );
+            const _rewardingContract = await initializeRTContract();
+            if (_rewardingContract === null || _rewardingContract === undefined)
+              throw new Error(
+                "⛔ Rewarding Tool Contract is null or undefined"
+              );
+            setRewardingToolContract(_rewardingContract);
+            console.log(
+              "🅱 (MetaMask) #1.1.4: ✅ Rewarding Tool Contract Instance Completed!"
+            );
+          } else {
+            console.log(
+              "🅱 - ⛔ | (No Error) Something went wrong while Initializing the Rewarding Tool Contract"
+            );
+            showError(
+              "(No Error) Rewarding Tool Contract Problem",
+              "Something went wrong while initializing the Rewarding Tool Contract"
+            );
+          }
+        } catch (error) {
+          console.error(
+            "⛔ - 🅱 Cautch Error From: (Game.tsx), BLOCKCHAIN - useEffect: Rewarding Tool",
+            error
+          );
+          showError(
+            "Rewarding Tool Contract Error",
+            "Something went wrong while initializing the Rewarding Tool Contract"
+          );
+        }
+
+        // Game Contract
+        try {
+          if (localWallet !== null && localWallet !== undefined) {
+            console.log(
+              "🅱 (LocalWallet) #1.2.1: Initializing Game Contract Instance..."
+            );
+            const _gameContract = await initializeGameContract(
+              true,
+              localWallet
+            );
+            if (_gameContract === null || _gameContract === undefined)
+              throw new Error("⛔ Game Contract is null or undefined");
+            setGameContract(_gameContract);
+            console.log(
+              "🅱 (LocalWallet) #1.2.2: ✅ Game Contract Instance Completed!"
+            );
+          } else if (window.ethereum) {
+            console.log(
+              "🅱 (MetaMask) #1.2.3: Initializing Game Contract Instance..."
+            );
+            const _gameContract = await initializeGameContract();
+            if (_gameContract === null || _gameContract === undefined)
+              throw new Error("⛔ Game Contract is null or undefined");
+            setGameContract(_gameContract);
+            console.log(
+              "🅱 (MetaMask) #1.2.4: ✅ Game Contract Instance Completed!"
+            );
+          } else {
+            console.log(
+              "🅱 - ⛔ | (No Error) Something went wrong while Initializing the Game Contract"
+            );
+            showError(
+              "(No Error) Game Contract Problem",
+              "Something went wrong while initializing the Game Contract"
+            );
+          }
+        } catch (error) {
+          console.error(
+            "⛔ - 🅱 Cautch Error From: (Game.tsx), BLOCKCHAIN - useEffect: Game Contract",
+            error
+          );
+          showError(
+            "Game Contract Error",
+            "Something went wrong while initializing the Game Contract"
+          );
+        }
+      })();
+    } else {
+      console.log(
+        "🅱 - ⛔ | Contract Intialization Failed! Both Metamask and LocalWallet are null or undefined"
+      );
+      showError(
+        "Contract Initialization Failed!",
+        "Please Inform the Developer about this issue."
+      );
+    }
+  }, [user, localWallet]);
+
+  // Prevent the user from refreshing the page by accident
   useEffect(() => {
     const handleBeforeUnload = (event: { returnValue: string }) => {
       alert("If you refresh this page, the game will crash.");
