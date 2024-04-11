@@ -13,6 +13,7 @@ import CountdownTimer from "../../components/CountDownTimer/CountDownTimer";
 import { loginWithWallet } from "../../../api/apiFns";
 import RestoreWalletModal from "../../components/Modals/HomePageModals/RestoreWalletModal";
 import DeleteWalletModal from "../../components/Modals/HomePageModals/DeleteWalletModal";
+import { useGeneralVariablesStore } from "../../stores/generalVariables";
 
 function HomePageLocalWallet() {
   const { user: userData, login, setUser } = useAuth();
@@ -40,6 +41,10 @@ function HomePageLocalWallet() {
   const [isTransactionModalOpen, setTransactionModalOpen] = useState(false);
   const [isDeleteWalletModalOpen, setDeleteWalletModalOpen] = useState(false);
   const [isRestoreWalletModalOpen, setRestoreWalletModalOpen] = useState(false);
+
+  const setIsNewPlayer = useGeneralVariablesStore(
+    (state) => state.setIsNewPlayer
+  );
 
   useEffect(() => {
     if (userData?.wallet) getEthBalance();
@@ -235,9 +240,9 @@ function HomePageLocalWallet() {
           ) : (
             <CustomButton
               title={"Create Player"}
-              isDisabled={!serverIsLive}
-              handleClick={(e) =>
-                handlePlayerCreate(
+              isDisabled={!serverIsLive || !playerName}
+              handleClick={async (e) => {
+                const success = await handlePlayerCreate(
                   e,
                   playerName,
                   localWallet.address,
@@ -246,8 +251,19 @@ function HomePageLocalWallet() {
                   setErrMsg,
                   resetUser,
                   setSuccessMsg
-                )
-              }
+                );
+
+                if (success) {
+                  setIsNewPlayer(true);
+                } else {
+                  setErrMsg(
+                    "We are experiencing some issues. Please try again later."
+                  );
+                  console.error(
+                    "⛔ Custom: HomePage-Metamask: HandlePlayerCreate, Player Creation Failed"
+                  );
+                }
+              }}
               restStyles="mt-6 w-fit z-10"
             />
           )}

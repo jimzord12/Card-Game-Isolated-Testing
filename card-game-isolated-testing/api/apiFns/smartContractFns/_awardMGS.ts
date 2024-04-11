@@ -7,10 +7,12 @@ interface ResponseData {
 }
 
 export const awardMGS = async (
-  walletAddress: string
+  userAddress: string,
+  amount: number
 ): Promise<ResponseData> => {
   const response = await axios.post(POST_AWARD_MGS, {
-    userAddress: walletAddress,
+    userAddress,
+    amount,
   });
 
   return { success: response.data.success };

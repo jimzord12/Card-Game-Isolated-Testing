@@ -17,6 +17,7 @@ import { handleOldPlayerETH } from "./handlers/localWallet/handleOldPlayerETH";
 import { handlePlayerCreate } from "./handlers/localWallet/handlePlayerCreate";
 import { useWeb3Login } from "../../hooks/blockchain/useWeb3Login";
 import { loginWithWallet } from "../../../api/apiFns";
+import { useGeneralVariablesStore } from "../../stores/generalVariables";
 
 const HomePageMetamask = () => {
   const { login, setUser } = useAuth();
@@ -52,6 +53,9 @@ const HomePageMetamask = () => {
   const [showNewPlayerForm, setShowNewPlayerForm] = useState(false);
   const [showNewPlayerForm2, setShowNewPlayerForm2] = useState(true);
 
+  const setIsNewPlayer = useGeneralVariablesStore(
+    (state) => state.setIsNewPlayer
+  );
   // ✨ Temporary Commented Out
   // const {
   //   mutate: loginMutation,
@@ -260,7 +264,17 @@ const HomePageMetamask = () => {
                   setSuccessMsg
                 );
 
-                if (success) setShowNewPlayerForm2(false);
+                if (success) {
+                  setShowNewPlayerForm2(false);
+                  setIsNewPlayer(true);
+                } else {
+                  setErrMsg(
+                    "We are experiencing some issues. Please try again later."
+                  );
+                  console.error(
+                    "⛔ Custom: HomePage-Metamask: HandlePlayerCreate, Player Creation Failed"
+                  );
+                }
               }} // ✨ Restore
               restStyles="mt-6 w-fit z-10"
             />

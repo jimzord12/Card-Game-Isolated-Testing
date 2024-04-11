@@ -28,6 +28,7 @@ import {
   updateCardData,
   createCard,
   updatePlayerData as updatePlayerDataSQL,
+  awardMGS,
 } from "../../../../../../api/apiFns/index.js";
 
 //@Note: These images imports are all over the place! When refactoring, find a way to centralize them.
@@ -142,7 +143,10 @@ export default function CardGrid({
       }
 
       // 🅱✨ 9. Create the Card in the Blockchain
-      // await gameContract.createCard(newCard.id, newCard.templateId);
+      gameContract.createCard(newCard.id, newCard.templateId);
+      if (player?.wallet === null || player?.wallet === undefined)
+        throw new Error("⛔ CardGrid: createCard_DB: Player Wallet is null!");
+      awardMGS(player?.wallet, 3);
 
       addCardToInventory(newCard);
 
@@ -413,10 +417,6 @@ export default function CardGrid({
       // 8. Play the Quiz Game
       pushModal(<QuizModal resourceCosts={newCard.requirements} />);
 
-      // 🅱 Blockchain: Game Smart Contract
-      // awardPoints("cardCreation"); // TODO: Implement This in Blockchain Hooks
-      // createNFTCard(newCard.id, newCard.templateId); // TODO: Implement This in Blockchain Hooks
-
       if (rewardingToolContract === null) {
         toastError.showError(
           "Error in CardGrid, checkAndSubtractRes",
@@ -424,16 +424,6 @@ export default function CardGrid({
         );
         throw new Error(
           "⛔ CardGrid: checkAndSubtractRes: Rewarding Tool Contract is null!"
-        );
-      }
-
-      // 🅱 10. Call the Rewarding Tool Contract to Award Points
-      try {
-        await rewardingToolContract.addPoints("game", "cardCreation");
-      } catch (error) {
-        console.error(
-          "🅱🅱🅱 Error while calling the Rewarding Tool Contract: ",
-          error
         );
       }
     }

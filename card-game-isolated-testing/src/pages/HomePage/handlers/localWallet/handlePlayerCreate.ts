@@ -32,9 +32,11 @@ export const handlePlayerCreate = async (
   setUser: Dispatch<SetStateAction<userAuthType>> | null,
   setErrMsg: (msg: string) => void,
   resetUser: () => void,
-  setSuccessMsg: (msg: string) => void,
+  setSuccessMsg: (msg: string) => void
   // initNewPlayer: (playerId: number) => void
 ) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   if (!usernameRegex.test(playerName)) {
     setErrMsg(
       "The player name must begin with a letter, not exceed 16 characters and can contain only letters, numbers and spaces"
@@ -71,6 +73,8 @@ export const handlePlayerCreate = async (
       }
 
       const startingStats = initNewPlayer(userId);
+
+      // Initialze the Player in DB
       const wasPlayerInitSuccess = await updatePlayerData(
         userId,
         startingStats
@@ -84,13 +88,9 @@ export const handlePlayerCreate = async (
 
       setUser({ ...userData });
 
-      // Initialze the Player in DB
-
-
       return true;
     }
 
-    //TODO: Blockchain interaction 🅱
     // try {
     //   await createPlayer(user, response.data.insertId);
     // } catch (err) {

@@ -1,1 +1,1 @@
-export const gameAddress = '0x9B3fcEB7bf97fD38FA0FE71250b0cb45b0cE6942';
+export const gameAddress = '0x4eb1F8d12A34A32060222d8F70f4519AcA4645ed';

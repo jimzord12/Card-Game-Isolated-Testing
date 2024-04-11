@@ -18,7 +18,11 @@ import useValuesChecker from "../../hooks/game/gameLoop/useValuesChecker";
 // import CustomButton from "../Buttons/CustomButton/CustomButton";
 import EffectIndicator from "../EffectIndicator/EffectIndicator";
 import { useGameVarsStore } from "../../stores/gameVars";
-import { getPlayerByWallet, updatePlayerData } from "../../../api/apiFns";
+import {
+  awardMGS,
+  getPlayerByWallet,
+  updatePlayerData,
+} from "../../../api/apiFns";
 import { useToastError } from "../../hooks/notifications";
 import GameMapActionsBtn from "../Buttons/GameMapActionsBtn/GameMapActionsBtn";
 import { gameConfig } from "../../constants/game";
@@ -112,6 +116,8 @@ const Game = () => {
     (state) => state.setRewardingToolContract
   );
   const setGameContract = useBlockchainStore((state) => state.setGameContract);
+
+  const isNewPlayer = useGeneralVariablesStore((state) => state.isNewPlayer);
 
   const addAllInventoryCards = useAllCardsStore(
     (state) => state.addAllInventoryCards
@@ -255,6 +261,7 @@ const Game = () => {
       (async () => {
         // Rewarding Tool Contract
         try {
+          // -> Local Wallet
           if (localWallet !== null && localWallet !== undefined) {
             console.log(
               "🅱 (LocalWallet) #1.1.1: Initializing Rewarding Tool Contract Instance..."
@@ -271,6 +278,7 @@ const Game = () => {
             console.log(
               "🅱 (LocalWallet) #1.1.2: ✅ Rewarding Tool Contract Instance Completed!"
             );
+            // -> MetaMask
           } else if (window.ethereum) {
             console.log(
               "🅱 (MetaMask) #1.1.3: Initializing Rewarding Tool Contract Instance..."
@@ -306,6 +314,7 @@ const Game = () => {
 
         // Game Contract
         try {
+          // -> Local Wallet
           if (localWallet !== null && localWallet !== undefined) {
             console.log(
               "🅱 (LocalWallet) #1.2.1: Initializing Game Contract Instance..."
@@ -316,10 +325,21 @@ const Game = () => {
             );
             if (_gameContract === null || _gameContract === undefined)
               throw new Error("⛔ Game Contract is null or undefined");
+
             setGameContract(_gameContract);
             console.log(
               "🅱 (LocalWallet) #1.2.2: ✅ Game Contract Instance Completed!"
             );
+
+            if (isNewPlayer) {
+              await _gameContract.createPlayer(player?.name, player?.id); // 🅱
+
+              if (player?.wallet === null || player?.wallet === undefined)
+                throw new Error("⛔ Player Wallet is null or undefined");
+              await awardMGS(player?.wallet, 15); // 🅱
+            }
+
+            // -> MetaMask
           } else if (window.ethereum) {
             console.log(
               "🅱 (MetaMask) #1.2.3: Initializing Game Contract Instance..."
@@ -331,6 +351,14 @@ const Game = () => {
             console.log(
               "🅱 (MetaMask) #1.2.4: ✅ Game Contract Instance Completed!"
             );
+
+            if (isNewPlayer) {
+              await _gameContract.createPlayer(player?.name, player?.id); // 🅱
+
+              if (player?.wallet === null || player?.wallet === undefined)
+                throw new Error("⛔ Player Wallet is null or undefined");
+              await awardMGS(player?.wallet, 15); // 🅱
+            }
           } else {
             console.log(
               "🅱 - ⛔ | (No Error) Something went wrong while Initializing the Game Contract"
