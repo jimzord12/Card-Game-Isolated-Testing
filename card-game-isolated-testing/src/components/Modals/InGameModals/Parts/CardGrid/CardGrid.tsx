@@ -414,6 +414,8 @@ export default function CardGrid({
         "✨ You can check it out in your Inventory!"
       );
 
+      toastConfetti.show("Earned MGS!", "✨ You received 3 MGS Tokens!");
+
       // 8. Play the Quiz Game
       pushModal(<QuizModal resourceCosts={newCard.requirements} />);
 

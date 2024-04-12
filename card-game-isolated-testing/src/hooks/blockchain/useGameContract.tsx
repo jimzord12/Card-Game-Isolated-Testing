@@ -20,7 +20,7 @@ export function useGameContract() {
     if (usesLocalWallet && localWallet) {
       setIsLoading(true);
       const provider = new ethers.JsonRpcProvider(
-        "https://snf-34965.ok-kno.grnetcloud.net"
+        "https://snf-34965.ok-kno.grnetcloud.net",
       );
       const connectedWallet = localWallet.connect(provider);
       const contractInstance = new ethers.Contract(

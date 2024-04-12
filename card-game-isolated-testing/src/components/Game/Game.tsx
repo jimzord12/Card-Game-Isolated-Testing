@@ -116,6 +116,7 @@ const Game = () => {
     (state) => state.setRewardingToolContract
   );
   const setGameContract = useBlockchainStore((state) => state.setGameContract);
+  // const gameContract = useBlockchainStore((state) => state.gameContract);
 
   const isNewPlayer = useGeneralVariablesStore((state) => state.isNewPlayer);
 
@@ -517,6 +518,30 @@ const Game = () => {
                 </div>
               )}
 
+              {/* <div className="z-[401] absolute top-24 left-[280px]">
+                <CustomButton
+                  title="Create BC Player"
+                  handleClick={async () => {
+                    try {
+                      await gameContract?.createPlayer("testPlayer_2", 2222);
+                    } catch (error) {
+                      console.log("⛔|🅱: [Game.tsx] Error: ", error);
+                    }
+                  }}
+                />
+              </div>
+              <div className="z-[401] absolute top-48 left-[280px]">
+                <CustomButton
+                  title="Create BC Card"
+                  handleClick={async () => {
+                    try {
+                      await gameContract?.createCard(111, 101);
+                    } catch (error) {
+                      console.log("⛔|🅱: [Game.tsx] Error: ", error);
+                    }
+                  }}
+                />
+              </div> */}
               {/* 
 
               <div className="z-[401] absolute">
