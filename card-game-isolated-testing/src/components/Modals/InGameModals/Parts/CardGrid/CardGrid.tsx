@@ -91,10 +91,11 @@ export default function CardGrid({
   const pushModal = useModalStore((state) => state.pushModal);
   const popModal = useModalStore((state) => state.popModal);
 
+  const gameContract = useBlockchainStore((state) => state.gameContract);
+
   const rewardingToolContract = useBlockchainStore(
     (state) => state.rewardingToolContract
   );
-  const gameContract = useBlockchainStore((state) => state.gameContract);
 
   const {
     activeCards,
@@ -512,13 +513,43 @@ export default function CardGrid({
    * @param _card
    * @returns
    */
-  const handleSellClick = (_card: CardClass) => {
+  const handleSellClick = async (_card: CardClass) => {
     console.log("Selling this Card: ", _card);
 
-    if (_card === null || _card.id === null)
+    if (_card === null || _card.id === null) {
+      toastError.showError(
+        "Error in CardGrid, handleSellClick",
+        "The CARD or Card.ID is null!"
+      );
       throw new Error(
         "⛔ CardGrid: handleSellClick: Card is null or Card ID is null!"
       );
+    }
+
+    if (gameContract === null) {
+      toastError.showError(
+        "Error in CardGrid, handleSellClick",
+        "Game Contract is null!"
+      );
+      throw new Error("⛔ CardGrid: handleSellClick: Game Contract is null!");
+    }
+
+    try {
+      await gameContract.depositCard(_card.id);
+      toastConfetti.show(
+        "Card added to Marketplace",
+        "💰 Your Card was deposited to MP!"
+      );
+    } catch (error) {
+      toastError.showError(
+        "Error in CardGrid, handleSellClick",
+        "Error while depositing the card to MP!"
+      );
+      throw new Error(
+        "⛔ CardGrid: handleSellClick: Error while depositing the card!"
+      );
+    }
+
     putCardForSale({
       id: _card.id,
       in_mp: true,

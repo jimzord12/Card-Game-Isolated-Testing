@@ -370,6 +370,8 @@ const Game = () => {
             );
           }
         } catch (error) {
+          // if (error)
+          console.log(error);
           console.error(
             "⛔ - 🅱 Cautch Error From: (Game.tsx), BLOCKCHAIN - useEffect: Game Contract",
             error

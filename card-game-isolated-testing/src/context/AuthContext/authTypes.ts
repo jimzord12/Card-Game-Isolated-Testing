@@ -17,4 +17,5 @@ export interface AuthContextProps {
   setUser: React.Dispatch<React.SetStateAction<userAuthType>> | null;
   login: ((walletAddress: string) => Promise<void>) | null;
   logout: (() => void) | null;
+  resetUser: (() => void) | null;
 }

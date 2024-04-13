@@ -11,6 +11,7 @@ export const AuthContext = createContext<AuthContextProps>({
   setUser: null,
   login: null,
   logout: null,
+  resetUser: null,
 });
 
 // Component to provide authentication context
@@ -66,8 +67,16 @@ export default function AuthProvider({
 
   const logout = () => setUser(null);
 
+  const resetUser = () =>
+    setUser({
+      username: null,
+      wallet: null,
+      rT: null,
+      aT: null,
+    });
+
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, resetUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,7 +6,7 @@ const regex = /^[A-Za-z0-9 ]+$/;
 const useInput = (/*key: string,*/ initValue: string) => {
   const [value, setValue] = useState(initValue);
 
-  const reset = () => setValue(initValue);
+  const reset = () => setValue("");
 
   const attributeObj = {
     value,

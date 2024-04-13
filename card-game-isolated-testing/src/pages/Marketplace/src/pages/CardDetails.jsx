@@ -23,6 +23,7 @@ import { cardInfo as cardDesc, islands } from "../constants";
 
 import { useGameVarsStore } from "../../../../stores/gameVars";
 import {
+  awardMGS,
   getPlayerByWallet,
   ownersSwapper,
   purchaseCard,
@@ -32,6 +33,13 @@ import {
 import { classBuilding, classREG, classSP } from "../../../../classes";
 import { mapOldCardIdsToNewOnes } from "../../../../utils/migration/mapOldCardIdsToNewOnes";
 import { useGeneralVariablesStore } from "../../../../stores/generalVariables";
+import { useBlockchainStore } from "../../../../stores/blockchainStore";
+import {
+  useToastConfetti,
+  useToastError,
+} from "../../../../hooks/notifications";
+import { useAllCardsStore } from "../../../../stores/allCards";
+import { createJSCards } from "../../../../utils/game/createJSCards";
 
 const createCardObject = (cardDataFromDB) => {
   switch (cardDataFromDB.templateId) {
@@ -59,19 +67,32 @@ const createCardObject = (cardDataFromDB) => {
   }
 };
 const CardDetails = () => {
-  console.log("asddddddddddddddddddddddddddddddddddd");
   const { state: locationState } = useLocation(); // Card's Data
 
   const playerData = useGameVarsStore((state) => state.player);
   const setPlayerData = useGameVarsStore((state) => state.setPlayer);
+  const addAllInventoryCards = useAllCardsStore(
+    (state) => state.addAllInventoryCards
+  );
   const setShouldRefetchInvCards = useGeneralVariablesStore(
     (state) => state.setShouldRefecthInvCards
   );
+  const { showError } = useToastError();
+  const { show } = useToastConfetti();
+
+  const gameContract = useBlockchainStore((state) => state.gameContract);
 
   const refetchPlayerData = async (playerWallet) => {
+    console.log("🔷🔷🔷 - PLayer Wallet: ", playerWallet);
     const playerData = await getPlayerByWallet(playerWallet);
-    setPlayerData(playerData);
-    return playerData;
+    console.log("🔷🔷🔷 - Player Data: ", playerData);
+    setPlayerData(playerData.player);
+    const convertedFromDB_To_JS = createJSCards(playerData.cards);
+    const inventoryCards = convertedFromDB_To_JS.filter(
+      (card) => card.state === false && card.forSale === false
+    );
+    addAllInventoryCards(inventoryCards);
+    // return playerData.player;
   };
 
   console.log("Marketplace | CardDetails | locationState: ", locationState);
@@ -197,7 +218,9 @@ const CardDetails = () => {
 
       refetchSoldCards();
       refetchAllCards();
-      refetchPlayerData(playerData.walletAddress);
+      refetchPlayerData(playerData.wallet);
+      show("Transaction Successful!", "The card is added to your inventory.");
+      show("Earned MGS!", "By purchasing a card, you earned 1.5 MGS.");
       setTimeout(() => {
         navigate("/marketplace");
         smoothScrollTo(0, 500);
@@ -212,29 +235,57 @@ const CardDetails = () => {
 
   const handlePurchase = async () => {
     if (selectedCard.id) {
-      purchaseMutation({
-        cardId: selectedCard?.id,
-        buyerId: userId,
-        sellerId: selectedCard?.ownerId,
-        priceTag: selectedCard?.priceTag,
-        completed: false,
-        rarity: selectedCard?.rarity,
-        templateId: selectedCard?.templateId,
-        level: selectedCard?.level,
-      });
+      try {
+        await gameContract.purchaseCard(selectedCard.id);
+        await awardMGS(playerData.wallet, 1.5);
+        purchaseMutation({
+          cardId: selectedCard?.id,
+          buyerId: userId,
+          sellerId: selectedCard?.ownerId,
+          priceTag: selectedCard?.priceTag,
+          completed: false,
+          rarity: selectedCard?.rarity,
+          templateId: selectedCard?.templateId,
+          level: selectedCard?.level,
+        });
+      } catch (error) {
+        showError("Card Purchase Failed!", "Please try again later");
+        console.error(
+          "⛔ - Custom: Marketplace | CardDetails.jsx : handlePurchase: ",
+          error
+        );
+      }
     }
   };
 
-  const handleCardRemoval = () => {
-    removeFromMP({ cardId: selectedCard.id });
-    setTimeout(() => {
-      setIsActive("dashboard");
-      refetchSoldCards();
-      refetchAllCards();
-      refetchPlayerData();
-      navigate("/marketplace");
-      smoothScrollTo(0, 500);
-    }, 2000);
+  const handleCardRemoval = async () => {
+    try {
+      console.log(gameContract, selectedCard.id);
+      await gameContract.unsellCard(selectedCard.id);
+      await removeFromMP(selectedCard.id);
+      show(
+        "Transaction Successful!",
+        "Your Card is removed from the Marketplace."
+      );
+      console.log("PlayerData - AAAAAAAAA: ", playerData);
+
+      setTranType("success");
+      setTimeout(() => {
+        setIsActive("dashboard");
+        refetchSoldCards();
+        refetchAllCards();
+        refetchPlayerData(playerData.wallet);
+        navigate("/marketplace");
+        smoothScrollTo(0, 500);
+      }, 2000);
+    } catch (error) {
+      showError("Card Removal Failed!", "Please try again later");
+      setTranType("failed");
+      console.error(
+        "⛔ - Custom: Marketplace | CardDetails.jsx : handleCardRemoval: ",
+        error
+      );
+    }
   };
 
   return (
@@ -530,7 +581,7 @@ const MainCategory = ({ children, text, icon }) => {
 const Message = ({
   isVisible,
   setVisibility,
-  text,
+  text = "Transaction was Successful!",
   type,
   from = "not-withdraw",
   isLoading,
