@@ -34,6 +34,8 @@ import { createJSCards } from "../../utils/game/createJSCards";
 import { useBlockchainStore } from "../../stores/blockchainStore";
 import { useRewardingToolContract } from "../../hooks/blockchain/useRewardingToolContract";
 import { useGameContract } from "../../hooks/blockchain/useGameContract";
+import { useModalStore } from "../../stores/modalStore";
+import LoadingModal from "../Modals/LoadingModal/LoadingModal";
 // import type { Contract } from "ethers/contract";
 
 const ImageProviderV5 = lazy(
@@ -101,6 +103,9 @@ const Game = () => {
   const setDieselGathRate = useGameVarsStore(
     (state) => state.setDieselGathRate
   );
+
+  const pushModal = useModalStore((state) => state.pushModal);
+  const popModal = useModalStore((state) => state.popModal);
 
   const [reRenderCounters, setReRenderCounters] = useState(0);
 
@@ -365,12 +370,19 @@ const Game = () => {
             // const playerExists = Number(response[1]) > 0;
 
             // if (isNewPlayer && playerExists) {
+            pushModal(
+              <LoadingModal
+                title="(Blockchain) Player Creation"
+                message="Please check your Metamask Wallet to confirm the transaction."
+              />
+            );
             await _gameContract.createPlayer(player?.name, player?.id); // 🅱
 
             if (player?.wallet === null || player?.wallet === undefined)
               throw new Error("⛔ Player Wallet is null or undefined");
 
             await awardMGS(player?.wallet, 15); // 🅱
+            popModal();
             setIsNewPlayer(false);
             show("🎉 Welcome!", "You have been awarded 15 MGS");
             // }
@@ -390,6 +402,8 @@ const Game = () => {
             ) ||
             (error as { message: string }).message.includes("already known")
           ) {
+            popModal();
+
             console.log(
               "%c(Game.tsx | Catch Blick) Player Already Exists",
               "background-color: green; color:white;"
@@ -398,7 +412,7 @@ const Game = () => {
           }
 
           // error.message.includes("Player already exists")
-
+          popModal();
           console.error(
             "⛔ - 🅱 Cautch Error From: (Game.tsx), BLOCKCHAIN - useEffect: Game Contract",
             error

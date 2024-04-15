@@ -94,9 +94,7 @@ export default function CardGrid({
 
   const gameContract = useBlockchainStore((state) => state.gameContract);
 
-  const rewardingToolContract = useBlockchainStore(
-    (state) => state.rewardingToolContract
-  );
+  // const [newCard_no_id, set_NewCard_no_id] = useState<CardClass | null>(null);
 
   const {
     activeCards,
@@ -117,21 +115,24 @@ export default function CardGrid({
   const toastConfetti = useToastConfetti();
   const toastError = useToastError();
 
-  let newCard_2: CardClass | null = null;
+  let newCard_no_id: CardClass | null = null;
 
   const { mutate: createCard_DB } = useMutation({
     mutationFn: createCard, // Replace with your API function
-    onError: (error) =>
-      console.error("Error while creating the new card!", error),
-    onSuccess: (newCardID) => {
+    onError: (error) => {
+      toastError.showError("An Error Occured", "Try crafting the Card again!");
+      console.error("Error while creating the new card!", error);
+      return;
+    },
+    onSuccess: async (newCardID) => {
       console.log("New Card: ", newCardID);
-      console.log("1 - 😍🏝 - newCard_2: ", newCard_2);
-      if (newCard_2 === null)
+      console.log("1 - 😍🏝 - newCard_2: ", newCard_no_id);
+      if (newCard_no_id === null)
         throw new Error(
           "⛔ CardGrid: createCard_DB Mutations: newCard_2 is null!"
         );
 
-      const newCard = newCard_2; // Just to make the code more readable
+      const newCard = newCard_no_id; // Just to make the code more readable\
       newCard.id = newCardID.cardId; // This "newCardData" comes from the the createCard_DB Mutation
 
       if (gameContract === null) {
@@ -144,11 +145,19 @@ export default function CardGrid({
         );
       }
 
+      pushModal(
+        <LoadingModal
+          title="Blockchain Interaction"
+          message="Awaiting for Tranction Confirmation..."
+          message2="For Metamask users, check your Metamask Extension!"
+        />
+      );
       // 🅱✨ 9. Create the Card in the Blockchain
-      gameContract.createCard(newCard.id, newCard.templateId);
+      await gameContract.createCard(newCard.id, newCard.templateId);
       if (player?.wallet === null || player?.wallet === undefined)
         throw new Error("⛔ CardGrid: createCard_DB: Player Wallet is null!");
-      awardMGS(player?.wallet, 3);
+      await awardMGS(player?.wallet, 3);
+      popModal();
 
       addCardToInventory(newCard);
 
@@ -166,6 +175,16 @@ export default function CardGrid({
           expenses: 0,
         });
       }
+
+      toastConfetti.show(
+        "Crafted New Card",
+        "✨ You can check it out in your Inventory!"
+      );
+
+      toastConfetti.show("Earned MGS!", "✨ You received 3 MGS Tokens!");
+
+      // 8. Play the Quiz Game
+      pushModal(<QuizModal resourceCosts={newCard_no_id.requirements} />);
     },
   });
 
@@ -264,8 +283,7 @@ export default function CardGrid({
         throw new Error("⛔ CardGrid: createNewCard: Invalid Card Type!");
     }
 
-    // console.log("CardGrid, Create Card Data: ", newCard);
-    newCard_2 = newCard; // This is done so in useEffect we have access to this Card.
+    newCard_no_id = newCard;
 
     return newCard;
   }
@@ -409,26 +427,6 @@ export default function CardGrid({
           creationTime: creationTime,
           creator: player.name,
         });
-      }
-
-      toastConfetti.show(
-        "Crafted New Card",
-        "✨ You can check it out in your Inventory!"
-      );
-
-      toastConfetti.show("Earned MGS!", "✨ You received 3 MGS Tokens!");
-
-      // 8. Play the Quiz Game
-      pushModal(<QuizModal resourceCosts={newCard.requirements} />);
-
-      if (rewardingToolContract === null) {
-        toastError.showError(
-          "Error in CardGrid, checkAndSubtractRes",
-          "Rewarding Tool Contract is null!"
-        );
-        throw new Error(
-          "⛔ CardGrid: checkAndSubtractRes: Rewarding Tool Contract is null!"
-        );
       }
     }
   }
