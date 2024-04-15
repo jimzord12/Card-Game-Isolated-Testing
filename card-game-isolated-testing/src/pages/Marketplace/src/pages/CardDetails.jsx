@@ -117,6 +117,13 @@ const CardDetails = () => {
   const [showTranMsg, setShowTranMsg] = useState(false);
   const [tranType, setTranType] = useState("verify");
 
+  const [cardRemovalProgess, setCardRemovalProgess] = useState({
+    isLoading: false,
+    isSuccessful: false,
+    isError: false,
+    type: "verify",
+  });
+
   const cardDetails = cardInfo[selectedCard.templateId];
   const owner = players.find((player) => player.id === selectedCard.ownerId);
   const redirectedFrom = locationState.from;
@@ -220,7 +227,7 @@ const CardDetails = () => {
       refetchAllCards();
       refetchPlayerData(playerData.wallet);
       show("Transaction Successful!", "The card is added to your inventory.");
-      show("Earned MGS!", "By purchasing a card, you earned 1.5 MGS.");
+      show("Earned MGS!", "By purchasing a card, you earned 2 MGS.");
       setTimeout(() => {
         navigate("/marketplace");
         smoothScrollTo(0, 500);
@@ -237,7 +244,7 @@ const CardDetails = () => {
     if (selectedCard.id) {
       try {
         await gameContract.purchaseCard(selectedCard.id);
-        await awardMGS(playerData.wallet, 1.5);
+        await awardMGS(playerData.wallet, 2);
         purchaseMutation({
           cardId: selectedCard?.id,
           buyerId: userId,
@@ -249,7 +256,19 @@ const CardDetails = () => {
           level: selectedCard?.level,
         });
       } catch (error) {
+        setShowTranMsg(false);
+        if (error.message.includes("user rejected action")) {
+          showError(
+            "Card Removal Cancelled",
+            "The Card was not removed from MP"
+          );
+          return;
+        }
+
         showError("Card Purchase Failed!", "Please try again later");
+        setTranType("verify");
+        setShowTranMsg(false);
+
         console.error(
           "⛔ - Custom: Marketplace | CardDetails.jsx : handlePurchase: ",
           error
@@ -261,8 +280,20 @@ const CardDetails = () => {
   const handleCardRemoval = async () => {
     try {
       console.log(gameContract, selectedCard.id);
+      setCardRemovalProgess({ ...cardRemovalProgess, isLoading: true });
+
+      if (window.ethereum)
+        show("In Case of Metamask", "Check your Metamask Wallet for details.");
       await gameContract.unsellCard(selectedCard.id);
+      setCardRemovalProgess({
+        ...cardRemovalProgess,
+        isLoading: false,
+        isSuccessful: true,
+        type: "remove-card",
+      });
+
       await removeFromMP(selectedCard.id);
+      setShowTranMsg(false);
       show(
         "Transaction Successful!",
         "Your Card is removed from the Marketplace."
@@ -279,8 +310,31 @@ const CardDetails = () => {
         smoothScrollTo(0, 500);
       }, 2000);
     } catch (error) {
+      setShowTranMsg(false);
+      console.log("ERROR: ", error);
+      if (error.message.includes("user rejected action")) {
+        showError("Card Removal Cancelled", "The Card was not removed from MP");
+        setCardRemovalProgess({
+          ...cardRemovalProgess,
+          isLoading: false,
+          isSuccessful: false,
+          isError: false,
+          type: "verify",
+        });
+        return;
+      }
+
+      setCardRemovalProgess({
+        ...cardRemovalProgess,
+        isLoading: false,
+        isSuccessful: false,
+        isError: false,
+        type: "verify",
+      });
+
       showError("Card Removal Failed!", "Please try again later");
-      setTranType("failed");
+      setTranType("verify");
+      setShowTranMsg(false);
       console.error(
         "⛔ - Custom: Marketplace | CardDetails.jsx : handleCardRemoval: ",
         error
@@ -487,21 +541,31 @@ const CardDetails = () => {
                 )}
 
                 <div className="mt-[0px]">
-                  <Message
-                    isVisible={showTranMsg}
-                    setVisibility={setShowTranMsg}
-                    isLoading={isTxPending}
-                    isTranSuccess={isTxSuccess}
-                    isTranError={isTxError}
-                    type={tranType}
-                    from={locationState.from}
-                    text="Are you certain you wish you complete this transaction?"
-                    handlerFunction={
-                      redirectedFrom === "profile"
-                        ? handleCardRemoval
-                        : handlePurchase
-                    }
-                  />
+                  {redirectedFrom === "profile" ? (
+                    <Message
+                      isVisible={showTranMsg}
+                      setVisibility={setShowTranMsg}
+                      isLoading={cardRemovalProgess.isLoading}
+                      isTranSuccess={cardRemovalProgess.isSuccessful}
+                      isTranError={cardRemovalProgess.isError}
+                      type={cardRemovalProgess.type}
+                      from={locationState.from}
+                      text="Are you certain you wish you complete this transaction?"
+                      handlerFunction={handleCardRemoval}
+                    />
+                  ) : (
+                    <Message
+                      isVisible={showTranMsg}
+                      setVisibility={setShowTranMsg}
+                      isLoading={isTxPending}
+                      isTranSuccess={isTxSuccess}
+                      isTranError={isTxError}
+                      type={tranType}
+                      from={locationState.from}
+                      text="Are you certain you wish you complete this transaction?"
+                      handlerFunction={handlePurchase}
+                    />
+                  )}
 
                   {!isPurchasing && (
                     <CustomButton
@@ -514,7 +578,11 @@ const CardDetails = () => {
                           : "Can't Buy Card"
                       }
                       styles="w-full bg-[#8c6dfd]"
-                      disabled={redirectedFrom === "profile" ? false : !canBuy}
+                      disabled={
+                        redirectedFrom === "profile"
+                          ? cardRemovalProgess.isLoading
+                          : !canBuy
+                      }
                       handleClick={() => {
                         setShowTranMsg(true);
                         console.log("The Card Details: ", selectedCard);
@@ -635,6 +703,7 @@ const Message = ({
                     handleClick={() => {
                       if (from === "profile") setShowRemoveMsg(true);
                       handlerFunction();
+                      setShowRemoveMsg(false);
                     }}
                   />
                   <CustomButton

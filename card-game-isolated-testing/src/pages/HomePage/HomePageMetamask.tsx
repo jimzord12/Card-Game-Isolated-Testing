@@ -18,6 +18,7 @@ import { handlePlayerCreate } from "./handlers/localWallet/handlePlayerCreate";
 import { useWeb3Login } from "../../hooks/blockchain/useWeb3Login";
 import { loginWithWallet } from "../../../api/apiFns";
 import { useGeneralVariablesStore } from "../../stores/generalVariables";
+import CountdownTimer from "../../components/CountDownTimer/CountDownTimer";
 
 const HomePageMetamask = () => {
   const { login, setUser } = useAuth();
@@ -53,28 +54,90 @@ const HomePageMetamask = () => {
   const [showNewPlayerForm, setShowNewPlayerForm] = useState(false);
   const [showNewPlayerForm2, setShowNewPlayerForm2] = useState(true);
 
+  const [isPlayerRegistered, setIsPlayerRegistered] = useState(false);
+
+  const [serverIsLive, setServerIsLive] = useState(false);
+  const [waitingServer, setWaitingServer] = useState(false);
+
   const setIsNewPlayer = useGeneralVariablesStore(
     (state) => state.setIsNewPlayer
   );
-  // ✨ Temporary Commented Out
-  // const {
-  //   mutate: loginMutation,
-  //   isPending,
-  //   error,
-  // } = useMutation({
-  //   mutationFn: (walletAddress: string) =>
-  //     fetchUserDataWithWallet(walletAddress),
-  //   onSuccess: (data) => {
-  //     // Handle successful login
-  //     console.log("🐱‍🏍 - The Received Data: ", data);
-  //     login(data);
-  //     // auth.login(data); // Assuming you have a login function in your auth context
-  //   },
-  //   onError: (error) => {
-  //     // Handle error
-  //     console.error("⛔ - Login error: ", error);
-  //   },
-  // });
+
+  useEffect(() => {
+    async function automaticLogin() {
+      if (serverIsLive === false || wallet.accounts.length === 0) {
+        console.log(
+          "⛔ - [METAMASK-HOME PAGE] - Server is not live or Wallet is not connected."
+        );
+        console.log("⛔ - [METAMASK-HOME PAGE] - Server: ", serverIsLive);
+        console.log("⛔ - [METAMASK-HOME PAGE] - Wallet: ", wallet);
+        return;
+      }
+
+      try {
+        const walletAddress = wallet.accounts[0];
+        console.log("✅ - [METAMASK-HOME PAGE] - Wallet Accounts are present");
+        const userData = await loginWithWallet(walletAddress);
+
+        if (setUser === null)
+          throw new Error("⛔ - useLocalWallet: setUser is null");
+
+        setUser({ ...userData });
+        setIsPlayerRegistered(true);
+        setShowNewPlayerForm2(false);
+      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((error as any)?.response.status === 401) {
+          console.log(
+            "🔷 - ⛔ | Tried to Automatically Fetch User Data and Failed!"
+          );
+          setIsPlayerRegistered(false);
+        } else {
+          console.log(
+            "🔷 - ⛔ | Automatic UserData Local Wallet Retrival Failed, here is the error: ",
+            error
+          );
+        }
+      }
+    }
+
+    if (currentStep >= 3) {
+      automaticLogin();
+    }
+  }, [serverIsLive, wallet.accounts.length, currentStep]);
+
+  // Checking the Server Status
+  useEffect(() => {
+    let serverTimeout: NodeJS.Timeout;
+    if (!serverIsLive) {
+      serverTimeout = setTimeout(() => {
+        setErrMsg("Server Error: Please wait 45-60 secs and try again.");
+        setWaitingServer(true);
+      }, 5000);
+    }
+
+    const checkingServer = async () => {
+      try {
+        await loginWithWallet("0xCe8E2AAd6a2aE2C69B31e5CFa7512878c4cA4197");
+        setServerIsLive(true);
+        setErrMsg("");
+        setWaitingServer(false);
+        clearTimeout(serverTimeout);
+      } catch (error) {
+        setErrMsg("Server Error: Please wait 45-60 secs and try again.");
+        setWaitingServer(true);
+      }
+    };
+
+    if (!serverIsLive) {
+      console.log("🔃 Checking for Server Status...");
+      checkingServer();
+    }
+
+    return () => {
+      clearTimeout(serverTimeout);
+    };
+  }, [waitingServer, wallet.accounts.length]);
 
   const stepManager = () => {
     if (metamaskProvider) setCurrentStep(1); // Check if MetaMask is installed
@@ -84,16 +147,9 @@ const HomePageMetamask = () => {
 
   useEffect(() => {
     if (metamaskProvider) {
-      // console.log("UseEffect: from Metamask HomePage");
-      // console.log(metamaskProvider);
-      // console.log("Wallet: ", wallet);
       stepManager();
     }
   }, [metamaskProvider, wallet.chainId, wallet.accounts.length]);
-
-  useEffect(() => {
-    // console.log("first");
-  }, [errMsg, successMsg]);
 
   const actionBtnManger = () => {
     switch (currentStep) {
@@ -113,7 +169,6 @@ const HomePageMetamask = () => {
             connectMetaMask();
           },
         };
-        break;
 
       case 2:
         return {
@@ -133,14 +188,24 @@ const HomePageMetamask = () => {
             }
           },
         };
-        break;
 
       case 3:
+        if (isPlayerRegistered) {
+          return {
+            text: "Login and Play",
+            handler: handleLogin,
+          };
+        }
+
+        if (!showNewPlayerForm) {
+          console.log("asdasdasda", showNewPlayerForm);
+          setShowNewPlayerForm(true);
+        }
+
         return {
-          text: "Login with Wallet",
-          handler: handleLogin,
+          text: "Create New Account",
+          handler: handlePlayerCreation,
         };
-        break;
 
       default:
         return { text: "Error!", handler: () => {} };
@@ -181,23 +246,79 @@ const HomePageMetamask = () => {
     }
   };
 
-  // if (isPending) return <div style={{ fontSize: 24 }}>Loading...</div>;
+  const handlePlayerCreation = async (e: React.MouseEvent) => {
+    const success = await handlePlayerCreate(
+      e,
+      playerName,
+      wallet.accounts[0],
+      setTransactionModalOpen,
+      setUser,
+      setErrMsg,
+      resetUser,
+      setSuccessMsg
+    );
 
-  // if (error) return <div style={{ fontSize: 24 }}>{error.message}</div>;
+    if (success) {
+      setShowNewPlayerForm2(false);
+      setIsNewPlayer(true);
+      setIsPlayerRegistered(true);
+    } else {
+      // setErrMsg("We are experiencing some issues. Please try again later.");
+      console.error(
+        "⛔ Custom: HomePage-Metamask: HandlePlayerCreate, Player Creation Failed"
+      );
+    }
+  };
+
+  // ✨ Temporary Commented Out
+  // const {
+  //   mutate: loginMutation,
+  //   isPending,
+  //   error,
+  // } = useMutation({
+  //   mutationFn: (walletAddress: string) =>
+  //     fetchUserDataWithWallet(walletAddress),
+  //   onSuccess: (data) => {
+  //     // Handle successful login
+  //     console.log("🐱‍🏍 - The Received Data: ", data);
+  //     login(data);
+  //     // auth.login(data); // Assuming you have a login function in your auth context
+  //   },
+  //   onError: (error) => {
+  //     // Handle error
+  //     console.error("⛔ - Login error: ", error);
+  //   },
+  // });
 
   return (
     <div className="flex flex-col">
       <TransactionModal open={isTransactionModalOpen} />
 
-      <p className={errMsg ? styles.errorStyles : styles.offscreenStyles}>
-        {errMsg}
-      </p>
-      <p className={successMsg ? styles.successStyles : styles.offscreenStyles}>
-        Your account has been created!
-        <br /> Login to start playing! 🥳
-        <br /> - The awesome thing about Web3...
-        <br /> {"..you don't even need to remember usernames & passwords!"}
-      </p>
+      <>
+        <p className={errMsg ? styles.errorStyles : styles.offscreenStyles}>
+          {errMsg}
+        </p>
+        {waitingServer && !serverIsLive && (
+          <CountdownTimer
+            initialCount={15}
+            setWaitingServer={setWaitingServer}
+          />
+        )}
+        {!serverIsLive && !waitingServer && (
+          <p className={styles.infoStyles}>
+            Wait a moment while we check the server status...
+          </p>
+        )}
+
+        <p
+          className={successMsg ? styles.successStyles : styles.offscreenStyles}
+        >
+          Your account has been created!
+          <br /> Login to start playing! 🥳
+          <br /> - The awesome thing about Web3...
+          <br /> {"..you don't even need to remember usernames & passwords!"}
+        </p>
+      </>
       <div style={{ height: 16 }} />
       <div className="max-md:w-full xl:w-full w-2/3">
         {/* <SizedBox /> */}
@@ -214,10 +335,17 @@ const HomePageMetamask = () => {
               showNewPlayerForm ? "opacity-100 h-full" : "opacity-0 h-[0px]"
             }`}
           >
-            <p>
-              Please enter a name for your Player. Afterwards, click the{" "}
-              <strong>"Create Player</strong>" button.
-            </p>
+            <div className="bg-emerald-700 p-4 w-fit rounded-xl">
+              <p>You need to Create an Account to Play the Game.</p>
+              <br />
+              <p>Please enter a name for your Player.</p>
+              <p>
+                {" "}
+                Afterwards, click the <strong>"Create Player</strong>" button.
+              </p>
+            </div>
+            <SizedBox />
+
             <CustomInput
               label="Player Name"
               placeHolder="Enter your player name"
@@ -238,61 +366,15 @@ const HomePageMetamask = () => {
           <CustomButton
             title={actionBtnManger().text}
             handleClick={actionBtnManger().handler}
-            restStyles="mt-6 w-fit z-10"
+            isDisabled={
+              currentStep === 3 &&
+              playerName.length === 0 &&
+              !isPlayerRegistered
+            }
+            restStyles="mt-6 w-fit z-10 transition-all duration-500"
             // isDisabled={!(currentStep == 0)}
           />
-          {showNewPlayerForm2 && currentStep === 3 && (
-            <h4 className="text-white font-semibold text-3xl self-center mt-4">
-              OR
-            </h4>
-          )}
         </div>
-
-        <>
-          {showNewPlayerForm && showNewPlayerForm2 ? (
-            <CustomButton
-              title="Create Player"
-              handleClick={async (e) => {
-                const success = await handlePlayerCreate(
-                  e,
-                  playerName,
-                  wallet.accounts[0],
-                  setTransactionModalOpen,
-                  setUser,
-                  setErrMsg,
-                  resetUser,
-                  setSuccessMsg
-                );
-
-                if (success) {
-                  setShowNewPlayerForm2(false);
-                  setIsNewPlayer(true);
-                } else {
-                  setErrMsg(
-                    "We are experiencing some issues. Please try again later."
-                  );
-                  console.error(
-                    "⛔ Custom: HomePage-Metamask: HandlePlayerCreate, Player Creation Failed"
-                  );
-                }
-              }} // ✨ Restore
-              restStyles="mt-6 w-fit z-10"
-            />
-          ) : (
-            <>
-              {showNewPlayerForm2 && currentStep === 3 && (
-                <CustomButton
-                  title="New Player?"
-                  handleClick={() => {
-                    setShowNewPlayerForm(true);
-                    setErrMsg("");
-                  }}
-                  restStyles="mt-6 w-fit z-10"
-                />
-              )}
-            </>
-          )}
-        </>
       </div>
     </div>
   );

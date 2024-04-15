@@ -14,9 +14,15 @@ import { loginWithWallet } from "../../../api/apiFns";
 import RestoreWalletModal from "../../components/Modals/HomePageModals/RestoreWalletModal";
 import DeleteWalletModal from "../../components/Modals/HomePageModals/DeleteWalletModal";
 import { useGeneralVariablesStore } from "../../stores/generalVariables";
+import { useToastError } from "../../hooks/notifications";
 
 function HomePageLocalWallet() {
-  const { user: userData, login, setUser } = useAuth();
+  const {
+    user: userData,
+    login,
+    setUser,
+    resetUser: resetUserDataAuth,
+  } = useAuth();
   const {
     value: playerName,
     reset: resetUser,
@@ -42,6 +48,8 @@ function HomePageLocalWallet() {
   const [isDeleteWalletModalOpen, setDeleteWalletModalOpen] = useState(false);
   const [isRestoreWalletModalOpen, setRestoreWalletModalOpen] = useState(false);
 
+  const { showError } = useToastError();
+
   const setIsNewPlayer = useGeneralVariablesStore(
     (state) => state.setIsNewPlayer
   );
@@ -53,6 +61,7 @@ function HomePageLocalWallet() {
     }
   }, [getEthBalance, userData?.wallet]);
 
+  // Checking the Server Status
   useEffect(() => {
     const serverTimeout = setTimeout(() => {
       setErrMsg("Server Error: No response received.");
@@ -104,11 +113,11 @@ function HomePageLocalWallet() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((error as any)?.response.status === 401) {
           console.log(
-            "🔷 - Tried to Automatically Fetch User Data and Failed!"
+            "🔷 - ⛔ | Tried to Automatically Fetch User Data and Failed!"
           );
         } else {
           console.log(
-            "🔷 - Automatic UserData Local Wallet Retrival Failed, probably no Wallet is stored."
+            "🔷 - ⛔ | Automatic UserData Local Wallet Retrival Failed, probably no Wallet is stored."
           );
         }
       }
@@ -123,21 +132,17 @@ function HomePageLocalWallet() {
       <RestoreWalletModal
         open={isRestoreWalletModalOpen}
         retrieveWallet={retrieveWallet}
-        //   () => {
-
-        //   const {walletAddress} = retrieveWallet()
-        //   if (walletAddress) throw Error("🔴 - Wallet Address is not null")
-        //   setUser({
-
-        // })
-        // }
-        // }
         setModalVisibility={setRestoreWalletModalOpen}
       />
       <DeleteWalletModal
         open={isDeleteWalletModalOpen}
         setModalVisibility={setDeleteWalletModalOpen}
         deleteWallet={() => {
+          if (resetUserDataAuth === null) {
+            showError("⛔ - DeleteWalletModal: resetUserDataAuth is null");
+            throw Error("⛔ - DeleteWalletModal: resetUserDataAuth is null");
+          }
+          resetUserDataAuth();
           resetUser();
           deleteWallet();
         }}

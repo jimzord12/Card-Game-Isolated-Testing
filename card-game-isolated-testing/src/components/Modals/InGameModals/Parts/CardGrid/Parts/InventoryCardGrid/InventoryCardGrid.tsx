@@ -8,7 +8,7 @@ interface Props {
   selectedCard: CardClass | null;
   cards: CardClass[];
   setSelectedCard: React.Dispatch<React.SetStateAction<CardClass | null>>;
-  handleSell: (card: CardClass) => void;
+  handleSell: (card: CardClass) => Promise<void>;
   handleLevelUp: (card: CardClass) => void;
   handleActivateSPCard: (card: SPCard) => void;
 }

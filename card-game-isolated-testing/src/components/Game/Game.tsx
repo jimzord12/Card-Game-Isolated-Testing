@@ -23,7 +23,7 @@ import {
   getPlayerByWallet,
   updatePlayerData,
 } from "../../../api/apiFns";
-import { useToastError } from "../../hooks/notifications";
+import { useToastConfetti, useToastError } from "../../hooks/notifications";
 import GameMapActionsBtn from "../Buttons/GameMapActionsBtn/GameMapActionsBtn";
 import { gameConfig } from "../../constants/game";
 import useGA4 from "../../hooks/useGA4";
@@ -85,6 +85,7 @@ const Game = () => {
   } = useGameContract();
 
   const { showError } = useToastError();
+  const { show } = useToastConfetti();
 
   const player = useGameVarsStore((state) => state.player);
   const setAllWorkers = useGameVarsStore((state) => state.setAllWorkers);
@@ -118,7 +119,7 @@ const Game = () => {
   const setGameContract = useBlockchainStore((state) => state.setGameContract);
   // const gameContract = useBlockchainStore((state) => state.gameContract);
 
-  const isNewPlayer = useGeneralVariablesStore((state) => state.isNewPlayer);
+  // const isNewPlayer = useGeneralVariablesStore((state) => state.isNewPlayer);
 
   const addAllInventoryCards = useAllCardsStore(
     (state) => state.addAllInventoryCards
@@ -127,6 +128,10 @@ const Game = () => {
     (state) => state.removeAllInventoryCards
   );
   const refetchCards = useGeneralVariablesStore((state) => state);
+
+  const setIsNewPlayer = useGeneralVariablesStore(
+    (state) => state.setIsNewPlayer
+  );
 
   const { setNewGameState, getGameState, needsCatchUp, calcTimeUnits } =
     useGameLoop();
@@ -332,13 +337,16 @@ const Game = () => {
               "🅱 (LocalWallet) #1.2.2: ✅ Game Contract Instance Completed!"
             );
 
-            if (isNewPlayer) {
-              await _gameContract.createPlayer(player?.name, player?.id); // 🅱
+            // if (isNewPlayer) {
+            await _gameContract.createPlayer(player?.name, player?.id); // 🅱
 
-              if (player?.wallet === null || player?.wallet === undefined)
-                throw new Error("⛔ Player Wallet is null or undefined");
-              await awardMGS(player?.wallet, 15); // 🅱
-            }
+            if (player?.wallet === null || player?.wallet === undefined)
+              throw new Error("⛔ Player Wallet is null or undefined");
+
+            await awardMGS(player?.wallet, 15); // 🅱
+            setIsNewPlayer(false);
+            show("🎉 Welcome!", "You have been awarded 15 MGS");
+            // }
 
             // -> MetaMask
           } else if (window.ethereum) {
@@ -353,13 +361,19 @@ const Game = () => {
               "🅱 (MetaMask) #1.2.4: ✅ Game Contract Instance Completed!"
             );
 
-            if (isNewPlayer) {
-              await _gameContract.createPlayer(player?.name, player?.id); // 🅱
+            // const response = await _gameContract.players(player?.wallet); // 🅱
+            // const playerExists = Number(response[1]) > 0;
 
-              if (player?.wallet === null || player?.wallet === undefined)
-                throw new Error("⛔ Player Wallet is null or undefined");
-              await awardMGS(player?.wallet, 15); // 🅱
-            }
+            // if (isNewPlayer && playerExists) {
+            await _gameContract.createPlayer(player?.name, player?.id); // 🅱
+
+            if (player?.wallet === null || player?.wallet === undefined)
+              throw new Error("⛔ Player Wallet is null or undefined");
+
+            await awardMGS(player?.wallet, 15); // 🅱
+            setIsNewPlayer(false);
+            show("🎉 Welcome!", "You have been awarded 15 MGS");
+            // }
           } else {
             console.log(
               "🅱 - ⛔ | (No Error) Something went wrong while Initializing the Game Contract"
@@ -370,8 +384,21 @@ const Game = () => {
             );
           }
         } catch (error) {
-          // if (error)
-          console.log(error);
+          if (
+            (error as { message: string }).message.includes(
+              "Player already exists"
+            ) ||
+            (error as { message: string }).message.includes("already known")
+          ) {
+            console.log(
+              "%c(Game.tsx | Catch Blick) Player Already Exists",
+              "background-color: green; color:white;"
+            );
+            return;
+          }
+
+          // error.message.includes("Player already exists")
+
           console.error(
             "⛔ - 🅱 Cautch Error From: (Game.tsx), BLOCKCHAIN - useEffect: Game Contract",
             error

@@ -1,16 +1,11 @@
-import styles from "./loadingModalStyles.module.css";
+import styles from "./loadingModalMPStyles.module.css";
 import { ProgressBar } from "react-loader-spinner";
-type Props = {
-  title?: string;
-  message?: string;
-  message2?: string;
-};
 
-const LoadingModal = ({
+const LoadingModalMP = ({
   title = "Server Communication",
   message = "Please wait while we process your request...",
   message2,
-}: Props) => {
+}) => {
   return (
     <div className={styles.loadingModal}>
       <div className={styles.background}>
@@ -34,4 +29,4 @@ const LoadingModal = ({
   );
 };
 
-export default LoadingModal;
+export default LoadingModalMP;

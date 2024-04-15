@@ -64,6 +64,7 @@ import { useModalStore } from "../../../../../stores/modalStore.js";
 import QuizModal from "../../../QuizModal/QuizModal.js";
 import ConfirmationModal from "../../../ConfirmationModal/ConfirmationModal.js";
 import { useBlockchainStore } from "../../../../../stores/blockchainStore.js";
+import LoadingModal from "../../../LoadingModal/LoadingModal.js";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -535,12 +536,32 @@ export default function CardGrid({
     }
 
     try {
+      popModal(); // This one removes the Confirmation Modal
+      pushModal(
+        <LoadingModal
+          title="Blockchain Interaction"
+          message="Awaiting for Tranction Confirmation..."
+          message2="For Metamask users, check your Metamask Extension!"
+        />
+      );
+      pushModal(<LoadingModal />); // I don't know why, but I have to call it twice to make it work (This one is not shown)
       await gameContract.depositCard(_card.id);
+      popModal();
       toastConfetti.show(
         "Card added to Marketplace",
         "💰 Your Card was deposited to MP!"
       );
     } catch (error) {
+      popModal();
+
+      if ((error as { code: number }).code === 4001) {
+        toastError.showError(
+          "Transaction Rejected",
+          "😅 The transaction was rejected by the user!"
+        );
+        return;
+      }
+
       toastError.showError(
         "Error in CardGrid, handleSellClick",
         "Error while depositing the card to MP!"

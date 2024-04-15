@@ -9,10 +9,11 @@ import useInput from "../../../../../../../../hooks/useInput";
 import CustomInput from "../../../../../../../CustomInput/CustomInput";
 import useConfirmationModal from "../../../../../../../../hooks/modals/useConfirmationModal";
 import { useState } from "react";
+import { useToastError } from "../../../../../../../../hooks/notifications";
 
 interface Props {
   selectedCard: CardClass;
-  handleSell: (card: CardClass) => void;
+  handleSell: (card: CardClass) => Promise<void>;
   handleLevelUp: (card: CardClass) => void;
   handleActivateSPCard: (card: SPCard) => void;
 }
@@ -32,16 +33,20 @@ const InventoryCardGridSecondMenu = ({
     attributeObj,
   } = useInput("priceTagInput");
 
-  const { openConfirmationModal } = useConfirmationModal({
-    title: "Sell Card Confirmation",
-    message: "Are you sure you want to sell this card?",
-    onConfirm: () => {
-      selectedCard.priceTag = parseInt(sellPrice);
-      handleSell(selectedCard);
-      resetSellInput();
-      setIsSellClickedTimes(0);
-    },
-  });
+  const { showError } = useToastError();
+
+  const { openConfirmationModal } =
+    useConfirmationModal({
+      title: "Sell Card Confirmation",
+      message: "Are you sure you want to sell this card?",
+      onConfirm: async () => {
+        selectedCard.priceTag = parseInt(sellPrice);
+        // closeConfirmationModal();
+        await handleSell(selectedCard);
+        resetSellInput();
+        setIsSellClickedTimes(0);
+      },
+    });
 
   return (
     <div
@@ -66,7 +71,12 @@ const InventoryCardGridSecondMenu = ({
               }
 
               if (isSellClickedTimes === 1) {
-                openConfirmationModal();
+                if (Number(sellPrice) <= 0 || sellPrice === "priceTagInput") {
+                  showError("Invalid Price", "Please enter a valid price!");
+                  return;
+                } else {
+                  openConfirmationModal();
+                }
               }
             }}
           >
