@@ -30,6 +30,7 @@ import { createCardStats } from "./cards/_createCardStats";
 import { updateCardData } from "./cards/_updateCardData";
 import { updateCardStats } from "./cards/_updateCardStats";
 import { getCardStatsById } from "./cards/_getCardStatsById";
+import { deleteCard } from "./cards/_deleteCard";
 
 // Quiz Game
 import { getRandomQuestions } from "./quizGame/_getRandomQuestions";
@@ -65,4 +66,5 @@ export {
   getRandomQuestions,
   getMGSBalance,
   awardMGS,
+  deleteCard,
 };

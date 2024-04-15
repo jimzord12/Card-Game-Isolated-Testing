@@ -29,6 +29,7 @@ import {
   createCard,
   updatePlayerData as updatePlayerDataSQL,
   awardMGS,
+  deleteCard,
 } from "../../../../../../api/apiFns/index.js";
 
 //@Note: These images imports are all over the place! When refactoring, find a way to centralize them.
@@ -65,6 +66,8 @@ import QuizModal from "../../../QuizModal/QuizModal.js";
 import ConfirmationModal from "../../../ConfirmationModal/ConfirmationModal.js";
 import { useBlockchainStore } from "../../../../../stores/blockchainStore.js";
 import LoadingModal from "../../../LoadingModal/LoadingModal.js";
+import { useGeneralVariablesStore } from "../../../../../stores/generalVariables.js";
+import { useEffect } from "react";
 
 interface CardGridProps {
   setSelectedCardModal: React.Dispatch<React.SetStateAction<CardClass | null>>;
@@ -92,6 +95,13 @@ export default function CardGrid({
   const pushModal = useModalStore((state) => state.pushModal);
   const popModal = useModalStore((state) => state.popModal);
 
+  const freshlyCraftedCard = useGeneralVariablesStore(
+    (state) => state.freshlyCraftedCard
+  );
+  const setFreshlyCraftedCard = useGeneralVariablesStore(
+    (state) => state.setFreshlyCraftedCard
+  );
+
   const gameContract = useBlockchainStore((state) => state.gameContract);
 
   // const [newCard_no_id, set_NewCard_no_id] = useState<CardClass | null>(null);
@@ -115,24 +125,44 @@ export default function CardGrid({
   const toastConfetti = useToastConfetti();
   const toastError = useToastError();
 
-  let newCard_no_id: CardClass | null = null;
+  useEffect(() => {
+    console.log("asdasdadsasd: ", freshlyCraftedCard);
+  }, [freshlyCraftedCard]);
 
   const { mutate: createCard_DB } = useMutation({
     mutationFn: createCard, // Replace with your API function
     onError: (error) => {
+      const newCARD = useGeneralVariablesStore.getState().freshlyCraftedCard;
+      if (newCARD === null || newCARD.id === null) {
+        console.log("🛑 CardGridnewCARD: onError: newCARD: ", newCARD);
+        throw new Error("⛔ CardGridnewCARD: onError: newCARD is null!");
+      }
+
+      if (
+        (error as { message: string }).message.includes("user rejected action")
+      ) {
+        deleteCard(newCARD.id);
+        popModal();
+        return;
+      }
       toastError.showError("An Error Occured", "Try crafting the Card again!");
       console.error("Error while creating the new card!", error);
+      deleteCard(newCARD.id);
+      popModal();
+
       return;
     },
     onSuccess: async (newCardID) => {
       console.log("New Card: ", newCardID);
-      console.log("1 - 😍🏝 - newCard_2: ", newCard_no_id);
-      if (newCard_no_id === null)
+      const newCARD = useGeneralVariablesStore.getState().freshlyCraftedCard;
+      console.log("1 - 😍🏝 - newCARD: ", newCARD);
+
+      if (newCARD === null)
         throw new Error(
           "⛔ CardGrid: createCard_DB Mutations: newCard_2 is null!"
         );
 
-      const newCard = newCard_no_id; // Just to make the code more readable\
+      const newCard = newCARD; // Just to make the code more readable\
       newCard.id = newCardID.cardId; // This "newCardData" comes from the the createCard_DB Mutation
 
       if (gameContract === null) {
@@ -184,7 +214,7 @@ export default function CardGrid({
       toastConfetti.show("Earned MGS!", "✨ You received 3 MGS Tokens!");
 
       // 8. Play the Quiz Game
-      pushModal(<QuizModal resourceCosts={newCard_no_id.requirements} />);
+      pushModal(<QuizModal resourceCosts={newCARD.requirements} />);
     },
   });
 
@@ -283,7 +313,9 @@ export default function CardGrid({
         throw new Error("⛔ CardGrid: createNewCard: Invalid Card Type!");
     }
 
-    newCard_no_id = newCard;
+    console.log("1 - aijsdbiuasbdiuasbdunbaisuda: ", newCard);
+    setFreshlyCraftedCard(newCard);
+    console.log("2 - aijsdbiuasbdiuasbdunbaisuda: ", freshlyCraftedCard);
 
     return newCard;
   }
@@ -396,6 +428,10 @@ export default function CardGrid({
     if (type === "craft") {
       // 🔷 Creates a new Card Instance. 💥 This "newCard" does not have an ID yet!!!
       const newCard = createNewCard(_card.type, _card.templateId);
+      console.log("1 - aijsdbiuasbdiuasbdunbaisuda: ", freshlyCraftedCard);
+
+      // if (freshlyCraftedCard === null)
+      //   throw new Error("⛔ CardGrid : freshlyCraftedCard is null!");
 
       // 🔷 If the Card is of SP type, stored Card in DB
       if (_card.type === "sp" || _card instanceof SPCard) {
@@ -428,6 +464,7 @@ export default function CardGrid({
           creator: player.name,
         });
       }
+      return newCard;
     }
   }
 
@@ -612,7 +649,7 @@ export default function CardGrid({
    * @firstCheck Completed ✅
    * @param card
    */
-  const handleCraftClick = (card: CardClass) => {
+  const handleCraftClick = async (card: CardClass) => {
     // handle craft functionality here
     // 1. Check if player has the resources to craft the Card
     // 2. If "Yes" => Next(), Else "No" Show AlertModal (Not yet created!)
@@ -624,7 +661,15 @@ export default function CardGrid({
     //    3) Local Storage
     //    4) Frontend => CardsInInventory (Context Variable
 
-    checkAndSubtractRes(card, "craft"); // <- The Quiz Modal is called from here
+    const newCard = await checkAndSubtractRes(card, "craft"); // <- The Quiz Modal is called from here
+    if (newCard === undefined) {
+      toastError.showError(
+        "Error in CardGrid, handleCraftClick",
+        "The newCard is undefined!"
+      );
+      throw new Error("⛔ CardGrid: handleCraftClick: newCard is undefined!");
+    }
+    setFreshlyCraftedCard(newCard);
 
     // 6. Unselect the Card. This also goes 1 step back in the Modal (Where all the cards are dispayed).
     setSelectedCard(null);

@@ -20,10 +20,12 @@ interface ICardToCreate {
 interface ResponseData {
   cardId: number;
   success: boolean;
+  // card: CardClass;
 }
 
 export const createCard = async (
   cardDetails: ICardToCreate
+  // card: CardClass
 ): Promise<ResponseData> => {
   const response: AxiosResponse<MySQLOperation> = await axios.post(
     CREATE_CARD_URL,
