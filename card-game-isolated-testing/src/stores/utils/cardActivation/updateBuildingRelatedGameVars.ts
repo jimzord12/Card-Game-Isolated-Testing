@@ -71,25 +71,27 @@ export const updateBuildingRelatedGameVars = (
 
     const currentMultipliers = gameVars.multipliers;
     const CardMultipliers = calcMultiToolStore(card);
+    console.log("2 - KKKKKKK: ", CardMultipliers);
+
     const currentEnergyConsumed = gameVars.energyConsumed;
 
     gameVars.setEnergyConsumed(currentEnergyConsumed + maintenance.energy);
     gameVars.setMultipliers({
       ...gameVars.multipliers,
       goldMultiplier: round2Decimal(
-        currentMultipliers.goldMultiplier + CardMultipliers.gold
+        currentMultipliers.goldMultiplier * CardMultipliers.gold
       ),
       concreteMultiplier: round2Decimal(
-        currentMultipliers.concreteMultiplier + CardMultipliers.concrete
+        currentMultipliers.concreteMultiplier * CardMultipliers.concrete
       ),
       metalsMultiplier: round2Decimal(
-        currentMultipliers.metalsMultiplier + CardMultipliers.metals
+        currentMultipliers.metalsMultiplier * CardMultipliers.metals
       ),
       crystalsMultiplier: round2Decimal(
-        currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
+        currentMultipliers.crystalsMultiplier * CardMultipliers.crystals
       ),
       dieselMultiplier: round2Decimal(
-        currentMultipliers.dieselMultiplier + CardMultipliers.diesel
+        currentMultipliers.dieselMultiplier * CardMultipliers.diesel
       ),
     });
     return;

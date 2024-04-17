@@ -37,7 +37,9 @@ export const dieselGathRateCalc = (
     ? specialEffect.output["dieselGathRate" as keyof EffectOutput]
     : 1;
 
-  return dieselFromWorkers * boostFromEffect - barrelsUsedPerHour;
+  return round4Decimal(
+    dieselFromWorkers * boostFromEffect - barrelsUsedPerHour
+  );
 };
 
 export const goldGathRateCalc = (
@@ -48,24 +50,26 @@ export const goldGathRateCalc = (
 ) => {
   // console.log("🧮 goldGathRateCalc: privateSector: ", privateSector);
   // console.log("🧮 goldGathRateCalc: expensesPerHour: ", expensesPerHour);
-  // console.log("🧮 goldGathRateCalc: goldMultiplier: ", goldMultiplier);
+  console.log("🧪🧮 goldGathRateCalc: goldMultiplier: ", goldMultiplier);
   // console.log("🧮 goldGathRateCalc: specialEffect: ", specialEffect);
 
   const goldFromPrivateSector = roundToDecimal(
     calcProduction(privateSector, goldMultiplier),
     4
   );
-  // console.log("🧮 goldFromPrivateSector: ", goldFromPrivateSector);
+  console.log("🧪🧮 goldFromPrivateSector: ", goldFromPrivateSector);
   const boostFromEffect = specialEffect
     ? specialEffect.output["goldGathRate" as keyof EffectOutput]
     : 1;
 
-  // console.log("🧮 boostFromEffect: ", boostFromEffect);
-  // console.log(
-  //   "🧮 goldGathRateCalc: ",
-  //   goldFromPrivateSector * boostFromEffect - expensesPerHour
-  // );
-  return goldFromPrivateSector * boostFromEffect - expensesPerHour;
+  console.log("🧪🧮 boostFromEffect: ", boostFromEffect);
+  console.log(
+    "🧪🧮 goldGathRateCalc: ",
+    goldFromPrivateSector * boostFromEffect - expensesPerHour
+  );
+  return round4Decimal(
+    goldFromPrivateSector * boostFromEffect - expensesPerHour
+  );
 };
 
 export const concreteGathRateCalc = (

@@ -42,17 +42,29 @@ export const update_B_GameVars_Removal = (
 
     const currentMultipliers = gameVars.multipliers;
     const CardMultipliers = calcMultiToolStore(card);
+    console.log("5 - KKKKKKK - 1: ", CardMultipliers);
+    console.log("5 - KKKKKKK - 2: ", currentMultipliers);
+    console.log(
+      "5 - KKKKKKK - 3: ",
+      currentMultipliers.concreteMultiplier / CardMultipliers.concrete
+    );
+    console.log(
+      "5 - KKKKKKK - 4: ",
+      currentMultipliers.crystalsMultiplier / CardMultipliers.crystals
+    );
 
     gameVars.setEnergyConsumed(currentEnergyConsumed - maintenance.energy);
     gameVars.setMultipliers({
       ...gameVars.multipliers,
-      goldMultiplier: currentMultipliers.goldMultiplier - CardMultipliers.gold,
+      goldMultiplier: currentMultipliers.goldMultiplier / CardMultipliers.gold,
       concreteMultiplier:
-        currentMultipliers.concreteMultiplier - CardMultipliers.concrete,
+        currentMultipliers.concreteMultiplier / CardMultipliers.concrete,
       metalsMultiplier:
-        currentMultipliers.metalsMultiplier - CardMultipliers.metals,
+        currentMultipliers.metalsMultiplier / CardMultipliers.metals,
       crystalsMultiplier:
-        currentMultipliers.crystalsMultiplier - CardMultipliers.crystals,
+        currentMultipliers.crystalsMultiplier / CardMultipliers.crystals,
+      dieselMultiplier:
+        currentMultipliers.dieselMultiplier / CardMultipliers.diesel,
     });
     return;
   }

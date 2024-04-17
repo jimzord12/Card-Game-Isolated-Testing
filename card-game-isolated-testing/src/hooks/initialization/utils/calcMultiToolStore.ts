@@ -10,16 +10,46 @@ import { ToolStoreType, BuildingStats } from "../../../types";
 export const calcMultiToolStore = (card: ToolStoreType) => {
   const toolType = ["concrete", "metals", "crystals", "diesel"];
   const baseMultipliers = {
-    gold: 0,
-    concrete: 0,
-    metals: 0,
-    crystals: 0,
-    diesel: 0,
+    gold: 1,
+    concrete: 1,
+    metals: 1,
+    crystals: 1,
+    diesel: 1,
   };
-
+  console.log("3 - KKKKKKK: ", card);
   for (let i = 0; i < toolType.length; i++) {
-    baseMultipliers[toolType[i] as keyof BuildingStats] =
-      card.stats[toolType[i] as keyof BuildingStats] * card.output.boost; // Tool Level * ToolStore Boost
+    if (card.stats[toolType[i] as keyof BuildingStats] === 0) {
+      continue;
+    } else {
+      baseMultipliers[toolType[i] as keyof BuildingStats] =
+        card.stats[toolType[i] as keyof BuildingStats] *
+        (card.output.boost + 1); // Tool Level * ToolStore Boost
+    }
+  }
+
+  console.log("🎁 Utils:calcMulti:: ", baseMultipliers);
+
+  return baseMultipliers;
+};
+
+export const calcMultiToolStoreRemove = (card: ToolStoreType) => {
+  const toolType = ["concrete", "metals", "crystals", "diesel"];
+  const baseMultipliers = {
+    gold: 1,
+    concrete: 1,
+    metals: 1,
+    crystals: 1,
+    diesel: 1,
+  };
+  console.log("4 - KKKKKKK: ", card);
+  for (let i = 0; i < toolType.length; i++) {
+    if (card.stats[toolType[i] as keyof BuildingStats] === 0) {
+      continue;
+    } else {
+      baseMultipliers[toolType[i] as keyof BuildingStats] =
+        card.stats[toolType[i] as keyof BuildingStats] *
+        (card.output.boost + 1); // Tool Level * ToolStore Boost
+    }
   }
 
   console.log("🎁 Utils:calcMulti:: ", baseMultipliers);

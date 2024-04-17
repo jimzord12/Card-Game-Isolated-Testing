@@ -1,4 +1,5 @@
 import BuildingCard from "../../../classes/buildingClass_V2";
+import EffectClass from "../../../classes/effectClass";
 import {
   BuildingStats,
   CardClass,
@@ -32,8 +33,16 @@ function calcLivingStandards(
   return happiness;
 }
 
-function calcIncome(_availWorkers: number, multiplier: number) {
-  return _availWorkers * multiplier;
+function calcIncome(
+  _availWorkers: number,
+  multiplier: number,
+  activeEffect?: EffectClass | null
+) {
+  const effectBoost = activeEffect?.output.goldGathRate ?? 1;
+  console.log("calcIncome: effectBoost: ", effectBoost);
+  console.log("calcIncome: _availWorkers: ", _availWorkers);
+  console.log("calcIncome: multiplier: ", multiplier);
+  return _availWorkers * multiplier * effectBoost;
 }
 
 function calcPercentage(a: number, b: number) {

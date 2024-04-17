@@ -152,6 +152,7 @@ const useGameLoop = () => {
       defaultBuildingsConfig.townhallHousingLimitPerLevel[
         townhallLevel as keyof typeof defaultBuildingsConfig.townhallHousingLimitPerLevel
       ];
+
     return {
       activeEffect: useGameVarsStore.getState().activeEffect,
       allWorkers: useGameVarsStore.getState().allWorkers,

@@ -226,7 +226,7 @@ const HospitalManageScreen = ({ card }: Props) => {
             value={allWorkers.hospitalWorkers}
             valueType={{
               type: "maxLimit",
-              limit: maxAvailDoctors,
+              limit: hospitalConstants.maxDoctors[card.level],
               color: "black",
             }}
             position="top"

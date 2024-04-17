@@ -20,6 +20,7 @@ const CitizensSection = () => {
   const popGrowthRate = useGameVarsStore((state) => state.popGrowthRate);
   const totalPop = useGameVarsStore((state) => state.player?.population);
   const playerGold = useGameVarsStore((state) => state.player?.gold);
+  const activeEffect = useGameVarsStore((state) => state.activeEffect);
   const goldMultiplier = useGameVarsStore(
     (state) => state.multipliers.goldMultiplier
   );
@@ -28,7 +29,7 @@ const CitizensSection = () => {
   );
   console.log("🔵 CitizensSection: privateSector: ", privateSector);
   console.log("🔵 CitizensSection: goldMultiplier: ", goldMultiplier);
-  const income = calcIncome(privateSector, goldMultiplier);
+  const income = calcIncome(privateSector, goldMultiplier, activeEffect);
   const expenses = useGameVarsStore((state) => state.expences);
   // const expenses = maintenanceSubtracker();
 

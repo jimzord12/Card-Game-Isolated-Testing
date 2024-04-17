@@ -108,6 +108,7 @@ const processGameLoopWorker = (
   let newPopulation = maxAllowedPopulation;
   let newPopGrowthRate = 0;
   let actionMessage: actionMessage = "";
+  console.log("🚀✨ - Active Effect: ", activeEffect);
   console.log("🚀✨ - currentPopulation: ", currentPopulation);
   console.log("🚀✨ - currentPopGrowthRate: ", currentPopGrowthRate);
   console.log("🚀✨ - maxAllowedPopulation: ", maxAllowedPopulation);
