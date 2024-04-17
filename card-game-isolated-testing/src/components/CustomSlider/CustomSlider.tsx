@@ -48,7 +48,7 @@ const CustomSlider = ({
       document.addEventListener("touchend", stopDragging);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [max]
   );
 
   let currentValue = initValue || 0;
@@ -68,6 +68,8 @@ const CustomSlider = ({
 
   const onDrag = (e: MouseEvent | TouchEvent) => {
     if (max <= 0) return;
+
+    console.log("aousjdasd0ihi: ", max);
 
     const slider = sliderRef.current;
     if (slider === null) return;
