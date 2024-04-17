@@ -70,6 +70,8 @@ const DieselQuarrySliderSection = () => {
     // setLastSafeValue(newValue);
   };
 
+  const quarryLevel = gameVars.quarryLevels.diesel as Level; // ✨ ✅
+
   const maxAvailWorkers = useMemo(
     () =>
       Math.min(
@@ -79,7 +81,7 @@ const DieselQuarrySliderSection = () => {
         ]
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [quarryLevel]
   );
 
   console.log("maxAvailWorkers", maxAvailWorkers);

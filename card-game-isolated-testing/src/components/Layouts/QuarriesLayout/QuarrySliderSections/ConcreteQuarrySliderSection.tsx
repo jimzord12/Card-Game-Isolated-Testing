@@ -69,6 +69,8 @@ const ConcreteQuarrySliderSection = () => {
     // setLastSafeValue(newValue);     // Uncomment for enabling LastSafeValue ✨
   };
 
+  const quarryLevel = gameVars.quarryLevels.concrete as Level; // ✨ ✅
+
   const maxAvailWorkers = useMemo(
     () =>
       Math.min(
@@ -78,7 +80,7 @@ const ConcreteQuarrySliderSection = () => {
         ]
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [quarryLevel]
   );
 
   console.log("maxAvailWorkers", maxAvailWorkers);

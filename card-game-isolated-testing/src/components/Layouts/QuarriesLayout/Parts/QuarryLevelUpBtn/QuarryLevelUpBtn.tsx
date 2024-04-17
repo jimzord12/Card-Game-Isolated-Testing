@@ -1,6 +1,9 @@
 import { updatePlayerData } from "../../../../../../api/apiFns";
 import {
   concreteQuarryConstants,
+  crystalsQuarryConstants,
+  dieselQuarryConstants,
+  metalsQuarryConstants,
   quarryLevelCost,
 } from "../../../../../constants/game/quarriesConfig";
 import { UseGlobalContext } from "../../../../../context/GlobalContext/GlobalContext";
@@ -104,19 +107,36 @@ const QuarryLevelUpBtn = ({ type }: Props) => {
   };
 
   const openConfirmationModal = () => {
+    let quarryConstants;
+
+    switch (type) {
+      case "concrete":
+        quarryConstants = concreteQuarryConstants;
+        break;
+      case "crystals":
+        quarryConstants = crystalsQuarryConstants;
+        break;
+      case "metals":
+        quarryConstants = metalsQuarryConstants;
+        break;
+
+      case "diesel":
+        quarryConstants = dieselQuarryConstants;
+        break;
+
+      default:
+        console.log("⛔ QuarryLevelUpBtn: Invalid Quarry Type!", type);
+        throw new Error("⛔ QuarryLevelUpBtn: Invalid Quarry Type!");
+    }
     pushModal(
       <ConfirmationModal
         title="Level Up Quarry"
         message={`The required Gold is [${
           quarryLevelCost[gameVars.quarryLevels[type] as Level]
         }] and your Workers Capacity will increase from [${
-          concreteQuarryConstants.maxWorkers[
-            gameVars.quarryLevels[type] as Level
-          ]
+          quarryConstants.maxWorkers[gameVars.quarryLevels[type] as Level]
         }] -> [${
-          concreteQuarryConstants.maxWorkers[
-            (gameVars.quarryLevels[type] + 1) as Level
-          ]
+          quarryConstants.maxWorkers[(gameVars.quarryLevels[type] + 1) as Level]
         }]. Proceed?`}
         onConfirm={handleQuarryLevelUp}
       />

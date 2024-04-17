@@ -19,35 +19,35 @@
     "file": "assets/LoadingModal-c9a79480.css",
     "src": "LoadingModal.css"
   },
-  "_ButtonBase-2144b1bb.js": {
-    "file": "assets/ButtonBase-2144b1bb.js",
+  "_ButtonBase-ce746c58.js": {
+    "file": "assets/ButtonBase-ce746c58.js",
     "imports": [
-      "_styled-4206c4e7.js",
+      "_styled-3314ff13.js",
       "index.html",
       "_inheritsLoose-54b40604.js"
     ]
   },
-  "_CardGrid-c87464ce.js": {
+  "_CardGrid-d7b05d8e.js": {
     "assets": [
       "assets/vertical_section_divider-74473b0f.png"
     ],
     "css": [
       "assets/CardGrid-e860940b.css"
     ],
-    "file": "assets/CardGrid-c87464ce.js",
+    "file": "assets/CardGrid-d7b05d8e.js",
     "imports": [
       "index.html",
-      "_useToastConfetti-4c1240b9.js",
-      "_CompleteCard-ef666981.js",
-      "_Game-8b352079.js",
-      "_useInput-b716a148.js",
-      "_useMutation-b5e4f805.js",
-      "_blockchainStore-c6d75227.js",
-      "_LoadingModal-79be8ed5.js",
-      "_generalVariables-50fdd987.js"
+      "_useToastConfetti-5506a621.js",
+      "_CompleteCard-9f2c3215.js",
+      "_Game-184a630f.js",
+      "_useInput-8ad22c74.js",
+      "_useMutation-34096435.js",
+      "_blockchainStore-3483980c.js",
+      "_LoadingModal-7a08f8cc.js",
+      "_generalVariables-a20bb7d0.js"
     ]
   },
-  "_CompleteCard-ef666981.js": {
+  "_CompleteCard-9f2c3215.js": {
     "assets": [
       "assets/heart_edited_resized-d214c40a.webp",
       "assets/star_edited_resized-6a4d8774.webp",
@@ -56,38 +56,38 @@
     "css": [
       "assets/CompleteCard-e898517e.css"
     ],
-    "file": "assets/CompleteCard-ef666981.js",
+    "file": "assets/CompleteCard-9f2c3215.js",
     "imports": [
       "index.html",
-      "_Game-8b352079.js",
-      "_CustomButton-3be2c479.js",
-      "_useGetLabelsSize-10e7761a.js",
-      "_LoadingModal-79be8ed5.js"
+      "_Game-184a630f.js",
+      "_CustomButton-da9d3192.js",
+      "_useGetLabelsSize-c3339061.js",
+      "_LoadingModal-7a08f8cc.js"
     ]
   },
-  "_CountDownTimer-bfe67431.js": {
+  "_CountDownTimer-fc435de0.js": {
     "css": [
       "assets/CountDownTimer-94975743.css"
     ],
-    "file": "assets/CountDownTimer-bfe67431.js",
+    "file": "assets/CountDownTimer-fc435de0.js",
     "imports": [
       "index.html",
-      "_Modal-2f1dcb11.js",
-      "_ButtonBase-2144b1bb.js",
-      "_styled-4206c4e7.js",
-      "_useAuth-901aacc3.js"
+      "_Modal-687b9976.js",
+      "_ButtonBase-ce746c58.js",
+      "_styled-3314ff13.js",
+      "_useAuth-d5cce082.js"
     ]
   },
-  "_CustomButton-3be2c479.js": {
-    "file": "assets/CustomButton-3be2c479.js",
+  "_CustomButton-da9d3192.js": {
+    "file": "assets/CustomButton-da9d3192.js",
     "imports": [
       "index.html",
-      "_styled-4206c4e7.js",
-      "_ownerWindow-6aa65a4a.js",
-      "_useControlled-0053277c.js"
+      "_styled-3314ff13.js",
+      "_ownerWindow-a4ab2702.js",
+      "_useControlled-af860f4f.js"
     ]
   },
-  "_Game-8b352079.js": {
+  "_Game-184a630f.js": {
     "assets": [
       "assets/wooden_label_for_player_menu_btn-eeacc0dc.webp"
     ],
@@ -102,41 +102,41 @@
       "src/components/Modals/InGameModals/InventoryModal/InventoryModal.tsx",
       "src/components/GameSideBar/GameSideBar.tsx"
     ],
-    "file": "assets/Game-8b352079.js",
+    "file": "assets/Game-184a630f.js",
     "imports": [
       "index.html",
-      "_useAuth-901aacc3.js",
-      "_useToastConfetti-4c1240b9.js",
-      "_useGA4-93071197.js",
-      "_generalVariables-50fdd987.js",
-      "_blockchainStore-c6d75227.js",
-      "_provider-browser-b2f7f910.js",
-      "_LoadingModal-79be8ed5.js"
+      "_useAuth-d5cce082.js",
+      "_useToastConfetti-5506a621.js",
+      "_useGA4-cdca21f4.js",
+      "_generalVariables-a20bb7d0.js",
+      "_blockchainStore-3483980c.js",
+      "_provider-browser-794d1ec6.js",
+      "_LoadingModal-7a08f8cc.js"
     ],
     "isDynamicEntry": true
   },
-  "_LoadingModal-79be8ed5.js": {
+  "_LoadingModal-7a08f8cc.js": {
     "css": [
       "assets/LoadingModal-c9a79480.css"
     ],
-    "file": "assets/LoadingModal-79be8ed5.js",
+    "file": "assets/LoadingModal-7a08f8cc.js",
     "imports": [
       "index.html",
       "_emotion-is-prop-valid.esm-9ab032ed.js"
     ]
   },
-  "_Modal-2f1dcb11.js": {
-    "file": "assets/Modal-2f1dcb11.js",
+  "_Modal-687b9976.js": {
+    "file": "assets/Modal-687b9976.js",
     "imports": [
-      "_styled-4206c4e7.js",
+      "_styled-3314ff13.js",
       "index.html",
-      "_ButtonBase-2144b1bb.js",
+      "_ButtonBase-ce746c58.js",
       "_inheritsLoose-54b40604.js",
-      "_ownerWindow-6aa65a4a.js"
+      "_ownerWindow-a4ab2702.js"
     ]
   },
-  "_blockchainStore-c6d75227.js": {
-    "file": "assets/blockchainStore-c6d75227.js",
+  "_blockchainStore-3483980c.js": {
+    "file": "assets/blockchainStore-3483980c.js",
     "imports": [
       "index.html"
     ]
@@ -151,14 +151,8 @@
     ],
     "file": "assets/gameIcons-sliderDotGameIcon-5d954986.js"
   },
-  "_generalVariables-50fdd987.js": {
-    "file": "assets/generalVariables-50fdd987.js",
-    "imports": [
-      "index.html"
-    ]
-  },
-  "_index-27fb2649.js": {
-    "file": "assets/index-27fb2649.js",
+  "_generalVariables-a20bb7d0.js": {
+    "file": "assets/generalVariables-a20bb7d0.js",
     "imports": [
       "index.html"
     ]
@@ -166,75 +160,81 @@
   "_index-387d7a00.js": {
     "file": "assets/index-387d7a00.js"
   },
-  "_inheritsLoose-54b40604.js": {
-    "file": "assets/inheritsLoose-54b40604.js"
-  },
-  "_ownerWindow-6aa65a4a.js": {
-    "file": "assets/ownerWindow-6aa65a4a.js",
+  "_index-f8e4b27f.js": {
+    "file": "assets/index-f8e4b27f.js",
     "imports": [
       "index.html"
     ]
   },
-  "_provider-browser-b2f7f910.js": {
-    "file": "assets/provider-browser-b2f7f910.js",
+  "_inheritsLoose-54b40604.js": {
+    "file": "assets/inheritsLoose-54b40604.js"
+  },
+  "_ownerWindow-a4ab2702.js": {
+    "file": "assets/ownerWindow-a4ab2702.js",
     "imports": [
-      "_useAuth-901aacc3.js"
+      "index.html"
     ]
   },
-  "_styled-4206c4e7.js": {
-    "file": "assets/styled-4206c4e7.js",
+  "_provider-browser-794d1ec6.js": {
+    "file": "assets/provider-browser-794d1ec6.js",
+    "imports": [
+      "_useAuth-d5cce082.js"
+    ]
+  },
+  "_styled-3314ff13.js": {
+    "file": "assets/styled-3314ff13.js",
     "imports": [
       "index.html",
       "_emotion-is-prop-valid.esm-9ab032ed.js"
     ]
   },
-  "_useAuth-901aacc3.js": {
-    "file": "assets/useAuth-901aacc3.js",
+  "_useAuth-d5cce082.js": {
+    "file": "assets/useAuth-d5cce082.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useControlled-0053277c.js": {
-    "file": "assets/useControlled-0053277c.js",
+  "_useControlled-af860f4f.js": {
+    "file": "assets/useControlled-af860f4f.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useGA4-93071197.js": {
-    "file": "assets/useGA4-93071197.js",
+  "_useGA4-cdca21f4.js": {
+    "file": "assets/useGA4-cdca21f4.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useGetLabelsSize-10e7761a.js": {
-    "file": "assets/useGetLabelsSize-10e7761a.js",
+  "_useGetLabelsSize-c3339061.js": {
+    "file": "assets/useGetLabelsSize-c3339061.js",
     "imports": [
       "index.html"
     ]
   },
-  "_useInput-b716a148.js": {
-    "file": "assets/useInput-b716a148.js",
+  "_useInput-8ad22c74.js": {
+    "file": "assets/useInput-8ad22c74.js",
     "imports": [
       "index.html",
-      "_CustomButton-3be2c479.js"
+      "_CustomButton-da9d3192.js"
     ]
   },
-  "_useMutation-b5e4f805.js": {
-    "file": "assets/useMutation-b5e4f805.js",
-    "imports": [
-      "index.html",
-      "_utils-73056672.js"
-    ]
-  },
-  "_useQuery-14b4baa4.js": {
-    "file": "assets/useQuery-14b4baa4.js",
+  "_useMutation-34096435.js": {
+    "file": "assets/useMutation-34096435.js",
     "imports": [
       "index.html",
       "_utils-73056672.js"
     ]
   },
-  "_useToastConfetti-4c1240b9.js": {
-    "file": "assets/useToastConfetti-4c1240b9.js",
+  "_useQuery-69cda608.js": {
+    "file": "assets/useQuery-69cda608.js",
+    "imports": [
+      "index.html",
+      "_utils-73056672.js"
+    ]
+  },
+  "_useToastConfetti-5506a621.js": {
+    "file": "assets/useToastConfetti-5506a621.js",
     "imports": [
       "index.html"
     ]
@@ -254,9 +254,9 @@
       "src/pages/HomePage/HomePagePOC.tsx",
       "src/pages/Marketplace/src/Marketplace.jsx",
       "src/pages/Leaderboard/Leaderboard.jsx",
-      "_Game-8b352079.js"
+      "_Game-184a630f.js"
     ],
-    "file": "assets/index-e40ccc5b.js",
+    "file": "assets/index-268cd065.js",
     "isEntry": true,
     "src": "index.html"
   },
@@ -1010,15 +1010,15 @@
     "src": "src/assets/statsBarImgs/metals-icon.svg"
   },
   "src/components/GameSideBar/GameSideBar.tsx": {
-    "file": "assets/GameSideBar-d82b2ce3.js",
+    "file": "assets/GameSideBar-1a059b4b.js",
     "imports": [
       "index.html",
-      "_index-27fb2649.js",
-      "_useGetLabelsSize-10e7761a.js",
-      "_styled-4206c4e7.js",
-      "_Modal-2f1dcb11.js",
-      "_ownerWindow-6aa65a4a.js",
-      "_ButtonBase-2144b1bb.js",
+      "_index-f8e4b27f.js",
+      "_useGetLabelsSize-c3339061.js",
+      "_styled-3314ff13.js",
+      "_Modal-687b9976.js",
+      "_ownerWindow-a4ab2702.js",
+      "_ButtonBase-ce746c58.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js",
       "_inheritsLoose-54b40604.js"
     ],
@@ -1038,27 +1038,27 @@
     "css": [
       "assets/CraftCardModal-0543c04b.css"
     ],
-    "file": "assets/CraftCardModal-fcd4c84d.js",
+    "file": "assets/CraftCardModal-022ae81b.js",
     "imports": [
       "index.html",
-      "_CardGrid-c87464ce.js",
-      "_useGetLabelsSize-10e7761a.js",
-      "_useToastConfetti-4c1240b9.js",
-      "_CompleteCard-ef666981.js",
-      "_Game-8b352079.js",
-      "_useAuth-901aacc3.js",
-      "_useGA4-93071197.js",
-      "_generalVariables-50fdd987.js",
-      "_blockchainStore-c6d75227.js",
-      "_provider-browser-b2f7f910.js",
-      "_LoadingModal-79be8ed5.js",
+      "_CardGrid-d7b05d8e.js",
+      "_useGetLabelsSize-c3339061.js",
+      "_useToastConfetti-5506a621.js",
+      "_CompleteCard-9f2c3215.js",
+      "_Game-184a630f.js",
+      "_useAuth-d5cce082.js",
+      "_useGA4-cdca21f4.js",
+      "_generalVariables-a20bb7d0.js",
+      "_blockchainStore-3483980c.js",
+      "_provider-browser-794d1ec6.js",
+      "_LoadingModal-7a08f8cc.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js",
-      "_CustomButton-3be2c479.js",
-      "_styled-4206c4e7.js",
-      "_ownerWindow-6aa65a4a.js",
-      "_useControlled-0053277c.js",
-      "_useInput-b716a148.js",
-      "_useMutation-b5e4f805.js",
+      "_CustomButton-da9d3192.js",
+      "_styled-3314ff13.js",
+      "_ownerWindow-a4ab2702.js",
+      "_useControlled-af860f4f.js",
+      "_useInput-8ad22c74.js",
+      "_useMutation-34096435.js",
       "_utils-73056672.js"
     ],
     "isDynamicEntry": true,
@@ -1072,27 +1072,27 @@
     "css": [
       "assets/InventoryModal-de52f366.css"
     ],
-    "file": "assets/InventoryModal-d0fe151d.js",
+    "file": "assets/InventoryModal-5116ab80.js",
     "imports": [
       "index.html",
-      "_CardGrid-c87464ce.js",
-      "_CompleteCard-ef666981.js",
-      "_useGetLabelsSize-10e7761a.js",
-      "_useToastConfetti-4c1240b9.js",
-      "_Game-8b352079.js",
-      "_useAuth-901aacc3.js",
-      "_useGA4-93071197.js",
-      "_generalVariables-50fdd987.js",
-      "_blockchainStore-c6d75227.js",
-      "_provider-browser-b2f7f910.js",
-      "_LoadingModal-79be8ed5.js",
+      "_CardGrid-d7b05d8e.js",
+      "_CompleteCard-9f2c3215.js",
+      "_useGetLabelsSize-c3339061.js",
+      "_useToastConfetti-5506a621.js",
+      "_Game-184a630f.js",
+      "_useAuth-d5cce082.js",
+      "_useGA4-cdca21f4.js",
+      "_generalVariables-a20bb7d0.js",
+      "_blockchainStore-3483980c.js",
+      "_provider-browser-794d1ec6.js",
+      "_LoadingModal-7a08f8cc.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js",
-      "_useInput-b716a148.js",
-      "_CustomButton-3be2c479.js",
-      "_styled-4206c4e7.js",
-      "_ownerWindow-6aa65a4a.js",
-      "_useControlled-0053277c.js",
-      "_useMutation-b5e4f805.js",
+      "_useInput-8ad22c74.js",
+      "_CustomButton-da9d3192.js",
+      "_styled-3314ff13.js",
+      "_ownerWindow-a4ab2702.js",
+      "_useControlled-af860f4f.js",
+      "_useMutation-34096435.js",
       "_utils-73056672.js"
     ],
     "isDynamicEntry": true,
@@ -1111,43 +1111,43 @@
     "src": "src/components/_LeaderboardComps_/ScoreRows/metalsImgs/silver.png"
   },
   "src/pages/HomePage/HomePageLocalWallet.tsx": {
-    "file": "assets/HomePageLocalWallet-e6fa9796.js",
+    "file": "assets/HomePageLocalWallet-e1f81ed8.js",
     "imports": [
       "index.html",
-      "_useAuth-901aacc3.js",
-      "_useInput-b716a148.js",
-      "_blockchainStore-c6d75227.js",
-      "_CountDownTimer-bfe67431.js",
-      "_CustomButton-3be2c479.js",
-      "_Modal-2f1dcb11.js",
-      "_ButtonBase-2144b1bb.js",
-      "_generalVariables-50fdd987.js",
-      "_styled-4206c4e7.js",
+      "_useAuth-d5cce082.js",
+      "_useInput-8ad22c74.js",
+      "_blockchainStore-3483980c.js",
+      "_CountDownTimer-fc435de0.js",
+      "_CustomButton-da9d3192.js",
+      "_Modal-687b9976.js",
+      "_ButtonBase-ce746c58.js",
+      "_generalVariables-a20bb7d0.js",
+      "_styled-3314ff13.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js",
-      "_ownerWindow-6aa65a4a.js",
-      "_useControlled-0053277c.js",
+      "_ownerWindow-a4ab2702.js",
+      "_useControlled-af860f4f.js",
       "_inheritsLoose-54b40604.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/HomePage/HomePageLocalWallet.tsx"
   },
   "src/pages/HomePage/HomePageMetamask.tsx": {
-    "file": "assets/HomePageMetamask-3756565d.js",
+    "file": "assets/HomePageMetamask-f195b492.js",
     "imports": [
       "index.html",
-      "_useAuth-901aacc3.js",
-      "_CountDownTimer-bfe67431.js",
-      "_Modal-2f1dcb11.js",
-      "_styled-4206c4e7.js",
-      "_CustomButton-3be2c479.js",
-      "_useInput-b716a148.js",
-      "_provider-browser-b2f7f910.js",
-      "_generalVariables-50fdd987.js",
-      "_ButtonBase-2144b1bb.js",
+      "_useAuth-d5cce082.js",
+      "_CountDownTimer-fc435de0.js",
+      "_Modal-687b9976.js",
+      "_styled-3314ff13.js",
+      "_CustomButton-da9d3192.js",
+      "_useInput-8ad22c74.js",
+      "_provider-browser-794d1ec6.js",
+      "_generalVariables-a20bb7d0.js",
+      "_ButtonBase-ce746c58.js",
       "_inheritsLoose-54b40604.js",
-      "_ownerWindow-6aa65a4a.js",
+      "_ownerWindow-a4ab2702.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js",
-      "_useControlled-0053277c.js"
+      "_useControlled-af860f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/HomePage/HomePageMetamask.tsx"
@@ -1162,13 +1162,13 @@
       "src/pages/HomePage/HomePageMetamask.tsx",
       "src/pages/HomePage/HomePageLocalWallet.tsx"
     ],
-    "file": "assets/HomePagePOC-d35594f0.js",
+    "file": "assets/HomePagePOC-32cc72d7.js",
     "imports": [
       "index.html",
-      "_styled-4206c4e7.js",
-      "_ButtonBase-2144b1bb.js",
-      "_useControlled-0053277c.js",
-      "_useGA4-93071197.js",
+      "_styled-3314ff13.js",
+      "_ButtonBase-ce746c58.js",
+      "_useControlled-af860f4f.js",
+      "_useGA4-cdca21f4.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js",
       "_inheritsLoose-54b40604.js"
     ],
@@ -1188,12 +1188,12 @@
     "css": [
       "assets/Leaderboard-2e4516a9.css"
     ],
-    "file": "assets/Leaderboard-0bc29e22.js",
+    "file": "assets/Leaderboard-3cbf99e8.js",
     "imports": [
       "index.html",
-      "_useQuery-14b4baa4.js",
-      "_useGA4-93071197.js",
-      "_LoadingModal-79be8ed5.js",
+      "_useQuery-69cda608.js",
+      "_useGA4-cdca21f4.js",
+      "_LoadingModal-7a08f8cc.js",
       "_utils-73056672.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js"
     ],
@@ -1214,27 +1214,27 @@
     "css": [
       "assets/TownMap-dd4f9919.css"
     ],
-    "file": "assets/TownMap-01db3513.js",
+    "file": "assets/TownMap-c076c88c.js",
     "imports": [
       "index.html",
-      "_Game-8b352079.js",
-      "_generalVariables-50fdd987.js",
-      "_CompleteCard-ef666981.js",
-      "_useToastConfetti-4c1240b9.js",
-      "_LoadingModal-79be8ed5.js",
-      "_useGetLabelsSize-10e7761a.js",
+      "_Game-184a630f.js",
+      "_generalVariables-a20bb7d0.js",
+      "_CompleteCard-9f2c3215.js",
+      "_useToastConfetti-5506a621.js",
+      "_LoadingModal-7a08f8cc.js",
+      "_useGetLabelsSize-c3339061.js",
       "_gameIcons-sliderDotGameIcon-5d954986.js",
-      "_CustomButton-3be2c479.js",
-      "_styled-4206c4e7.js",
+      "_CustomButton-da9d3192.js",
+      "_styled-3314ff13.js",
       "_inheritsLoose-54b40604.js",
       "_index-387d7a00.js",
-      "_useAuth-901aacc3.js",
-      "_useGA4-93071197.js",
-      "_blockchainStore-c6d75227.js",
-      "_provider-browser-b2f7f910.js",
+      "_useAuth-d5cce082.js",
+      "_useGA4-cdca21f4.js",
+      "_blockchainStore-3483980c.js",
+      "_provider-browser-794d1ec6.js",
       "_emotion-is-prop-valid.esm-9ab032ed.js",
-      "_ownerWindow-6aa65a4a.js",
-      "_useControlled-0053277c.js"
+      "_ownerWindow-a4ab2702.js",
+      "_useControlled-af860f4f.js"
     ],
     "isDynamicEntry": true,
     "src": "src/pages/Maps/TownMap/TownMap.tsx"
@@ -1254,7 +1254,7 @@
     "css": [
       "assets/WorldMap-05ac4e41.css"
     ],
-    "file": "assets/WorldMap-f8f28667.js",
+    "file": "assets/WorldMap-e7df2d6b.js",
     "imports": [
       "index.html"
     ],
@@ -1285,17 +1285,17 @@
     "css": [
       "assets/Marketplace-0201c4e3.css"
     ],
-    "file": "assets/Marketplace-5e07d5b0.js",
+    "file": "assets/Marketplace-a9639145.js",
     "imports": [
       "index.html",
-      "_useQuery-14b4baa4.js",
-      "_useMutation-b5e4f805.js",
+      "_useQuery-69cda608.js",
+      "_useMutation-34096435.js",
       "_index-387d7a00.js",
-      "_index-27fb2649.js",
-      "_useToastConfetti-4c1240b9.js",
-      "_generalVariables-50fdd987.js",
-      "_blockchainStore-c6d75227.js",
-      "_useGA4-93071197.js",
+      "_index-f8e4b27f.js",
+      "_useToastConfetti-5506a621.js",
+      "_generalVariables-a20bb7d0.js",
+      "_blockchainStore-3483980c.js",
+      "_useGA4-cdca21f4.js",
       "_utils-73056672.js"
     ],
     "isDynamicEntry": true,

@@ -70,6 +70,8 @@ const MetalsQuarrySliderSection = () => {
     // setLastSafeValue(newValue);
   };
 
+  const quarryLevel = gameVars.quarryLevels.metals as Level; // ✨ ✅
+
   const maxAvailWorkers = useMemo(
     () =>
       Math.min(
@@ -79,7 +81,7 @@ const MetalsQuarrySliderSection = () => {
         ]
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [quarryLevel]
   );
 
   console.log("maxAvailWorkers", maxAvailWorkers);
