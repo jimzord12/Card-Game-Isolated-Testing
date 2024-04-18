@@ -37,6 +37,10 @@ export const update_LVL_BuildingRelatedGameVars = (
     const outputDiff = round2Decimal(output.boost - oldOutput!.boost);
     const maintenanceDiff = maintenance.energy - oldMaintenance!.energy;
 
+    console.log("1 - LVL_UP: RadioStation | Current RS Boost: ", gameVars);
+    console.log("2 - LVL_UP: RadioStation | new Output: ", output.boost);
+    console.log("3 - LVL_UP: RadioStation | old Output: ", oldOutput!.boost);
+
     gameVars.setRadioStationEffectBoost(
       currentRadioStationEffectBoost + outputDiff
     );

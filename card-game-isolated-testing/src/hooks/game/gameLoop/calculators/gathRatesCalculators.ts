@@ -8,7 +8,8 @@ import { roundToDecimal, calcProduction } from "../utils";
 export const calcPopGrowthRate = (
   population: number,
   happinessProvidedByBuildings: number,
-  factoryUnhappiness: number
+  factoryUnhappiness: number,
+  activeEffect: effectClass | null
 ) => {
   const baseHappiness = round4Decimal(
     (startingStats.livingStandardsBase / population) *
@@ -20,26 +21,11 @@ export const calcPopGrowthRate = (
     happinessProvidedByBuildings
   );
   console.log("calcPopGrowthRate: factoryUnhappiness: ", factoryUnhappiness);
-  return baseHappiness + happinessProvidedByBuildings - factoryUnhappiness;
-};
-
-export const dieselGathRateCalc = (
-  workers: Workers,
-  //   dieselMultiplier: number,
-  barrelsUsedPerHour: number,
-  specialEffect: effectClass | null
-) => {
-  const dieselFromWorkers = roundToDecimal(
-    calcProduction(workers.dieselWorkers, 1),
-    4
-  );
-  const boostFromEffect = specialEffect
-    ? specialEffect.output["dieselGathRate" as keyof EffectOutput]
-    : 1;
-
-  return round4Decimal(
-    dieselFromWorkers * boostFromEffect - barrelsUsedPerHour
-  );
+  const result = activeEffect
+    ? (baseHappiness + happinessProvidedByBuildings - factoryUnhappiness) *
+      activeEffect.output["popGrowthRate" as keyof EffectOutput]
+    : baseHappiness + happinessProvidedByBuildings - factoryUnhappiness;
+  return round4Decimal(result);
 };
 
 export const goldGathRateCalc = (
@@ -77,15 +63,16 @@ export const concreteGathRateCalc = (
   concreteMultiplier: number,
   specialEffect: effectClass | null
 ) => {
-  return (
+  const result =
     roundToDecimal(
       calcProduction(workers.concreteWorkers, concreteMultiplier),
       4
     ) *
     (specialEffect
       ? specialEffect.output["concreteGathRate" as keyof EffectOutput]
-      : 1)
-  );
+      : 1);
+  console.log("⛽ GameLoopWorker - concreteGathRateCalc: ", result);
+  return round4Decimal(result);
 };
 
 export const metalsGathRateCalc = (
@@ -93,12 +80,13 @@ export const metalsGathRateCalc = (
   metalsMultiplier: number,
   specialEffect: effectClass | null
 ) => {
-  return (
+  const result =
     roundToDecimal(calcProduction(workers.metalsWorkers, metalsMultiplier), 4) *
     (specialEffect
       ? specialEffect.output["metalsGathRate" as keyof EffectOutput]
-      : 1)
-  );
+      : 1);
+  console.log("⛽ GameLoopWorker - metalsGathRateCalc: ", result);
+  return round4Decimal(result);
 };
 
 export const crystalsGathRateCalc = (
@@ -106,13 +94,36 @@ export const crystalsGathRateCalc = (
   crystalsMultiplier: number,
   specialEffect: effectClass | null
 ) => {
-  return (
+  const result =
     roundToDecimal(
       calcProduction(workers.crystalsWorkers, crystalsMultiplier),
       4
     ) *
     (specialEffect
       ? specialEffect.output["crystalsGathRate" as keyof EffectOutput]
-      : 1)
+      : 1);
+  console.log("⛽ GameLoopWorker - crystalsGathRateCalc: ", result);
+  return round4Decimal(result);
+};
+
+export const dieselGathRateCalc = (
+  workers: Workers,
+  dieselMultiplier: number,
+  barrelsUsedPerHour: number,
+  specialEffect: effectClass | null
+) => {
+  const dieselFromWorkers = roundToDecimal(
+    calcProduction(workers.dieselWorkers, dieselMultiplier),
+    4
   );
+  const boostFromEffect = specialEffect
+    ? specialEffect.output["dieselGathRate" as keyof EffectOutput]
+    : 1;
+
+  const result = round4Decimal(
+    dieselFromWorkers * boostFromEffect - barrelsUsedPerHour
+  );
+  console.log("⛽ GameLoopWorker - dieselGathRateCalc: ", result);
+
+  return result;
 };

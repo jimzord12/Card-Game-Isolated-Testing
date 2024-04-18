@@ -11,6 +11,8 @@ import { isBuildingCard } from "../../types/TypeGuardFns/BuildingGuards";
 // import { multipliersInit } from "./utils/multipliersInit";
 import { specialEffectInit } from "./utils/specialEffectInit";
 import { useToastError } from "../notifications";
+import { calcPopGrowthRate } from "../game/gameLoop/calculators/gathRatesCalculators";
+import { barrelToSadnessConversion } from "../../constants/game/defaultBuildingsConfig";
 
 // Here we are Initializing:
 // 1. All The Player's Cards
@@ -49,7 +51,7 @@ const useCardsInit = () => {
 
   const { showError } = useToastError();
 
-  const cardsInit = (cardsFromDB: ICardDB[], popGrowRate: number) => {
+  const cardsInit = (cardsFromDB: ICardDB[]) => {
     console.log("🙌 0 - All the Cards from DB: ", cardsFromDB);
 
     const convertedFromDB_To_JS = createJSCards(cardsFromDB); // 🔷 Convert the Cards from DB to JS
@@ -107,7 +109,14 @@ const useCardsInit = () => {
       happinessFromBuildings
     );
 
-    setPopGrowthRate(popGrowRate + happinessFromBuildings);
+    const thePopGrowthRate = calcPopGrowthRate(
+      useGameVarsStore.getState().player?.population ?? 0,
+      happinessFromBuildings,
+      (useGameVarsStore.getState().factoryBarrels ?? 0) *
+        barrelToSadnessConversion,
+      useGameVarsStore.getState().activeEffect
+    );
+    setPopGrowthRate(thePopGrowthRate);
 
     console.log("🙌 1 - All the Converted JS Cards: ", convertedFromDB_To_JS);
     console.log("🙌 2 - All the Inventory JS Cards: ", inventoryCards);

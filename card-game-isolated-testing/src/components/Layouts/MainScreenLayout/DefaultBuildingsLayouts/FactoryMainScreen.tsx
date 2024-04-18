@@ -40,7 +40,8 @@ const FactoryMainScreen = () => {
         calcPopGrowthRate(
           gameVars.player?.population ?? 0,
           gameVars.happinessFromBuildings,
-          gameVars.factoryUnhappiness
+          gameVars.factoryUnhappiness,
+          gameVars.activeEffect
         )
       );
 

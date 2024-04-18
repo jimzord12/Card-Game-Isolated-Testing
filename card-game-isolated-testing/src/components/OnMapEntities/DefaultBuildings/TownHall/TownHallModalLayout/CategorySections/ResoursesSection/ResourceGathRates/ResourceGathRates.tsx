@@ -9,10 +9,30 @@ const ResourceGathRates = () => {
   if (images === undefined)
     throw new Error("⛔ ResourceGathRates, images is undefined!");
 
-  const concreteGathRate = useGameVarsStore.getState().concreteGathRate;
-  const metalsGathRate = useGameVarsStore.getState().metalsGathRate;
-  const crystalsGathRate = useGameVarsStore.getState().crystalsGathRate;
-  const dieselGathRate = useGameVarsStore.getState().dieselGathRate;
+  const activeEffect = useGameVarsStore((state) => state.activeEffect);
+
+  const _concreteGathRate = activeEffect
+    ? useGameVarsStore.getState().concreteGathRate *
+      activeEffect.output.concreteGathRate
+    : useGameVarsStore.getState().concreteGathRate;
+  const _metalsGathRate = activeEffect
+    ? useGameVarsStore.getState().metalsGathRate *
+      activeEffect.output.metalsGathRate
+    : useGameVarsStore.getState().metalsGathRate;
+  const _crystalsGathRate = activeEffect
+    ? useGameVarsStore.getState().crystalsGathRate *
+      activeEffect.output.crystalsGathRate
+    : useGameVarsStore.getState().crystalsGathRate;
+  const _dieselGathRate = activeEffect
+    ? useGameVarsStore.getState().dieselGathRate *
+      activeEffect.output.dieselGathRate
+    : useGameVarsStore.getState().dieselGathRate;
+
+  const concreteGathRate = _concreteGathRate;
+  const metalsGathRate = _metalsGathRate;
+  const crystalsGathRate = _crystalsGathRate;
+  const dieselGathRate = _dieselGathRate;
+
   console.log(
     "ResourceGathRates: ",
     concreteGathRate,

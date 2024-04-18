@@ -52,7 +52,8 @@ const HospitalManageScreen = ({ card }: Props) => {
         calcPopGrowthRate(
           gameVars.player?.population ?? 0,
           gameVars.happinessFromBuildings,
-          gameVars.factoryUnhappiness
+          gameVars.factoryUnhappiness,
+          gameVars.activeEffect
         )
       );
 
@@ -137,7 +138,8 @@ const HospitalManageScreen = ({ card }: Props) => {
       calcPopGrowthRate(
         gameVars.player?.population ?? 0,
         newHappinessFromBuildings,
-        gameVars.factoryUnhappiness
+        gameVars.factoryUnhappiness,
+        gameVars.activeEffect
       )
     );
     // setPopGrowthRate(

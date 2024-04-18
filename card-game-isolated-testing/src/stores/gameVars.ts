@@ -106,7 +106,7 @@ export type GameVarsState = {
   // Effects
   setActiveEffect: (effect: effectClass | null) => void;
   setRadioStationEffectBoost: (boost: number) => void;
-  removeRadioStationEffectBoost: () => void;
+  removeRadioStationEffectBoost: (boostFromBuilding: number) => void;
 };
 
 // This store manages the global game variables.
@@ -185,7 +185,8 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
         calcPopGrowthRate(
           state.player?.population ?? 0,
           state.happinessFromBuildings,
-          newFactoryUnhappiness
+          newFactoryUnhappiness,
+          state.activeEffect
         )
       );
 
@@ -262,7 +263,8 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
   },
 
   // ✨ This is used ONLY from RadioStation enchances SP Cards' output
-  setRadioStationEffectBoost: (boostFromBuilding: number) => {
+  // The Caller must take into account if there are multiple RadioStations and make necessary calcs
+  setRadioStationEffectBoost: (newValue: number) => {
     set((state) => {
       if (state.activeEffect !== null) {
         // Create a new effect object with the updated boost value
@@ -270,33 +272,36 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
         const updatedEffect = new effectClass(
           state.activeEffect.originatesFrom,
           state.activeEffect.expiresAtUnix,
-          boostFromBuilding
+          newValue
         );
 
         // Return the new state with the updated effect and effectboost
         return {
           ...state,
           activeEffect: updatedEffect,
-          effectBoost: boostFromBuilding,
+          radioStationEffectBoost: newValue,
         };
       } else {
         // If there is no active effect, just update the effectboost
-        return { ...state, effectBoost: boostFromBuilding };
+        return { ...state, radioStationEffectBoost: newValue };
       }
     });
   },
 
   // ✨ This is used ONLY from RadioStation enchances SP Cards' output
-  removeRadioStationEffectBoost: () =>
+  removeRadioStationEffectBoost: (boostFromBuilding: number) =>
     set((state) => {
       // If there is an activeEffect, update it by creating a new effect instance
       // without an additional boost. This assumes the effectClass constructor
       // defaults to a base boost value if the third parameter is omitted or handles it gracefully.
+      const newRadioStationEffectBoost =
+        state.radioStationEffectBoost! - boostFromBuilding;
+
       const updatedEffect = state.activeEffect
         ? new effectClass(
             state.activeEffect.originatesFrom,
-            state.activeEffect.expiresAtUnix
-            // No need to pass the third parameter if we're removing the boost effect
+            state.activeEffect.expiresAtUnix,
+            newRadioStationEffectBoost
           )
         : state.activeEffect;
 
@@ -305,7 +310,7 @@ export const useGameVarsStore = create<GameVarsState>((set /*, get */) => ({
       return {
         ...state,
         activeEffect: updatedEffect,
-        effectBoost: null,
+        radioStationEffectBoost: newRadioStationEffectBoost,
       };
     }),
 

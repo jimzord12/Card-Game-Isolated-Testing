@@ -134,7 +134,8 @@ const processGameLoopWorker = (
     newPopGrowthRate = gathRatesCalculators.calcPopGrowthRate(
       newPopulation,
       happinessProvidedByBuildings,
-      factoryUnhappiness
+      factoryUnhappiness,
+      activeEffect
     );
   }
   console.log("New Population: ", newPopulation);
@@ -210,6 +211,7 @@ const processGameLoopWorker = (
   // 🔷 8. Concrete Gather Rate (🧪 Requires Testing)
   const newDieselGathRate = gathRatesCalculators.dieselGathRateCalc(
     allWorkers,
+    multipliers.dieselMultiplier,
     barrelsUsedPerHour,
     activeEffect
   );

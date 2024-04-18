@@ -54,70 +54,78 @@ export const updateSPRelatedGameVars = (
 
   // ✨ SuperStrong
   if (card.name === nameToTemplateDataSP.SuperStrong.name) {
-    const currentMultipliers = gameVars.multipliers;
-    // const CardMultipliers = calcMultiSPCards(card);
-
-    // if (CardMultipliers === undefined)
-    //   throw new Error(
-    //     "⛔ updateSPRelatedGameVars.ts: CardMultipliers is undefined"
-    //   );
-
-    // const newGoldMultiplier = round2Decimal(
-    //   currentMultipliers.goldMultiplier + CardMultipliers.gold
+    // const currentMultipliers = gameVars.multipliers;
+    // // const CardMultipliers = calcMultiSPCards(card);
+    // // if (CardMultipliers === undefined)
+    // //   throw new Error(
+    // //     "⛔ updateSPRelatedGameVars.ts: CardMultipliers is undefined"
+    // //   );
+    // // const newGoldMultiplier = round2Decimal(
+    // //   currentMultipliers.goldMultiplier + CardMultipliers.gold
+    // // );
+    // // const newConcreteMultiplier = round2Decimal(
+    // //   currentMultipliers.concreteMultiplier + CardMultipliers.concrete
+    // // );
+    // // const newMetalsMultiplier = round2Decimal(
+    // //   currentMultipliers.metalsMultiplier + CardMultipliers.metals
+    // // );
+    // // const newCrystalsMultiplier = round2Decimal(
+    // //   currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
+    // // );
+    // // const newDieselMultiplier = round2Decimal(
+    // //   currentMultipliers.dieselMultiplier + CardMultipliers.diesel
+    // // );
+    // // gameVars.setMultipliers({
+    // //   ...gameVars.multipliers,
+    // //   goldMultiplier: newGoldMultiplier,
+    // //   concreteMultiplier: newConcreteMultiplier,
+    // //   metalsMultiplier: newMetalsMultiplier,
+    // //   crystalsMultiplier: newCrystalsMultiplier,
+    // //   dieselMultiplier: newDieselMultiplier,
+    // // });
+    // console.log(
+    //   "1 - SuperStrong Activation | CurrentMultis: ",
+    //   currentMultipliers
     // );
-    // const newConcreteMultiplier = round2Decimal(
-    //   currentMultipliers.concreteMultiplier + CardMultipliers.concrete
+    // console.log("2 - SuperStrong Activation | Output Boost: ", output.boost);
+    // console.log("3 - SuperStrong Activation | Card: ", card);
+    // const modifiedOutputBoost = output.boost + 1;
+    // gameVars.setConcreteGathRate(
+    //   gameVars.concreteGathRate *
+    //     // currentMultipliers.concreteMultiplier *
+    //     modifiedOutputBoost
     // );
-    // const newMetalsMultiplier = round2Decimal(
-    //   currentMultipliers.metalsMultiplier + CardMultipliers.metals
+    // gameVars.setMetalsGathRate(
+    //   gameVars.metalsGathRate *
+    //     // currentMultipliers.metalsMultiplier *
+    //     modifiedOutputBoost
     // );
-    // const newCrystalsMultiplier = round2Decimal(
-    //   currentMultipliers.crystalsMultiplier + CardMultipliers.crystals
+    // gameVars.setCrystalsGathRate(
+    //   gameVars.crystalsGathRate *
+    //     // currentMultipliers.crystalsMultiplier *
+    //     modifiedOutputBoost
     // );
-    // const newDieselMultiplier = round2Decimal(
-    //   currentMultipliers.dieselMultiplier + CardMultipliers.diesel
+    // gameVars.setDieselGathRate(
+    //   gameVars.dieselGathRate *
+    //     // currentMultipliers.dieselMultiplier *
+    //     modifiedOutputBoost
     // );
-
-    // gameVars.setMultipliers({
-    //   ...gameVars.multipliers,
-    //   goldMultiplier: newGoldMultiplier,
-    //   concreteMultiplier: newConcreteMultiplier,
-    //   metalsMultiplier: newMetalsMultiplier,
-    //   crystalsMultiplier: newCrystalsMultiplier,
-    //   dieselMultiplier: newDieselMultiplier,
-    // });
-
-    gameVars.setConcreteGathRate(
-      gameVars.concreteGathRate *
-        currentMultipliers.concreteMultiplier *
-        output.boost
-    );
-    gameVars.setMetalsGathRate(
-      gameVars.metalsGathRate *
-        currentMultipliers.metalsMultiplier *
-        output.boost
-    );
-    gameVars.setCrystalsGathRate(
-      gameVars.crystalsGathRate *
-        currentMultipliers.crystalsMultiplier *
-        output.boost
-    );
-    gameVars.setDieselGathRate(
-      gameVars.dieselGathRate *
-        currentMultipliers.dieselMultiplier *
-        output.boost
-    );
-
-    return;
+    // return;
   }
 
   if (card.name === nameToTemplateDataSP.LoveApp.name) {
     const currentPopGrowthRate = gameVars.popGrowthRate;
-    const currentHappinessFromBuildings = gameVars.happinessFromBuildings;
-
-    gameVars.setPopGrowthRate(currentPopGrowthRate + output.boost);
-    gameVars.setHappinessFromBuildings(
-      currentHappinessFromBuildings + output.boost
+    // const currentHappinessFromBuildings = gameVars.happinessFromBuildings;
+    console.log(
+      "firstasdasda: ",
+      currentPopGrowthRate,
+      // currentHappinessFromBuildings,
+      output.boost + 1,
+      currentPopGrowthRate * (output.boost + 1)
     );
+    gameVars.setPopGrowthRate(currentPopGrowthRate * (output.boost + 1));
+    // gameVars.setHappinessFromBuildings(
+    //   currentHappinessFromBuildings + output.boost
+    // );
   }
 };

@@ -75,7 +75,8 @@ const usePlayerInit = () => {
           calcPopGrowthRate(
             data.population ?? 0,
             0,
-            (data.factory_barrels ?? 0) * barrelToSadnessConversion
+            (data.factory_barrels ?? 0) * barrelToSadnessConversion,
+            null
           )
         );
 

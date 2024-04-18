@@ -13,14 +13,22 @@ import CircularGoldenLabel from "../../../../../../GameAssets/Labels/CircularGol
 import StandardLabel from "../../../../../../GameAssets/Labels/StandardLabel/StandardLabel";
 import { useUtilsForStatsBars } from "../../../../../../StatsBars/useUtilsForStatsBars";
 import styles from "./citizensSectionStyles.module.css";
+import { calcPopGrowthRate } from "../../../../../../../hooks/game/gameLoop/calculators/gathRatesCalculators";
 
 const CitizensSection = () => {
   const { images } = UseGlobalContext();
 
-  const popGrowthRate = useGameVarsStore((state) => state.popGrowthRate);
+  // const popGrowthRate = useGameVarsStore((state) => state.popGrowthRate);
   const totalPop = useGameVarsStore((state) => state.player?.population);
   const playerGold = useGameVarsStore((state) => state.player?.gold);
+  const playerPop = useGameVarsStore((state) => state.player?.population);
   const activeEffect = useGameVarsStore((state) => state.activeEffect);
+  const happinessFromBuildings = useGameVarsStore(
+    (state) => state.happinessFromBuildings
+  );
+  const factoryUnhappiness = useGameVarsStore(
+    (state) => state.factoryUnhappiness
+  );
   const goldMultiplier = useGameVarsStore(
     (state) => state.multipliers.goldMultiplier
   );
@@ -32,6 +40,13 @@ const CitizensSection = () => {
   const income = calcIncome(privateSector, goldMultiplier, activeEffect);
   const expenses = useGameVarsStore((state) => state.expences);
   // const expenses = maintenanceSubtracker();
+
+  const popGrowthRate = calcPopGrowthRate(
+    playerPop ?? 0,
+    happinessFromBuildings,
+    factoryUnhappiness,
+    activeEffect
+  );
 
   useEffect(() => {
     console.log("🔵 CitizensSection: income: ", income);
@@ -125,7 +140,7 @@ const CitizensSection = () => {
           <StandardLabel
             gameIcon={images?.gameIcons.growthGameIcon}
             valueToDisplay={`${round2Decimal(popGrowthRate)} /h`}
-            alt="REGsSpace"
+            alt="PopulationGrowthRate"
           />
         </div>
       </section>

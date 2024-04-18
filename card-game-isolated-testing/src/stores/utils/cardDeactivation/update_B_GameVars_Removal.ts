@@ -29,7 +29,7 @@ export const update_B_GameVars_Removal = (
   if (card.name === nameToTemplateDataBuilding.RadioStation.name) {
     const currentEnergyConsumed = gameVars.energyConsumed;
 
-    gameVars.removeRadioStationEffectBoost();
+    gameVars.removeRadioStationEffectBoost(card.output.boost);
     gameVars.setEnergyConsumed(currentEnergyConsumed - maintenance.energy);
     return;
   }

@@ -49,11 +49,12 @@ export default function AuthProvider({
       console.log("🧪 2.2 | - ✅ Successfully GOT Player Data: ", playerData);
 
       // 🔷 1. Initialize the Cards
-      const popGrowthRateNoBoost = playerInit(playerData.player);
+      playerInit(playerData.player);
 
       // 🔷 2. Initialize the Cards, and their side-effects if there are any
       if (playerData.cards !== undefined && playerData.cards !== null) {
-        cardsInit(playerData.cards, popGrowthRateNoBoost);
+        // cardsInit(playerData.cards, popGrowthRateNoBoost);
+        cardsInit(playerData.cards);
       }
 
       if (playerData.player.gold === null)
