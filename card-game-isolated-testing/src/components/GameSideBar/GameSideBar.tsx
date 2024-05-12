@@ -15,8 +15,9 @@ import {
   GiCardPick,
   GiBuyCard,
   GiTrophyCup,
-  GiWireframeGlobe,
 } from "react-icons/gi";
+import { SiDiscord } from "react-icons/si";
+import { FcSurvey } from "react-icons/fc";
 
 import useGetLabelsSize from "../../hooks/game/useGetLabelsSize";
 import { useNavigate } from "react-router-dom";
@@ -27,13 +28,16 @@ interface GameSideBarProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   openInventoryModal: () => void;
   openCardCraftingModal: () => void;
-  changeMap: () => void;
+  // goToDiscord: () => void;
+  // goToSurvey: () => void;
 }
+
+const surveyURL =
+  "https://docs.google.com/forms/d/e/1FAIpQLScC2ZIyRY5YM0IAGkI9oWUxqcc2xQriQeK5wRtndEywrnLJyA/viewform?usp=sf_link";
 
 export default function GameSideBar({
   isOpen,
   setIsOpen,
-  changeMap,
   openCardCraftingModal,
   openInventoryModal,
 }: GameSideBarProps) {
@@ -123,11 +127,23 @@ export default function GameSideBar({
       </List>
       <Divider sx={{ backgroundColor: "white" }} />
       <List>
-        {["Change Map"].map((text) => (
-          <ListItem key={text} disablePadding onClick={() => changeMap()}>
+        {["Discord Server", "Survey"].map((text, index) => (
+          <ListItem
+            key={text}
+            disablePadding
+            onClick={
+              index === 0
+                ? () => window.open("https://discord.gg/Wv8nzm4KW6", "_blank")
+                : () => window.open(surveyURL, "_blank")
+            }
+          >
             <ListItemButton>
               <ListItemIcon>
-                <GiWireframeGlobe size={iconSize} color="white" />
+                {index === 0 ? (
+                  <SiDiscord size={iconSize} color="white" />
+                ) : (
+                  <FcSurvey size={iconSize} color="white" />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} sx={{ color: "white" }} />
             </ListItemButton>

@@ -14,8 +14,7 @@ import { initNewPlayer } from "../../utils/initNewPlayer";
  * @description - Creates a new Player in the DB and sends him 0.5 ETH
  * @param e - React.MouseEvent
  * @param playerName - The Player's Name
- * @param localWallet - The Local Wallet
- * @param getEthBalance - Function to get the ETH Balance (From useLocalWallet Hook)
+ * @param walletAddress - The Local Wallet
  * @param setErrMsg - Function to set the Error Message (From the HomePage)
  * @param resetUser - Function to reset the User (From the HomePage)
  * @param setSuccessMsg - Function to set the Success Message (From the HomePage)
@@ -27,7 +26,6 @@ export const handlePlayerCreate = async (
   e: React.MouseEvent,
   playerName: string,
   walletAddress: string,
-  // getEthBalance: () => Promise<string>,
   setTransactionModalOpen: Dispatch<SetStateAction<boolean>>,
   setUser: Dispatch<SetStateAction<userAuthType>> | null,
   setErrMsg: (msg: string) => void,
@@ -90,14 +88,6 @@ export const handlePlayerCreate = async (
 
       return true;
     }
-
-    // try {
-    //   await createPlayer(user, response.data.insertId);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
-    // ⛔ Error Handling, based on the error
   } catch (err) {
     console.error("Response Error from Server: ", err);
     if (!(err as any)?.response) {

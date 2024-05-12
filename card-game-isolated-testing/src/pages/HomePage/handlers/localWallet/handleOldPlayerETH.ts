@@ -41,7 +41,7 @@ export const handleOldPlayerETH = async (
     } else if ((err as any).response?.status === 400) {
       setErrMsg("Missing Username or Password");
     } else if ((err as any).response?.status === 401) {
-      setErrMsg("Propably You don't have an Account");
+      setErrMsg("Propably You don't have an Account");  
     } else if (
       (err as any)?.response?.data?.message ===
       "Transfer already made in the last 24 hours"

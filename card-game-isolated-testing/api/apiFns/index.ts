@@ -39,6 +39,9 @@ import { getRandomQuestions } from "./quizGame/_getRandomQuestions";
 import { getMGSBalance } from "./smartContractFns/_getMGSBalance";
 import { awardMGS } from "./smartContractFns/_awardMGS";
 
+// Google Form
+import { getRatings } from "./googleForm/_getRatings";
+
 export {
   getPlayerByWallet,
   loginWithWallet,
@@ -67,4 +70,5 @@ export {
   getMGSBalance,
   awardMGS,
   deleteCard,
+  getRatings,
 };

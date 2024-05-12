@@ -4,6 +4,8 @@ import SwitchBtn from "../../components/WalletRelated/SwitchBtn";
 import { Suspense, lazy, useState } from "react";
 import useViewportWidthGreaterThan320 from "../../components/Utility/useViewportWidthGreaterThan320";
 import useGA4 from "../../hooks/useGA4";
+import GameRatings from "../../components/GameRatings/GameRatings";
+import Discord from "../../assets/newAdditions/Discord.png";
 // import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 // import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
 
@@ -75,19 +77,45 @@ const HomePagePOC = () => {
             <>{usingLW ? <HomePageLocalWallet /> : <HomePageMetamask />}</>
           </div>
 
-          <p className="font-rajdhani font-medium text-base text-white">
-            <img
-              src={UniwaLogo}
-              alt="Uniwa Logo"
-              style={{
-                display: "inline-block",
-                marginRight: "10px",
-                width: isGreaterThan320 ? "56px" : "42px",
-                height: "auto",
-              }}
-            />
-            Made with 💙 by UNIWA{" "}
-          </p>
+          <div className="font-rajdhani font-medium text-base text-white flex justify-between items-center">
+            <div className="flex flex-col gap-3">
+              <div
+                className="flex items-center hover:cursor-pointer hover:scale-110 z-[999]"
+                aria-description="Discord Server Link"
+                onClick={() =>
+                  window.open("https://discord.gg/Wv8nzm4KW6", "_blank")
+                }
+              >
+                <img
+                  src={Discord}
+                  alt="Discord Logo"
+                  style={{
+                    display: "inline-block",
+                    marginRight: "10px",
+                    width: isGreaterThan320 ? "56px" : "42px",
+                    height: "auto",
+                  }}
+                />
+                <p>Join our Discord Server</p>
+              </div>
+              <div className="flex items-center">
+                <img
+                  src={UniwaLogo}
+                  alt="Uniwa Logo"
+                  style={{
+                    display: "inline-block",
+                    marginRight: "10px",
+                    width: isGreaterThan320 ? "56px" : "42px",
+                    height: "auto",
+                  }}
+                />
+                <p>Made with 💙 by UNIWA </p>
+              </div>
+            </div>
+            <div className="flex">
+              <GameRatings />
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-1">

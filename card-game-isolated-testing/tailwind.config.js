@@ -4,6 +4,7 @@ export default {
   theme: {
     fontFamily: {
       Rocher: ["Rocher", "sans-serif"],
+      mono: ["Roboto", "monospace"],
     },
     // screens: {
     //   "md-custom": { min: "899px" },
