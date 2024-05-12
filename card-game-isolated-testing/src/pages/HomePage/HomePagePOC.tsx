@@ -5,7 +5,7 @@ import { Suspense, lazy, useState } from "react";
 import useViewportWidthGreaterThan320 from "../../components/Utility/useViewportWidthGreaterThan320";
 import useGA4 from "../../hooks/useGA4";
 import GameRatings from "../../components/GameRatings/GameRatings";
-import Discord from "../../assets/newAdditions/Discord.png";
+import Discord from "../../assets/newAdditions/Discord.webp";
 // import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 // import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
 

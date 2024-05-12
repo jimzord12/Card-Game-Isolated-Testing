@@ -42,7 +42,6 @@ const ImageProviderV5 = lazy(
   () => import("../../context/GlobalContext/GlobalContext")
 );
 const TownMap = lazy(() => import("../../pages/Maps/TownMap/TownMap"));
-const WorldMap = lazy(() => import("../../pages/Maps/WorldMap/WorldMap"));
 
 const CraftCardModal = lazy(
   () => import("../Modals/InGameModals/CraftCardModal/CraftCardModal")
@@ -60,12 +59,12 @@ declare global {
     ethereum: any;
   }
 }
+const mapToDisplay: MapTypes = "town";
 
 const Game = () => {
   useGA4();
   const shouldShow = UseLandscape();
   const [loading, setLoading] = useState(true);
-  const [mapToDisplay, setMapToDisplay] = useState<MapTypes>("town");
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const [isInvModalOpen, setIsInvModalOpen] = useState(false);
@@ -499,11 +498,6 @@ const Game = () => {
               <GameSideBar
                 isOpen={isSideBarOpen}
                 setIsOpen={setIsSideBarOpen}
-                changeMap={() =>
-                  setMapToDisplay((prev) =>
-                    prev === "world" ? "town" : "world"
-                  )
-                }
                 openCardCraftingModal={() => {
                   setIsInvModalOpen(false);
                   setIsCraftModalOpen(true);
@@ -646,7 +640,6 @@ const Game = () => {
 
               <ModalProvider>
                 {mapToDisplay === "town" && <TownMap />}
-                {mapToDisplay === "world" && <WorldMap />}
               </ModalProvider>
             </>
           )}
