@@ -42,6 +42,9 @@ import { awardMGS } from "./smartContractFns/_awardMGS";
 // Google Form
 import { getRatings } from "./googleForm/_getRatings";
 
+// Top 10 Players Report
+import { top10PlayersReport } from "./top10PlayersReport/_top10PlayersReport";
+
 export {
   getPlayerByWallet,
   loginWithWallet,
@@ -71,4 +74,5 @@ export {
   awardMGS,
   deleteCard,
   getRatings,
+  top10PlayersReport,
 };

@@ -41,6 +41,7 @@ const ScoreRows = ({ AllPlayersQuery, fetchedPlayerQuery }) => {
       {(isError || fetchedPlayerIsError) && (
         <div style={{ fontSize: 24 }}>
           Oops! Something Went Wrong! Please try again later.
+          {fetchedPlayerError}
         </div>
       )}
 

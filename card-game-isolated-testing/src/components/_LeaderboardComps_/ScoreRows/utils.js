@@ -37,7 +37,7 @@ export const TopThreeScores = (players) => {
 export const AlternatingBackground = (player, allPlayers) => {
   // ✨ 🥩 Here: Query the database for a all the available players (players === rows)
   // ✨ 🥩 Depending on the index I have to apply the correct style to the row
-  const playerIndex = findPlayerIndex(player.name, allPlayers);
+  const playerIndex = player && findPlayerIndex(player.name, allPlayers);
   const rows = [...document.querySelectorAll(".score-list-row")];
   rows.forEach((row, index) => {
     if (index % 2 === 0) {
