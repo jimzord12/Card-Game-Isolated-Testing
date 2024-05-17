@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import ScoreRow from "./ScoreRow.jsx";
 import { AlternatingBackground } from "./utils.js";
+import ScoreRowTop10 from "./ScoreRowTop10.jsx";
 
 const ScoreRowsTop10 = ({ top10Players, error }) => {
   useEffect(() => {
@@ -23,7 +23,7 @@ const ScoreRowsTop10 = ({ top10Players, error }) => {
       <div className="wrapper-score-list-box-jz">
         {top10Players.length > 0 ? (
           top10Players.map((player, index) => (
-            <ScoreRow
+            <ScoreRowTop10
               player={player}
               key={`${player.name}-${index}`}
               index={index}
