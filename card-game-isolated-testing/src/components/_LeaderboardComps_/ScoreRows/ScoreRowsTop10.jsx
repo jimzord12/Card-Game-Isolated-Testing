@@ -1,19 +1,30 @@
 import { useEffect } from "react";
-import { AlternatingBackground } from "./utils.js";
+import { AlternatingBackground_Top10 } from "./utils.js";
 import ScoreRowTop10 from "./ScoreRowTop10.jsx";
 
-const ScoreRowsTop10 = ({ top10Players, error }) => {
+const ScoreRowsTop10 = ({ top10Players, fetchedPlayerQuery, error }) => {
+  const {
+    data: fetchedPlayer,
+    isSuccess: fetchedPlayerSuccess,
+    // isLoading: fetchedPlayerIsLoading,
+    isError: fetchedPlayerIsError,
+    error: fetchedPlayerError,
+  } = fetchedPlayerQuery;
+
   useEffect(() => {
     if (top10Players.length > 0) {
-      AlternatingBackground(null, top10Players);
+      AlternatingBackground_Top10(fetchedPlayer.player, top10Players);
+      console.log("9999999999999999999999");
+      console.log(top10Players);
     }
-  }, []);
+  }, [fetchedPlayerSuccess]);
 
-  if (error) {
+  if (error || fetchedPlayerIsError) {
     return (
       <div style={{ fontSize: 24, color: "red" }}>
         Oops! Something Went Wrong! Please try again later.
         {error}
+        {fetchedPlayerError}
       </div>
     );
   }

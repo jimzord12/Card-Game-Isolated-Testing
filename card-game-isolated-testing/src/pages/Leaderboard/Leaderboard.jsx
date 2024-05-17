@@ -114,13 +114,14 @@ function Leaderboard() {
               ) : (
                 <ScoreRowsTop10
                   top10Players={top10PlayersReportData.top10Players}
+                  fetchedPlayerQuery={fetchedPlayerQuery}
                   error={topPlayersError}
                 />
               )}
             </div>
             <div style={{ height: 64 }} />
             <p className="score-list-box-header">The Current Month's Ranking</p>
-            <div className="score-list-box">
+            <div className="score-list-box current-list">
               {isLoading ? (
                 <div className="flex justify-center items-center">
                   <LoadingModal />

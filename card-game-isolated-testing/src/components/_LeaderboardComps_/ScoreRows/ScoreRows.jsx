@@ -32,6 +32,8 @@ const ScoreRows = ({ AllPlayersQuery, fetchedPlayerQuery }) => {
         TopThreeScores(players);
 
         AlternatingBackground(fetchedPlayer.player, players);
+        console.log("66666666666666666666666666666");
+        console.log(players);
       }
     }
   }, [fetchedPlayer, players, fetchedPlayerSuccess, isSuccess]);
