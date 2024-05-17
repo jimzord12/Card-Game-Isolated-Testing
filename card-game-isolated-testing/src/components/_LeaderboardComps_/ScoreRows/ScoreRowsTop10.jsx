@@ -12,12 +12,12 @@ const ScoreRowsTop10 = ({ top10Players, fetchedPlayerQuery, error }) => {
   } = fetchedPlayerQuery;
 
   useEffect(() => {
-    if (top10Players.length > 0) {
+    if (fetchedPlayerSuccess && top10Players.length > 0) {
       AlternatingBackground_Top10(fetchedPlayer.player, top10Players);
       console.log("9999999999999999999999");
       console.log(top10Players);
     }
-  }, [fetchedPlayerSuccess]);
+  }, [fetchedPlayerSuccess, top10Players.length]);
 
   if (error || fetchedPlayerIsError) {
     return (
