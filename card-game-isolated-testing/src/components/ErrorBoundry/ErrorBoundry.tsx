@@ -27,7 +27,7 @@ class ErrorBoundary extends React.Component<
     // You can also log the error to an error reporting service
     console.error("Uncaught error:", error, errorInfo);
 
-    window.location.replace(window.location.origin); // ✨ Uncomment after testing this line to refresh the page
+    // window.location.replace(window.location.origin); // ✨ Uncomment after testing this line to refresh the page
 
     // alert("An error occurred. Please refresh the page.");
   }
