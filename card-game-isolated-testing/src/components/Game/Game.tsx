@@ -485,19 +485,20 @@ const Game = () => {
   useEffect(() => {
     const audio = new Audio("sounds/Forest-Frolic-Loop.mp3");
 
-    audio.addEventListener("canplay", () => {
+    const handleCanPlay = () => {
       console.log("🎵 [Game.tsx] Music is playing");
       audio.play();
-    });
+    };
+
+    audio.addEventListener("canplay", handleCanPlay);
 
     audio.loop = true;
     audio.volume = 0.15;
 
     return () => {
-      audio.removeEventListener("canplay", () => {
-        audio.pause();
-        audio.currentTime = 0;
-      });
+      audio.removeEventListener("canplay", handleCanPlay);
+      audio.pause();
+      audio.currentTime = 0;
     };
   }, []);
 
