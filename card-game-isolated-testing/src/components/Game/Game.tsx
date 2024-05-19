@@ -481,6 +481,26 @@ const Game = () => {
     }
   }, []);
 
+  // For the Music
+  useEffect(() => {
+    const audio = new Audio("sounds/Forest-Frolic-Loop.mp3");
+
+    audio.addEventListener("canplay", () => {
+      console.log("🎵 [Game.tsx] Music is playing");
+      audio.play();
+    });
+
+    audio.loop = true;
+    audio.volume = 0.15;
+
+    return () => {
+      audio.removeEventListener("canplay", () => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    };
+  }, []);
+
   if (!auth.user) return null;
 
   return (
