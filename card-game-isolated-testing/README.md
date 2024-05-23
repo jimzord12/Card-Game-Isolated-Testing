@@ -1,52 +1,52 @@
-# React + TypeScript + Vite
+# GENERA's Serious Online Multiplayer Blockchain Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Run Project Locally
 
-Currently, two official plugins are available:
+There are 2 ways of running the code locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Docker 🐳
 
-## Expanding the ESLint configuration
+1. Make sure you have Docker installed and running.
+2. Go to the project directory.
+3. IMPORTANT! Inside the directory should be a folder named "card-game-isolated-testing", you need to cd into it.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```shell
+cd card-game-isolated-testing
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+4. Now, run the following command:
 
-## Important Locations
+```shell
+docker-compose -f docker-compose.dev.yml up
+```
 
-### Old Player - Data Initialization
+5. Open a Browser and go here http://localhost:5173/
 
-- [AuthProvider.tsx](./src/context/AuthContext/AuthProvider.tsx)
+6. It might take a little (5-10s) but afterwards you should see the Game's Home Page.
 
-  - [usePlayerInit.tsx](./src/hooks/initialization/usePlayerInit.tsx) | This initializes the following Data from DB into App's Global State (Zustang Stores):
+### Without Docker
 
-    - Player's Resources
-    - Player's Townhall Level
-    - Player's Factory Level
-    - Player's Workers
+1. Git clone or download the project's files
+2. IMPORTANT! Inside the directory should be a folder named "card-game-isolated-testing", you need to cd into it.
 
-  - [useCardsInit.tsx](./src/hooks/initialization/useCardsInit.tsx) | This initializes Card Related Data from DB into App's Global State (Zustang Stores)::
-    - Turns DB Card Data into JS Objects
-    - Filters the Cards into:
-      - Inventory Cards
-      - Active Cards
-      - SP Cards
-      - Tool Store Cards
-    - Activates the Special Effect, if it is active
-    - Calculates the Multipliers, they come from Tool Store Cards
-    - 
+```shell
+cd card-game-isolated-testing
+```
 
+3. Open the terminal at that location (.../YOUR-PATH/Card-Game-Isolated-Testing/card-game-isolated-testing) and run:
+
+```
+npm run i
+```
+
+4. Once all the dependencies are download and installed, by running the following command you should be able to start the app:
+
+```
+npm run dev
+```
+
+## About the Project
+
+This project is a Serious Web Game developed as part of the European project GENERA-LIFE.
+
+It's goal is to inform citizens and municipalities about the importance of Transitioning to Renewable EnergySolutions.
