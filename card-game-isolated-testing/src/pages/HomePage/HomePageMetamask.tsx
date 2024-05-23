@@ -124,6 +124,7 @@ const HomePageMetamask = () => {
         setWaitingServer(false);
         clearTimeout(serverTimeout);
       } catch (error) {
+        console.error("⛔ - Server is not live: ", error);
         setErrMsg("Server Error: Please wait 45-60 secs and try again.");
         setWaitingServer(true);
       }

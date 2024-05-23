@@ -3,9 +3,13 @@ import axios from "axios";
 
 const isProduction = import.meta.env.VITE_IS_PRODUCTION == "yes";
 const isWSLocal = !isProduction && import.meta.env.VITE_IS_LOCAL_WS == "yes";
+const webServerURL = import.meta.env.VITE_WEB_SERVER_URL;
+const webServerPort = import.meta.env.VITE_WEB_SERVER_PORT;
 
-console.log("🧪 - Api Config: isProduction: ", isProduction);
-console.log("🧪 - Api Config: isWSLocal: ", isWSLocal);
+console.log("🧪 1 - Api Config: isProduction: ", isProduction);
+console.log("🧪 2 - Api Config: isWSLocal: ", isWSLocal);
+console.log("🧪 3 - Api Config: Web Server URL: ", webServerURL);
+console.log("🧪 4 - Api Config: Web Server Port: ", webServerPort);
 // const isWSLocal = false;
 
 // const PORT = 3333; // Local port
@@ -14,9 +18,11 @@ console.log(
 );
 // const PORT = 29352;
 const HOST = isWSLocal
-  ? "http://localhost:3333/"
+  ? `${webServerURL}:${webServerPort}/`
   : //  : 'https://genera-game-backend-v2.herokuapp.com/';
     "https://genera-game-express-server.onrender.com/";
+
+console.log("🚀 - API Config: HOST: ", HOST);
 
 export const axiosPublic = axios.create({
   baseURL: HOST,

@@ -1,13 +1,31 @@
-version: "3.8"
-
 services:
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    # image: jimzord204/frontend-dev:latest
     ports:
       - "5173:5173"
+    environment:
+      # - VITE_WEB_SERVER_URL=http://backend
+      # - VITE_WEB_SERVER_PORT=3333
+      - VITE_WEB_SERVER_URL=http://localhost
+      - VITE_WEB_SERVER_PORT=3333
     volumes:
       - .:/app
       - /app/node_modules
     command: npm run dev -- --host
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: C:\Users\jimzord12\Codebases\GitHub\Game-Backend-Deploy
+      dockerfile: Dockerfile.dev
+    # image: jimzord204/web-server-dev:latest
+    ports:
+      - "3333:3333"
+    environment:
+      - PORT=3333
+      - isProduction=no
+    command: npm start

@@ -1,0 +1,23 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jimzord204/game-frontend:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: serve -s dist
+
+  backend:
+    image: jimzord204/web-server:latest
+    ports:
+      - "3500:3500"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - PORT=3500
+    command: npm start
