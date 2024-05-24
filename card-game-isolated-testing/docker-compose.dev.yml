@@ -27,5 +27,28 @@ services:
       - "3333:3333"
     environment:
       - PORT=3333
-      - isProduction=no
+      - IS_PRODUCTION=no
+      - IS_DOCKER=yes
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=__SuPeRSecretP@ssw0rd!__
+      - DB_NAME=genera-game-v3
     command: npm start
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3307:3306" # Change the host port from 3306 to 3307
+    environment:
+      MYSQL_ROOT_PASSWORD: __SuPeRSecretP@ssw0rd!__
+      MYSQL_DATABASE: genera-game-v3
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./sql/dev/1_schema.sql:/docker-entrypoint-initdb.d/1_schema.sql:ro
+      - ./sql/dev/2_init-data.sql:/docker-entrypoint-initdb.d/2_init-data.sql:ro
+
+# This must be at the top level of the file
+volumes:
+  db-data:
