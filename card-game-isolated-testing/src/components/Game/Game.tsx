@@ -36,6 +36,7 @@ import { useRewardingToolContract } from "../../hooks/blockchain/useRewardingToo
 import { useGameContract } from "../../hooks/blockchain/useGameContract";
 import { useModalStore } from "../../stores/modalStore";
 import LoadingModal from "../Modals/LoadingModal/LoadingModal";
+import SoundManager from "../SoundManager/SoundManager";
 // import type { Contract } from "ethers/contract";
 
 const ImageProviderV5 = lazy(
@@ -69,6 +70,8 @@ const Game = () => {
 
   const [isInvModalOpen, setIsInvModalOpen] = useState(false);
   const [isCraftModalOpen, setIsCraftModalOpen] = useState(false);
+
+  const [audioEl, setAudioEl] = useState<HTMLAudioElement | null>(null)
 
   // const [rewardingContract, setRewardingContract] = useState<
   //   Contract | undefined | null
@@ -484,16 +487,18 @@ const Game = () => {
   // For the Music
   useEffect(() => {
     const audio = new Audio("sounds/Forest-Frolic-Loop.mp3");
-
+    setAudioEl(audio);
+    
     const handleCanPlay = () => {
       console.log("🎵 [Game.tsx] Music is playing");
       audio.play();
     };
-
+    
     audio.addEventListener("canplay", handleCanPlay);
-
+    
     audio.loop = true;
     audio.volume = 0.15;
+    
 
     return () => {
       audio.removeEventListener("canplay", handleCanPlay);
@@ -553,6 +558,8 @@ const Game = () => {
                 isInvModalOpen={isInvModalOpen}
                 setIsInvModalOpen={setIsInvModalOpen}
               />
+
+              <SoundManager audio={audioEl} />
 
               {/* <div className="z-[401] absolute top-4 left-[280px]">
                 <CustomButton
