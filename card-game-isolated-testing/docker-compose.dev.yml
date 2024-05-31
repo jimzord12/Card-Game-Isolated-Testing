@@ -1,4 +1,5 @@
 services:
+  # Frontend Service
   frontend:
     build:
       context: .
@@ -7,8 +8,6 @@ services:
     ports:
       - "5173:5173"
     environment:
-      # - VITE_WEB_SERVER_URL=http://backend
-      # - VITE_WEB_SERVER_PORT=3333
       - VITE_WEB_SERVER_URL=http://localhost
       - VITE_WEB_SERVER_PORT=3333
     volumes:
@@ -18,6 +17,7 @@ services:
     depends_on:
       - backend
 
+  # Backend (Express.js) server
   backend:
     build:
       context: C:\Users\jimzord12\Codebases\GitHub\Game-Backend-Deploy
@@ -37,6 +37,7 @@ services:
     depends_on:
       - db
 
+  # MySQL database
   db:
     image: mysql:latest
     ports:

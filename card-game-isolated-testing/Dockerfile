@@ -17,10 +17,11 @@ COPY . .
 RUN npm run build
 
 # Install serve to serve the build
-RUN npm install -g serve
+# RUN npm install -g serve
 
 # Expose the port the app runs on
+# I will be using Nginx to serve the build (port 3000)
 EXPOSE 3000
 
-# Command to run the application
-CMD ["serve", "-s", "dist"]
+# # Command to run the application
+# CMD ["serve", "-s", "dist"]

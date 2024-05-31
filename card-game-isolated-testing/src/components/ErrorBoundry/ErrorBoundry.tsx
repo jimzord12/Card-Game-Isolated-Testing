@@ -25,15 +25,16 @@ class ErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // You can also log the error to an error reporting service
-    console.error("Uncaught error:", error, errorInfo);
+    console.error("(Error Boundry): Uncaught error:", error, errorInfo);
 
-    // window.location.replace(window.location.origin); // ✨ Uncomment after testing this line to refresh the page
+    window.location.replace(window.location.origin); // ✨ Uncomment after testing this line to refresh the page
 
     // alert("An error occurred. Please refresh the page.");
   }
 
   render() {
     if (this.state.hasError) {
+      console.log("An error occurred. Please refresh the page.");
       // You can render any custom fallback UI
       return <ErrorPage />;
     }
