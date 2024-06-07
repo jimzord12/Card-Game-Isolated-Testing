@@ -10,7 +10,7 @@ const webServerPort = import.meta.env.VITE_WEB_SERVER_PORT;
 
 let HOST;
 
-if (!isDocker || !isWSLocal) {
+if (!isDocker && !isWSLocal) {
   HOST = "https://genera-game-express-server.onrender.com/";
 } else {
   HOST = `${webServerURL}:${webServerPort}/`;
@@ -18,8 +18,9 @@ if (!isDocker || !isWSLocal) {
 
 console.log("🧪 1 - Api Config: isProduction: ", isProduction);
 console.log("🧪 2 - Api Config: isWSLocal: ", isWSLocal);
-console.log("🧪 3 - Api Config: Web Server URL: ", webServerURL);
-console.log("🧪 4 - Api Config: Web Server Port: ", webServerPort);
+console.log("🧪 3 - Api Config: isDocker 🐳: ", isDocker);
+console.log("🧪 4 - Api Config: Web Server URL: ", webServerURL);
+console.log("🧪 5 - Api Config: Web Server Port: ", webServerPort);
 // const isWSLocal = false;
 
 // const PORT = 3333; // Local port
