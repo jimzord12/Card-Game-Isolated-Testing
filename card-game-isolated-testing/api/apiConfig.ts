@@ -3,8 +3,18 @@ import axios from "axios";
 
 const isProduction = import.meta.env.VITE_IS_PRODUCTION == "yes";
 const isWSLocal = !isProduction && import.meta.env.VITE_IS_LOCAL_WS == "yes";
+const isDocker = import.meta.env.VITE_IS_DOCKER == "yes";
+
 const webServerURL = import.meta.env.VITE_WEB_SERVER_URL;
 const webServerPort = import.meta.env.VITE_WEB_SERVER_PORT;
+
+let HOST;
+
+if (!isDocker || !isWSLocal) {
+  HOST = "https://genera-game-express-server.onrender.com/";
+} else {
+  HOST = `${webServerURL}:${webServerPort}/`;
+}
 
 console.log("🧪 1 - Api Config: isProduction: ", isProduction);
 console.log("🧪 2 - Api Config: isWSLocal: ", isWSLocal);
@@ -17,10 +27,10 @@ console.log(
   `💎🎉😓 You are in [${isWSLocal ? "DEV MODE" : "PRODUCTION MODE"}] 💎🎉😓`
 );
 // const PORT = 29352;
-const HOST = isWSLocal
-  ? `${webServerURL}:${webServerPort}/`
-  : //  : 'https://genera-game-backend-v2.herokuapp.com/';
-    "https://genera-game-express-server.onrender.com/";
+// const HOST = isWSLocal
+//   ? `${webServerURL}:${webServerPort}/`
+//   : //  : 'https://genera-game-backend-v2.herokuapp.com/';
+//     "https://genera-game-express-server.onrender.com/";
 
 console.log("🚀 - API Config: HOST: ", HOST);
 
