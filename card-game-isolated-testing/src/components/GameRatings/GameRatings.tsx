@@ -69,7 +69,7 @@ const GameRatings = () => {
 
   return (
     <div
-      className="flex hover:cursor-pointer z-[999] font-mono hover:scale-110"
+      className="flex hover:cursor-pointer z-[999] font-mono hover:scale-110 duration-300"
       onClick={() => window.open(surveyURL, "_blank")}
     >
       <div className="w-16">

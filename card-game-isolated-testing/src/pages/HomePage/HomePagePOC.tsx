@@ -6,6 +6,7 @@ import useViewportWidthGreaterThan320 from "../../components/Utility/useViewport
 import useGA4 from "../../hooks/useGA4";
 import GameRatings from "../../components/GameRatings/GameRatings";
 import Discord from "../../assets/newAdditions/Discord.webp";
+import Youtube from "../../assets/newAdditions/youtube_logo.webp";
 // import HomePageMetamask from "../../pages/HomePage/HomePageMetamask";
 // import HomePageLocalWallet from "../../pages/HomePage/HomePageLocalWallet";
 
@@ -21,6 +22,7 @@ const HomePagePOC = () => {
   const isGreaterThan320 = useViewportWidthGreaterThan320();
   const [usingLW, setUsingLW] = useState(false);
   // const { hardcodePlayer } = useHardcoding(); // 🧪 REMOVE THIS LINE WHEN DONE TESTING 🧪
+  
 
   return (
     <div className="min-h-screen flex xl:flex-row flex-col relative ">
@@ -58,7 +60,7 @@ const HomePagePOC = () => {
                 </>
               </h1>
             </div>
-            <p className="font-normal text-[24px] text-siteWhite my-10">
+            <p className="font-normal text-[24px] text-siteWhite mt-10 mb-6">
               <>
                 This is a Web3 Application. <br />
                 {`Complete the steps below to gain access`} <br />
@@ -71,6 +73,10 @@ const HomePagePOC = () => {
                 </span>
               </>
             </p>
+            <div className="bg-green-600 h-12 flex items-center mb-6 rounded-lg pl-2 pr-4 w-fit hover:scale-110 duration-300 cursor-pointer" onClick={() => window.open("https://www.youtube.com/playlist?list=PLA1oD0-OWjRtrm03CKf5ZGSslAUVa97cJ", '_blank')}>
+              <img src={Youtube} alt="youtube" className="object-contain w-fit h-full" />
+              <p className="ml-2 text-xl">Check out our Tutorials!</p>
+            </div>
             <SwitchBtn usingLW={usingLW} setUsingLW={setUsingLW} />
             <div style={{ height: 48 }} />
             {/* HERE IS WHERE THE BRANCH BETWEEN METAMASK & LOCAL WALLET STARTS */}
@@ -80,7 +86,7 @@ const HomePagePOC = () => {
           <div className="font-rajdhani font-medium text-base text-white flex justify-between items-center">
             <div className="flex flex-col gap-3">
               <div
-                className="flex items-center hover:cursor-pointer hover:scale-110 z-[999]"
+                className="flex items-center hover:cursor-pointer hover:scale-110 z-[999] duration-300"
                 aria-description="Discord Server Link"
                 onClick={() =>
                   window.open("https://discord.gg/Wv8nzm4KW6", "_blank")
