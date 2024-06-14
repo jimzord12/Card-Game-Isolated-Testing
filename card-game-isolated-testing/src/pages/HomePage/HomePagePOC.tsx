@@ -73,8 +73,8 @@ const HomePagePOC = () => {
                 </span>
               </>
             </p>
-            <div className="bg-green-600 h-12 flex items-center mb-6 rounded-lg pl-2 pr-4 w-32 hover:scale-110 duration-300 cursor-pointer" onClick={() => window.open("https://www.youtube.com/playlist?list=PLA1oD0-OWjRtrm03CKf5ZGSslAUVa97cJ", '_blank')}>
-              <img src={Youtube} alt="youtube" className="object-contain w-fit h-full" />
+            <div className="bg-green-600 h-12 flex items-center mb-6 rounded-lg pl-2 pr-4 w-72 hover:scale-110 duration-300 cursor-pointer" onClick={() => window.open("https://www.youtube.com/playlist?list=PLA1oD0-OWjRtrm03CKf5ZGSslAUVa97cJ", '_blank')}>
+              <img src={Youtube} alt="youtube" className="object-contain w-12 h-full" />
               <p className="ml-2 text-xl">Check out our Tutorials!</p>
             </div>
             <SwitchBtn usingLW={usingLW} setUsingLW={setUsingLW} />
