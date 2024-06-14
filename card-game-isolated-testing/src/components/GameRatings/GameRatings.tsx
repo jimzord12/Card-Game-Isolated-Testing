@@ -23,7 +23,7 @@ const GameRatings = () => {
       });
   }, []);
 
-  const calculateAverageRating = (reviews: SurveyResponse[]) => {
+  const  calculateAverageRating = (reviews: SurveyResponse[]) => {
     const total = reviews.reduce((acc, review) => acc + review.question_10, 0);
     const average = total / reviews.length;
     const rounded = Math.round((average + Number.EPSILON) * 100) / 100
