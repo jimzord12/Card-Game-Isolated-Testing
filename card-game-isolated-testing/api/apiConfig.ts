@@ -11,9 +11,9 @@ const webServerPort = import.meta.env.VITE_WEB_SERVER_PORT;
 let HOST;
 
 if (!isDocker && !isWSLocal) {
-  HOST = import.meta.env.VITE_HOST_URL;
+  HOST = import.meta.env.VITE_WEB_SERVER_URL; // Production
 } else {
-  HOST = `${webServerURL}:${webServerPort}/`;
+  HOST = `${webServerURL}:${webServerPort}/`; // Local Development
 }
 
 console.log("🧪 1 - Api Config: isProduction: ", isProduction);
