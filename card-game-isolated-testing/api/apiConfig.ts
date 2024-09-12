@@ -11,7 +11,7 @@ const webServerPort = import.meta.env.VITE_WEB_SERVER_PORT;
 let HOST;
 
 if (!isDocker && !isWSLocal) {
-  HOST = "https://genera-game-express-server.onrender.com/";
+  HOST = import.meta.env.VITE_HOST_URL;
 } else {
   HOST = `${webServerURL}:${webServerPort}/`;
 }
