@@ -61,7 +61,8 @@ const DisplayCards = ({
           console.log("ALL CARDS: ", from, " => ", cards)} */}
         {!isLoading &&
           cards.length > 0 &&
-          cards.map((card, index) => (
+          // The cards are displayed in reverse order
+          cards.reverse().map((card, index) => (
             <div key={`card-${card.id}-${index}`}>
               {from === "withdraw" ? (
                 <div className="relative">
