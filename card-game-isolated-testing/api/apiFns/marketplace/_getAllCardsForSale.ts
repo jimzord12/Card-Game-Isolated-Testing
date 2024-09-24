@@ -10,5 +10,5 @@ export const getAllCardsForSale = async (): Promise<ICardDB[]> => {
 
   console.log("🚀 GET ✅ - (All Cards for Sale): ", response.data);
 
-  return response.data;
+  return response.data.reverse();
 };

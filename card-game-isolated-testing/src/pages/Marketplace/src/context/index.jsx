@@ -55,7 +55,7 @@ export const StateContextProvider = ({ children }) => {
   useEffect(() => {
     if (isSuccessAllCards && allCardsData) {
       console.log("SUCCESSFUL - All Cards (Marketplace): ", allCardsData);
-      setCards(allCardsData.reverse());
+      setCards(allCardsData);
       setPlayerCards(allCardsData.filter((card) => card.ownerId === userId));
     }
   }, [isSuccessAllCards, allCardsData, userId]);
