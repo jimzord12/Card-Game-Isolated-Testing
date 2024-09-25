@@ -1,21 +1,25 @@
-import { useState, useEffect } from "react";
 import SoundIcon from "../../assets/newAdditions/sound_icon.webp";
+import { useGeneralVariablesStore } from "../../stores/generalVariables";
 
 const SoundManager = ({ audio }: { audio: HTMLAudioElement | null }) => {
-  const [toggleMusic, setToggleMusic] = useState(true); // means music is playing
+  // const [toggleMusic, setToggleMusic] = useState(true); // means music is playing
+  const { setIsMusicPaused, isMusicPaused } = useGeneralVariablesStore(
+    (state) => state
+  );
 
-  useEffect(() => {
-    if (audio && toggleMusic && audio.paused) {
-      audio.play();
-    } else if (audio && !toggleMusic && !audio.paused) {
-      audio.pause();
-    }
-  }, [audio, toggleMusic]);
+  // useEffect(() => {
+  //   if (audio && !isMusicPaused) {
+  //     audio.play();
+  //   } else if (audio && isMusicPaused) {
+  //     audio.pause();
+  //   }
+  // }, [audio, isMusicPaused]);
 
   if (!audio) return null;
 
   const handleToggleMusic = () => {
-    setToggleMusic((prev: boolean) => !prev);
+    // setToggleMusic((prev: boolean) => !prev);
+    setIsMusicPaused(!isMusicPaused);
   };
 
   return (

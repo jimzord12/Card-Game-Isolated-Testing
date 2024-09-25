@@ -71,7 +71,7 @@ const Game = () => {
   const [isInvModalOpen, setIsInvModalOpen] = useState(false);
   const [isCraftModalOpen, setIsCraftModalOpen] = useState(false);
 
-  const [audioEl, setAudioEl] = useState<HTMLAudioElement | null>(null)
+  const [audioEl, setAudioEl] = useState<HTMLAudioElement | null>(null);
 
   // const [rewardingContract, setRewardingContract] = useState<
   //   Contract | undefined | null
@@ -134,11 +134,14 @@ const Game = () => {
   const removeAllInventoryCards = useAllCardsStore(
     (state) => state.removeAllInventoryCards
   );
-  const refetchCards = useGeneralVariablesStore((state) => state);
+  const { refetchCards, setIsNewPlayer, setIsMusicPaused, isMusicPaused } =
+    useGeneralVariablesStore((state) => state);
 
-  const setIsNewPlayer = useGeneralVariablesStore(
-    (state) => state.setIsNewPlayer
-  );
+  // const setIsNewPlayer = useGeneralVariablesStore(
+  //   (state) => state.setIsNewPlayer
+  // );
+
+  // const setIsMusicPaused = useGeneralVariablesStore((state) => state);
 
   const { setNewGameState, getGameState, needsCatchUp, calcTimeUnits } =
     useGameLoop();
@@ -488,24 +491,34 @@ const Game = () => {
   useEffect(() => {
     const audio = new Audio("sounds/Forest-Frolic-Loop.mp3");
     setAudioEl(audio);
-    
-    const handleCanPlay = () => {
-      console.log("🎵 [Game.tsx] Music is playing");
-      audio.play();
-    };
-    
-    audio.addEventListener("canplay", handleCanPlay);
-    
+
     audio.loop = true;
     audio.volume = 0.15;
-    
 
-    return () => {
-      audio.removeEventListener("canplay", handleCanPlay);
+    if (isMusicPaused) {
       audio.pause();
-      audio.currentTime = 0;
-    };
-  }, []);
+      // return () => {
+      //   audio.removeEventListener("canplay", handleCanPlay);
+      //   audio.pause();
+      //   audio.currentTime = 0;
+      // };
+    } else {
+      audio.play();
+    }
+
+    // const handleCanPlay = () => {
+    //   console.log("🎵 [Game.tsx] Music is playing");
+    //   audio.play();
+    // };
+
+    // audio.addEventListener("canplay", handleCanPlay);
+
+    // return () => {
+    //   audio.removeEventListener("canplay", handleCanPlay);
+    //   audio.pause();
+    //   audio.currentTime = 0;
+    // };
+  }, [isMusicPaused]);
 
   if (!auth.user) return null;
 
