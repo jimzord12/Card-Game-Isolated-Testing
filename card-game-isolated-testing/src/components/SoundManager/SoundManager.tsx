@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import SoundIcon from "../../assets/newAdditions/sound_icon.webp";
 import { useGeneralVariablesStore } from "../../stores/generalVariables";
 
@@ -7,13 +8,13 @@ const SoundManager = ({ audio }: { audio: HTMLAudioElement | null }) => {
     (state) => state
   );
 
-  // useEffect(() => {
-  //   if (audio && !isMusicPaused) {
-  //     audio.play();
-  //   } else if (audio && isMusicPaused) {
-  //     audio.pause();
-  //   }
-  // }, [audio, isMusicPaused]);
+  useEffect(() => {
+    if (audio && !isMusicPaused) {
+      audio.play();
+    } else if (audio && isMusicPaused) {
+      audio.pause();
+    }
+  }, [audio, isMusicPaused]);
 
   if (!audio) return null;
 
