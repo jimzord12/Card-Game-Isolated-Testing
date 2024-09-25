@@ -134,8 +134,12 @@ const Game = () => {
   const removeAllInventoryCards = useAllCardsStore(
     (state) => state.removeAllInventoryCards
   );
-  const { refetchCards, setIsNewPlayer, setIsMusicPaused, isMusicPaused } =
-    useGeneralVariablesStore((state) => state);
+  const {
+    shouldRefecthInvCards,
+    setShouldRefecthInvCards,
+    setIsNewPlayer,
+    isMusicPaused,
+  } = useGeneralVariablesStore((state) => state);
 
   // const setIsNewPlayer = useGeneralVariablesStore(
   //   (state) => state.setIsNewPlayer
@@ -459,7 +463,7 @@ const Game = () => {
   useEffect(() => {
     let counter = 0;
     const fetchInvCards = async () => {
-      if (refetchCards.shouldRefecthInvCards) {
+      if (shouldRefecthInvCards) {
         if (user?.wallet === null || user?.wallet === undefined)
           throw new Error("⛔ InventoryModal:UseEffect: Wallet is not defined");
 
@@ -473,15 +477,11 @@ const Game = () => {
       }
     };
 
-    if (
-      refetchCards.shouldRefecthInvCards &&
-      reRenderCounters === 0 &&
-      counter === 0
-    ) {
+    if (shouldRefecthInvCards && reRenderCounters === 0 && counter === 0) {
       removeAllInventoryCards();
       console.log("asjiodnaojsdoads123123asddas");
       fetchInvCards();
-      refetchCards.setShouldRefecthInvCards(false);
+      setShouldRefecthInvCards(false);
       setReRenderCounters(reRenderCounters + 1);
       counter += 1;
     }

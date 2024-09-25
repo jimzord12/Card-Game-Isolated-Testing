@@ -31,7 +31,7 @@ const SoundManager = ({ audio }: { audio: HTMLAudioElement | null }) => {
         src={SoundIcon}
         alt="Play/Stop Music Icon"
         className={`w-24 tablet:w-16 mobile:w-14  ${
-          toggleMusic ? "grayscale-0" : "grayscale"
+          isMusicPaused ? "grayscale" : "grayscale-0"
         }`}
       />
     </div>
