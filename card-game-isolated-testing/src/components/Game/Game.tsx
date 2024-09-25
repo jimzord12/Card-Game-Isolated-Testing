@@ -134,12 +134,8 @@ const Game = () => {
   const removeAllInventoryCards = useAllCardsStore(
     (state) => state.removeAllInventoryCards
   );
-  const {
-    shouldRefecthInvCards,
-    setShouldRefecthInvCards,
-    setIsNewPlayer,
-    isMusicPaused,
-  } = useGeneralVariablesStore((state) => state);
+  const { shouldRefecthInvCards, setShouldRefecthInvCards, setIsNewPlayer } =
+    useGeneralVariablesStore((state) => state);
 
   // const setIsNewPlayer = useGeneralVariablesStore(
   //   (state) => state.setIsNewPlayer
