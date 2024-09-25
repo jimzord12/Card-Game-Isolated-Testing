@@ -495,16 +495,16 @@ const Game = () => {
     audio.loop = true;
     audio.volume = 0.15;
 
-    if (isMusicPaused) {
-      audio.pause();
-      // return () => {
-      //   audio.removeEventListener("canplay", handleCanPlay);
-      //   audio.pause();
-      //   audio.currentTime = 0;
-      // };
-    } else {
-      audio.play();
-    }
+    // if (isMusicPaused) {
+    //   audio.pause();
+    //   // return () => {
+    //   //   audio.removeEventListener("canplay", handleCanPlay);
+    //   //   audio.pause();
+    //   //   audio.currentTime = 0;
+    //   // };
+    // } else {
+    //   audio.play();
+    // }
 
     // const handleCanPlay = () => {
     //   console.log("🎵 [Game.tsx] Music is playing");
@@ -518,7 +518,7 @@ const Game = () => {
     //   audio.pause();
     //   audio.currentTime = 0;
     // };
-  }, [isMusicPaused]);
+  }, []);
 
   if (!auth.user) return null;
 

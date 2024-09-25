@@ -19,6 +19,11 @@ const SoundManager = ({ audio }: { audio: HTMLAudioElement | null }) => {
 
   const handleToggleMusic = () => {
     // setToggleMusic((prev: boolean) => !prev);
+    if (!isMusicPaused) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
     setIsMusicPaused(!isMusicPaused);
   };
 
