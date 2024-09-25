@@ -3,7 +3,7 @@ import { UniwaLogo, footerImg, logoGenera } from "../../assets/homePageImgs";
 import SwitchBtn from "../../components/WalletRelated/SwitchBtn";
 import { Suspense, lazy, useState } from "react";
 import useViewportWidthGreaterThan320 from "../../components/Utility/useViewportWidthGreaterThan320";
-import useGA4 from "../../hooks/useGA4"; 
+import useGA4 from "../../hooks/useGA4";
 import GameRatings from "../../components/GameRatings/GameRatings";
 import Discord from "../../assets/newAdditions/Discord.webp";
 import Youtube from "../../assets/newAdditions/youtube_logo.webp";
@@ -22,7 +22,6 @@ const HomePagePOC = () => {
   const isGreaterThan320 = useViewportWidthGreaterThan320();
   const [usingLW, setUsingLW] = useState(false);
   // const { hardcodePlayer } = useHardcoding(); // 🧪 REMOVE THIS LINE WHEN DONE TESTING 🧪
-  
 
   return (
     <div className="min-h-screen flex xl:flex-row flex-col relative ">
@@ -73,8 +72,20 @@ const HomePagePOC = () => {
                 </span>
               </>
             </p>
-            <div className="bg-green-600 h-12 flex items-center mb-6 rounded-lg pl-2 pr-4 w-72 hover:scale-110 duration-300 cursor-pointer" onClick={() => window.open("https://www.youtube.com/playlist?list=PLA1oD0-OWjRtrm03CKf5ZGSslAUVa97cJ", '_blank')}>
-              <img src={Youtube} alt="youtube" className="object-contain w-12 h-full" />
+            <div
+              className="bg-green-600 h-12 flex items-center mb-6 rounded-lg pl-2 pr-4 w-72 hover:scale-110 duration-300 cursor-pointer"
+              onClick={() =>
+                window.open(
+                  "https://www.youtube.com/watch?v=qiAQWZplEmQ&list=PLkBZeOOE_Oczg0OflkIlSvUNqL4K6fqn7",
+                  "_blank"
+                )
+              }
+            >
+              <img
+                src={Youtube}
+                alt="youtube"
+                className="object-contain w-12 h-full"
+              />
               <p className="ml-2 text-xl">Check out our Tutorials!</p>
             </div>
             <SwitchBtn usingLW={usingLW} setUsingLW={setUsingLW} />
