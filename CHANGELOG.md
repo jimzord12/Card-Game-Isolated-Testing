@@ -70,9 +70,9 @@ SP Cards have no material form in the game. They simply provide a Effect that la
 
 #### Mini Quiz Game
 
-A brand new addition is the Mini Quiz Game, this feature is a modal window that pops up whenever the user crafts or upgrades a Card/ Default Builing. It offers the chance of getting a resource refund based on how many correct answers they correctly answer. There is a total of 5 Enviromental Question from many different sectors. If the player maanges to answer 3 of them correctly they get maximum refund of 50%, 2/5 is 25%, 1/5 is 10% and 0/5 is 0%.
+A brand new addition is the Mini Quiz Game, this feature is a modal window that pops up whenever the user crafts or upgrades a Card/ Default Builing. It offers the chance of getting a resource refund based on how many correct answers they correctly answer. There is a total of 5 enviromental questions from many different sectors, some of these questions were provided by the project's partners. If the player manages to answer at least  3 of them correctly they get maximum refund of 50%, 2/5 is 25%, 1/5 is 10% and 0/5 is 0%. There is also a dynamic time limit for each qiestion, which depends on the length of the question.
 
-This feature was introduce as a way to offer more environmetal knowledge to the end-user while keeping the process fun and entertaining. It was also adviced by many scientific paper that descirbed guides for developing Serious Games.
+This feature was introduce as a way to offer more environmetal knowledge to the end-user while keeping the process fun and entertaining. It was also adviced by many scientific paper that descirbed guides for developing Serious Games (Ernesto Pacheco-Velazquez et al. paper [19]).
 
 #### Quarries
 
