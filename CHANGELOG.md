@@ -6,7 +6,6 @@ This log apart from the changes to the Genera Social Platform, it also contains 
 
 - **Graphics**, probably the most noticable change from the users prespective. We created an enormous amount of high quality images utilizing the power of Mid Journey, a popular AI tool for generating copyright free images.
 - **Layouts**, we changed the layout of many existing features to make them more user-friendly and intuitive. For instance, the TownHall window, the Buildings and Regs windows, etc.
-- **Rating Component**, taking advantage of the Apps Script service provided by Google, we connected the questionnaire with our web server, thus allowing us to have access to that data. Using this data, we constructed a Ratings Component that shows the Average Rating that users have posted for the game.
 
 ## New Features
 
@@ -18,6 +17,7 @@ This log apart from the changes to the Genera Social Platform, it also contains 
 
 ### Community
 
+- **Rating Component**, taking advantage of the Apps Script service provided by Google, we connected the questionnaire with our web server, thus allowing us to have access to that data. Using this data, we constructed a Ratings Component that shows the Average Rating that users have posted for the game.
 - **Google Forms Questionnaire**, we created a questionnaire to allow users to sends us feedback. Additionally, we integrated a system that will reward the users upon their 1st form submission with the platform's custom ERC-20 crypto token, MGS (MyGreenScore).
 - **Discord Server**, currently this is the most modern and popular way of managing a community. Through Discord, users can provide more detailed feedback about the application and also ask questions, post their achievement, etc.
 - **Youtube**, a playlist consisting of short videos is created to provide guidance and showcase the application. This is also a place for the community as people can post comments and receive replies.
