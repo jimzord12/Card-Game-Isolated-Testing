@@ -3,7 +3,6 @@ import SoundIcon from "../../assets/newAdditions/sound_icon.webp";
 import { useGeneralVariablesStore } from "../../stores/generalVariables";
 
 const SoundManager = ({ audio }: { audio: HTMLAudioElement | null }) => {
-  // const [toggleMusic, setToggleMusic] = useState(true); // means music is playing
   const { setIsMusicPaused, isMusicPaused } = useGeneralVariablesStore(
     (state) => state
   );
