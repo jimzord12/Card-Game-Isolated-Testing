@@ -486,10 +486,17 @@ const Game = () => {
   // For the Music
   useEffect(() => {
     const audio = new Audio("sounds/Forest-Frolic-Loop.mp3");
-    setAudioEl(audio);
+    if (audioEl === null) {
+      setAudioEl(audio);
+      audio.loop = true;
+      audio.volume = 0.15;
+    }
 
-    audio.loop = true;
-    audio.volume = 0.15;
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      setAudioEl(null);
+    };
 
     // if (isMusicPaused) {
     //   audio.pause();

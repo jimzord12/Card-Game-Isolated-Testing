@@ -60,8 +60,7 @@ const SpecialSection = () => {
       <SpecialLabel
         gameIcon={images?.gameIcons.rankGameIcon}
         valueToDisplay={
-          "Score: " + calcRank(player?.population ?? 0, onlyGreenEnergy) ??
-          "XerrorX"
+          "Score: " + calcRank(player?.population ?? 0, onlyGreenEnergy)
         }
         alt="Player Rank Score"
       />
