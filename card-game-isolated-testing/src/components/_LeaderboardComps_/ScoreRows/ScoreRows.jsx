@@ -29,19 +29,6 @@ const ScoreRows = ({
     error: fetchedPlayerError,
   } = fetchedPlayerQuery;
 
-  useEffect(() => {
-    if (isSuccess && fetchedPlayerSuccess) {
-      if (players.length > 0) {
-        // ✨ 🥩 Use the utils functions with the right sequence to store the data into sessionStorage
-        // ✨ 🥩 and then retrieve and display them
-        TopThreeScores(players);
-
-        AlternatingBackground(fetchedPlayer.player, players);
-        console.log(players);
-      }
-    }
-  }, [fetchedPlayer, players, fetchedPlayerSuccess, isSuccess]);
-
   // Filter logic
   const filteredData = useMemo(() => {
     if (AllPlayersQuery.isFetching) return [];
@@ -52,7 +39,23 @@ const ScoreRows = ({
       if (workshop3) return player.name.startsWith("uniwa ws3");
       return true;
     });
-  }, [players, AllPlayersQuery.isFetching, workshop2, workshop3]);
+
+    // AlternatingBackground(fetchedPlayer.player, filteredPlayers);
+    // return filteredPlayers;
+  }, [AllPlayersQuery.isFetching, players, workshop2, workshop3]);
+
+  useEffect(() => {
+    if (isSuccess && fetchedPlayerSuccess) {
+      if (filteredData.length > 0) {
+        // ✨ 🥩 Use the utils functions with the right sequence to store the data into sessionStorage
+        // ✨ 🥩 and then retrieve and display them
+        TopThreeScores(filteredData);
+
+        AlternatingBackground(fetchedPlayer.player, filteredData);
+        console.log(filteredData);
+      }
+    }
+  }, [fetchedPlayer, fetchedPlayerSuccess, isSuccess, filteredData]);
 
   return (
     <>
