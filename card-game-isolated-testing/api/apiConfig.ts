@@ -33,6 +33,8 @@ console.log(
 //   : //  : 'https://genera-game-backend-v2.herokuapp.com/';
 //     "https://genera-game-express-server.onrender.com/";
 
+// HOST = import.meta.env.VITE_RENDER_HOST_URL; // Hardcoded in order to connect Local Frontend with Render Backend
+
 console.log("🚀 - API Config: HOST: ", HOST);
 
 export const axiosPublic = axios.create({

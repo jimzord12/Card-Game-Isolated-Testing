@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 
 import ScoreRow from "./ScoreRow.jsx";
 
@@ -8,7 +8,12 @@ import {
   AlternatingBackground,
 } from "./utils.js";
 
-const ScoreRows = ({ AllPlayersQuery, fetchedPlayerQuery }) => {
+const ScoreRows = ({
+  AllPlayersQuery,
+  fetchedPlayerQuery,
+  workshop2,
+  workshop3,
+}) => {
   const {
     data: players,
     isSuccess,
@@ -32,11 +37,22 @@ const ScoreRows = ({ AllPlayersQuery, fetchedPlayerQuery }) => {
         TopThreeScores(players);
 
         AlternatingBackground(fetchedPlayer.player, players);
-        console.log("66666666666666666666666666666");
         console.log(players);
       }
     }
   }, [fetchedPlayer, players, fetchedPlayerSuccess, isSuccess]);
+
+  // Filter logic
+  const filteredData = useMemo(() => {
+    if (AllPlayersQuery.isFetching) return [];
+
+    // Apply filtering based on states
+    return players.filter((player) => {
+      if (workshop2) return player.name.startsWith("uniwa ws2");
+      if (workshop3) return player.name.startsWith("uniwa ws3");
+      return true;
+    });
+  }, [players, AllPlayersQuery.isFetching, workshop2, workshop3]);
 
   return (
     <>
@@ -53,8 +69,8 @@ const ScoreRows = ({ AllPlayersQuery, fetchedPlayerQuery }) => {
         isSuccess &&
         fetchedPlayerSuccess && (
           <div className="wrapper-score-list-box-jz">
-            {players.length > 0 ? (
-              sortedPlayers(players).map((player, index) => (
+            {filteredData.length > 0 ? (
+              sortedPlayers(filteredData).map((player, index) => (
                 <ScoreRow
                   player={player}
                   key={`${player.name}-${index}`}

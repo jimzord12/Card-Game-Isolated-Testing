@@ -1,5 +1,5 @@
 // import { Link, useHistory } from 'react-router-dom';
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ScoreRows from "../../components/_LeaderboardComps_/ScoreRows/ScoreRows";
@@ -18,11 +18,14 @@ import LoadingModal from "../../components/Modals/LoadingModal/LoadingModal";
 import FlipClockCountDown from "../../components/FlipClockCountDown/FlipClockCountDown";
 
 import ScoreRowsTop10 from "../../components/_LeaderboardComps_/ScoreRows/ScoreRowsTop10";
+import WorkshopBtn from "./WorkshopBtn";
 // import testDataTopPlayers from "./top10PlayersReport.json";
 
 function Leaderboard() {
   useGA4();
   const navigate = useNavigate();
+  const [workshop2, setWorkshop2] = useState(false);
+  const [workshop3, setWorkshop3] = useState(false);
 
   const playerData = useGameVarsStore((state) => state.player);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +33,14 @@ function Leaderboard() {
     queryKey: ["players-lb"],
     queryFn: getAllPlayers,
   });
+
+  useEffect(() => {
+    if (workshop2) setWorkshop3(false);
+  }, [workshop2]);
+
+  useEffect(() => {
+    if (workshop3) setWorkshop2(false);
+  }, [workshop3]);
 
   const fetchedPlayerQuery = useQuery({
     queryKey: ["fetchPlayer-lb"],
@@ -85,6 +96,7 @@ function Leaderboard() {
         <p className="goback-link" onClick={() => navigate(-1)}>
           Go Back
         </p>
+
         <div className="container-leaderboard">
           <div className="score-list">
             <div className="title-box">
@@ -108,7 +120,7 @@ function Leaderboard() {
             </p>
             <div className="score-list-box top-players">
               {topPlayersIsLoading ? (
-                <div className="flex justify-center items-center">
+                <div className="flex items-center justify-center">
                   <LoadingModal />
                 </div>
               ) : (
@@ -120,16 +132,34 @@ function Leaderboard() {
               )}
             </div>
             <div style={{ height: 64 }} />
-            <p className="score-list-box-header">The Current Month's Ranking</p>
+            <div className="flex items-center justify-between gap-8 pr-6">
+              <p className="score-list-box-header">
+                The Current Month's Ranking
+              </p>
+              <div className="flex items-center gap-6">
+                <WorkshopBtn
+                  setWorkshop={setWorkshop2}
+                  name="WorkShop 2"
+                  state={workshop2}
+                />
+                <WorkshopBtn
+                  setWorkshop={setWorkshop3}
+                  name="WorkShop 3"
+                  state={workshop3}
+                />
+              </div>
+            </div>
             <div className="score-list-box current-list">
               {isLoading ? (
-                <div className="flex justify-center items-center">
+                <div className="flex items-center justify-center">
                   <LoadingModal />
                 </div>
               ) : (
                 <ScoreRows
                   AllPlayersQuery={AllPlayersQuery}
                   fetchedPlayerQuery={fetchedPlayerQuery}
+                  workshop2={workshop2}
+                  workshop3={workshop3}
                 />
               )}
             </div>
